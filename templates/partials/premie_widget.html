@@ -1,0 +1,33 @@
+{% comment %}
+PremieWidget, the design's compact "Start je vergelijking" band. Shown before
+the footer on every content page (the homepage hero embeds the larger calculator
+and suppresses this band). Calculator behaviour is wired in site.js via data-calc;
+dummy outcome until the real pricing engine lands.
+{% endcomment %}
+<section class="pw-wrap" id="calc" data-premie-widget>
+  <div class="pw-card">
+    <div class="pw-card__glow"></div>
+    <div style="position:relative;">
+      <span class="pw-pill">
+        <span class="dot dot--pulse" style="background:var(--green-300);"></span>
+        12+ verzekeraars · 100% vrijblijvend
+      </span>
+      <h2 style="font-family:var(--font-head);font-weight:700;font-size:clamp(28px,4vw,34px);line-height:1.04;letter-spacing:-0.02em;color:#fff;margin:0 0 12px;">Start je vergelijking in 2 minuten.</h2>
+      <p style="font-size:16px;line-height:1.6;color:var(--steel-300);margin:0;max-width:380px;">Vul je kenteken in en wij rekenen direct de scherpste bestelautoverzekering voor jouw situatie uit.</p>
+    </div>
+
+    <div class="pw-card__form" data-calc>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <span style="font-family:var(--font-head);font-weight:600;font-size:17px;color:var(--petrol);">Bereken je premie</span>
+        <span style="font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--orange);background:rgba(255,107,44,0.10);padding:5px 9px;border-radius:7px;">GRATIS</span>
+      </div>
+
+      <div class="plate" style="margin-bottom:16px;">
+        <span class="plate__nl" style="width:32px;">NL</span>
+        <input data-calc-kenteken placeholder="VB-123-K" maxlength="9" autocomplete="off" style="font-size:20px;padding:11px 12px;">
+      </div>
+
+      <a class="btn btn--primary btn--block" data-tool-cta href="{% url 'premie_tool' %}" style="font-size:15.5px;padding:15px;">Vergelijk &amp; bereken →</a>
+    </div>
+  </div>
+</section>

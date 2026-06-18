@@ -1,0 +1,88 @@
+# Render Blueprint — deploy motorverzekering.nl (Django, SSR).
+# Managed Postgres + persistent media disk + weekly Trustpilot cron.
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Secrets (RISK_*, TRUSTPILOT_API_KEY) are declared with `sync: false`: Render
+# creates the keys but you fill the values in the dashboard, so they never live
+# in git. SECRET_KEY is auto-generated once and shared via the env group.
+
+databases:
+  - name: motor-db
+    databaseName: motor
+    user: motor
+    region: frankfurt
+    plan: basic-256mb        # NB: the free Postgres expires after 90 days
+
+envVarGroups:
+  - name: motor-env
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true            # Render generates a strong key (shared web+cron)
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: motorverzekering.nl,www.motorverzekering.nl,motorverzekering.onrender.com
+      - key: SITE_ORIGIN
+        value: https://motorverzekering.nl
+      - key: USE_MANIFEST_STATIC
+        value: "True"
+      - key: PYTHON_VERSION
+        value: "3.12.13"
+      - key: DJANGO_SUPERUSER_USERNAME
+        value: admin
+      - key: DJANGO_SUPERUSER_EMAIL
+        value: robinvandenbosch82@gmail.com
+      # ── Secrets: leave blank here, set the values in the Render dashboard ──
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
+      - key: RISK_API_USERNAME
+        sync: false
+      - key: RISK_API_PASSWORD
+        sync: false
+      - key: RISK_BROKER_ID
+        sync: false
+      - key: TRUSTPILOT_API_KEY
+        sync: false
+      - key: TRUSTPILOT_DOMAIN
+        sync: false
+
+services:
+  # ── Web (gunicorn) ──────────────────────────────────────────────────────
+  - type: web
+    name: motorverzekering
+    runtime: python
+    plan: starter
+    region: frankfurt
+    branch: main
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+    # migrate + populate a fresh host (seed data, media, prewarm, superuser). Idempotent.
+    preDeployCommand: "python manage.py migrate --noinput && python manage.py bootstrap_site"
+    startCommand: "gunicorn config.wsgi:application --workers 3 --timeout 60"
+    healthCheckPath: /robots.txt
+    disk:
+      name: media
+      mountPath: /opt/render/project/src/media   # = BASE_DIR/media (uploads + image cache)
+      sizeGB: 1
+    envVars:
+      - fromGroup: motor-env
+      - key: DATABASE_URL
+        fromDatabase:
+          name: motor-db
+          property: connectionString
+
+  # ── Weekly Trustpilot fetch (cron) ──────────────────────────────────────
+  - type: cron
+    name: trustpilot-weekly
+    runtime: python
+    plan: starter
+    region: frankfurt
+    branch: main
+    schedule: "0 4 * * 1"                # maandag 04:00 UTC
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python manage.py fetch_trustpilot"
+    envVars:
+      - fromGroup: motor-env
+      - key: DATABASE_URL
+        fromDatabase:
+          name: motor-db
+          property: connectionString

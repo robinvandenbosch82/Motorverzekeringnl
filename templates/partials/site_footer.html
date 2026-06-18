@@ -1,0 +1,38 @@
+{# SiteFooter, full homepage footer, shown on every page. Columns from context. #}
+<footer class="site-footer" data-site-footer>
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <span class="wordmark wordmark--light" style="margin-bottom:16px;">
+          <span class="wordmark__text">bestelauto<span class="soft">verzekering</span><span style="color:var(--orange-300);">.nl</span></span>
+        </span>
+        <p style="font-size:14.5px;color:var(--steel-300);line-height:1.6;margin:14px 0 18px;max-width:320px;">
+          {{ site.footer_blurb }}
+        </p>
+        <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.07);padding:10px 14px;border-radius:10px;">
+          <span class="stars">★★★★★</span>
+          <span style="font-size:13.5px;color:#fff;">{{ review_score }} · {{ review_count }} reviews</span>
+        </div>
+      </div>
+      {% for col in footer_columns %}
+        <div>
+          <div class="site-footer__col-title">{{ col.title }}</div>
+          <div class="site-footer__links">
+            {% for link in col.links %}
+              <a href="{{ link.url }}">{{ link.label }}</a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="site-footer__bottom">
+      <span style="font-size:13px;color:var(--steel-500);">© {% now "Y" %} {{ site_name }} · AFM {{ site.afm_nummer }} · KvK {{ site.kvk_nummer }} · BTW {{ site.btw_nummer }}</span>
+      <div style="display:flex;gap:22px;flex-wrap:wrap;">
+        <a href="/disclaimer/" style="font-size:13px;">Disclaimer</a>
+        <a href="/privacy-cookies/" style="font-size:13px;">Privacy &amp; cookies</a>
+        <a href="/algemene-voorwaarden/" style="font-size:13px;">Voorwaarden</a>
+        <a href="{% url 'klantenservice' %}" style="font-size:13px;">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 64" width="470" height="64" role="img" aria-label="bestelautoverzekering.nl">
+  <title>bestelautoverzekering.nl</title>
+  <style>
+    .wm { font-family: 'General Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 700; letter-spacing: -0.8px; }
+  </style>
+  <text class="wm" x="2" y="45" font-size="38" textLength="454" lengthAdjust="spacingAndGlyphs">
+    <tspan fill="#123B5D">bestelauto</tspan><tspan fill="#6B7681">verzekering</tspan><tspan fill="#FF6B2C">.nl</tspan>
+  </text>
+</svg>

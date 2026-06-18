@@ -1,0 +1,14 @@
+Django==5.1
+python-dotenv==1.0.1
+whitenoise==6.8.2
+Pillow==12.2.0          # image pipeline (resize/WebP) + ImageField
+requests==2.32.3        # Pexels API + photo downloads + RISK premie-API
+certifi==2025.11.12     # SSL verification for the Pexels/photo/RISK HTTP calls
+pip-system-certs==5.3   # let requests use the OS trust store, so HTTPS works on
+                        # dev machines behind a TLS-scanning antivirus/proxy
+                        # (e.g. Avast). Harmless on servers without interception.
+
+# Production (Render / any Django host with managed Postgres)
+psycopg2-binary==2.9.9   # PostgreSQL driver
+gunicorn==21.2.0         # WSGI server
+dj-database-url==2.2.0   # parse DATABASE_URL into Django DATABASES

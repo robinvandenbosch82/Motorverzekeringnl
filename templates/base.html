@@ -1,0 +1,144 @@
+{% load static %}<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add('js');</script>
+
+  {# ── SEO: title, description, canonical ─────────────────────────────── #}
+  <title>{% block title %}{{ seo_title|default:default_seo_title }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{{ seo_description|default:default_seo_description }}{% endblock %}">
+  <link rel="canonical" href="{% block canonical %}{{ canonical_url }}{% endblock %}">
+  <meta name="robots" content="{% block robots %}{% if noindex %}noindex, follow{% else %}index, follow{% endif %}{% endblock %}">
+
+  {# ── Open Graph ─────────────────────────────────────────────────────── #}
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:site_name" content="{{ site_name }}">
+  <meta property="og:title" content="{% block og_title %}{{ seo_title|default:default_seo_title }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ seo_description|default:default_seo_description }}{% endblock %}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  {% block og_image %}{% if page.og_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ page.og_image.url }}">{% elif site.default_og_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ site.default_og_image.url }}">{% endif %}{% endblock %}
+
+  {# ── Twitter ────────────────────────────────────────────────────────── #}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block twitter_title %}{{ seo_title|default:default_seo_title }}{% endblock %}">
+  <meta name="twitter:description" content="{% block twitter_description %}{{ seo_description|default:default_seo_description }}{% endblock %}">
+  {% block twitter_image %}{% if page.og_image %}<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ page.og_image.url }}">{% elif site.default_og_image %}<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ site.default_og_image.url }}">{% endif %}{% endblock %}
+
+  {# ── Fonts (self-hosted; preload the two above-the-fold faces) ───────── #}
+  <link rel="preload" href="{% static 'fonts/inter-400-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{% static 'fonts/generalsans-600-all.woff2' %}" as="font" type="font/woff2" crossorigin>
+  {# @font-face inline (was css/fonts.css): scheelt een render-blocking request + alle fonts meteen vindbaar #}
+  <style>{% with le="U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF" la="U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD" %}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url({% static 'fonts/inter-400-latin-ext.woff2' %}) format('woff2');unicode-range:{{ le }}}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url({% static 'fonts/inter-400-latin.woff2' %}) format('woff2');unicode-range:{{ la }}}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url({% static 'fonts/inter-500-latin-ext.woff2' %}) format('woff2');unicode-range:{{ le }}}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url({% static 'fonts/inter-500-latin.woff2' %}) format('woff2');unicode-range:{{ la }}}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url({% static 'fonts/inter-600-latin-ext.woff2' %}) format('woff2');unicode-range:{{ le }}}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url({% static 'fonts/inter-600-latin.woff2' %}) format('woff2');unicode-range:{{ la }}}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url({% static 'fonts/inter-700-latin-ext.woff2' %}) format('woff2');unicode-range:{{ le }}}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url({% static 'fonts/inter-700-latin.woff2' %}) format('woff2');unicode-range:{{ la }}}
+@font-face{font-family:'General Sans';font-weight:500;font-display:swap;font-style:normal;src:url({% static 'fonts/generalsans-500-all.woff2' %}) format('woff2')}
+@font-face{font-family:'General Sans';font-weight:600;font-display:swap;font-style:normal;src:url({% static 'fonts/generalsans-600-all.woff2' %}) format('woff2')}
+@font-face{font-family:'General Sans';font-weight:700;font-display:swap;font-style:normal;src:url({% static 'fonts/generalsans-700-all.woff2' %}) format('woff2')}{% endwith %}</style>
+
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+  {# ── Site-wide entity graph (Organization → WebSite → WebPage, @id-linked) #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["Organization", "InsuranceAgency"],
+        "@id": "{{ site_origin }}/#organization",
+        "name": "{{ site_name }}",
+        "url": "{{ site_origin }}/",
+        "description": "{{ default_seo_description|escapejs }}",
+        "areaServed": {"@type": "Country", "name": "Nederland"},
+        "email": "{{ site.email }}",
+        "vatID": "{{ site.btw_nummer }}",
+        "memberOf": [
+          {"@type": "Organization", "name": "Kifid"},
+          {"@type": "Organization", "name": "Autoriteit Financiële Markten (AFM)"}
+        ],
+        "identifier": [
+          {"@type": "PropertyValue", "propertyID": "KvK", "value": "{{ site.kvk_nummer }}"},
+          {"@type": "PropertyValue", "propertyID": "AFM", "value": "{{ site.afm_nummer }}"},
+          {"@type": "PropertyValue", "propertyID": "Kifid", "value": "{{ site.kifid_nummer }}"}
+        ],
+        "contactPoint": [{
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "{{ site.email }}",
+          "availableLanguage": ["nl"],
+          "hoursAvailable": [
+            {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00"},
+            {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "13:00"}
+          ]
+        }],
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "{{ site_origin }}/#logo",
+          "url": "{% if site.logo %}{{ site_origin }}{{ site.logo.url }}{% else %}{{ site_origin }}{% static 'img/logo.svg' %}{% endif %}",
+          "contentUrl": "{% if site.logo %}{{ site_origin }}{{ site.logo.url }}{% else %}{{ site_origin }}{% static 'img/logo.svg' %}{% endif %}",
+          "caption": "{{ site_name }}"
+        },
+        "image": {"@id": "{{ site_origin }}/#logo"}{% if site.show_phone and site.phone %},
+        "telephone": "{{ site.phone }}"{% endif %}{% if site.adres_plaats %},
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ site.adres_straat|escapejs }}",
+          "postalCode": "{{ site.adres_postcode|escapejs }}",
+          "addressLocality": "{{ site.adres_plaats|escapejs }}",
+          "addressCountry": "NL"
+        }{% else %},
+        "address": {"@type": "PostalAddress", "addressCountry": "NL"}{% endif %}{% if site.sameas_list %},
+        "sameAs": [{% for u in site.sameas_list %}"{{ u|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %}]{% endif %}
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{ site_origin }}/#website",
+        "url": "{{ site_origin }}/",
+        "name": "{{ site_name }}",
+        "inLanguage": "nl-NL",
+        "publisher": {"@id": "{{ site_origin }}/#organization"},
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "{{ site_origin }}/kennisbank/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "{{ canonical_url }}#webpage",
+        "url": "{{ canonical_url }}",
+        "name": "{% block ld_name %}{{ seo_title|default:default_seo_title|escapejs }}{% endblock %}",
+        "isPartOf": {"@id": "{{ site_origin }}/#website"},
+        "about": {"@id": "{{ site_origin }}/#organization"}{% block ld_breadcrumb_ref %},
+        "breadcrumb": {"@id": "{{ canonical_url }}#breadcrumb"}{% endblock %},
+        "inLanguage": "nl-NL"
+      }
+    ]
+  }
+  </script>
+  {% block structured_data %}{% endblock %}
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+  {% block site_nav %}{% include "partials/site_nav.html" %}{% endblock %}
+
+  <main id="top">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block premie_widget %}{% include "partials/premie_widget.html" %}{% endblock %}
+  {% include "partials/site_footer.html" %}
+
+  <script src="{% static 'js/site.js' %}" defer></script>
+  {% block body_extra %}{% endblock %}
+</body>
+</html>

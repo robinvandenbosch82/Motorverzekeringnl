@@ -1,0 +1,27 @@
+{% comment %}
+Hero premie-teaser. Just a kenteken field + CTA that funnels into the real tool
+(/bestelautoverzekering-berekenen/); the typed kenteken is carried across by
+site.js (data-tool-cta). All other inputs live in the tool itself.
+{% endcomment %}
+<div data-calc>
+  <div class="calc">
+    <div class="calc__head">
+      <div>
+        <div class="calc__title">Bereken je premie</div>
+        <div class="calc__sub">Vrijblijvend · in 2 minuten klaar</div>
+      </div>
+      <span class="calc__step">STAP 1/3</span>
+    </div>
+
+    <div class="field">
+      <label for="calc-kenteken-{{ calc_id|default:'a' }}">Kenteken</label>
+      <div class="plate">
+        <span class="plate__nl">NL</span>
+        <input id="calc-kenteken-{{ calc_id|default:'a' }}" data-calc-kenteken placeholder="VB-123-K" maxlength="9" autocomplete="off">
+      </div>
+    </div>
+
+    <a class="btn btn--primary btn--block" data-tool-cta href="{% url 'premie_tool' %}">Bereken premie →</a>
+  </div>
+  <div class="calc__note"><span style="color:var(--green);">●</span> Geen account nodig · 100% vrijblijvend</div>
+</div>

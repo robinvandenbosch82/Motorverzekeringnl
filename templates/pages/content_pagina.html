@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static responsive_image structured_data %}
+
+{% block structured_data %}
+{% content_structured_data pagina %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "{{ canonical_url }}#breadcrumb",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ site_origin }}/"},
+    {"@type":"ListItem","position":2,"name":"{{ pagina.titel|escapejs }}","item":"{{ canonical_url }}"}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block og_image %}{% if pagina.image_url %}<meta property="og:image" content="{{ pagina.image_url }}">{% elif site.default_og_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ site.default_og_image.url }}">{% endif %}{% endblock %}
+
+{% block head_extra %}<style>
+  .cp-grid{display:grid;grid-template-columns:1fr 250px;gap:52px;align-items:start;}
+  .cp-toc{position:sticky;top:90px;}
+  .cp-intro p{font-size:18.5px;line-height:1.6;color:var(--slate-600);}
+  .cp-intro p:first-child{font-size:20px;color:var(--ink);font-weight:500;}
+  .cp-body h2{scroll-margin-top:88px;}
+  .cp-body .cta{background:#123B5D;color:#fff;border-radius:14px;padding:20px 24px;font-size:16px;font-weight:500;}
+  .cp-faq{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;}
+  .cp-faq h3{margin:0;padding:18px 22px 6px;font-family:var(--font-head);font-weight:600;font-size:16.5px;color:var(--petrol);border-top:1px solid var(--line);}
+  .cp-faq h3:first-child{border-top:0;}
+  .cp-faq p{margin:0;padding:0 22px 18px;font-size:15px;line-height:1.6;color:var(--slate-600);}
+  @media (max-width:980px){ .cp-grid{grid-template-columns:1fr!important;} .cp-toc{display:none!important;} }
+</style>{% endblock %}
+
+{% block content %}
+
+<!-- ===================== HERO ===================== -->
+<header style="background:#fff;border-bottom:1px solid rgba(18,59,93,0.08);">
+  <div class="container" style="padding:46px 24px 36px;">
+    <nav class="breadcrumb" aria-label="Kruimelpad" style="margin-bottom:20px;">
+      <a href="{% url 'home' %}">Home</a>
+      {% if section_label %}<span class="sep">›</span>{% if section_url %}<a href="{{ section_url }}">{{ section_label }}</a>{% else %}<span style="color:var(--slate-500);">{{ section_label }}</span>{% endif %}{% endif %}
+      <span class="sep">›</span>
+      <span style="color:var(--petrol);font-weight:500;">{{ pagina.titel }}</span>
+    </nav>
+    <span class="eyebrow">{{ section_label|default:pagina.contenttype|capfirst }}</span>
+    <h1 class="h1" style="font-size:clamp(34px,5vw,48px);margin:12px 0 14px;max-width:880px;">{{ pagina.titel }}</h1>
+    {% if pagina.meta_description %}<p class="lead" style="max-width:640px;">{{ pagina.meta_description }}</p>{% endif %}
+  </div>
+</header>
+
+<!-- ===================== HERO IMAGE ===================== -->
+{% if pagina.image_url %}
+<div class="container" style="padding:28px 24px 0;">
+  <figure style="margin:0;">
+    <div class="media" style="border-radius:20px;overflow:hidden;background-color:var(--cream-200);aspect-ratio:16/7;position:relative;">
+      {% picture pagina.get_image_source alt=pagina.image_alt sizes="(max-width:1200px) 100vw, 1152px" loading="eager" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}
+    </div>
+    {% if pagina.image_credit %}<figcaption style="font-size:12px;color:var(--slate-400);margin-top:8px;text-align:right;">{% if pagina.image_credit_url %}<a href="{{ pagina.image_credit_url }}" rel="nofollow noopener" target="_blank" style="color:var(--slate-400);">{{ pagina.image_credit }}</a>{% else %}{{ pagina.image_credit }}{% endif %}</figcaption>{% endif %}
+  </figure>
+</div>
+{% endif %}
+
+<!-- ===================== BODY ===================== -->
+<div class="container cp-grid" style="padding:40px 24px 70px;">
+
+  <main style="min-width:0;">
+    <div class="prose cp-intro">{{ pagina.intro_html|safe }}</div>
+    <div class="prose cp-body">{{ pagina.body_html|safe }}</div>
+
+    {% if pagina.faq_html %}
+    <h2 style="font-family:var(--font-head);font-weight:700;font-size:28px;letter-spacing:-0.02em;color:var(--petrol);margin:40px 0 16px;">Veelgestelde vragen</h2>
+    <div class="cp-faq">{{ pagina.faq_html|safe }}</div>
+    {% endif %}
+
+    {% if pagina.conclusie_html %}<div class="prose cp-body" style="margin-top:32px;">{{ pagina.conclusie_html|safe }}</div>{% endif %}
+    {% if pagina.cta_html %}<div class="prose cp-body" style="margin-top:24px;">{{ pagina.cta_html|safe }}</div>{% endif %}
+
+    {% if pagina.interne_links_html %}
+    <aside class="prose" style="margin-top:34px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:20px 24px;">
+      <div style="font-family:var(--font-head);font-weight:600;font-size:15px;color:var(--petrol);margin-bottom:6px;">Lees ook</div>
+      {{ pagina.interne_links_html|safe }}
+    </aside>
+    {% endif %}
+  </main>
+
+  <aside class="cp-toc">
+    {% if pagina.toc %}
+    <div style="font-family:var(--font-head);font-weight:600;font-size:12px;color:var(--slate-400);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;">Op deze pagina</div>
+    <nav style="display:flex;flex-direction:column;gap:9px;border-left:2px solid var(--line);padding-left:14px;margin-bottom:24px;">
+      {% for item in pagina.toc %}
+      <a href="#{{ item.id }}" style="text-decoration:none;color:var(--slate-600);font-size:13.5px;line-height:1.4;">{{ item.text }}</a>
+      {% endfor %}
+    </nav>
+    {% endif %}
+    <div style="background:var(--petrol);border-radius:16px;padding:20px;">
+      <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:#fff;margin-bottom:6px;">Bereken je premie</div>
+      <div style="font-size:13px;color:var(--steel-300);line-height:1.5;margin-bottom:14px;">In 2 minuten, 100% vrijblijvend.</div>
+      <a href="{% url 'premie_tool' %}" class="btn btn--primary btn--block btn--sm">Start →</a>
+    </div>
+  </aside>
+</div>
+
+{% endblock %}

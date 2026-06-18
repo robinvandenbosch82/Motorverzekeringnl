@@ -1,0 +1,462 @@
+{% extends "base.html" %}
+{% load static responsive_image l10n %}
+
+{% comment %}
+Homepage already carries the hero calculator + a CTA band, so suppress the
+shared PremieWidget band to avoid a duplicate calculator.
+{% endcomment %}
+{% block premie_widget %}{% endblock %}
+
+{# Home is the site root: no breadcrumb trail, so drop the dangling ref. #}
+{% block ld_breadcrumb_ref %}{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "{{ canonical_url }}#faq",
+  "mainEntity": [
+    {"@type":"Question","name":"Ben ik verzekerd voor gereedschap in mijn bus?","acceptedAnswer":{"@type":"Answer","text":"Standaard niet, maar met onze inboeddekking verzeker je je complete inventaris tot € 25.000, ook bij diefstal buiten werktijd."}},
+    {"@type":"Question","name":"Tellen negatieve schadevrije jaren mee?","acceptedAnswer":{"@type":"Answer","text":"Bij ons oplosbaar. We werken met verzekeraars die ondernemers met een minder verleden een eerlijke premie geven, zonder onnodige opslagen."}},
+    {"@type":"Question","name":"Hoe snel ben ik verzekerd?","acceptedAnswer":{"@type":"Answer","text":"Bereken je premie in 2 minuten en sluit direct online af. Je bent vaak dezelfde dag nog gedekt."}}
+  ]
+}
+</script>
+{% if trustpilot %}<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "{{ site_origin }}/#organization",
+  {% if trustpilot.has_aggregate %}"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ trustpilot.profile.trust_score|unlocalize }}",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "{{ trustpilot.profile.review_count|unlocalize }}"
+  },
+  {% endif %}"review": [
+    {% for r in trustpilot.reviews %}{
+      "@type": "Review",
+      {% if r.title %}"name": "{{ r.title|escapejs }}",{% endif %}
+      "author": {"@type": "Person", "name": "{{ r.author|escapejs }}"},
+      "datePublished": "{{ r.created_iso }}",
+      "reviewRating": {"@type": "Rating", "ratingValue": "{{ r.rating|unlocalize }}", "bestRating": "5", "worstRating": "1"},
+      "reviewBody": "{{ r.text|escapejs }}",
+      "publisher": {"@type": "Organization", "name": "Trustpilot"}
+    }{% if not forloop.last %},{% endif %}{% endfor %}
+  ]
+}
+</script>{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!-- ===================== HERO ===================== -->
+<header class="container" style="display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;padding-top:70px;padding-bottom:40px;" data-hero>
+  <div style="animation:revealUp .7s cubic-bezier(.2,.7,.2,1) both;">
+    <span class="pill" style="margin-bottom:26px;">
+      <span class="dot dot--pulse"></span>
+      Voor ondernemers die niet stil kunnen staan
+    </span>
+    <h1 class="h1" style="margin-bottom:22px;">{% if page.heading %}{{ page.heading }}{% else %}Zorg dat je werk<br>gewoon <span class="accent">doorgaat.</span>{% endif %}</h1>
+    <p class="lead" style="max-width:480px;margin-bottom:30px;">{% if page.intro %}{{ page.intro }}{% else %}Jouw bus is geen voertuig, het is je bedrijf. Wij regelen de verzekering die past bij hoe jij werkt, zodat stilstand nooit jouw probleem wordt.{% endif %}</p>
+    <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;">
+      <a href="{% url 'premie_tool' %}" class="btn btn--primary">Bereken je premie →</a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="stars">★★★★★</span>
+        <span style="font-size:14px;color:var(--slate-600);"><strong style="color:var(--ink);">{{ review_score }}</strong> · {{ review_count }} reviews</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:26px;margin-top:38px;padding-top:26px;border-top:1px solid var(--line);">
+      <div>
+        <div class="stat-num" style="font-size:26px;"><span data-countup="18742">18.742</span></div>
+        <div style="font-size:13px;color:var(--slate-500);margin-top:2px;">ondernemers verzekerd</div>
+      </div>
+      <div>
+        <div class="stat-num" style="font-size:26px;">2 min.</div>
+        <div style="font-size:13px;color:var(--slate-500);margin-top:2px;">premie berekend</div>
+      </div>
+      <div>
+        <div class="stat-num" style="font-size:26px;">12+</div>
+        <div style="font-size:13px;color:var(--slate-500);margin-top:2px;">verzekeraars vergeleken</div>
+      </div>
+    </div>
+  </div>
+  <div id="calc" style="animation:revealUp .7s .12s cubic-bezier(.2,.7,.2,1) both;scroll-margin-top:90px;">
+    {% include "partials/_calc.html" with calc_id="hero" %}
+  </div>
+</header>
+
+<!-- ===================== TRUST STRIP ===================== -->
+<section class="section--white" style="border-top:1px solid rgba(18,59,93,0.08);border-bottom:1px solid rgba(18,59,93,0.08);margin-top:30px;">
+  <div class="container" style="padding-top:26px;padding-bottom:26px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+      <span style="font-size:13px;font-weight:600;color:var(--slate-500);letter-spacing:0.04em;text-transform:uppercase;">Onafhankelijk · wij vergelijken o.a.</span>
+      <div style="display:flex;align-items:center;gap:30px;flex-wrap:wrap;">
+        <span style="font-family:var(--font-head);font-weight:700;font-size:17px;color:var(--petrol);opacity:.85;">Interpolis</span>
+        <span style="font-family:var(--font-head);font-weight:700;font-size:17px;color:var(--petrol);opacity:.85;">Nationale&#8209;Nederlanden</span>
+        <span style="font-family:var(--font-head);font-weight:700;font-size:17px;color:var(--petrol);opacity:.85;">ASR</span>
+        <span style="font-family:var(--font-head);font-weight:700;font-size:17px;color:var(--petrol);opacity:.85;">Allianz</span>
+        <span style="font-family:var(--font-head);font-weight:700;font-size:17px;color:var(--petrol);opacity:.85;">Univé</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<section class="section--cream" style="padding:80px 24px 20px;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;" class="stats-grid">
+      <div style="background:#fff;padding:30px 26px;">
+        <div class="stat-num stat-num--orange" style="font-size:40px;">{{ review_score }}</div>
+        <div style="font-size:14px;color:var(--slate-600);margin-top:8px;font-weight:500;">Gemiddelde klantbeoordeling</div>
+        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">over {{ review_count }} reviews</div>
+      </div>
+      <div style="background:#fff;padding:30px 26px;">
+        <div class="stat-num" style="font-size:40px;"><span data-countup="18742">18.742</span></div>
+        <div style="font-size:14px;color:var(--slate-600);margin-top:8px;font-weight:500;">Ondernemers verzekerd</div>
+        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">en elke dag komen er bij</div>
+      </div>
+      <div style="background:#fff;padding:30px 26px;">
+        <div class="stat-num" style="font-size:40px;">&lt; 2 min.</div>
+        <div style="font-size:14px;color:var(--slate-600);margin-top:8px;font-weight:500;">Premie berekend &amp; afgesloten</div>
+        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">vaak dezelfde dag gedekt</div>
+      </div>
+      <div style="background:#fff;padding:30px 26px;">
+        <div class="stat-num" style="font-size:40px;">12+</div>
+        <div style="font-size:14px;color:var(--slate-600);margin-top:8px;font-weight:500;">Verzekeraars onafhankelijk vergeleken</div>
+        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">altijd de scherpste match</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ZO WERKT HET ===================== -->
+<section class="section--cream section--tight" style="padding-bottom:90px;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:0.9fr 1.4fr;gap:56px;align-items:end;margin-bottom:48px;" class="split-head">
+      <div>
+        <span class="eyebrow">Direct premie berekenen</span>
+        <h2 class="h2" style="margin-top:14px;">In 3 stappen<br>weer onderweg.</h2>
+      </div>
+      <p class="lead" style="max-width:460px;">Geen dik aanvraagformulier, geen wachten op een adviseur. Vul je kenteken in en je weet meteen waar je aan toe bent.</p>
+    </div>
+    <div class="grid grid--3">
+      <div class="card card-hover">
+        <div style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);width:40px;height:40px;border:2px solid var(--orange);border-radius:11px;display:grid;place-items:center;margin-bottom:22px;">01</div>
+        <h3 class="h3" style="margin-bottom:9px;">Vul je kenteken in</h3>
+        <p style="font-size:15px;line-height:1.55;color:var(--slate-500);margin:0;">Wij halen automatisch de gegevens van jouw bus op. Jij hoeft alleen te zeggen waarvoor je 'm gebruikt.</p>
+      </div>
+      <div class="card card-hover">
+        <div style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);width:40px;height:40px;border:2px solid var(--orange);border-radius:11px;display:grid;place-items:center;margin-bottom:22px;">02</div>
+        <h3 class="h3" style="margin-bottom:9px;">Vergelijk je dekkingen</h3>
+        <p style="font-size:15px;line-height:1.55;color:var(--slate-500);margin:0;">WA, WA+ of Allrisk, met of zonder gereedschapdekking. Wij tonen direct wat past bij jouw werk.</p>
+      </div>
+      <div class="card card--petrol card-hover">
+        <div style="font-family:var(--font-head);font-weight:700;font-size:15px;color:#fff;width:40px;height:40px;background:var(--orange);border-radius:11px;display:grid;place-items:center;margin-bottom:22px;">03</div>
+        <h3 class="h3 on-dark" style="margin-bottom:9px;">Direct online afsluiten</h3>
+        <p style="font-size:15px;line-height:1.55;color:var(--steel-300);margin:0;">Tekenen kan meteen. Vaak ben je dezelfde dag nog verzekerd, zodat je gewoon door kunt met je werk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SITUATIES ===================== -->
+<section id="situaties" class="section section--white section--bordered" style="scroll-margin-top:80px;">
+  <div class="container">
+    <div style="max-width:620px;margin-bottom:46px;">
+      <span class="eyebrow">Gemaakt voor jouw situatie</span>
+      <h2 class="h2" style="margin:14px 0 16px;">Geen twee bussen zijn hetzelfde.</h2>
+      <p class="lead">Of je nu vol gereedschap rijdt, elektrisch bent overgestapt of een heel wagenpark beheert, kies de situatie die bij jou hoort.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;" class="situatie-grid">
+      {% with sf0=situatie_featured.0 sf1=situatie_featured.1 %}
+      <a href="{% if sf0.link %}{{ sf0.link }}{% else %}{% url 'situaties_beroepen' %}{% endif %}" class="card-hover" style="text-decoration:none;grid-column:span 2;display:flex;flex-direction:column;background:var(--petrol);border-radius:20px;overflow:hidden;min-height:280px;position:relative;">
+        <div class="media" style="flex:1;background-color:var(--petrol-900);position:relative;overflow:hidden;min-height:170px;">
+          {% picture sf0.get_photo_source alt=sf0.get_photo_alt sizes="(max-width:880px) 100vw, 50vw" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}
+          {% if sf0.badge %}<span class="badge" style="position:absolute;top:16px;left:16px;z-index:1;">{{ sf0.badge }}</span>{% endif %}
+        </div>
+        <div style="padding:24px;">
+          <h3 style="font-family:var(--font-head);font-weight:600;font-size:24px;color:#fff;margin:0 0 7px;letter-spacing:-0.01em;">{{ sf0.titel }}</h3>
+          <p style="font-size:14.5px;color:var(--steel-300);margin:0;line-height:1.5;">{{ sf0.omschrijving }}</p>
+        </div>
+      </a>
+      <a href="{% if sf1.link %}{{ sf1.link }}{% else %}{% url 'situatie_gereedschap' %}{% endif %}" class="card-hover" style="text-decoration:none;grid-column:span 2;display:flex;flex-direction:column;background:var(--cream);border:1px solid var(--line);border-radius:20px;overflow:hidden;min-height:280px;">
+        <div class="media" style="flex:1;background-color:var(--cream-200);overflow:hidden;min-height:170px;position:relative;">{% picture sf1.get_photo_source alt=sf1.get_photo_alt sizes="(max-width:880px) 100vw, 50vw" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
+        <div style="padding:24px;">
+          <h3 style="font-family:var(--font-head);font-weight:600;font-size:24px;color:var(--petrol);margin:0 0 7px;letter-spacing:-0.01em;">{{ sf1.titel }}</h3>
+          <p style="font-size:14.5px;color:var(--slate-500);margin:0;line-height:1.5;">{{ sf1.omschrijving }}</p>
+        </div>
+      </a>
+      {% endwith %}
+      {% for s in situatie_small %}
+      <a href="{% if s.link %}{{ s.link }}{% else %}{% url 'situaties_beroepen' %}{% endif %}" class="card-hover" style="text-decoration:none;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;min-height:230px;">
+        <div class="media" style="height:110px;position:relative;overflow:hidden;background-color:var(--cream-200);">{% if s.photo %}{% picture s.photo alt=s.photo_alt sizes="(max-width:880px) 50vw, 25vw" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}{% else %}<div class="ph-stripe" style="position:absolute;inset:0;"></div>{% endif %}</div>
+        <div style="padding:20px;">
+          <h3 style="font-family:var(--font-head);font-weight:600;font-size:19px;color:var(--petrol);margin:0 0 6px;letter-spacing:-0.01em;">{{ s.title }}</h3>
+          <p style="font-size:13.5px;color:var(--slate-500);margin:0;line-height:1.5;">{{ s.text }}</p>
+        </div>
+      </a>
+      {% endfor %}
+      <a href="{% url 'hub_beroep' %}" class="card-hover" style="text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;background:var(--orange);border-radius:20px;overflow:hidden;min-height:230px;padding:24px;">
+        <div>
+          <h3 style="font-family:var(--font-head);font-weight:700;font-size:22px;color:#fff;margin:0 0 8px;letter-spacing:-0.01em;">Aannemers &amp; installateurs</h3>
+          <p style="font-size:14px;color:#fff;margin:0;line-height:1.5;">Speciale dekkingen per beroep, van timmerman tot CV-monteur.</p>
+        </div>
+        <span style="font-family:var(--font-head);font-weight:600;font-size:15px;color:#fff;">Bekijk per beroep →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DEKKINGEN ===================== -->
+<section id="dekking" class="section section--cream" style="scroll-margin-top:80px;">
+  <div class="container">
+    <div style="text-align:center;max-width:620px;margin:0 auto 50px;">
+      <span class="eyebrow">Dekkingen</span>
+      <h2 class="h2" style="margin:14px 0 16px;">Kies wat bij je werk past.</h2>
+      <p class="lead">Drie helder afgebakende niveaus. Geen verrassingen in de kleine lettertjes.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start;" class="dekking-grid">
+      {% for t in dekkingstiers %}
+      {% include "partials/_tier.html" with tier=t.code naam=t.naam prijs=t.prijs sub=t.omschrijving features=t.features.all highlight=t.highlight %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STILSTAND-REKENMACHINE (signature) ===================== -->
+<section class="widget-band" data-stilstand style="padding:90px 24px;">
+  <div class="widget-band__glow"></div>
+  <div class="widget-band__inner">
+    <div>
+      <span class="eyebrow" style="color:var(--orange-300);">De rekensom die niemand maakt</span>
+      <h2 class="h2 on-dark" style="margin:16px 0 18px;">Wat kost stilstand<br>jou écht?</h2>
+      <p class="lead text-steel" style="max-width:440px;margin-bottom:30px;">Een kapotte bus kost niet alleen reparatie. Het kost omzet, planning en je goede naam. Reken het zelf uit, en zie waarom snelle vervanging het verschil maakt.</p>
+      <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,0.08);border:1px solid var(--line-on-dark);padding:14px 18px;border-radius:14px;">
+        <span class="dot dot--pulse" style="background:var(--green-300);width:10px;height:10px;"></span>
+        <span style="font-size:14.5px;color:#fff;font-weight:500;">Met Allrisk sta je binnen <strong>24 uur</strong> weer in een vervangende bus.</span>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.05);border:1px solid var(--line-on-dark);border-radius:22px;padding:30px;backdrop-filter:blur(6px);">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+        <label style="font-size:14px;font-weight:600;color:#fff;">Jouw dagomzet</label>
+        <span style="font-family:var(--font-head);font-weight:700;font-size:17px;color:#fff;" data-omzet-out>€ 450</span>
+      </div>
+      <input type="range" min="150" max="2000" step="25" value="450" data-omzet aria-label="Jouw dagomzet in euro" style="width:100%;accent-color:var(--orange);margin-bottom:26px;cursor:pointer;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+        <label style="font-size:14px;font-weight:600;color:#fff;">Dagen stilstand</label>
+        <span style="font-family:var(--font-head);font-weight:700;font-size:17px;color:#fff;" data-dagen-out>3 dagen</span>
+      </div>
+      <input type="range" min="1" max="14" step="1" value="3" data-dagen aria-label="Aantal dagen stilstand" style="width:100%;accent-color:var(--orange);margin-bottom:28px;cursor:pointer;">
+      <div style="background:var(--petrol-900);border-radius:16px;padding:24px;text-align:center;">
+        <div style="font-size:13px;color:var(--steel-300);font-weight:500;margin-bottom:6px;">Misgelopen omzet bij stilstand</div>
+        <div style="font-family:var(--font-head);font-weight:700;font-size:46px;color:var(--orange-300);letter-spacing:-0.02em;line-height:1;" data-verlies-out>€ 1.350</div>
+        <div style="font-size:12.5px;color:var(--steel-500);margin-top:8px;">exclusief reparatie, boetes en gemiste klanten</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WAAROM OVERSTAPPEN ===================== -->
+<section class="section section--white section--bordered">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;" class="split-head">
+      <div>
+        <span class="eyebrow">Waarom overstappen</span>
+        <h2 class="h2" style="margin:14px 0 16px;">Geen verzekeraar.<br>Een specialist.</h2>
+        <p class="lead" style="max-width:440px;margin-bottom:30px;">Wij doen één ding: bestelauto's van ondernemers. Daardoor kennen we jouw werk, en de risico's die een gewone autoverzekeraar over het hoofd ziet.</p>
+        <a href="{% url 'premie_tool' %}" class="btn btn--primary">Stap vandaag over →</a>
+      </div>
+      <div class="voordelen-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        {% for v in voordelen %}
+        <div class="card card--cream" style="padding:22px;">
+          <div style="width:38px;height:38px;border-radius:10px;background:var(--petrol);display:grid;place-items:center;margin-bottom:14px;">{{ v.icon|safe }}</div>
+          <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);margin-bottom:5px;">{{ v.title }}</div>
+          <div style="font-size:13.5px;color:var(--slate-500);line-height:1.5;">{{ v.text }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REVIEWS ===================== -->
+<section id="reviews" class="section section--cream" style="scroll-margin-top:80px;">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:44px;">
+      <div style="max-width:560px;">
+        <span class="eyebrow">Wat vakmensen zeggen</span>
+        <h2 class="h2" style="margin-top:14px;">Door ondernemers,<br>voor ondernemers.</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);padding:16px 22px;border-radius:16px;">
+        {% if trustpilot.has_aggregate %}
+        <span class="stat-num stat-num--orange" style="font-size:34px;">{{ trustpilot.profile.score_display }}</span>
+        <div>
+          <div class="stars" style="font-size:15px;">★★★★★</div>
+          <div style="font-size:12.5px;color:var(--slate-500);margin-top:2px;">{{ trustpilot.profile.count_display }} reviews · Trustpilot</div>
+        </div>
+        {% elif trustpilot %}
+        <span class="stars" style="font-size:21px;">★★★★★</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--petrol);">Reviews via Trustpilot</div>
+          <a href="{{ trustpilot.profile.profile_url }}" target="_blank" rel="noopener" style="font-size:12.5px;color:var(--slate-500);">Bekijk op Trustpilot ↗</a>
+        </div>
+        {% else %}
+        <span class="stat-num stat-num--orange" style="font-size:34px;">{{ review_score }}</span>
+        <div>
+          <div class="stars" style="font-size:15px;">★★★★★</div>
+          <div style="font-size:12.5px;color:var(--slate-500);margin-top:2px;">{{ review_count }} reviews</div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="grid grid--3">
+      {% if trustpilot %}
+      {% for r in trustpilot.reviews %}
+      <div class="card">
+        <div class="stars" style="font-size:15px;margin-bottom:14px;">{% for _ in "12345"|make_list %}{% if forloop.counter <= r.rating %}★{% else %}<span style="color:var(--cream-300);">★</span>{% endif %}{% endfor %}</div>
+        {% if r.title %}<div style="font-family:var(--font-head);font-weight:600;font-size:15.5px;color:var(--petrol);margin:0 0 8px;">{{ r.title }}</div>{% endif %}
+        <p style="font-size:15.5px;line-height:1.6;color:var(--ink);margin:0 0 22px;">"{{ r.text|truncatechars:220 }}"</p>
+        <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(18,59,93,0.08);padding-top:18px;">
+          <div>
+            <div style="font-weight:600;font-size:14.5px;color:var(--petrol);">{{ r.author }}</div>
+            <div style="font-size:13px;color:var(--slate-500);">Geverifieerd via Trustpilot</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      {% for r in reviews %}
+      <div class="card">
+        <div class="stars" style="font-size:15px;margin-bottom:14px;">★★★★★</div>
+        <p style="font-size:16px;line-height:1.6;color:var(--ink);margin:0 0 22px;">"{{ r.quote }}"</p>
+        <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(18,59,93,0.08);padding-top:18px;">
+          {% if r.photo %}<span class="ph-avatar" style="width:42px;height:42px;border-radius:50%;flex:none;overflow:hidden;display:block;">{% picture r.photo alt=r.photo_alt sizes="42px" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" %}</span>{% else %}<div class="ph-avatar" style="width:42px;height:42px;border-radius:50%;flex:none;"></div>{% endif %}
+          <div>
+            <div style="font-weight:600;font-size:14.5px;color:var(--petrol);">{{ r.name }}</div>
+            <div style="font-size:13px;color:var(--slate-500);">{{ r.role }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KENNISBANK + FAQ ===================== -->
+<section id="kennisbank" class="section section--white section--bordered" style="scroll-margin-top:80px;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:40px;" class="split-head">
+      <div>
+        <span class="eyebrow">Kennisbank</span>
+        <h2 class="h2" style="margin:14px 0;">Alles over de bus.<br>Helder uitgelegd.</h2>
+        <p class="lead" style="max-width:460px;">Honderden pagina's over dekkingen, beroepen, modellen, schade en regelgeving, geschreven in gewoon Nederlands.</p>
+      </div>
+      <form action="{% url 'kennisbank' %}" method="get" style="background:var(--cream);border:1px solid var(--line-strong);border-radius:14px;padding:4px 4px 4px 18px;display:flex;align-items:center;gap:12px;">
+        <span style="color:var(--slate-400);font-size:16px;">⌕</span>
+        <input name="q" placeholder="Zoek in de kennisbank…" style="flex:1;border:0;outline:0;background:transparent;font-size:15px;color:var(--ink);padding:14px 0;min-width:0;">
+        <button type="submit" style="background:var(--petrol);color:#fff;font-size:13px;font-weight:600;padding:11px 16px;border-radius:10px;border:0;cursor:pointer;">Zoek</button>
+      </form>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;" class="kb-grid">
+      {% for c in kb_tegels %}
+      <a href="{% if c.link %}{{ c.link }}{% else %}{% url 'kennisbank' %}{% endif %}" class="card-hover" style="text-decoration:none;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:20px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--petrol);display:grid;place-items:center;margin-bottom:14px;">{% include "partials/_kb_icon.html" with key=c.icon %}</div>
+        <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);">{{ c.naam }}</div>
+        <div style="font-size:13px;color:var(--slate-400);margin-top:4px;">{{ c.aantal }}</div>
+      </a>
+      {% endfor %}
+      <a href="{% url 'kennisbank' %}" class="card-hover" style="text-decoration:none;background:var(--petrol);border:1px solid var(--petrol);border-radius:14px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:#fff;">Alle onderwerpen</div>
+        <div style="font-size:14px;color:var(--orange-300);font-weight:600;margin-top:8px;">Bekijk overzicht →</div>
+      </a>
+    </div>
+
+    <div style="margin-top:44px;max-width:820px;">
+      <h3 class="h3" style="margin-bottom:20px;">Veelgestelde vragen</h3>
+      <div class="faq" data-faq>
+        {% for f in faqs %}
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">{{ f.q }} <span class="faq__sign">+</span></button>
+          <div class="faq__a"><p>{{ f.a }}</p></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOG ===================== -->
+<section class="section section--cream">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:40px;">
+      <div style="max-width:560px;">
+        <span class="eyebrow">Blog &amp; nieuws</span>
+        <h2 class="h2" style="margin-top:14px;">Verhalen van de weg.</h2>
+      </div>
+      <a href="{% url 'blog' %}" class="btn btn--ghost btn--sm">Bekijk alle artikelen →</a>
+    </div>
+    <div class="grid grid--3 swipe-mobile">
+      {% for a in home_blog %}
+      <a href="{{ a.url }}" class="card-hover" style="text-decoration:none;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;">
+        <div class="media" style="height:180px;background-color:var(--cream-200);position:relative;overflow:hidden;">
+          {% if a.image %}{% picture a.image alt=a.image_alt sizes="(max-width:880px) 100vw, 33vw" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}{% endif %}
+          {% if forloop.first %}<span class="badge" style="position:absolute;top:14px;left:14px;font-size:10.5px;padding:4px 9px;z-index:1;">UITGELICHT</span>{% endif %}
+        </div>
+        <div style="padding:22px;display:flex;flex-direction:column;flex:1;">
+          <div style="font-family:var(--font-head);font-weight:600;font-size:18.5px;line-height:1.25;color:var(--petrol);margin-bottom:10px;">{{ a.titel }}</div>
+          <p style="font-size:13.5px;color:var(--slate-500);line-height:1.55;margin:0 0 14px;flex:1;">{{ a.excerpt|truncatechars:110 }}</p>
+          <span style="font-size:13px;font-weight:600;color:var(--orange);margin-top:auto;">Lees artikel →</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERTS ===================== -->
+<section class="section section--white section--bordered">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:44px;">
+      <div style="max-width:580px;">
+        <span class="eyebrow">De mensen achter je advies</span>
+        <h2 class="h2" style="margin-top:14px;">Echte specialisten,<br>geen callcenter.</h2>
+      </div>
+      <a href="{% url 'over_ons' %}" class="btn btn--ghost btn--sm">Maak kennis met het team →</a>
+    </div>
+    <div class="grid grid--3">
+      {% for e in experts %}
+      <div class="card card--cream">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+          {% if e.photo %}<span class="ph-avatar" style="width:60px;height:60px;border-radius:50%;flex:none;overflow:hidden;display:block;">{% picture e.photo alt=e.photo_alt sizes="60px" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" %}</span>{% else %}<div class="ph-avatar" style="width:60px;height:60px;border-radius:50%;flex:none;"></div>{% endif %}
+          <div>
+            <div style="font-family:var(--font-head);font-weight:600;font-size:18px;color:var(--petrol);">{{ e.name }}</div>
+            <div style="font-size:13.5px;color:var(--slate-500);">{{ e.role }}</div>
+          </div>
+        </div>
+        <p style="font-size:14.5px;line-height:1.6;color:var(--slate-600);margin:0 0 14px;">{{ e.bio }}</p>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          {% for t in e.tags %}<span class="tag">{{ t }}</span>{% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA BAND ===================== -->
+<section class="section--cream" style="padding:20px 24px 90px;">
+  <div class="container" style="background:var(--orange);border-radius:26px;padding:56px 48px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.06) 14px,transparent 14px,transparent 28px);pointer-events:none;"></div>
+    <div style="position:relative;">
+      <h2 style="font-family:var(--font-head);font-weight:700;font-size:40px;line-height:1.02;letter-spacing:-0.03em;color:#fff;margin:0 0 10px;">Klaar om door te rijden?</h2>
+      <p style="font-size:18px;color:rgba(255,255,255,0.92);margin:0;max-width:460px;">Bereken je premie in 2 minuten. Geen account, geen gedoe, geen verrassingen.</p>
+    </div>
+    <a href="{% url 'premie_tool' %}" class="btn btn--ink" style="position:relative;font-size:17px;padding:18px 32px;white-space:nowrap;">Bereken je premie →</a>
+  </div>
+</section>
+
+{% endblock %}

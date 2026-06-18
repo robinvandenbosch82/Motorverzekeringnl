@@ -1,0 +1,40 @@
+{% comment %}
+Dekkings-tier card (WA / WA+ / Allrisk). highlight=True renders the petrol
+"meest gekozen" variant. features = iterable of objects with .label and .included.
+{% endcomment %}
+{% if highlight %}
+<div class="card--petrol" style="border-radius:22px;padding:32px 30px;position:relative;box-shadow:0 34px 60px -28px rgba(18,59,93,0.65);transform:translateY(-10px);">
+  <span class="badge" style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;">MEEST GEKOZEN</span>
+  <div style="font-family:var(--font-head);font-weight:700;font-size:14px;color:var(--orange-300);letter-spacing:0.06em;text-transform:uppercase;">{{ tier }}</div>
+  <div style="font-family:var(--font-head);font-weight:600;font-size:22px;color:#fff;margin:4px 0 18px;">{{ naam }}</div>
+  <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px;">
+    <span style="font-family:var(--font-head);font-weight:700;font-size:38px;color:var(--orange-300);letter-spacing:-0.02em;">&euro; {{ prijs }}</span>
+    <span style="font-size:14px;color:var(--steel-300);">p/mnd vanaf</span>
+  </div>
+  <p style="font-size:13.5px;color:var(--steel-300);margin:0 0 22px;">{{ sub }}</p>
+  <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid rgba(255,255,255,0.14);padding-top:22px;">
+    {% for f in features %}
+    <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:{% if f.included %}#fff{% else %}rgba(255,255,255,0.74){% endif %};">{% if f.included %}<span style="color:var(--green-300);font-weight:700;">✓</span>{% else %}<span style="color:rgba(255,255,255,0.7);">✕</span>{% endif %} {{ f.label }}</div>
+    {% endfor %}
+  </div>
+  <a href="{% url 'premie_tool' %}" class="btn btn--primary btn--block" style="margin-top:26px;">Kies {{ tier }}</a>
+</div>
+{% else %}
+<div class="card" style="border-radius:20px;padding:30px;">
+  <div style="font-family:var(--font-head);font-weight:700;font-size:14px;color:var(--slate-500);letter-spacing:0.06em;text-transform:uppercase;">{{ tier }}</div>
+  <div style="font-family:var(--font-head);font-weight:600;font-size:22px;color:var(--petrol);margin:4px 0 18px;">{{ naam }}</div>
+  <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px;">
+    <span style="font-family:var(--font-head);font-weight:700;font-size:38px;color:var(--petrol);letter-spacing:-0.02em;">&euro; {{ prijs }}</span>
+    <span style="font-size:14px;color:var(--slate-500);">p/mnd vanaf</span>
+  </div>
+  <p style="font-size:13.5px;color:var(--slate-500);margin:0 0 22px;">{{ sub }}</p>
+  <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:22px;">
+    {% for f in features %}
+    <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:{% if f.included %}var(--ink){% else %}var(--slate-400){% endif %};">
+      {% if f.included %}<span style="color:var(--green);font-weight:700;">✓</span>{% else %}<span style="color:var(--slate-400);">✕</span>{% endif %} {{ f.label }}
+    </div>
+    {% endfor %}
+  </div>
+  <a href="{% url 'premie_tool' %}" class="btn btn--ghost btn--block" style="margin-top:26px;">Kies {{ tier }}</a>
+</div>
+{% endif %}

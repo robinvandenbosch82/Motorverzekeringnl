@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static responsive_image structured_data %}
+
+{% block structured_data %}
+{% content_structured_data pagina %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "{{ canonical_url }}#breadcrumb",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ site_origin }}/"}{% if section_label and section_url %},
+    {"@type":"ListItem","position":2,"name":"{{ section_label|escapejs }}","item":"{{ site_origin }}{{ section_url }}"},
+    {"@type":"ListItem","position":3,"name":"{{ pagina.titel|escapejs }}","item":"{{ canonical_url }}"}{% else %},
+    {"@type":"ListItem","position":2,"name":"{{ pagina.titel|escapejs }}","item":"{{ canonical_url }}"}{% endif %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block og_image %}{% if pagina.image_url %}<meta property="og:image" content="{{ pagina.image_url }}">{% elif site.default_og_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ site.default_og_image.url }}">{% endif %}{% endblock %}
+
+{% block head_extra %}<style>
+  .cp-intro p{font-size:18.5px;line-height:1.65;color:var(--slate-600);}
+  .cp-intro p:first-child{font-size:20px;color:var(--ink);font-weight:500;}
+  .cp-body h2{scroll-margin-top:88px;font-size:27px;}
+  .cp-body .cta{background:#123B5D;color:#fff;border-radius:14px;padding:20px 24px;font-size:16px;font-weight:500;}
+  .cp-faq{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;}
+  .cp-faq h3{margin:0;padding:18px 22px 6px;font-family:var(--font-head);font-weight:600;font-size:16.5px;color:var(--petrol);border-top:1px solid var(--line);}
+  .cp-faq h3:first-child{border-top:0;}
+  .cp-faq p{margin:0;padding:0 22px 18px;font-size:15px;line-height:1.6;color:var(--slate-600);}
+  @media (max-width:880px){ .hero-grid, .rec-grid{grid-template-columns:1fr!important;} }
+</style>{% endblock %}
+
+{% block content %}
+
+<!-- ===================== HERO ===================== -->
+<header class="container" style="padding-top:34px;padding-bottom:30px;">
+  <nav class="breadcrumb" aria-label="Kruimelpad" style="margin-bottom:26px;">
+    <a href="{% url 'home' %}">Home</a>
+    {% if section_label %}<span class="sep">›</span>{% if section_url %}<a href="{{ section_url }}">{{ section_label }}</a>{% else %}<span style="color:var(--slate-500);">{{ section_label }}</span>{% endif %}{% endif %}
+    <span class="sep">›</span>
+    <span style="color:var(--petrol);font-weight:500;">{{ pagina.korte_titel }}</span>
+  </nav>
+  <div style="display:grid;grid-template-columns:1fr 0.85fr;gap:50px;align-items:center;animation:revealUp .6s ease both;" class="hero-grid">
+    <div>
+      <span class="eyebrow">{{ section_label|default:"Bestelautoverzekering" }}</span>
+      <h1 class="h1" style="font-size:clamp(34px,5vw,50px);margin:14px 0 18px;">{{ pagina.titel }}</h1>
+      {% if pagina.meta_description %}<p class="lead" style="max-width:500px;margin-bottom:26px;">{{ pagina.meta_description }}</p>{% endif %}
+      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+        <a href="{% url 'premie_tool' %}" class="btn btn--primary">Bereken je premie →</a>
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--slate-600);"><span class="stars">★★★★★</span> {{ review_score }} · {{ review_count }} reviews</div>
+      </div>
+    </div>
+    {% if pagina.image_url %}
+    <div class="media" style="border-radius:22px;overflow:hidden;background-color:var(--cream-200);min-height:340px;position:relative;">{% picture pagina.get_image_source alt=pagina.image_alt sizes="(max-width:880px) 100vw, 50vw" loading="eager" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
+    {% endif %}
+  </div>
+</header>
+
+<!-- ===================== BODY ===================== -->
+<section class="container" style="padding-top:14px;padding-bottom:36px;">
+  <div style="max-width:820px;">
+    <div class="prose cp-intro">{{ pagina.intro_html|safe }}</div>
+    <div class="prose cp-body">{{ pagina.body_html|safe }}</div>
+
+    {% if pagina.faq_html %}
+    <h2 style="font-family:var(--font-head);font-weight:700;font-size:28px;letter-spacing:-0.02em;color:var(--petrol);margin:40px 0 16px;">Veelgestelde vragen</h2>
+    <div class="cp-faq">{{ pagina.faq_html|safe }}</div>
+    {% endif %}
+
+    {% if pagina.conclusie_html %}<div class="prose cp-body" style="margin-top:32px;">{{ pagina.conclusie_html|safe }}</div>{% endif %}
+    {% if pagina.cta_html %}<div class="prose cp-body" style="margin-top:22px;">{{ pagina.cta_html|safe }}</div>{% endif %}
+  </div>
+</section>
+
+<!-- ===================== AANBEVOLEN DEKKING ===================== -->
+<section class="container" style="padding-top:8px;padding-bottom:50px;">
+  <div style="background:var(--petrol);border-radius:22px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;" class="rec-grid">
+    <div>
+      <span class="eyebrow" style="color:var(--orange-300);">Onze aanbeveling</span>
+      <h2 class="h2 on-dark" style="font-size:32px;margin:12px 0 14px;">WA+ met gereedschapdekking</h2>
+      <p class="lead text-steel" style="font-size:16px;margin-bottom:22px;">De beste balans voor een werkbus: schade van buitenaf gedekt, plus je volledige inventaris tot € 25.000.</p>
+      <a href="{% url 'dekkingen' %}" class="btn" style="background:#fff;color:var(--petrol);">Bekijk dekkingen →</a>
+    </div>
+    <div style="background:rgba(255,255,255,0.05);border:1px solid var(--line-on-dark);border-radius:18px;padding:26px;">
+      <div style="display:flex;flex-direction:column;gap:13px;">
+        <div style="display:flex;gap:11px;align-items:center;font-size:15px;color:#fff;"><span style="color:var(--green-300);font-weight:700;">✓</span> Diefstal, brand, storm &amp; ruitschade</div>
+        <div style="display:flex;gap:11px;align-items:center;font-size:15px;color:#fff;"><span style="color:var(--green-300);font-weight:700;">✓</span> Gereedschap tot € 25.000, ook 's nachts</div>
+        <div style="display:flex;gap:11px;align-items:center;font-size:15px;color:#fff;"><span style="color:var(--green-300);font-weight:700;">✓</span> Lading- en imperiaaldekking</div>
+        <div style="display:flex;gap:11px;align-items:center;font-size:15px;color:#fff;"><span style="color:var(--green-300);font-weight:700;">✓</span> Vervangende bus bij grote schade</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ANDERE PAGINA'S ===================== -->
+{% if siblings %}
+<section class="container" style="padding-top:6px;padding-bottom:50px;">
+  <h2 class="h2" style="font-size:24px;margin-bottom:16px;">Ook voor andere {{ siblings_label }}</h2>
+  <div style="display:flex;gap:9px;flex-wrap:wrap;">
+    {% for s in siblings %}
+    <a href="{{ s.get_absolute_url }}" class="pill" style="text-decoration:none;font-size:14px;font-weight:500;padding:10px 16px;">{{ s.korte_titel }}</a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if pagina.interne_links_html %}
+<section class="container" style="padding-bottom:50px;">
+  <aside class="prose" style="max-width:820px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:20px 24px;">
+    <div style="font-family:var(--font-head);font-weight:600;font-size:15px;color:var(--petrol);margin-bottom:6px;">Lees ook</div>
+    {{ pagina.interne_links_html|safe }}
+  </aside>
+</section>
+{% endif %}
+
+{% endblock %}

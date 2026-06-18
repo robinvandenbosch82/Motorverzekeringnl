@@ -1,0 +1,72 @@
+{% load static %}
+{% comment %}
+SiteNav, sticky desktop nav with hover dropdowns + fullscreen mobile menu.
+Driven by nav_items from core.context_processors (single source of truth).
+{% endcomment %}
+<nav class="nav" data-site-nav>
+  <div class="nav__inner">
+    <a href="{% url 'home' %}" class="wordmark" aria-label="Bestelautoverzekering.nl home">
+      <span class="wordmark__text">bestelauto<span style="color:var(--slate-500);font-weight:600;">verzekering</span><span style="color:var(--orange);">.nl</span></span>
+    </a>
+
+    <div class="nav__menu">
+      {% for item in nav_items %}
+        <div class="nav__item">
+          {% if item.children %}
+            <button class="nav__link" aria-haspopup="true">{{ item.label }} <span class="caret">▾</span></button>
+            <div class="nav__dropdown" role="menu">
+              {% for child in item.children %}
+                <a href="{{ child.url }}" role="menuitem">{{ child.label }}</a>
+              {% endfor %}
+            </div>
+          {% else %}
+            <a href="{{ item.url }}" class="nav__link">{{ item.label }}</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="nav__right">
+      <a href="{% url 'premie_tool' %}" class="btn btn--primary btn--sm">Bereken premie →</a>
+      <button class="nav__burger" data-menu-open aria-label="Menu openen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+{% comment %}
+Fullscreen mobile menu, rendered OUTSIDE <nav> on purpose. The nav has a
+backdrop-filter, which makes it the containing block for position:fixed
+descendants; inside the nav this overlay would be clipped to the 70px nav
+height instead of filling the viewport. As a body-level sibling, inset:0
+resolves against the viewport so it covers the whole screen.
+{% endcomment %}
+<div class="mmenu" data-mobile-menu aria-hidden="true">
+    <div class="mmenu__top">
+      <span class="wordmark wordmark--light">
+        <span class="wordmark__text">bestelauto<span class="soft">verzekering</span><span style="color:var(--orange);">.nl</span></span>
+      </span>
+      <button class="mmenu__close" data-menu-close aria-label="Menu sluiten">×</button>
+    </div>
+    <nav class="mmenu__nav">
+      {% for item in nav_items %}
+      <div class="mmenu__acc">
+        {% if item.children %}
+        <button class="mmenu__acc-head" type="button" data-acc-toggle aria-expanded="false">{{ item.label }} <span class="mmenu__chev">▾</span></button>
+        <div class="mmenu__acc-body">
+          {% for child in item.children %}
+          <a href="{{ child.url }}" class="mmenu__sublink" data-menu-close>{{ child.label }}</a>
+          {% endfor %}
+        </div>
+        {% else %}
+        <a href="{{ item.url }}" class="mmenu__acc-head" data-menu-close>{{ item.label }} <span class="mmenu__chev" style="font-size:15px;">→</span></a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </nav>
+    <div class="mmenu__actions">
+      <a href="{% url 'klantenservice' %}" class="btn btn--block mmenu__btn-ghost" data-menu-close>Klantenservice</a>
+      <a href="{% url 'premie_tool' %}" class="btn btn--primary btn--block" data-menu-close>Bereken premie →</a>
+    </div>
+</div>
