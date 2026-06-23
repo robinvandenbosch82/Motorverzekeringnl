@@ -764,6 +764,53 @@ BLOG_BODIES = {
 <h3>Bouwt mijn tweede motor zelf schadevrije jaren op?</h3>
 <p>Dat verschilt per verzekeraar en hangt af van hoe de tweede-voertuigregeling is ingericht. Krijgt je tweede motor een toegekend kortingsniveau dat is gekoppeld aan je eerste motor, dan bouwt hij niet altijd zelfstandig schadevrije jaren op. Verzeker je de tweede motor met een eigen, los opgebouwd verleden, dan groeit dat aantal per schadevrij jaar wél. Dit is belangrijk voor later: verkoop je je eerste motor of stap je over, dan wil je weten welk schadevrij verleden aan je tweede motor is gekoppeld. Vraag dit expliciet na bij het afsluiten.</p>
 """,
+    "Winterstop of motor schorsen: wat is slimmer?": """
+<p>Rijd je 's winters niet, dan kun je geld besparen op een motor die toch stilstaat. Er zijn twee routes: een <strong>winterstopregeling</strong> bij je verzekeraar of je kenteken <strong>schorsen</strong> bij de RDW. Het grote verschil zit in de dekking tijdens de stilstand: bij een winterstop blijft je motor verzekerd tegen onder andere diefstal en brand, bij schorsen vervalt de verzekering en daarmee die dekking. Wat slimmer is, hangt af van hoe lang en hoe veilig je motor stilstaat.</p>
+<h2>De twee opties op een rij</h2>
+<p>Beide opties verlagen je kosten als je de motor in de winter niet gebruikt, maar ze werken heel anders. Een winterstopregeling is een afspraak met je verzekeraar waarbij je polis doorloopt tegen een lagere premie voor de wintermaanden. Schorsen is een handeling bij de RDW waarmee je het kenteken tijdelijk stillegt: de motorrijtuigenbelasting en de verzekeringsplicht vervallen, maar de motor mag dan niet meer op de openbare weg komen. De kern van de keuze is of je tijdens de winter dekking wilt houden of niet.</p>
+<h2>Wat is een winterstopregeling?</h2>
+<p>Bij een winterstopregeling (ook wel winterkorting) loopt je verzekering het hele jaar door, maar betaal je in de wintermaanden een lagere premie omdat je dan niet of nauwelijks rijdt. Belangrijk: je motor blijft in die periode verzekerd tegen schade die ook bij stilstand kan optreden, zoals diefstal, brand en stormschade, mits je een dekking hebt die dat omvat. De precieze voorwaarden verschillen per verzekeraar; bij sommige regelingen mag je in de winter niet de weg op, bij andere wel incidenteel. Je houdt geen breuk in je verzekering en je schadevrije opbouw loopt door. Vraag na wat in jouw regeling precies is toegestaan.</p>
+<h2>Wat betekent je motor schorsen?</h2>
+<p>Schorsen doe je bij de RDW, tegen een kleine vergoeding. Tijdens een schorsing vervalt de verplichting om motorrijtuigenbelasting te betalen en om de motor te verzekeren. Daar staat tegenover dat de motor niet op de openbare weg of een openbare parkeerplaats mag staan; hij moet op eigen, niet-openbaar terrein staan, zoals in een afgesloten garage of schuur. Een schorsing geldt voor een bepaalde periode en kan worden verlengd. Wil je weer rijden, dan hef je de schorsing op en zorg je dat de motor opnieuw verzekerd is voordat je de weg op gaat.</p>
+<h2>Het grote verschil: dekking tijdens de stilstand</h2>
+<p>Dit is de doorslaggevende factor. Bij een winterstopregeling blijft je motor verzekerd, dus als hij uit de gestalde ruimte wordt gestolen of er brand uitbreekt, ben je gedekt (binnen je polisvoorwaarden). Bij een schorsing is de motor niet verzekerd: gaat er tijdens de stilstand iets mis, dan draai je daar zelf voor op, tenzij je apart een dekking voor een gestald voertuig afsluit. Schorsen levert dus de grootste besparing op, omdat zowel de belasting als de premie wegvalt, maar je ruilt die besparing in tegen het risico dat je motor onverzekerd stilstaat.</p>
+<table><thead><tr><th>Kenmerk</th><th>Winterstopregeling</th><th>Schorsen bij de RDW</th></tr></thead><tbody>
+<tr><td>Verzekering</td><td>Loopt door, lagere winterpremie</td><td>Vervalt; geen premie</td></tr>
+<tr><td>Dekking diefstal/brand bij stilstand</td><td>Ja, binnen je dekking</td><td>Nee, tenzij apart geregeld</td></tr>
+<tr><td>Motorrijtuigenbelasting</td><td>Loopt door</td><td>Vervalt tijdens schorsing</td></tr>
+<tr><td>Rijden in de winter</td><td>Soms toegestaan, afhankelijk van de regeling</td><td>Niet toegestaan</td></tr>
+<tr><td>Stalling</td><td>Vrij, maar veilig aangeraden</td><td>Verplicht op eigen, niet-openbaar terrein</td></tr>
+</tbody></table>
+<h2>Wanneer is wat slimmer?</h2>
+<p>Een winterstopregeling is slimmer als je je motor tijdens de winter gedekt wilt houden tegen diefstal en brand en als je de ruimte voor een milde winterdag wilt om toch even te rijden. Schorsen is slimmer als de motor lang en veilig stilstaat, je de besparing op belasting en premie zwaarder laat wegen en je het diefstal- en brandrisico accepteert of apart afdekt. Staat je motor in een goed beveiligde, afgesloten garage en rijd je echt maanden niet, dan kan schorsen flink schelen. Wil je flexibiliteit en zekerheid, dan is de winterstopregeling doorgaans de veiligere keuze.</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Denken dat je motor bij schorsing nog verzekerd is.</strong> Tijdens een schorsing vervalt de dekking, ook tegen diefstal en brand.</li>
+<li><strong>Een geschorste motor op de openbare weg laten staan.</strong> Dat mag niet; hij moet op eigen terrein staan.</li>
+<li><strong>Bij winterstop toch rijden terwijl het niet mag.</strong> Check of jouw regeling rijden in de winter toestaat.</li>
+<li><strong>De schorsing niet opheffen voor je weer rijdt.</strong> Zorg dat de motor verzekerd en niet geschorst is voordat je de weg op gaat.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Bepaal of je tijdens de winter dekking tegen diefstal en brand wilt houden.</li>
+<li>Vraag je verzekeraar naar de voorwaarden van de winterstopregeling.</li>
+<li>Reken de besparing van schorsen (belasting + premie) af tegen het verzekeringsrisico.</li>
+<li>Zorg bij schorsing voor stalling op eigen, niet-openbaar terrein.</li>
+<li>Hef de schorsing op en verzeker de motor weer voordat je gaat rijden.</li>
+</ul>
+<p>Wil je weten wat je motorverzekering kost en wat een winterkorting scheelt? Bereken het via het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>. Welke factoren je premie verder bepalen, lees je in <a href="/blog/wat-kost-een-motorverzekering-in-nederland/">wat kost een motorverzekering in Nederland</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Is mijn motor verzekerd tijdens een winterstop?</h3>
+<p>Ja. Bij een winterstopregeling loopt je verzekering door tegen een lagere winterpremie, en blijft je motor verzekerd tegen schade die ook bij stilstand kan optreden, zoals diefstal, brand en stormschade, mits je dekking dat omvat. Dat is het belangrijkste verschil met schorsen, waarbij de dekking juist vervalt. De precieze voorwaarden verschillen per verzekeraar, bijvoorbeeld of je in de wintermaanden nog mag rijden. Vraag je verzekeraar naar de exacte voorwaarden van de winterstopregeling.</p>
+<h3>Is mijn motor verzekerd als ik het kenteken schors?</h3>
+<p>Nee. Tijdens een schorsing vervalt de verzekeringsplicht, en daarmee ook je dekking. Wordt je motor gestolen of beschadigd terwijl hij geschorst is, dan ben je daar niet voor verzekerd, tenzij je apart een dekking voor een gestald voertuig hebt afgesloten. Daarom moet een geschorste motor op eigen, niet-openbaar terrein staan en is een veilige, afgesloten stalling belangrijk. Wil je weer rijden, zorg dan dat de motor opnieuw verzekerd is voordat je de schorsing opheft en de weg op gaat.</p>
+<h3>Bespaar ik meer met schorsen of met een winterstopregeling?</h3>
+<p>Met schorsen bespaar je doorgaans het meest, omdat zowel de motorrijtuigenbelasting als de premie wegvalt. Daar staat tegenover dat je motor onverzekerd stilstaat en je er niet mee mag rijden. Een winterstopregeling levert een kleinere besparing op via een lagere winterpremie, maar houdt je motor verzekerd en geeft soms ruimte om toch te rijden. De slimste keuze hangt dus niet alleen af van de besparing, maar ook van hoeveel risico je wilt lopen en hoeveel flexibiliteit je wilt.</p>
+<h3>Mag ik met een geschorste motor rijden?</h3>
+<p>Nee. Een geschorste motor mag niet op de openbare weg of op openbare parkeerplaatsen komen; hij moet op eigen, niet-openbaar terrein staan. Rijd je toch, dan ben je zowel onverzekerd als in overtreding en riskeer je een boete. Wil je weer rijden, dan hef je de schorsing op via de RDW en zorg je dat de motor verzekerd is. Plan dat op tijd, zodat de motor verzekerd en niet meer geschorst is op het moment dat je de eerste rit maakt.</p>
+<h3>Hoe lang kan ik mijn motor schorsen?</h3>
+<p>Een schorsing geldt voor een bepaalde periode en kan worden verlengd zolang je de motor niet gebruikt. Tijdens die periode betaal je geen motorrijtuigenbelasting en hoef je de motor niet te verzekeren, maar moet hij wel op eigen terrein staan. Houd er rekening mee dat eventuele keuringsverplichtingen blijven gelden voor het moment dat je weer gaat rijden. Wil je de motor na de winter weer gebruiken, hef dan de schorsing tijdig op en regel de verzekering opnieuw, zodat je legaal en gedekt de weg op kunt.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
