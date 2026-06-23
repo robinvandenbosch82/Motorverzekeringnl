@@ -716,6 +716,54 @@ BLOG_BODIES = {
 <h3>Kies ik voor mijn oldtimer WA of casco?</h3>
 <p>Dat hangt af van de waarde van de motor en hoeveel risico je zelf wilt dragen, net als bij een gewone motorverzekering. WA is wettelijk verplicht en dekt schade aan anderen; casco dekt daarnaast schade aan of diefstal van je eigen motor. Voor een waardevolle of zeldzame klassieker is casco met een getaxeerde waarde vaak verstandig, omdat je dan een vastgelegd bedrag terugkrijgt bij total loss of diefstal. Is de motor weinig waard, dan kan WA of WA met beperkt casco volstaan. Weeg de cascopremie af tegen het bedrag dat je maximaal vergoed krijgt.</p>
 """,
+    "Een tweede motor verzekeren": """
+<p>Heb je een tweede motor, dan sluit je daarvoor een aparte verzekering af: elke motor met een actief kenteken heeft een eigen WA-dekking nodig. Je kunt twee motoren niet onder één polis met dezelfde schadevrije jaren laten vallen. Wel bieden veel verzekeraars een tweede-voertuigregeling, waarmee je tweede motor een gunstig kortingsniveau krijgt zonder dat hij zelf jarenlang schadevrij verleden heeft opgebouwd.</p>
+<h2>De kernregel: elke motor een eigen verzekering</h2>
+<p>De verzekeringsplicht hangt aan het kenteken. Heeft je tweede motor een actief kenteken, dan moet ook die motor verzekerd zijn, ook als je hem maar af en toe rijdt. Je sluit dus een tweede polis af, met een eigen premie die wordt bepaald door die specifieke motor: het type, de dagwaarde, de gekozen dekking en de bestuurder. Twee motoren samen op één WA-dekking laten meeliften kan niet; ieder voertuig heeft zijn eigen registratie en zijn eigen verzekering nodig.</p>
+<h2>Schadevrije jaren bij meerdere motoren</h2>
+<p>Schadevrije jaren worden per voertuig geregistreerd in Roy-data. Je bouwt ze dus op voor de motor waarop je verzekerd staat, en je kunt dezelfde schadevrije jaren niet tegelijk volledig inzetten voor de no-claimkorting op twee motoren. Heb je veel jaren op je eerste motor, dan profiteert je tweede motor daar niet automatisch van mee. In de praktijk betekent dit dat je tweede motor zonder regeling op een laag aantal schadevrije jaren begint en dus een hogere premie heeft, terwijl je op je eerste motor het opgebouwde voordeel houdt.</p>
+<h2>De tweede-voertuigregeling</h2>
+<p>Om te voorkomen dat je tweede motor op nul begint, bieden veel verzekeraars een tweede-voertuigregeling (ook wel tweede-gezinsmotorregeling). Daarmee krijgt je tweede motor een gunstig, vast kortingsniveau toegekend, vaak gekoppeld aan het kortingsniveau van je eerste motor, zonder dat de tweede motor zelf het volledige schadevrije verleden hoeft te hebben. De voorwaarden verschillen per verzekeraar, maar gangbaar zijn: beide voertuigen bij dezelfde verzekeraar, dezelfde regelmatige bestuurder en een schadevrij verleden op het eerste voertuig. Let op: krijgt je tweede motor een toegekend niveau in plaats van eigen opgebouwde jaren, dan bouwt hij niet altijd zelfstandig schadevrije jaren op. Vraag daarom na hoe de regeling bij jouw verzekeraar precies werkt.</p>
+<h2>Beide motoren bij dezelfde verzekeraar</h2>
+<p>Je bent niet verplicht je twee motoren bij dezelfde maatschappij te verzekeren, maar het heeft praktische voordelen. Bij één verzekeraar heb je je polissen op één plek, één aanspreekpunt bij schade en vaak toegang tot de tweede-voertuigregeling, die meestal vereist dat beide voertuigen bij dezelfde maatschappij lopen. Sommige verzekeraars geven daarnaast een pakketkorting als je meerdere verzekeringen bij ze onderbrengt. Of dat goedkoper uitpakt dan twee losse polissen bij verschillende aanbieders, hangt af van de premies en de regeling; vergelijk daarom beide opties voordat je kiest. Houd er rekening mee dat het kortingsniveau van je tweede motor onder een regeling aan je eerste motor gekoppeld kan blijven.</p>
+<h2>Allebei verzekeren of er één schorsen?</h2>
+<p>Rijd je je tweede motor maar een deel van het jaar, dan heb je twee opties. Je laat beide motoren verzekerd, zodat je altijd op beide kunt rijden, of je laat het kenteken van de motor die stilstaat schorsen bij de RDW. Tijdens een schorsing vervalt de verzekerings- en wegenbelastingplicht, maar mag de motor niet op de openbare weg staan en kun je er dus ook niet mee rijden. Schorsen kan kosten besparen als een motor lang stilstaat, maar is onhandig als je spontaan wilt rijden. Weeg de bespaarde premie af tegen het gemak van een altijd verzekerde motor.</p>
+<table><thead><tr><th>Vraag</th><th>Antwoord</th></tr></thead><tbody>
+<tr><td>Eén polis voor twee motoren?</td><td>Nee, elke motor heeft een eigen verzekering</td></tr>
+<tr><td>Dezelfde schadevrije jaren voor beide?</td><td>Niet volledig dubbel; ze gelden per voertuig</td></tr>
+<tr><td>Tweede motor toch korting geven?</td><td>Via de tweede-voertuigregeling, onder voorwaarden</td></tr>
+<tr><td>Motor die stilstaat goedkoper houden?</td><td>Verzekerd laten of het kenteken schorsen</td></tr>
+</tbody></table>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Denken dat één polis volstaat.</strong> Elke motor met een actief kenteken heeft een eigen verzekering nodig.</li>
+<li><strong>Verwachten dat je schadevrije jaren dubbel meetellen.</strong> Ze gelden per voertuig en zijn niet volledig dubbel inzetbaar.</li>
+<li><strong>De tweede-voertuigregeling als automatisch beschouwen.</strong> Je moet hem aanvragen en aan de voorwaarden voldoen.</li>
+<li><strong>Een stilstaande tweede motor onverzekerd laten zonder te schorsen.</strong> Dat levert een boete op wegens een onverzekerd voertuig.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Sluit voor elke motor een aparte verzekering af.</li>
+<li>Vraag of je verzekeraar een tweede-voertuigregeling biedt en wat de voorwaarden zijn.</li>
+<li>Geef per polis de juiste regelmatige bestuurder en dekking op.</li>
+<li>Overweeg schorsen voor een motor die lang stilstaat.</li>
+<li>Check of je tweede motor onder de regeling zelf schadevrije jaren opbouwt.</li>
+</ul>
+<p>Wil je weten wat een tweede motor aan premie kost? Bereken het per motor via het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>. Hoe schadevrije jaren werken en meetellen, lees je in <a href="/blog/schadevrije-jaren-bij-een-motorverzekering/">schadevrije jaren bij een motorverzekering</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Kan ik twee motoren op één verzekering zetten?</h3>
+<p>Nee. Elke motor met een actief kenteken heeft een eigen WA-verzekering nodig, met een eigen premie die op die specifieke motor is gebaseerd. Je kunt twee motoren dus niet onder één polis met dezelfde dekking en schadevrije jaren laten vallen. Wel kun je beide vaak bij dezelfde verzekeraar onderbrengen, wat het beheer makkelijker maakt en toegang geeft tot een tweede-voertuigregeling. Maar administratief blijven het twee aparte verzekeringen voor twee aparte voertuigen.</p>
+<h3>Tellen mijn schadevrije jaren mee voor mijn tweede motor?</h3>
+<p>Niet automatisch en niet volledig dubbel. Schadevrije jaren worden per voertuig in Roy-data geregistreerd, dus je opgebouwde jaren op je eerste motor gaan niet vanzelf naar je tweede. Zonder regeling begint je tweede motor op een laag aantal jaren en betaal je daar een hogere premie. Met een tweede-voertuigregeling kun je je tweede motor wel een gunstig kortingsniveau geven, gekoppeld aan dat van je eerste motor. Vraag bij je verzekeraar na of en hoe die regeling geldt.</p>
+<h3>Wat is een tweede-voertuigregeling?</h3>
+<p>Een tweede-voertuigregeling is een afspraak waarmee je tweede motor een gunstig, vast kortingsniveau krijgt zonder zelf het volledige schadevrije verleden te hebben opgebouwd. Het niveau is vaak gekoppeld aan dat van je eerste motor. Gangbare voorwaarden zijn: beide voertuigen bij dezelfde verzekeraar, dezelfde regelmatige bestuurder en een schadevrij verleden op het eerste voertuig. De exacte invulling verschilt per verzekeraar. Vraag ook na of je tweede motor onder de regeling zelfstandig schadevrije jaren blijft opbouwen.</p>
+<h3>Moet ik mijn tweede motor verzekeren als ik er weinig op rijd?</h3>
+<p>Ja, zolang het kenteken actief is. De verzekeringsplicht geldt ongeacht hoe vaak je rijdt. Gebruik je je tweede motor maar een deel van het jaar, dan kun je hem het hele jaar verzekerd laten of het kenteken bij de RDW laten schorsen voor de periode dat hij stilstaat. Tijdens een schorsing vervalt de verzekeringsplicht, maar mag de motor niet op de openbare weg staan. Laat je een motor met actief kenteken onverzekerd, dan riskeer je een boete wegens een onverzekerd voertuig.</p>
+<h3>Is een tweede motor duurder of goedkoper om te verzekeren?</h3>
+<p>Dat hangt af van de motor en de regeling. De premie wordt per motor bepaald op basis van het type, de dagwaarde, de dekking en de bestuurder, dus een zwaardere of duurdere tweede motor kost meer. Zonder tweede-voertuigregeling betaal je bovendien een hogere premie omdat de motor weinig schadevrije jaren heeft. Met de regeling kan de tweede motor een gunstiger niveau krijgen. Vergelijk daarom de premie per motor en vraag na welke regeling je verzekeraar biedt om de kosten te beperken.</p>
+<h3>Bouwt mijn tweede motor zelf schadevrije jaren op?</h3>
+<p>Dat verschilt per verzekeraar en hangt af van hoe de tweede-voertuigregeling is ingericht. Krijgt je tweede motor een toegekend kortingsniveau dat is gekoppeld aan je eerste motor, dan bouwt hij niet altijd zelfstandig schadevrije jaren op. Verzeker je de tweede motor met een eigen, los opgebouwd verleden, dan groeit dat aantal per schadevrij jaar wél. Dit is belangrijk voor later: verkoop je je eerste motor of stap je over, dan wil je weten welk schadevrij verleden aan je tweede motor is gekoppeld. Vraag dit expliciet na bij het afsluiten.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
