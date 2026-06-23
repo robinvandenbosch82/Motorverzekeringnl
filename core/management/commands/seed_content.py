@@ -518,6 +518,53 @@ BLOG_BODIES = {
 <h3>Geldt mijn pechhulp ook in het buitenland?</h3>
 <p>Pechhulp en repatriëring zitten meestal niet standaard in een motorverzekering. Wil je dat je motor na pech of een ongeval in het buitenland gerepareerd of teruggebracht wordt, dan regel je dat via een aparte pechhulpdekking of een reisbijstandsverzekering. Controleer vóór vertrek of je zo'n dekking hebt en tot welk bedrag en gebied die geldt. Voor een dure of nieuwe motor weegt deze extra dekking vaak op tegen de kosten, omdat repatriëring over een grote afstand fors kan oplopen.</p>
 """,
+    "Een motor verzekeren zonder rijbewijs": """
+<p>Je kunt een motor op je naam zetten en verzekeren zonder dat je een motorrijbewijs hebt. Bezit en verzekering staan namelijk los van de vraag of je zelf mag rijden. Wat je <strong>niet</strong> mag, is zelf op die motor de weg op zonder geldig rijbewijs A. Sterker nog: zodra je motor een actief kenteken heeft, ben je wettelijk <em>verplicht</em> hem te verzekeren, ook als hij alleen in de schuur staat.</p>
+<h2>De kernregel: bezit en verzekering staan los van rijbevoegdheid</h2>
+<p>De WA-verzekering hoort bij het voertuig en de kentekenhouder, niet bij een rijbewijs. Je kunt dus eigenaar zijn van een motor, hem op je naam registreren bij de RDW en een verzekering afsluiten, zonder dat je in het bezit bent van een motorrijbewijs. De verplichting om te verzekeren volgt uit de Wet aansprakelijkheidsverzekering motorrijtuigen (WAM): elk motorrijtuig met een actief kenteken moet een geldige WA-dekking hebben. Of de eigenaar mag rijden, staat daar helemaal los van.</p>
+<h2>Een motor op naam zonder rijbewijs: wanneer komt dit voor?</h2>
+<p>Er zijn genoeg situaties waarin iemand een motor bezit zonder (al) te mogen rijden. Je koopt bijvoorbeeld vast een motor terwijl je nog voor je rijbewijs A oefent, je erft of krijgt een motor, je koopt een klassieker als verzamelobject, of je partner of huisgenoot is de eigenlijke rijder terwijl de motor op jouw naam staat. In al die gevallen mag de motor op je naam staan en moet hij verzekerd zijn. Het enige dat niet mag, is dat je er zelf op rijdt zonder geldig rijbewijs.</p>
+<h2>Verzekeren is verplicht zolang het kenteken actief is</h2>
+<p>Zolang je motor een actief kenteken heeft, moet hij verzekerd zijn, ongeacht of er iemand op rijdt. Rijd je voorlopig niet, dan heb je twee legale opties: de motor gewoon verzekerd laten staan, of het kenteken bij de RDW laten <strong>schorsen</strong>. Tijdens een schorsing vervalt de verzekerings- en wegenbelastingplicht, maar mag de motor niet op de openbare weg of openbare parkeerplaatsen staan; hij moet op eigen, niet-openbaar terrein staan. Doe je geen van beide, dan riskeer je een boete van de RDW wegens een onverzekerd voertuig, ook als de motor nooit de schuur uit komt.</p>
+<h2>Wie rijdt er op de motor? De regelmatige bestuurder</h2>
+<p>Bij het afsluiten vraagt de verzekeraar wie de regelmatige bestuurder is: de persoon die het vaakst op de motor rijdt. De premie wordt op die persoon gebaseerd, bijvoorbeeld op diens leeftijd, woonplaats en schadevrije jaren. Sta jij als eigenaar zonder rijbewijs op de polis terwijl je partner in werkelijkheid rijdt, geef dan je partner als regelmatige bestuurder op. Geef je dit verkeerd op, dan klopt de premie niet en kan de verzekeraar bij schade de dekking beperken of weigeren. Eerlijk invullen wie er rijdt, is dus geen detail maar bepaalt of je verzekering bij een claim standhoudt.</p>
+<h2>Wat gebeurt er als je zonder geldig rijbewijs rijdt?</h2>
+<p>Rijden zonder geldig rijbewijs A is een overtreding, en de gevolgen bij schade zijn fors. De WA-verzekering beschermt het slachtoffer: schade die je aan een ander toebrengt, wordt door de verzekeraar uitgekeerd aan dat slachtoffer. Maar omdat je zonder bevoegdheid reed, mag de verzekeraar dat uitgekeerde bedrag vervolgens op jou <strong>verhalen</strong>. Schade aan je eigen motor onder een casco-dekking wordt in zo'n geval doorgaans niet vergoed, omdat de polisvoorwaarden rijden zonder geldig rijbewijs uitsluiten. Daarbovenop komen een verkeersboete en mogelijk strafrechtelijke gevolgen. Kortom: het slachtoffer is beschermd, maar jij draait financieel zelf voor de schade op.</p>
+<table><thead><tr><th>Situatie</th><th>Mag het?</th><th>Gevolg</th></tr></thead><tbody>
+<tr><td>Motor op je naam zetten zonder rijbewijs</td><td>Ja</td><td>Geen probleem; je bent wel verzekeringsplichtig</td></tr>
+<tr><td>Motor verzekeren zonder rijbewijs</td><td>Ja</td><td>Mag; geef de juiste regelmatige bestuurder op</td></tr>
+<tr><td>Motor verzekerd laten staan terwijl je niet rijdt</td><td>Ja</td><td>Verplicht zolang het kenteken actief is</td></tr>
+<tr><td>Kenteken schorsen in plaats van verzekeren</td><td>Ja</td><td>Mag; motor moet op eigen terrein staan</td></tr>
+<tr><td>Zelf rijden zonder geldig rijbewijs</td><td>Nee</td><td>Boete, verhaal van WA-schade, geen casco-uitkering</td></tr>
+</tbody></table>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Denken dat een onverzekerde motor in de schuur geen probleem is.</strong> Met een actief kenteken moet hij verzekerd zijn of geschorst.</li>
+<li><strong>Jezelf als bestuurder opgeven terwijl je niet rijdt.</strong> Geef de werkelijke regelmatige bestuurder op, anders klopt de dekking niet.</li>
+<li><strong>Toch even een stukje rijden zonder rijbewijs.</strong> Bij schade verhaalt de verzekeraar en vergoedt casco niets.</li>
+<li><strong>Schorsen maar de motor op straat laten staan.</strong> Tijdens een schorsing mag de motor niet op de openbare weg staan.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Bepaal of je de motor verzekert of het kenteken laat schorsen.</li>
+<li>Zet bij verzekeren de juiste regelmatige bestuurder op de polis.</li>
+<li>Rijd zelf pas zodra je je rijbewijs A hebt gehaald.</li>
+<li>Zet de motor bij schorsing op eigen, niet-openbaar terrein.</li>
+<li>Pas je polis aan zodra je zelf gaat rijden.</li>
+</ul>
+<p>Wil je weten wat een verzekering kost als de motor op jouw naam staat? Vul de juiste bestuurder in bij het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>. Welke factoren die premie verder bepalen, lees je in <a href="/blog/wat-kost-een-motorverzekering-in-nederland/">wat kost een motorverzekering in Nederland</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Mag ik een motor op mijn naam hebben zonder motorrijbewijs?</h3>
+<p>Ja. Je mag een motor kopen, op je naam registreren bij de RDW en verzekeren zonder dat je een motorrijbewijs hebt. Bezit en registratie staan los van de vraag of je mag rijden. Wel ben je vanaf het moment dat de motor op je naam staat en het kenteken actief is, verplicht hem te verzekeren of te laten schorsen. Het enige dat je zonder geldig rijbewijs A niet mag, is zelf op de motor de openbare weg op.</p>
+<h3>Moet ik mijn motor verzekeren als ik er niet op rijd?</h3>
+<p>Ja, zolang het kenteken actief is. De Wet aansprakelijkheidsverzekering motorrijtuigen verplicht elke motor met een actief kenteken tot een WA-verzekering, ook als hij alleen in de schuur staat. Rijd je voorlopig niet, dan kun je het kenteken bij de RDW laten schorsen; dan vervalt de verzekeringsplicht, maar moet de motor op eigen, niet-openbaar terrein staan. Doe je niets, dan krijg je een boete wegens een onverzekerd voertuig, ook zonder ooit te rijden.</p>
+<h3>Wie geef ik op als bestuurder als ik zelf niet rijd?</h3>
+<p>Geef de persoon op die in werkelijkheid het vaakst op de motor rijdt, de regelmatige bestuurder. Sta jij als eigenaar op de polis maar rijdt je partner, dan vul je je partner als regelmatige bestuurder in. De verzekeraar baseert de premie op die persoon. Vul je dit verkeerd in, dan klopt de premie niet en kan de verzekeraar bij schade de dekking beperken of weigeren. Geef daarom altijd eerlijk op wie er rijdt.</p>
+<h3>Wat gebeurt er bij schade als ik zonder geldig rijbewijs rijd?</h3>
+<p>Het slachtoffer wordt beschermd: de WA-verzekeraar keert de schade aan de tegenpartij uit. Omdat je zonder geldig rijbewijs reed, mag de verzekeraar dat bedrag daarna op jou verhalen. Schade aan je eigen motor onder casco wordt meestal niet vergoed, omdat rijden zonder rijbewijs in de voorwaarden is uitgesloten. Daarnaast riskeer je een boete en mogelijk strafrechtelijke gevolgen. Je bent dus niet onverzekerd voor het slachtoffer, maar draait de kosten uiteindelijk zelf.</p>
+<h3>Kan ik vast een motor kopen en verzekeren terwijl ik nog mijn rijbewijs haal?</h3>
+<p>Ja, dat kan. Je mag de motor kopen, op je naam zetten en verzekeren terwijl je nog voor je rijbewijs A oefent. Houd er rekening mee dat je pas zelf mag rijden zodra je het rijbewijs hebt gehaald; tot die tijd rijd je tijdens lessen onder de verzekering van de rijschool. Wil je in de tussentijd geen premie betalen, dan kun je het kenteken laten schorsen tot je je rijbewijs hebt. Pas daarna zet je de verzekering weer actief en ga je zelf rijden.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
