@@ -349,6 +349,66 @@ BLOG_BODIES = {
 <h3>Wat is bonus-malus?</h3>
 <p>Bonus-malus is het systeem waarmee verzekeraars je schadevrije jaren omzetten in een kortingspercentage. Elk schadevrij jaar laat je een trede stijgen (bonus) met een hogere korting; een geclaimde schade laat je een aantal treden dalen (malus), met een lagere korting en een hogere premie. Elke verzekeraar gebruikt een eigen bonus-malustabel, dus hetzelfde aantal schadevrije jaren kan bij twee maatschappijen een andere korting opleveren. Bij overstappen tellen je werkelijke schadevrije jaren uit Roy-data, niet de trede waarop je bij je oude verzekeraar stond. Daarom kan je korting na een overstap iets afwijken, ook al neem je hetzelfde aantal jaren mee.</p>
 """,
+    "Welke beveiligingseisen stellen verzekeraars aan je motor?": """
+<p>Voor een motorverzekering eist vrijwel elke verzekeraar een goedgekeurd slot, en bij duurdere of nieuwere motoren vaak ook elektronische beveiliging. De meest voorkomende eis is een <strong>ART-goedgekeurd slot</strong>: voor de meeste motoren minimaal klasse 3, in grote steden of voor dure motoren klasse 4. Houd je je niet aan de gestelde eisen, dan kan de verzekeraar bij diefstal de uitkering weigeren.</p>
+<h2>De kernregel: de eis staat in je polisvoorwaarden</h2>
+<p>De exacte beveiligingseisen verschillen per verzekeraar en per motor, maar ze staan altijd in je polisvoorwaarden of in de clausules bij je polis. Daar lees je welke slotklasse je nodig hebt, of er een alarm of startonderbreker vereist is, en of de motor in een afgesloten ruimte gestald moet worden. Het zijn geen vrijblijvende adviezen, maar voorwaarden voor je cascodekking. Voldoe je er niet aan op het moment van diefstal, dan vervalt je recht op uitkering voor de schade aan je eigen motor. Lees deze eisen daarom voordat je de motor verzekert, en niet pas nadat er iets is gebeurd.</p>
+<h2>ART-sloten: de klassen uitgelegd</h2>
+<p>ART staat voor de onafhankelijke Stichting ART, die motorsloten test op inbraakwerendheid en ze sterren (klassen) toekent. De keuring loopt van klasse 1 (lichtste beveiliging) tot klasse 5 (zwaarste). Hoe hoger de klasse, hoe langer een dief erover doet en hoe meer gereedschap nodig is. Voor motoren zijn vooral klasse 3 en 4 relevant; klasse 5 zie je bij zware kettingen en grondankers voor stalling thuis.</p>
+<table><thead><tr><th>ART-klasse</th><th>Type slot</th><th>Wanneer gevraagd</th></tr></thead><tbody>
+<tr><td>Klasse 2</td><td>Schijfremslot (licht)</td><td>Aanvullend, zelden als enige eis</td></tr>
+<tr><td>Klasse 3</td><td>Beugel- of kettingslot</td><td>Standaardeis voor veel motoren</td></tr>
+<tr><td>Klasse 4</td><td>Zwaar ketting- of beugelslot</td><td>Grote steden, duurdere en nieuwere motoren</td></tr>
+<tr><td>Klasse 5</td><td>Zware ketting met grondanker</td><td>Hoog risico, dure motoren, stalling thuis</td></tr>
+</tbody></table>
+<p>Een ART-goedgekeurd slot herken je aan het ART-keurmerk met het aantal sterren. Let op het verschil tussen het slot zelf en de manier waarop je het gebruikt: een kettingslot dat los om je motor hangt biedt minder bescherming dan hetzelfde slot vast aan een grondanker of een vast object. Verzekeraars kijken bij een claim naar beide.</p>
+<h2>SCM-beveiliging: alarm, startonderbreker en volgsysteem</h2>
+<p>Naast een mechanisch slot kan een verzekeraar elektronische beveiliging eisen, gecertificeerd door de Stichting Certificering Motorrijtuigbeveiliging (SCM). Het gaat dan om een startonderbreker, een alarmsysteem met kanteldetectie, of een voertuigvolgsysteem (track-and-trace) waarmee een gestolen motor terug te vinden is. Voor dure of diefstalgevoelige motoren is een combinatie van een goedgekeurd slot én een SCM-systeem soms verplicht. In onze premietool kies je bij <strong>beveiliging van je motor</strong> precies wat je hebt, van een ART klasse 3-slot tot een ART 5-slot in combinatie met een startonderbreker, alarm of volgsysteem. Die keuze bepaalt mede je premie en of een verzekeraar je accepteert.</p>
+<h2>Welke beveiliging eist een verzekeraar voor jouw situatie?</h2>
+<p>De zwaarte van de eis hangt af van het risico. Als richtlijn hanteren verzekeraars iets als het volgende, maar de exacte eis lees je in je polisvoorwaarden:</p>
+<table><thead><tr><th>Situatie</th><th>Meestal vereist</th></tr></thead><tbody>
+<tr><td>Standaard motor</td><td>ART klasse 3</td></tr>
+<tr><td>Grote stad of hoog-risicogebied</td><td>ART klasse 4</td></tr>
+<tr><td>Nieuwe of dure motor</td><td>ART klasse 4 plus alarm of volgsysteem</td></tr>
+<tr><td>Stalling thuis</td><td>Ketting van klasse 4 of 5 aan een grondanker</td></tr>
+</tbody></table>
+<p>Een goed slot doet meer dan dekking veiligstellen: omdat het de diefstalkans verlaagt, verlagen veel verzekeraars er ook je premie mee. Een zwaardere beveiliging dan strikt vereist kan dus zowel je dekking als je premie gunstig beïnvloeden.</p>
+<h2>Stalling telt ook mee</h2>
+<p>Niet alleen het slot, maar ook waar je de motor stalt weegt mee. Een motor in een afgesloten garage of schuur loopt minder diefstalrisico dan een motor op straat, en dat zie je terug in de voorwaarden en de premie. Sommige verzekeraars vragen voor de duurste motoren dat deze 's nachts in een afgesloten ruimte staat. In onze premietool geef je daarom apart op of je motor in een afgesloten ruimte staat; dat is een van de gegevens waarop je premie wordt gebaseerd.</p>
+<h2>Wat gebeurt er als je je niet aan de eisen houdt?</h2>
+<p>De gevolgen zijn concreet. Eist je verzekeraar een ART klasse 4-slot en gebruik je een lichter slot, dan kan een diefstaluitkering worden afgewezen. Hetzelfde geldt als je het juiste slot wel hebt, maar het niet hebt gebruikt: stond de motor niet op slot, dan vervalt vaak de dekking. Bij een claim vraagt de verzekeraar bovendien om de originele sleutels en het bewijs van het goedgekeurde slot; kun je die niet leveren, dan is dat een reden om niet uit te keren. Beveiliging is dus geen formaliteit, maar bepaalt of je bij diefstal daadwerkelijk je geld krijgt.</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Een te licht slot gebruiken.</strong> Een schijfremslot is handig, maar voldoet zelden aan de eis van klasse 3 of 4 als enige beveiliging.</li>
+<li><strong>Het slot niet gebruiken.</strong> Een goedgekeurd slot dat in je tas zit, telt bij diefstal niet mee.</li>
+<li><strong>De ketting niet vastzetten.</strong> Een ketting los om de motor is zwakker dan vast aan een anker of vast object.</li>
+<li><strong>De eis niet checken bij een duurdere motor.</strong> Voor een nieuwe of dure motor geldt vaak klasse 4 plus elektronische beveiliging; ga niet uit van klasse 3.</li>
+<li><strong>De sleutels en het slotbewijs niet bewaren.</strong> Je hebt ze nodig bij een claim.</li>
+</ul>
+<h2>Praktijkvoorbeeld</h2>
+<p>Een rijder met een nieuwe motor in een grote stad sluit een verzekering met cascodekking af. In de voorwaarden staat een ART klasse 4-slot als eis. Hij gebruikt een klasse 3-slot omdat dat lichter is. De motor wordt gestolen. Bij de claim stelt de verzekeraar vast dat het gebruikte slot niet aan de eis voldoet en wijst de uitkering af. Met het juiste slot, en bewijs dat het gebruikt was, had hij de dagwaarde vergoed gekregen. Het verschil tussen wel en geen uitkering zat hier puur in het naleven van de beveiligingseis.</p>
+<h2>Checklist</h2>
+<ul>
+<li>Lees in je polisvoorwaarden welke slotklasse en eventuele elektronische beveiliging vereist zijn.</li>
+<li>Koop een ART-goedgekeurd slot van minimaal de gevraagde klasse.</li>
+<li>Gebruik het slot altijd, en zet een ketting vast aan een anker of vast object.</li>
+<li>Stal de motor zo veilig mogelijk, bij voorkeur in een afgesloten ruimte.</li>
+<li>Bewaar de originele sleutels en het aankoopbewijs van het slot.</li>
+<li>Controleer bij een duurdere motor of een alarm of volgsysteem verplicht is.</li>
+</ul>
+<p>Welke beveiliging voor jouw motor meetelt en wat dat met je premie doet, zie je direct als je je <a href="/motorverzekering-berekenen/">premie berekent</a> met je kenteken. Een uitleg over welke ART-klasse je precies nodig hebt, lees je in het artikel <a href="/kennisbank/welk-art-slot-heb-ik-nodig/">welk ART-slot heb ik nodig</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Welk ART-slot heb ik minimaal nodig?</h3>
+<p>Voor de meeste motoren is een ART-goedgekeurd slot van klasse 3 de minimumeis. In grote steden, hoog-risicogebieden of voor duurdere en nieuwere motoren vragen verzekeraars vaak klasse 4. De precieze eis staat in je polisvoorwaarden en kan per verzekeraar verschillen. Ga niet uit van een algemene aanname, maar controleer wat jouw verzekeraar eist; bij diefstal wordt namelijk getoetst of je aan die specifieke eis voldeed.</p>
+<h3>Is een schijfremslot voldoende?</h3>
+<p>Een schijfremslot is een nuttige aanvulling, maar voldoet als enige beveiliging zelden aan de eis van klasse 3 of 4. Een schijfremslot blokkeert de remschijf, maar voorkomt niet dat een motor wordt opgetild en weggedragen. Verzekeraars vragen daarom voor de hoofdeis meestal een zwaarder beugel- of kettingslot, eventueel in combinatie met een schijfremslot. Combineer je twee verschillende sloten, dan kost dat een dief meer tijd en gereedschap.</p>
+<h3>Moet ik mijn slot ook echt gebruiken?</h3>
+<p>Ja. Het bezitten van een goedgekeurd slot is niet genoeg: het moet bij diefstal ook daadwerkelijk gebruikt zijn. Stond de motor niet op slot, of zat de ketting niet vast aan een anker of vast object, dan kan de verzekeraar de uitkering weigeren. Bij een claim moet je bovendien de originele sleutels kunnen overleggen. Maak er daarom een gewoonte van het slot altijd te gebruiken, ook voor korte stops.</p>
+<h3>Heb ik naast een slot ook een alarm nodig?</h3>
+<p>Voor een standaardmotor is een goedgekeurd slot meestal voldoende. Voor nieuwe of dure motoren eisen verzekeraars vaak aanvullende elektronische beveiliging, zoals een SCM-gecertificeerde startonderbreker, een alarm met kanteldetectie of een volgsysteem. Of dit verplicht is, hangt af van de waarde van je motor en je verzekeraar. In onze premietool kies je je beveiliging, waaronder combinaties van een slot met een alarm of volgsysteem, en zie je het effect op je premie.</p>
+<h3>Waar zie ik welke beveiliging mijn verzekeraar eist?</h3>
+<p>De beveiligingseisen staan in je polisvoorwaarden en in de clausules bij je polis. Daar lees je de vereiste slotklasse en of elektronische beveiliging of een bepaalde stalling verplicht is. Twijfel je, vraag het dan na bij je verzekeraar voordat je de motor verzekert. Bij het berekenen van je premie geef je zelf je beveiliging op, zodat de premie en acceptatie op de juiste situatie zijn gebaseerd.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
