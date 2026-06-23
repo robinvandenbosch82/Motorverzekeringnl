@@ -105,9 +105,22 @@ class KennisbankSitemap(_CanonicalSitemap):
         return obj.get_absolute_url()
 
 
+class BlogSitemap(_CanonicalSitemap):
+    changefreq = "monthly"
+    priority = 0.6
+
+    def items(self):
+        from .models import BlogArtikel
+        return BlogArtikel.objects.filter(active=True).order_by("order")
+
+    def location(self, obj):
+        return obj.get_absolute_url()
+
+
 SITEMAPS = {
     "pages": PageSitemap,
     "extra": ExtraSitemap,
     "content": ContentPaginaSitemap,
     "kennisbank": KennisbankSitemap,
+    "blog": BlogSitemap,
 }

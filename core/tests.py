@@ -121,22 +121,16 @@ class ImageRenderingTests(TestCase):
     """Images must render as crawlable/accessible <img> with alt — never as a
     CSS background-image (no alt, not indexable, bad LCP)."""
 
-    # Pages that carry an editorial image. blog_artikel is the MV redesign (hero
-    # image); the rest are legacy bestelauto detail pages. (dekkingen and
-    # kennisbank_artikel are MV redesigns without images — check_pages covers them.)
-    DETAIL_PAGES = [
-        "blog_artikel",
-    ]
-
-    def test_detail_pages_use_img_with_alt_not_background_image(self):
-        for name in self.DETAIL_PAGES:
-            with self.subTest(page=name):
-                html = self.client.get(reverse(name)).content.decode()
-                self.assertIn("<img ", html, f"{name} heeft geen <img>")
-                self.assertIn('alt="', html, f"{name} heeft geen alt-tekst")
-                self.assertNotIn(
-                    "background-image:url('http", html,
-                    f"{name} gebruikt nog een CSS background-image i.p.v. <img>")
+    def test_blog_detail_uses_img_with_alt_not_background_image(self):
+        from core.models import BlogArtikel
+        art = BlogArtikel.objects.create(
+            titel="Testartikel met beeld", categorie="Premie", excerpt="x",
+            body_html="<p>Body.</p>", photo_url="img/motor/moto-11890953.jpg")
+        html = self.client.get(art.get_absolute_url()).content.decode()
+        self.assertIn("<img ", html, "blog-artikel heeft geen <img>")
+        self.assertIn('alt="', html, "blog-artikel heeft geen alt-tekst")
+        self.assertNotIn("background-image:url('http", html,
+                         "blog-artikel gebruikt nog een CSS background-image i.p.v. <img>")
 
     def test_db_driven_blog_image_renders_as_img_with_alt(self):
         # The blog overview is driven by the BlogArtikel model (admin = source).

@@ -116,36 +116,226 @@ VZ_DETAILS = {
     },
 }
 
-# (titel, categorie, leestijd, datum, featured, image, excerpt). `image` is a
-# static path (rendered via {% static %}); the bundled motor photos live in
-# static/img/motor/. Mirrors the Claude Design blog.
+# SEO-blogonderwerpen (titel, categorie, leestijd, image, excerpt, meta_title,
+# meta_description). `image` is een static-pad. Body's staan in BLOG_BODIES; een
+# artikel zonder body is een concept (active=False, nog niet zichtbaar).
 BLOG = [
-    ("Maak je motor rijklaar na de winterstop", "Onderhoud", "6 min", "", True,
-     "img/motor/moto-11890953.jpg",
-     "Na maanden stilstand vraagt je motor om aandacht. Met deze checklist sta je veilig en "
-     "zonder verrassingen weer op de weg."),
-    ("Welk ART-slot heb je echt nodig?", "Veiligheid", "4 min", "", False,
-     "img/motor/moto-1413412.jpg",
-     "Klasse 3 of 4? We leggen uit welke beveiliging je verzekeraar vraagt en hoe een goed slot "
-     "je premie verlaagt."),
-    ("De mooiste motorroutes door de Ardennen", "Touring", "7 min", "", False,
-     "img/motor/moto-1715193.jpg",
-     "Haarspeldbochten, weidse uitzichten en de beste tussenstops voor een weekend rijden net "
-     "over de grens."),
-    ("Schadevrije jaren: zo werkt je no-claim", "Verzekering", "5 min", "", False,
-     "img/motor/moto-18323972.jpg",
-     "Hoe bouw je korting op, wat gebeurt er na schade en kun je je jaren meenemen? Alles "
-     "overzichtelijk op een rij."),
-    ("Beschermende kleding: waar let je op?", "Veiligheid", "5 min", "", False,
-     "img/motor/moto-5093663.jpg",
-     "Van CE-protectoren tot het juiste materiaal, wat je gear moet kunnen voordat jij de weg op gaat."),
-    ("Bandenspanning en profiel: de basis", "Onderhoud", "3 min", "", False,
-     "img/motor/moto-8985454.jpg",
-     "De twee checks die je grip en veiligheid het meest beïnvloeden, en hoe vaak je ze het beste doet."),
-    ("Winterstop: stopzetten of toch doorlopen?", "Verzekering", "4 min", "", False,
-     "img/motor/moto-2611686.jpg",
-     "Rij je 's winters niet? Zo kies je tussen winterstop-korting en doorlopende dekking tegen diefstal."),
+    {"titel": "WA, WA+ of Allrisk: welke motorverzekering past bij jouw motor?",
+     "categorie": "Dekkingen", "leestijd": "7 min", "image": "img/motor/moto-11890953.jpg",
+     "excerpt": "WA, WA+ of Allrisk? De dekkingen, de verschillen en de situaties waarin je niet wordt uitgekeerd, zodat je een bewuste keuze maakt.",
+     "meta_title": "WA, WA+ of Allrisk motorverzekering: welke kies je? | Motorverzekering.nl",
+     "meta_description": "WA dekt alleen schade aan anderen, WA+ voegt diefstal en brand toe, Allrisk dekt ook eigen schade. Zo bepaal je welke dekking bij jouw motor past."},
+    {"titel": "Wat kost een motorverzekering in Nederland?",
+     "categorie": "Premie", "leestijd": "6 min", "image": "img/motor/moto-1715193.jpg",
+     "excerpt": "Welke factoren je premie bepalen, waarom prijzen zo verschillen en hoe je grip krijgt op de kosten van je motorverzekering.",
+     "meta_title": "Wat kost een motorverzekering? De prijsfactoren op een rij | Motorverzekering.nl",
+     "meta_description": "Je premie hangt af van je motor, leeftijd, woonplaats, schadevrije jaren en dekking. Lees welke factoren de kosten van een motorverzekering bepalen."},
+    {"titel": "Groene kaart en motorverzekering in het buitenland",
+     "categorie": "Op reis", "leestijd": "5 min", "image": "img/motor/moto-5093663.jpg",
+     "excerpt": "Wat de groene kaart is, in welke landen je verzekerd bent en waar je op moet letten als je met de motor naar het buitenland gaat.",
+     "meta_title": "Groene kaart motorverzekering: verzekerd in het buitenland | Motorverzekering.nl",
+     "meta_description": "De groene kaart (internationaal verzekeringsbewijs) toont waar je WA-dekking geldt. Lees hoe het werkt en waar je op let bij motorrijden in het buitenland."},
+    {"titel": "Schadevrije jaren bij een motorverzekering",
+     "categorie": "Premie", "leestijd": "6 min", "image": "img/motor/moto-18323972.jpg",
+     "excerpt": "Hoe je schadevrije jaren opbouwt, wat een schade kost aan no-claimkorting en hoe je je jaren opvraagt en meeneemt.",
+     "meta_title": "Schadevrije jaren motorverzekering: opbouw, no-claim en terugval | Motorverzekering.nl",
+     "meta_description": "Schadevrije jaren bepalen je no-claimkorting. Lees hoe je ze opbouwt, wat een schade kost, hoe Roy-data werkt en hoe je je jaren meeneemt."},
+    {"titel": "Schadevrije jaren van auto naar motor meenemen",
+     "categorie": "Premie", "leestijd": "5 min", "image": "img/motor/moto-8985454.jpg",
+     "excerpt": "Kun je schadevrije jaren van je auto gebruiken voor je motor? De regels, de uitzonderingen en hoe verzekeraars hiermee omgaan.",
+     "meta_title": "Schadevrije jaren van auto naar motor meenemen: kan dat? | Motorverzekering.nl",
+     "meta_description": "Schadevrije jaren van auto en motor worden apart geregistreerd. Lees of en hoe je ze kunt overzetten en waar verzekeraars op letten."},
+    {"titel": "Een motor verzekeren zonder rijbewijs",
+     "categorie": "Verzekering afsluiten", "leestijd": "5 min", "image": "img/motor/moto-1413412.jpg",
+     "excerpt": "Mag je een motor op naam hebben en verzekeren zonder rijbewijs? Wat mag wel, wat niet en wat gebeurt er bij schade.",
+     "meta_title": "Een motor verzekeren zonder rijbewijs: mag dat? | Motorverzekering.nl",
+     "meta_description": "Je kunt een motor op naam hebben en verzekeren zonder motorrijbewijs, maar zelf rijden mag niet. Lees wat dit betekent voor dekking en schade."},
+    {"titel": "Zijn helm, motorkleding en accessoires meeverzekerd?",
+     "categorie": "Dekkingen", "leestijd": "5 min", "image": "img/motor/moto-5093663.jpg",
+     "excerpt": "Wanneer je helm, kleding en accessoires wel en niet zijn meeverzekerd, en hoe je dit op je polis regelt.",
+     "meta_title": "Helm en motorkleding meeverzekerd? Zo zit het | Motorverzekering.nl",
+     "meta_description": "Helm, motorkleding en accessoires zijn niet standaard meeverzekerd. Lees onder welke dekking en voorwaarden ze wel vergoed worden."},
+    {"titel": "Welke beveiligingseisen stellen verzekeraars aan je motor?",
+     "categorie": "Beveiliging", "leestijd": "5 min", "image": "img/motor/moto-2611686.jpg",
+     "excerpt": "Van ART-sloten tot stalling: welke beveiliging verzekeraars eisen en wat er gebeurt als je je er niet aan houdt.",
+     "meta_title": "Beveiligingseisen motorverzekering: ART-slot en meer | Motorverzekering.nl",
+     "meta_description": "Verzekeraars eisen vaak een ART-goedgekeurd slot van klasse 3 of 4. Lees welke beveiligingseisen gelden en wat de gevolgen zijn bij diefstal."},
+    {"titel": "Eendagskenteken voor je motor verzekeren",
+     "categorie": "Verzekering afsluiten", "leestijd": "4 min", "image": "img/motor/moto-1715193.jpg",
+     "excerpt": "Wat een eendagskenteken is, wanneer je het gebruikt en hoe je een motor voor één dag verzekert.",
+     "meta_title": "Eendagskenteken motor verzekeren: hoe werkt het? | Motorverzekering.nl",
+     "meta_description": "Met een eendagskenteken rijd je een ongekentekende motor één dag legaal, bijvoorbeeld naar de RDW-keuring. Lees hoe je dit verzekert."},
+    {"titel": "Oldtimer motorverzekering: wanneer is het voordeliger?",
+     "categorie": "Bijzondere motoren", "leestijd": "5 min", "image": "img/motor/moto-11890953.jpg",
+     "excerpt": "Wanneer een motor als oldtimer telt, welke voorwaarden gelden en wanneer een oldtimerverzekering loont.",
+     "meta_title": "Oldtimer motorverzekering: voorwaarden en wanneer voordelig | Motorverzekering.nl",
+     "meta_description": "Voor klassieke motoren bestaan aparte oldtimerverzekeringen. Lees vanaf welke leeftijd, welke voorwaarden gelden en wanneer het voordelig is."},
+    {"titel": "Een tweede motor verzekeren",
+     "categorie": "Bijzondere motoren", "leestijd": "4 min", "image": "img/motor/moto-1413412.jpg",
+     "excerpt": "Hoe je een tweede motor verzekert, hoe schadevrije jaren werken bij meerdere motoren en wat de tweede-voertuigregeling inhoudt.",
+     "meta_title": "Tweede motor verzekeren: schadevrije jaren en regelingen | Motorverzekering.nl",
+     "meta_description": "Bij een tweede motor sluit je een aparte verzekering af. Lees hoe schadevrije jaren werken en wat een tweede-voertuigregeling betekent."},
+    {"titel": "Winterstop of motor schorsen: wat is slimmer?",
+     "categorie": "Premie", "leestijd": "5 min", "image": "img/motor/moto-18323972.jpg",
+     "excerpt": "Het verschil tussen een winterstopregeling en je kenteken schorsen bij de RDW, met de voor- en nadelen op een rij.",
+     "meta_title": "Winterstop of motor schorsen: wat is slimmer? | Motorverzekering.nl",
+     "meta_description": "Rij je 's winters niet? Vergelijk de winterstopregeling met het schorsen van je kenteken bij de RDW: dekking, kosten en wat mag."},
 ]
+
+# Volledig uitgeschreven artikelen (titel -> body_html). Feitelijk, geen fluff.
+# Artikelen zonder body blijven concept (active=False).
+BLOG_BODIES = {
+    "WA, WA+ of Allrisk: welke motorverzekering past bij jouw motor?": """
+<p>Er zijn drie dekkingen voor een motorverzekering: <strong>WA</strong> dekt alleen schade die je aan anderen toebrengt en is wettelijk verplicht. <strong>WA + Beperkt Casco (WA+)</strong> voegt daar schade aan je eigen motor door diefstal, brand, storm, ruitbreuk en aanrijding met dieren aan toe. <strong>Allrisk (WA + Volledig Casco)</strong> dekt daarnaast ook schade aan je eigen motor die je zelf veroorzaakt, zoals een val of een eenzijdige aanrijding.</p>
+<h2>De kernregel: de dekking volgt de waarde en het risico</h2>
+<p>De keuze tussen WA, WA+ en Allrisk draait om twee vragen: hoeveel is je motor waard en hoeveel risico wil je zelf dragen? Bij een motor met een hoge dagwaarde verlies je veel als die wordt gestolen of total loss raakt; dan dekt casco dat risico af. Bij een afgeschreven motor met een lage dagwaarde is de mogelijke uitkering klein, terwijl je voor casco wel premie betaalt. De afweging is dus de cascopremie tegenover het bedrag dat je maximaal vergoed krijgt.</p>
+<h2>Wat dekt elke variant precies?</h2>
+<table><thead><tr><th>Gebeurtenis</th><th>WA</th><th>WA+</th><th>Allrisk</th></tr></thead><tbody>
+<tr><td>Schade aan anderen</td><td>Ja</td><td>Ja</td><td>Ja</td></tr>
+<tr><td>Diefstal en inbraak</td><td>Nee</td><td>Ja</td><td>Ja</td></tr>
+<tr><td>Brand, ontploffing, kortsluiting</td><td>Nee</td><td>Ja</td><td>Ja</td></tr>
+<tr><td>Storm, hagel, bliksem, natuur</td><td>Nee</td><td>Ja</td><td>Ja</td></tr>
+<tr><td>Ruitbreuk</td><td>Nee</td><td>Ja</td><td>Ja</td></tr>
+<tr><td>Aanrijding met een dier</td><td>Nee</td><td>Ja</td><td>Ja</td></tr>
+<tr><td>Eigen schuld (val, eenzijdig)</td><td>Nee</td><td>Nee</td><td>Ja</td></tr>
+<tr><td>Vandalisme aan je motor</td><td>Nee</td><td>Soms</td><td>Ja</td></tr>
+</tbody></table>
+<p>De precieze invulling van beperkt casco verschilt per verzekeraar. Vandalisme valt bij de ene maatschappij wel en bij de andere niet onder WA+. Controleer dit in de polisvoorwaarden of op de verzekeringskaart.</p>
+<h2>Wanneer kies je welke dekking?</h2>
+<h3>WA</h3>
+<p>WA is de wettelijk verplichte minimumdekking. Het past bij een oudere motor met een lage dagwaarde, waarbij je het risico op diefstal of eigen schade zelf wilt dragen. Houd er rekening mee dat je bij diefstal of een val niets vergoed krijgt voor je eigen motor; alleen de schade die je aan anderen veroorzaakt is gedekt.</p>
+<h3>WA + Beperkt Casco</h3>
+<p>WA+ past bij een motor die nog waarde heeft en waarbij diefstal en brand je grootste zorgen zijn. Je bent verzekerd tegen schade die je niet zelf veroorzaakt, maar niet tegen een val of een aanrijding door eigen toedoen. Voor veel motorrijders is dit de tussenweg tussen prijs en dekking.</p>
+<h3>Allrisk</h3>
+<p>Allrisk past bij een nieuwe of dure motor, of bij een gefinancierde of geleasete motor waarbij de financier volledige dekking eist. Ook schade aan je eigen motor door een eenzijdig ongeval of een val is gedekt. De premie is hoger, maar je draagt zelf het minste risico.</p>
+<h2>Uitzonderingen en situaties waarin niet wordt uitgekeerd</h2>
+<ul>
+<li><strong>Geen goedgekeurd slot bij diefstal.</strong> Eist je verzekeraar een ART-goedgekeurd slot en gebruik je dat niet, dan kan een diefstaluitkering worden geweigerd.</li>
+<li><strong>Rijden onder invloed.</strong> Schade die ontstaat terwijl de bestuurder onder invloed is van alcohol of drugs is uitgesloten.</li>
+<li><strong>Geen geldig rijbewijs.</strong> Rijd je zonder geldig motorrijbewijs, dan vervalt de dekking voor eigen schade en kan de verzekeraar uitgekeerde WA-schade op je verhalen.</li>
+<li><strong>Slijtage en achterstallig onderhoud.</strong> Casco vergoedt schade door een gebeurtenis, niet door slijtage of achterstallig onderhoud.</li>
+<li><strong>Gebruik buiten de polis.</strong> Verhuur, betaald vervoer of circuitgebruik valt doorgaans buiten de dekking.</li>
+</ul>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Allrisk kiezen voor een afgeschreven motor.</strong> Bij een lage dagwaarde betaal je dan meer premie dan je ooit vergoed krijgt.</li>
+<li><strong>Denken dat WA diefstal dekt.</strong> Diefstal valt alleen onder WA+ en Allrisk.</li>
+<li><strong>Accessoires niet apart opgeven.</strong> Dure accessoires zijn niet automatisch onbeperkt meeverzekerd; geef de waarde op binnen de grenzen van je polis.</li>
+<li><strong>Het eigen risico vergeten.</strong> Bij casco geldt vaak een eigen risico per schade; dat bepaalt mede of claimen loont.</li>
+</ul>
+<h2>Praktijkvoorbeeld</h2>
+<p>Een rijder met een tien jaar oude motor met een dagwaarde van een paar duizend euro laat de motor stelen ondanks een goedgekeurd slot. Met WA krijgt hij niets; met WA+ of Allrisk de dagwaarde, minus het eigen risico. Andersom: dezelfde rijder rijdt zichzelf in de berm en beschadigt alleen zijn eigen motor. Dan keert WA+ niet uit (eigen schuld), maar Allrisk wel. Dit verschil tussen WA+ en Allrisk is precies waar je dekkingskeuze om draait.</p>
+<h2>Checklist voor je keuze</h2>
+<ul>
+<li>Bepaal de dagwaarde van je motor.</li>
+<li>Schat in hoe groot het diefstalrisico op jouw stallingsplek is.</li>
+<li>Bedenk of je een val of eenzijdig ongeval zelf kunt dragen.</li>
+<li>Check of een financier of leasemaatschappij volledige dekking eist.</li>
+<li>Vergelijk de cascopremie met de maximale uitkering.</li>
+<li>Lees de verzekeringskaart voor de exacte invulling van beperkt casco.</li>
+</ul>
+<p>Wil je zien wat elke dekking voor jouw motor kost? <a href="/motorverzekering-berekenen/">Bereken je premie</a> met je kenteken en vergelijk WA, WA+ en Allrisk naast elkaar. Een uitleg per dekking vind je op de pagina <a href="/dekkingen/">dekkingen</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Is een WA-verzekering verplicht voor een motor?</h3>
+<p>Ja. Voor elke motor met een kenteken op jouw naam geldt de wettelijke WA-plicht, ook als je niet rijdt. WA dekt de schade die je aan anderen toebrengt. Rijd je een periode niet, dan kun je de motor schorsen bij de RDW; dan vervalt de verzekeringsplicht, maar mag je ook niet de weg op. Zonder geldige verzekering en zonder schorsing volgt een boete van de RDW.</p>
+<h3>Dekt WA+ ook schade door eigen schuld?</h3>
+<p>Nee. WA + Beperkt Casco dekt schade aan je eigen motor door diefstal, brand, storm, ruitbreuk en aanrijding met dieren, maar niet de schade die je zelf veroorzaakt. Val je met je motor of rijd je jezelf eenzijdig in de berm, dan is die schade aan je eigen motor alleen gedekt met Allrisk (volledig casco). Dit is het belangrijkste verschil tussen WA+ en Allrisk.</p>
+<h3>Wat is het verschil tussen beperkt en volledig casco?</h3>
+<p>Beperkt casco (onderdeel van WA+) dekt een vaste lijst gebeurtenissen die je niet zelf veroorzaakt, zoals diefstal en brand. Volledig casco (onderdeel van Allrisk) dekt daarnaast ook schade aan je eigen motor door eigen toedoen, zoals vallen of een eenzijdige aanrijding. Volledig casco is dus ruimer en duurder. Welke je nodig hebt, hangt af van de waarde van je motor en of je een val zelf kunt dragen.</p>
+<h3>Kan ik later overstappen van WA naar Allrisk?</h3>
+<p>Je kunt je dekking aanpassen, maar verzekeraars stellen voorwaarden aan casco. Casco is meestal alleen mogelijk tot een bepaalde leeftijd of waarde van de motor, en soms gelden beveiligingseisen zoals een goedgekeurd slot. Een wijziging van WA naar Allrisk verhoogt je premie. Controleer de polisvoorwaarden of de motor nog in aanmerking komt voor casco voordat je de dekking uitbreidt.</p>
+<h3>Geldt er een eigen risico bij casco?</h3>
+<p>Bij casco-dekkingen geldt vaak een eigen risico per schadegeval: het deel van de schade dat je zelf betaalt. De hoogte verschilt per verzekeraar en per dekking, en soms kun je het eigen risico zelf kiezen. Een hoger eigen risico verlaagt je premie, maar betekent dat je bij schade meer zelf betaalt. Bij WA geldt geen eigen risico, omdat WA alleen schade aan anderen vergoedt.</p>
+""",
+    "Wat kost een motorverzekering in Nederland?": """
+<p>Er bestaat geen vast bedrag voor een motorverzekering. De premie wordt bepaald door een combinatie van factoren: het type en de waarde van je motor, je leeftijd, je woonplaats, je aantal schadevrije jaren, het aantal kilometers dat je rijdt en de gekozen dekking (WA, WA+ of Allrisk). Daarom verschilt de prijs sterk per rijder en per motor.</p>
+<h2>Welke factoren bepalen je premie?</h2>
+<p>Verzekeraars schatten met deze gegevens het risico in dat je een schade claimt. Hoe hoger dat ingeschatte risico, hoe hoger de premie. De belangrijkste factoren:</p>
+<table><thead><tr><th>Factor</th><th>Effect op de premie</th></tr></thead><tbody>
+<tr><td>Type en cilinderinhoud</td><td>Een zwaardere of snellere motor kost meer dan een lichte.</td></tr>
+<tr><td>Dag- of cataloguswaarde</td><td>Hogere waarde betekent een hogere cascopremie.</td></tr>
+<tr><td>Leeftijd bestuurder</td><td>Jongere bestuurders betalen doorgaans meer.</td></tr>
+<tr><td>Schadevrije jaren</td><td>Meer schadevrije jaren geven een hogere no-claimkorting.</td></tr>
+<tr><td>Woonplaats (postcode)</td><td>In gebieden met meer diefstal of schade ligt de premie hoger.</td></tr>
+<tr><td>Kilometers per jaar</td><td>Meer kilometers verhogen het risico en de premie.</td></tr>
+<tr><td>Gekozen dekking</td><td>WA is het goedkoopst, Allrisk het duurst.</td></tr>
+<tr><td>Eigen risico</td><td>Een hoger eigen risico verlaagt de premie.</td></tr>
+</tbody></table>
+<h2>Waarom je geen vast bedrag vindt</h2>
+<p>Omdat al deze factoren meewegen, is een bedrag dat voor iedereen klopt niet te geven. Twee rijders met dezelfde motor kunnen een heel andere premie betalen omdat de een 25 schadevrije jaren heeft en in een dorp woont, en de ander net het rijbewijs heeft en in een grote stad woont. Een betrouwbare prijs krijg je alleen door met je eigen gegevens een berekening te maken.</p>
+<h2>Welke kosten zitten er nog meer aan vast?</h2>
+<ul>
+<li><strong>Assurantiebelasting.</strong> Over de premie betaal je 21% assurantiebelasting. Dit zit verwerkt in het totaalbedrag dat je ziet.</li>
+<li><strong>Poliskosten.</strong> Sommige verzekeraars rekenen vaste poliskosten per termijn.</li>
+<li><strong>Betalingstermijn.</strong> Per maand betalen kan iets duurder zijn dan in één keer per jaar.</li>
+<li><strong>Aanvullende dekkingen.</strong> Pechhulp, een ongevallenverzekering voor opzittenden of rechtsbijstand verhogen de premie.</li>
+</ul>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Alleen op de premie letten.</strong> Een lagere premie met een hoog eigen risico of een beperkte dekking kan bij schade duurder uitpakken.</li>
+<li><strong>Schadevrije jaren verkeerd opgeven.</strong> Een onjuist aantal leidt tot een verkeerde premie en kan bij schade problemen geven.</li>
+<li><strong>Verzwijgen van eerdere schades of een royement.</strong> Verzekeraars controleren dit via de registers; verzwijgen kan de dekking kosten.</li>
+<li><strong>De dekking niet aanpassen aan de waarde.</strong> Allrisk op een afgeschreven motor kost onnodig veel premie.</li>
+</ul>
+<h2>Hoe krijg je grip op de kosten?</h2>
+<ul>
+<li>Geef je schadevrije jaren correct op; ze bepalen een groot deel van je korting.</li>
+<li>Kies een dekking die past bij de waarde van je motor.</li>
+<li>Overweeg een hoger eigen risico als je kleine schades zelf kunt dragen.</li>
+<li>Rijd je weinig in de winter? Een winterstop of schorsing scheelt premie.</li>
+<li>Vergelijk meerdere verzekeraars op dezelfde gegevens.</li>
+</ul>
+<p>Een persoonlijke prijs voor jouw motor zie je het snelst door je <a href="/motorverzekering-berekenen/">premie te berekenen</a> met je kenteken. Welke dekking je daarbij kiest, lees je terug op de pagina <a href="/dekkingen/">dekkingen</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Waarom is mijn premie hoger dan die van iemand anders met dezelfde motor?</h3>
+<p>De premie hangt niet alleen van de motor af, maar van je hele profiel. Je leeftijd, je aantal schadevrije jaren, je woonplaats, het aantal kilometers dat je rijdt en de gekozen dekking wegen allemaal mee. Twee rijders met dezelfde motor kunnen daardoor sterk verschillen: iemand met veel schadevrije jaren in een dorp betaalt minder dan een beginnende rijder in een grote stad. Daarom is een persoonlijke berekening de enige manier om je eigen premie te kennen.</p>
+<h3>Telt mijn woonplaats mee voor de premie?</h3>
+<p>Ja. Verzekeraars gebruiken je postcode om het risico in te schatten. In gebieden met meer diefstal, vandalisme of verkeersdrukte ligt de premie hoger dan in een rustige regio. Een verhuizing kun je daarom merken in je premie, omhoog of omlaag. Geef een adreswijziging altijd door aan je verzekeraar: het hoort bij de gegevens waarop je premie en dekking zijn gebaseerd.</p>
+<h3>Is per jaar betalen goedkoper dan per maand?</h3>
+<p>Bij een deel van de verzekeraars betaal je iets minder als je de premie in één keer per jaar voldoet in plaats van in maandtermijnen. Het verschil komt doordat termijnbetaling administratiekosten met zich meebrengt. Of dat zo is en hoe groot het verschil is, verschilt per verzekeraar. Bekijk bij het afsluiten beide betaalopties, want het totaalbedrag per jaar kan per termijnkeuze afwijken.</p>
+<h3>Verlaagt een hoger eigen risico de premie?</h3>
+<p>Ja. Het eigen risico is het deel van een cascoschade dat je zelf betaalt. Kies je een hoger eigen risico, dan daalt je premie, omdat de verzekeraar bij schade minder uitkeert. Het is een afweging: je betaalt structureel minder premie, maar bij een schade meer uit eigen zak. Een hoger eigen risico is vooral het overwegen waard als je kleine schades zelf kunt en wilt dragen.</p>
+<h3>Kan ik de premie van mijn motorverzekering verlagen?</h3>
+<p>Je hebt invloed op een aantal factoren. Een dekking kiezen die past bij de waarde van je motor voorkomt dat je onnodig veel voor casco betaalt. Een correct opgegeven aantal schadevrije jaren levert de juiste no-claimkorting op. Rijd je 's winters niet, dan scheelt een winterstop of schorsing premie. En een hoger eigen risico verlaagt de premie. Vergelijk meerdere verzekeraars op precies dezelfde gegevens.</p>
+""",
+    "Schadevrije jaren bij een motorverzekering": """
+<p>Schadevrije jaren zijn de jaren waarin je een motor- of autoverzekering had zonder een schade te claimen waarvoor de verzekeraar uitkeerde. Ze bepalen je no-claimkorting: hoe meer schadevrije jaren, hoe hoger de korting op je premie. Bij een geclaimde schade val je een aantal jaren terug.</p>
+<h2>Hoe je schadevrije jaren opbouwt</h2>
+<p>Voor elk verzekeringsjaar zonder geclaimde schade krijg je er één schadevrij jaar bij. Die jaren vertaalt de verzekeraar via een bonus-malustabel naar een kortingspercentage. De opbouw gaat stap voor stap: in de eerste jaren stijgt de korting het snelst, daarna vlakt het af. De exacte percentages en treden verschillen per verzekeraar, dus dezelfde 10 schadevrije jaren kunnen bij twee maatschappijen een andere korting geven.</p>
+<h2>Wat een schade kost aan schadevrije jaren</h2>
+<p>Claim je een schade waarvoor de verzekeraar uitkeert, dan val je een aantal treden terug op de bonus-malusladder. Eén schade kan meerdere schadevrije jaren kosten, waardoor je korting daalt en je premie stijgt, soms meerdere jaren achter elkaar. Niet elke schade telt mee: een schade die volledig op een tegenpartij wordt verhaald, of een schade onder een dekking die je no-claim niet aantast (zoals soms ruitschade), hoeft je schadevrije jaren niet te kosten. Vraag dit na bij je verzekeraar voordat je claimt.</p>
+<h2>Roy-data: waar je jaren geregistreerd staan</h2>
+<p>Verzekeraars registreren je schadevrije jaren centraal in <strong>Roy-data</strong>. Als je overstapt, haalt je nieuwe verzekeraar je jaren daar op, zodat je ze niet zelf hoeft te bewijzen. Klopt het aantal niet, dan kun je via je oude verzekeraar een correctie of een royementsverklaring vragen.</p>
+<h2>Je schadevrije jaren meenemen of opvragen</h2>
+<p>Je schadevrije jaren zijn van jou. Stop je met een verzekering, dan blijven ze een aantal jaren geldig en kun je ze gebruiken voor een nieuwe motor. Bij overstappen geeft je oude verzekeraar een <strong>royementsverklaring</strong> af met je aantal schadevrije jaren en de royementsdatum. Verkoop je je motor en heb je tijdelijk geen verzekering, vraag de verklaring dan op zodat je de jaren later kunt gebruiken.</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Een kleine schade claimen zonder te rekenen.</strong> De terugval in korting kan over meerdere jaren duurder zijn dan de schade zelf.</li>
+<li><strong>Te veel schadevrije jaren opgeven.</strong> Bij een schade controleert de verzekeraar Roy-data; een verkeerd aantal leidt tot naheffing of problemen met de uitkering.</li>
+<li><strong>Schadevrije jaren laten verlopen.</strong> Na het stoppen van een verzekering blijven ze beperkt geldig; wacht niet te lang met een nieuwe verzekering.</li>
+<li><strong>Auto- en motorjaren door elkaar halen.</strong> Deze worden meestal apart geregistreerd en opgebouwd.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Controleer je aantal schadevrije jaren via je verzekeraar of de royementsverklaring.</li>
+<li>Reken bij een kleine schade uit of claimen loont ten opzichte van de terugval.</li>
+<li>Vraag bij verkoop of overstap altijd een royementsverklaring op.</li>
+<li>Geef bij een nieuwe verzekering het juiste aantal jaren op.</li>
+</ul>
+<p>Wil je weten wat jouw schadevrije jaren aan korting opleveren? Dat zie je direct als je je <a href="/motorverzekering-berekenen/">premie berekent</a>. Vraag je je af of je autojaren meetellen voor je motor? Lees dan het artikel over schadevrije jaren van auto naar motor.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Hoeveel schadevrije jaren kost een schade?</h3>
+<p>Eén geclaimde schade waarvoor de verzekeraar uitkeert, kost meerdere treden op de bonus-malusladder. Hoeveel precies hangt af van de tabel van je verzekeraar. Het gevolg is dat je no-claimkorting daalt en je premie stijgt, vaak meerdere jaren achter elkaar, totdat je de teruggevallen jaren opnieuw hebt opgebouwd. Daarom kan het bij een kleine schade voordeliger zijn die zelf te betalen in plaats van te claimen.</p>
+<h3>Waar kan ik mijn schadevrije jaren opvragen?</h3>
+<p>Je schadevrije jaren staan centraal geregistreerd in Roy-data. Je huidige verzekeraar kan je het actuele aantal geven, en bij overstappen haalt je nieuwe verzekeraar de jaren daar automatisch op. Wil je een bewijs op papier, dan vraag je een royementsverklaring op bij je oude verzekeraar. Klopt het geregistreerde aantal niet, dan kun je via die verzekeraar een correctie aanvragen.</p>
+<h3>Vervallen mijn schadevrije jaren als ik mijn motor verkoop?</h3>
+<p>Nee, niet meteen. Je schadevrije jaren blijven na het beëindigen van een verzekering een aantal jaren geldig. Verkoop je je motor en heb je tijdelijk geen verzekering, dan kun je de jaren later gebruiken voor een nieuwe motor. Vraag bij beëindiging een royementsverklaring op, zodat je het aantal en de royementsdatum hebt. Wacht niet te lang met een nieuwe verzekering, want de geldigheid is beperkt.</p>
+<h3>Tellen schadevrije jaren van mijn auto mee voor mijn motor?</h3>
+<p>Schadevrije jaren op een auto en een motor worden meestal apart geregistreerd en opgebouwd. Sommige verzekeraars staan toe dat je opgebouwde autojaren gebruikt voor je motor, onder voorwaarden en vaak eenmalig. Andere doen dat niet. Of het kan, hangt dus af van de verzekeraar. Vraag dit vooraf na, want het scheelt direct in je no-claimkorting en daarmee in je premie.</p>
+<h3>Bouw ik schadevrije jaren op tijdens een schorsing of winterstop?</h3>
+<p>Tijdens een schorsing bij de RDW loopt je verzekering niet, dus over die periode bouw je geen schadevrije jaren op. Bij een winterstopregeling blijft de verzekering wel bestaan, vaak met beperkte dekking; of je in die maanden schadevrije jaren opbouwt, hangt af van de voorwaarden van je verzekeraar. Vraag dit na als het opbouwen van je no-claim voor jou belangrijk is.</p>
+""",
+}
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
 # kennisbank questions (Claude Design), grouped by the design's categories.
@@ -433,11 +623,14 @@ class Command(BaseCommand):
                 obj.save()
 
         BlogArtikel.objects.all().delete()  # ordered list, replace wholesale
-        for i, (titel, cat, leestijd, datum, feat, img, exc) in enumerate(BLOG):
+        for i, b in enumerate(BLOG):
+            body = BLOG_BODIES.get(b["titel"], "")
             BlogArtikel.objects.create(
-                titel=titel, categorie=cat, leestijd=leestijd, datum=datum,
-                featured=feat, photo_url=img, excerpt=exc, order=i,
-                author=(jean if feat else None))
+                titel=b["titel"], categorie=b["categorie"], leestijd=b["leestijd"],
+                photo_url=b["image"], excerpt=b["excerpt"],
+                meta_title=b.get("meta_title", ""), meta_description=b.get("meta_description", ""),
+                body_html=body, order=i, featured=(i == 0),
+                active=bool(body), author=jean, reviewer=jerry)
 
         from django.urls import reverse
         kb_icons = {

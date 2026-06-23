@@ -36,7 +36,7 @@
   {# ── Featured post ── #}
   {% if featured_post %}
   <div class="mv-wrap" style="padding:clamp(24px,3vw,32px) clamp(18px,4vw,40px) 0">
-    <a href="{% url 'blog_artikel' %}" style="display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,36px);align-items:stretch;background:#fff;border:1.5px solid #ECECE3;border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(21,21,15,.08)">
+    <a href="{{ featured_post.url }}" style="display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,36px);align-items:stretch;background:#fff;border:1.5px solid #ECECE3;border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(21,21,15,.08)">
       <div style="flex:1 1 340px;min-height:300px;overflow:hidden">
         <img src="{% static featured_post.image %}" alt="{{ featured_post.titel }}" style="width:100%;height:100%;min-height:300px;object-fit:cover;display:block">
       </div>
@@ -57,7 +57,7 @@
   <div class="mv-wrap" style="padding:clamp(20px,3vw,28px) clamp(18px,4vw,40px) clamp(48px,6vw,80px)">
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px">
       {% for a in blog_cards %}
-      <a href="{% url 'blog_artikel' %}" class="mv-tile" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
+      <a href="{{ a.url }}" class="mv-tile" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
         <div style="height:190px;overflow:hidden"><img src="{% static a.image %}" alt="{{ a.titel }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
         <div style="padding:22px;display:flex;flex-direction:column;flex:1">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">

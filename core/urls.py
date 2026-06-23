@@ -19,9 +19,10 @@ urlpatterns += [
     path("premie/api/aanvraag", views_premie.aanvraag, name="premie_aanvraag"),
 ]
 
-# Kennisbank-artikelen (één pagina per vraag, slug-based). Vóór de catch-all.
+# Kennisbank- en blog-artikelen (één pagina per stuk, slug-based). Vóór de catch-all.
 urlpatterns += [
     path("kennisbank/<slug:slug>/", views.kennisbank_artikel, name="kennisbank_artikel"),
+    path("blog/<slug:slug>/", views.blog_artikel, name="blog_artikel"),
 ]
 
 # Catch-all for imported content-fabriek pages — MUST stay last so the explicit

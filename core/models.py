@@ -450,7 +450,13 @@ class BlogArtikel(PhotoMixin):
     datum = models.CharField("Datum (weergave)", max_length=40, blank=True)
     author = models.ForeignKey("Expert", verbose_name="Auteur", on_delete=models.SET_NULL,
                                null=True, blank=True, related_name="+")
+    reviewer = models.ForeignKey("Expert", verbose_name="Gecontroleerd door", on_delete=models.SET_NULL,
+                                 null=True, blank=True, related_name="+")
     excerpt = models.TextField("Samenvatting", blank=True)
+    body_html = models.TextField("Artikel (HTML)", blank=True,
+                                 help_text="De volledige tekst. Mag h2/h3/p/ul/li/table/strong bevatten.")
+    meta_title = models.CharField("Meta title (SEO)", max_length=255, blank=True)
+    meta_description = models.CharField("Meta description (SEO)", max_length=320, blank=True)
     featured = models.BooleanField("Uitgelicht", default=False)
     order = models.PositiveIntegerField("Volgorde", default=0)
     active = models.BooleanField("Actief", default=True)
@@ -465,8 +471,16 @@ class BlogArtikel(PhotoMixin):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.titel)[:220]
+            base = slugify(self.titel)[:200] or "artikel"
+            slug, n = base, 2
+            while BlogArtikel.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug, n = f"{base}-{n}", n + 1
+            self.slug = slug
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("blog_artikel", args=[self.slug])
 
     def default_photo_alt(self):
         return self.titel

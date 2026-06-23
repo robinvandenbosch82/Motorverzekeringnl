@@ -52,11 +52,6 @@ PAGES: list[Page] = [
          "Verhalen, tips en uitleg voor onderweg: onderhoud, veiligheid, touring en alles over "
          "je motorverzekering — zonder jargon.",
          0.7, "weekly", extra=content.blog_context),
-    Page("blog_artikel", "blog/motor-rijklaar-na-de-winterstop/", "pages/blog_artikel.html",
-         "Maak je motor rijklaar na de winterstop | Motorverzekering.nl",
-         "De checklist om na de winterstop veilig de weg op te gaan: banden, accu, remmen, "
-         "ketting en je verzekering — voorkom pech en schade.",
-         0.7, "monthly", extra=content.blog_artikel_context),
     Page("over_ons", "over-ons/", "pages/over_ons.html",
          "Onze experts & redactieproces | Motorverzekering.nl",
          "Onze content wordt geschreven door verzekeringsexperts en gecontroleerd door "
@@ -143,6 +138,25 @@ def kennisbank_artikel(request, slug):
         "seo_title": f"{artikel.titel} | Motorverzekering.nl",
         "seo_description": (artikel.excerpt or plain)[:160],
         "active_page": "kennisbank",
+    })
+
+
+def blog_artikel(request, slug):
+    """Detailpagina van één blogartikel (slug-based, DB = bron)."""
+    from .models import BlogArtikel
+    artikel = get_object_or_404(BlogArtikel, slug=slug, active=True)
+    related = list(BlogArtikel.objects.filter(active=True).exclude(pk=artikel.pk)
+                   .filter(categorie=artikel.categorie)[:3])
+    if len(related) < 3:
+        extra = BlogArtikel.objects.filter(active=True).exclude(
+            pk__in=[artikel.pk] + [r.pk for r in related]).order_by("order")[:3 - len(related)]
+        related += list(extra)
+    return render(request, "pages/blog_artikel.html", {
+        "artikel": artikel,
+        "related": related,
+        "seo_title": artikel.meta_title or f"{artikel.titel} | Motorverzekering.nl",
+        "seo_description": artikel.meta_description or artikel.excerpt,
+        "active_page": "blog",
     })
 
 

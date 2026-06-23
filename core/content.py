@@ -491,7 +491,8 @@ def blog_context(request=None):
 
     def card(b):
         return {"titel": b.titel, "excerpt": b.excerpt, "leestijd": b.leestijd,
-                "categorie": b.categorie, "image": b.get_photo_source()}
+                "categorie": b.categorie, "image": b.get_photo_source(),
+                "url": b.get_absolute_url()}
     return {
         "secties": sec,
         "featured_post": card(featured),
