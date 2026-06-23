@@ -661,6 +661,61 @@ BLOG_BODIES = {
 <h3>Geldt het eendagskenteken ook voor de terugrit?</h3>
 <p>Nee, een eendagskenteken is bedoeld voor één verplaatsing, doorgaans de rit naar de keuring. Voor een terugrit of ander gebruik dekt het je niet. Slaagt je motor voor de identificatiekeuring en wordt hij geregistreerd, dan krijgt hij een definitief Nederlands kenteken en sluit je een reguliere motorverzekering af waarmee je vanaf dat moment gewoon mag rijden. Plan dat zo dat je verzekering aansluit op het moment dat het kenteken rond is, zodat er geen dag tussen valt waarop je onverzekerd of zonder geldige registratie rijdt.</p>
 """,
+    "Oldtimer motorverzekering: wanneer is het voordeliger?": """
+<p>Een oldtimer- of klassiekerverzekering is een motorverzekering die is afgestemd op een oudere motor die je beperkt en zorgvuldig gebruikt. Omdat zo'n motor weinig kilometers maakt, vaak goed wordt gestald en doorgaans door een ervaren rijder wordt gereden, is het risico voor de verzekeraar lager en is de premie vaak gunstiger. Of het voor jou voordeliger is, hangt af van de leeftijd van je motor, hoeveel je ermee rijdt en of je aan de voorwaarden voldoet.</p>
+<h2>Wanneer telt een motor als oldtimer?</h2>
+<p>Er bestaat geen vaste wettelijke leeftijd waarop een motor een oldtimer wordt voor de verzekering. Elke verzekeraar hanteert een eigen ondergrens: bij de ene start een klassiekerpolis vanaf 15 jaar, bij de andere pas vanaf 20, 25 of 30 jaar. Daarnaast is er een apart begrip uit de wegenbelasting: de Belastingdienst geeft vrijstelling van motorrijtuigenbelasting voor voertuigen van 40 jaar en ouder. Die 40-jaargrens gaat over belasting, niet over je verzekering. Voor de premie kijk je dus naar de leeftijdsgrens die jouw verzekeraar voor klassiekers aanhoudt, niet naar de belastingregels.</p>
+<h2>De kernregel: een oldtimerpolis is een verzekering voor beperkt, zorgvuldig gebruik</h2>
+<p>Een klassiekerverzekering is goedkoper omdat hij uitgaat van beperkt gebruik. De aanname is dat je de motor als hobby rijdt, niet dagelijks woon-werkverkeer ermee aflegt, hem netjes stalt en er voorzichtig mee omgaat. Daar staan voorwaarden tegenover, zoals een maximum aantal kilometers per jaar en de eis dat je een ander voertuig voor dagelijks gebruik hebt. Houd je je niet aan die voorwaarden, dan kan de verzekeraar bij schade de dekking beperken. De lagere premie is dus geen korting zonder meer, maar de tegenprestatie voor een lager en goed afgebakend risico.</p>
+<h2>Voorwaarden die verzekeraars stellen</h2>
+<ul>
+<li>Een <strong>maximum aantal kilometers</strong> per jaar; rijd je meer, dan klopt de dekking niet.</li>
+<li>Vaak de eis dat je <strong>een ander voertuig</strong> voor dagelijks gebruik hebt, zodat de oldtimer echt een hobbymotor is.</li>
+<li>Veilige <strong>stalling</strong>, doorgaans in een afgesloten ruimte of garage.</li>
+<li>Soms een <strong>minimumleeftijd</strong> van de rijder, omdat klassiekerpolissen op ervaren rijders zijn gericht.</li>
+<li>De motor moet in <strong>goede, originele staat</strong> verkeren en als klassieker worden onderhouden.</li>
+</ul>
+<h2>Waarde verzekeren: dagwaarde of getaxeerde waarde</h2>
+<p>Bij een gewone cascopolis wordt schade aan je motor doorgaans op dagwaarde vergoed: de waarde op het moment van de schade, na afschrijving. Voor een klassieker is dat ongunstig, want de waarde van een goed onderhouden of zeldzame motor kan juist stabiel zijn of stijgen. Daarom werken oldtimerverzekeraars vaak met een <strong>getaxeerde waarde</strong>: een taxatierapport van een erkend taxateur legt de waarde vast, zodat daarover bij schade geen discussie ontstaat. Zo'n taxatie heeft een beperkte geldigheidsduur en moet periodiek worden vernieuwd. Verzeker je op getaxeerde waarde, dan weet je vooraf welk bedrag je bij total loss of diefstal krijgt.</p>
+<h2>Wanneer is het voordeliger?</h2>
+<p>Een oldtimerpolis is vooral voordelig als je weinig rijdt, de motor een hobby- of tweede voertuig is, je een dagelijks voertuig hebt en je de motor goed stalt. In dat geval betaal je een lagere premie én verzeker je de motor tegen een eerlijke, vastgelegde waarde. Minder voordelig is het als je de motor juist veel of dagelijks gebruikt, want dan haal je het maximumaantal kilometers eruit of voldoe je niet aan de voorwaarden. Ook als je motor net de leeftijdsgrens van een verzekeraar nog niet haalt, kom je niet in aanmerking. Vergelijk daarom een klassiekerpolis altijd met een reguliere motorverzekering voor jouw situatie.</p>
+<table><thead><tr><th>Kenmerk</th><th>Oldtimerpolis</th><th>Reguliere polis</th></tr></thead><tbody>
+<tr><td>Gebruik</td><td>Beperkt, hobbymatig</td><td>Onbeperkt, ook dagelijks</td></tr>
+<tr><td>Kilometers per jaar</td><td>Gemaximeerd</td><td>Geen specifieke limiet</td></tr>
+<tr><td>Waardevergoeding</td><td>Vaak getaxeerde waarde</td><td>Meestal dagwaarde</td></tr>
+<tr><td>Premie</td><td>Vaak lager</td><td>Hoger bij intensief gebruik</td></tr>
+<tr><td>Voorwaarde dagelijks voertuig</td><td>Vaak vereist</td><td>Niet vereist</td></tr>
+</tbody></table>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>De kilometerlimiet overschrijden.</strong> Rijd je meer dan afgesproken, dan kan de dekking bij schade worden beperkt.</li>
+<li><strong>Geen geldige taxatie hebben.</strong> Een verlopen taxatierapport kan tot discussie over de waarde leiden.</li>
+<li><strong>De oldtimer als enige voertuig gebruiken.</strong> Veel polissen eisen een apart dagelijks voertuig.</li>
+<li><strong>Alleen op de leeftijd letten.</strong> De leeftijdsgrens verschilt per verzekeraar; check die vóór je afsluit.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Controleer vanaf welke leeftijd jouw verzekeraar een klassiekerpolis aanbiedt.</li>
+<li>Schat je jaarkilometers in en check of die binnen de limiet vallen.</li>
+<li>Regel een taxatierapport als je op getaxeerde waarde wilt verzekeren.</li>
+<li>Zorg voor veilige stalling en, indien vereist, een dagelijks voertuig.</li>
+<li>Vergelijk de klassiekerpolis met een reguliere verzekering voor jouw situatie.</li>
+</ul>
+<p>Twijfel je of een reguliere polis voordeliger is? Vergelijk dekkingen en premies via het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>. Welke basisdekking bij je motor past, lees je in <a href="/blog/wa-wa-of-allrisk-welke-motorverzekering-past-bij-jouw-motor/">WA, WA+ of Allrisk</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Vanaf welke leeftijd is mijn motor een oldtimer?</h3>
+<p>Daarvoor bestaat geen vaste wettelijke grens; het verschilt per verzekeraar. De ene klassiekerpolis start vanaf 15 jaar, de andere pas vanaf 20, 25 of 30 jaar. Verwar dit niet met de wegenbelasting: de vrijstelling van motorrijtuigenbelasting geldt voor voertuigen van 40 jaar en ouder, maar dat is een belastingregel, geen verzekeringsregel. Wil je weten of je motor in aanmerking komt voor een klassiekerpolis, kijk dan naar de leeftijdsgrens die jouw verzekeraar voor oldtimers hanteert.</p>
+<h3>Waarom is een oldtimerverzekering vaak goedkoper?</h3>
+<p>Omdat de verzekeraar uitgaat van een lager risico. Een klassieker wordt meestal beperkt gereden, goed gestald en zorgvuldig onderhouden, vaak door een ervaren rijder. Daar staan voorwaarden tegenover, zoals een maximum aantal kilometers per jaar en de eis van een apart dagelijks voertuig. De lagere premie is dus de tegenprestatie voor dat beperkte, goed afgebakende gebruik. Houd je je niet aan de voorwaarden, dan vervalt dat voordeel en kan de dekking bij schade worden beperkt.</p>
+<h3>Wat betekent verzekeren op getaxeerde waarde?</h3>
+<p>Bij verzekeren op getaxeerde waarde legt een erkend taxateur in een rapport vast wat je motor waard is. Bij total loss of diefstal krijg je dat vastgelegde bedrag uitgekeerd, zonder discussie over afschrijving. Voor een klassieker is dat gunstig, omdat de dagwaarde van een gewone polis geen recht doet aan een goed onderhouden of zeldzame motor. Een taxatierapport heeft een beperkte geldigheidsduur en moet periodiek worden vernieuwd, dus houd in de gaten of je taxatie nog actueel is.</p>
+<h3>Mag ik mijn oldtimer het hele jaar door rijden?</h3>
+<p>Dat hangt af van de voorwaarden van je polis. Klassiekerverzekeringen gaan uit van beperkt gebruik en hanteren vaak een maximum aantal kilometers per jaar; sommige stellen aanvullende eisen aan het gebruik. Binnen die grenzen mag je rijden wanneer je wilt. Rijd je structureel meer of gebruik je de motor dagelijks, dan past een klassiekerpolis niet en kan de verzekeraar bij schade de dekking beperken. Schat je jaarkilometers realistisch in en kies de polis die daarbij past.</p>
+<h3>Heb ik een dagelijks voertuig nodig om een oldtimerpolis af te sluiten?</h3>
+<p>Vaak wel. Veel klassiekerverzekeringen eisen dat je een ander voertuig voor dagelijks gebruik hebt, zodat de oldtimer aantoonbaar een hobby- of tweede voertuig is. Die eis hangt samen met de aanname van beperkt gebruik waarop de lagere premie is gebaseerd. Niet elke verzekeraar stelt deze voorwaarde, maar reken er rekening mee. Is de motor je enige voertuig en gebruik je hem dagelijks, dan is een reguliere motorverzekering meestal passender dan een klassiekerpolis.</p>
+<h3>Kies ik voor mijn oldtimer WA of casco?</h3>
+<p>Dat hangt af van de waarde van de motor en hoeveel risico je zelf wilt dragen, net als bij een gewone motorverzekering. WA is wettelijk verplicht en dekt schade aan anderen; casco dekt daarnaast schade aan of diefstal van je eigen motor. Voor een waardevolle of zeldzame klassieker is casco met een getaxeerde waarde vaak verstandig, omdat je dan een vastgelegd bedrag terugkrijgt bij total loss of diefstal. Is de motor weinig waard, dan kan WA of WA met beperkt casco volstaan. Weeg de cascopremie af tegen het bedrag dat je maximaal vergoed krijgt.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
