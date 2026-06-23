@@ -16,6 +16,9 @@
    cream #F6F6F0.
    ────────────────────────────────────────────────────────────────────────── */
 .mv{font-family:'Manrope',sans-serif;color:#15150F;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* De nav-wrapper mag NIET klippen, anders kapt overflow-x:hidden het mobiele
+   dropdown-menu af onder de navbar. (Andere .mv-wrappers houden h-scroll-bescherming.) */
+.mv.mv-navwrap{overflow:visible}
 .mv *{box-sizing:border-box}
 .mv a{color:inherit;text-decoration:none}
 .mv input::placeholder{color:#A8AAA0}
@@ -46,7 +49,7 @@
 .mv-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:#4B4DFF}
 
 /* ── Nav ── */
-.mv-nav{position:relative;max-width:1180px;margin:0 auto;width:100%}
+.mv-nav{position:relative;z-index:100;max-width:1180px;margin:0 auto;width:100%}
 .mv-navbar{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,40px)}
 .mv-logo{display:flex;align-items:center;gap:10px}
 .mv-logotile{width:27px;height:27px;border-radius:7px;background:#15150F;display:flex;align-items:center;justify-content:center;flex-shrink:0}

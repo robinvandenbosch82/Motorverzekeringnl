@@ -1,7 +1,5 @@
-{# MV shared top navigation. Links from MenuItem (nav_items, context_processor)
-   with a hardcoded fallback; JS-toggled mobile menu (.is-open); active link via
-   request.path. #}
-<div class="mv">
+{% comment %}MV top navigation: links from MenuItem (nav_items) with a hardcoded fallback; JS-toggled mobile menu (.is-open); active link via request.path.{% endcomment %}
+<div class="mv mv-navwrap">
 <nav class="mv-nav" aria-label="Hoofdmenu" data-site-nav>
   <div class="mv-navbar">
     <a href="/" class="mv-logo" aria-label="Motorverzekering.nl home">
