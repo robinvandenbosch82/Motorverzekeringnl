@@ -1,7 +1,7 @@
 {% extends "mv_base.html" %}
-{% load static %}
+{% load static responsive_image %}
 
-{# Homepage — Claude Design "MV". 100% SSR. All copy is admin-editable: section
+{# Homepage, Claude Design "MV". 100% SSR. All copy is admin-editable: section
    text via SectieTekst (secties.*), card lists via Kaart, hero via the Page
    model, plus the DB-coupled blocks (dekkingstiers/reviews/faqs/experts).
    Every field keeps its design default as fallback. #}
@@ -34,7 +34,7 @@
       <div>
         <div class="mv-eyebrow" style="margin-bottom:18px">{{ page.eyebrow|default:"DIRECT ONLINE · GEEN TUSSENPERSOON" }}</div>
         <h1 class="mv-h1" style="font-size:clamp(34px,6vw,58px);line-height:1.06">{% if page.heading %}{{ page.heading }}{% else %}Jouw motor verzekerd.<br><span class="mv-hl">Vandaag</span> de weg op.{% endif %}</h1>
-        <p class="mv-herop">{% if page.intro %}{{ page.intro }}{% else %}Begin met je kenteken en bereken je premie in ongeveer 1 minuut. Eerst vergelijken kan ook — bekijk hieronder wat WA, WA+ en Allrisk dekken.{% endif %}</p>
+        <p class="mv-herop">{% if page.intro %}{{ page.intro }}{% else %}Begin met je kenteken en bereken je premie in ongeveer 1 minuut. Eerst vergelijken kan ook, bekijk hieronder wat WA, WA+ en Allrisk dekken.{% endif %}</p>
         <div class="mv-hstats">
           <span style="display:flex;align-items:center;gap:7px">
             <span class="mv-stars">★★★★★</span>
@@ -49,10 +49,10 @@
         <p class="mv-hnote"><i>i</i><span>Een motor moet WA-verzekerd zijn zodra hij op jouw naam staat. Wij regelen je dekking direct.</span></p>
       </div>
 
-      {# Premie-kaart — GET-formulier naar de premie-tool #}
+      {# Premie-kaart, GET-formulier naar de premie-tool #}
       <form class="mv-card" method="get" action="{% url 'premie_tool' %}">
         <h3>{{ secties.premiekaart.kop|default:"Bereken je premie" }}</h3>
-        <div class="sub">{{ secties.premiekaart.tekst|default:"Start met je kenteken — wij vullen je motorgegevens vast in." }}</div>
+        <div class="sub">{{ secties.premiekaart.tekst|default:"Start met je kenteken, wij vullen je motorgegevens vast in." }}</div>
 
         <div class="mv-lbl">Kenteken <span class="mv-i">i</span></div>
         <div class="mv-plate">
@@ -96,7 +96,7 @@
       <div style="margin-bottom:28px">
         <div class="mv-eyebrow">{{ s.eyebrow|default:"DE DEKKINGEN" }}</div>
         <h2 class="mv-h2">{{ s.kop|default:"Wat dekt elke verzekering?" }}</h2>
-        <p class="mv-lead">{{ s.tekst|default:"Vergelijk WA, WA+ en Allrisk en zie precies wat er wél en niet in zit. Je premie hangt af van je motor en profiel — die bereken je met je kenteken." }}</p>
+        <p class="mv-lead">{{ s.tekst|default:"Vergelijk WA, WA+ en Allrisk en zie precies wat er wél en niet in zit. Je premie hangt af van je motor en profiel, die bereken je met je kenteken." }}</p>
         <div style="display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;color:#5C5E54"><span class="mv-tick">✓</span> Dekkingsinformatie gecontroleerd door onze <a href="{% url 'over_ons' %}" style="color:#4B4DFF;font-weight:700">WFT-experts</a>.</div>
       </div>
       <div class="mv-grid3">
@@ -248,7 +248,7 @@
         <div style="flex:1 1 280px;display:flex;flex-direction:column;gap:12px">
           {% for e in experts %}
           <div class="mv-expert">
-            <div class="mv-avatar">{{ e.initials }}</div>
+            {% if e.photo %}<div class="mv-avatar" style="overflow:hidden;background:none;padding:0">{% picture e.photo alt=e.photo_alt sizes="42px" style="width:42px;height:42px;object-fit:cover;display:block" %}</div>{% else %}<div class="mv-avatar">{{ e.initials }}</div>{% endif %}
             <div><div style="font-weight:700;font-size:14px">{{ e.name }}</div><div style="font-size:12px;color:#9FA196">{{ e.role }}</div></div>
             <div class="mv-wft">WFT</div>
           </div>

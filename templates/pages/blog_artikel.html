@@ -1,7 +1,7 @@
 {% extends "mv_base.html" %}
 {% load static %}
 
-{# Blog-artikel (Vraag) — Claude Design. Representative motor article (winterstop)
+{# Blog-artikel (Vraag), Claude Design. Representative motor article (winterstop)
    with an embedded premie mini-form (GET → premie_tool) + related posts.
    Article bodies are bespoke (not yet CMS-managed); the blog index is DB-driven. #}
 
@@ -66,10 +66,10 @@
   {# ── Body ── #}
   <article style="max-width:720px;margin:0 auto;width:100%;padding:clamp(32px,4vw,48px) clamp(18px,4vw,40px) clamp(40px,5vw,64px);font-size:clamp(16px,2vw,18px);line-height:1.75;color:#2A2A24">
     {% if secties.body %}<div class="mv-prose">{{ secties.body.tekst|safe }}</div>{% else %}
-    <p style="margin:0 0 24px">Na maanden in de schuur is je motor toe aan een grondige check voordat je weer de weg op gaat. Een paar simpele controles voorkomen pech, schade en — niet onbelangrijk — discussie met je verzekeraar als er iets misgaat. Dit is de checklist die wij elke lente aanhouden.</p>
+    <p style="margin:0 0 24px">Na maanden in de schuur is je motor toe aan een grondige check voordat je weer de weg op gaat. Een paar simpele controles voorkomen pech, schade en, niet onbelangrijk, discussie met je verzekeraar als er iets misgaat. Dit is de checklist die wij elke lente aanhouden.</p>
 
     <h2 style="font-size:clamp(22px,3vw,28px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:36px 0 14px">1. Banden: spanning, profiel en ouderdom</h2>
-    <p style="margin:0 0 18px">Begin onderaan. Banden verliezen tijdens de stalling spanning en kunnen hard worden. Controleer de bandenspanning als de banden koud zijn en vergelijk met de waarden in je instructieboekje. Kijk ook naar het profiel en naar scheurtjes in het rubber — een band ouder dan vijf à zes jaar kun je beter laten beoordelen.</p>
+    <p style="margin:0 0 18px">Begin onderaan. Banden verliezen tijdens de stalling spanning en kunnen hard worden. Controleer de bandenspanning als de banden koud zijn en vergelijk met de waarden in je instructieboekje. Kijk ook naar het profiel en naar scheurtjes in het rubber, een band ouder dan vijf à zes jaar kun je beter laten beoordelen.</p>
 
     <h2 style="font-size:clamp(22px,3vw,28px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:36px 0 14px">2. Accu en elektronica</h2>
     <p style="margin:0 0 18px">Een accu die de hele winter stilstaat, loopt langzaam leeg. Laad hem volledig op of vervang hem als hij geen lading meer houdt. Test daarna je verlichting, knipperlichten, claxon en remlicht. Werkt alles? Dan ben je al een groot deel van de keuringspunten voorbij.</p>
@@ -79,7 +79,7 @@
     </div>
 
     <h2 style="font-size:clamp(22px,3vw,28px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:36px 0 14px">3. Remmen, vloeistoffen en ketting</h2>
-    <p style="margin:0 0 18px">Controleer het niveau en de kleur van je remvloeistof en kijk of de remblokken nog voldoende dik zijn. Loop daarna langs de olie en koelvloeistof. Smeer tot slot je ketting en stel de spanning af — een droge of te strakke ketting slijt snel en rijdt onrustig.</p>
+    <p style="margin:0 0 18px">Controleer het niveau en de kleur van je remvloeistof en kijk of de remblokken nog voldoende dik zijn. Loop daarna langs de olie en koelvloeistof. Smeer tot slot je ketting en stel de spanning af, een droge of te strakke ketting slijt snel en rijdt onrustig.</p>
 
     <ul style="margin:0 0 18px;padding-left:22px">
       <li style="margin-bottom:10px">Remvloeistof en remblokken controleren</li>
@@ -92,12 +92,12 @@
       <div style="flex-shrink:0;width:32px;height:32px;border-radius:9px;background:#CBF24A;color:#15150F;display:flex;align-items:center;justify-content:center;font-weight:800">!</div>
       <div>
         <div style="font-weight:800;font-size:16px;color:#15150F;margin-bottom:4px">Tip</div>
-        <div style="font-size:15px;line-height:1.55;color:#2A2A24">Check ook je ART-slot en de beveiliging. Veel verzekeraars vragen minimaal een ART-goedgekeurd slot van klasse 3 of 4 — zonder het juiste slot loop je dekking bij diefstal mis.</div>
+        <div style="font-size:15px;line-height:1.55;color:#2A2A24">Check ook je ART-slot en de beveiliging. Veel verzekeraars vragen minimaal een ART-goedgekeurd slot van klasse 3 of 4, zonder het juiste slot loop je dekking bij diefstal mis.</div>
       </div>
     </div>
 
     <h2 style="font-size:clamp(22px,3vw,28px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:36px 0 14px">Klaar voor vertrek?</h2>
-    <p style="margin:0 0 8px">Alles gecheckt? Maak dan eerst een rustig rondje om gevoel te krijgen voor de remmen en het gewicht — na een winter stilstaan voelt je motor even anders. En zorg dat je verzekering klopt voordat je wegrijdt.</p>
+    <p style="margin:0 0 8px">Alles gecheckt? Maak dan eerst een rustig rondje om gevoel te krijgen voor de remmen en het gewicht, na een winter stilstaan voelt je motor even anders. En zorg dat je verzekering klopt voordat je wegrijdt.</p>
     {% endif %}
 
     <div style="margin-top:34px;padding-top:24px;border-top:1.5px solid #ECECE3">
@@ -106,8 +106,8 @@
       <div class="mv-prose" style="display:flex;flex-direction:column;gap:9px;font-size:14px;line-height:1.5">{{ secties.bronnen.tekst|safe }}</div>
       {% else %}
       <div style="display:flex;flex-direction:column;gap:9px;font-size:14px;line-height:1.5">
-        <a href="https://www.rdw.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">RDW — Verzekeringsplicht en boetebedragen ↗</a>
-        <a href="https://www.stichtingart.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">Stichting ART — Goedgekeurde motorsloten ↗</a>
+        <a href="https://www.rdw.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">RDW, Verzekeringsplicht en boetebedragen ↗</a>
+        <a href="https://www.stichtingart.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">Stichting ART, Goedgekeurde motorsloten ↗</a>
       </div>
       {% endif %}
     </div>
@@ -119,7 +119,7 @@
         <div style="font-weight:800;font-size:17px">Thomas de Vries</div>
         <div style="font-size:13px;color:#5C5E54;margin-bottom:10px">Verzekeringsexpert · 12 jaar ervaring in motor- en schadeverzekeringen</div>
         <p style="font-size:14px;line-height:1.6;color:#5C5E54;margin:0 0 12px">Thomas schrijft over verzekeren, onderhoud en veilig rijden. Hij vertaalt ingewikkelde voorwaarden naar heldere taal en rijdt zelf al 15 jaar motor.</p>
-        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#2E7D32;font-weight:700"><span class="mv-tick" style="width:18px;height:18px">✓</span> Inhoudelijk gecontroleerd door Marloes Bakker — WFT-gecertificeerd adviseur</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#2E7D32;font-weight:700"><span class="mv-tick" style="width:18px;height:18px">✓</span> Inhoudelijk gecontroleerd door Marloes Bakker, WFT-gecertificeerd adviseur</div>
       </div>
     </div>
   </article>

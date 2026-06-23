@@ -1,7 +1,7 @@
 {% extends "mv_base.html" %}
-{% load static %}
+{% load static responsive_image %}
 
-{# Onze experts — Claude Design. Expert cards DB-coupled (Expert model via
+{# Onze experts, Claude Design. Expert cards DB-coupled (Expert model via
    over_ons_context); editorial-process, family and CTA are authored sections. #}
 
 {% block structured_data %}
@@ -27,7 +27,7 @@
     </nav>
     <div class="mv-eyebrow">{{ page.eyebrow|default:"ONZE EXPERTS" }}</div>
     <h1 class="mv-h1" style="max-width:760px">{% if page.heading %}{{ page.heading }}{% else %}De mensen achter onze adviezen{% endif %}</h1>
-    <p style="font-size:clamp(16px,2vw,18px);line-height:1.55;color:#5C5E54;margin:0;max-width:620px">{% if page.intro %}{{ page.intro }}{% else %}Onze content wordt geschreven door verzekeringsexperts en gecontroleerd door WFT-gecertificeerde adviseurs. Zo weet je zeker dat je leest wat klopt — en wat voor jou relevant is.{% endif %}</p>
+    <p style="font-size:clamp(16px,2vw,18px);line-height:1.55;color:#5C5E54;margin:0;max-width:620px">{% if page.intro %}{{ page.intro }}{% else %}Onze content wordt geschreven door verzekeringsexperts en gecontroleerd door WFT-gecertificeerde adviseurs. Zo weet je zeker dat je leest wat klopt, en wat voor jou relevant is.{% endif %}</p>
   </div>
 
   {# ── Expert cards (DB-coupled) ── #}
@@ -36,7 +36,11 @@
       {% for e in experts %}
       <div class="mv-tile">
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+          {% if e.photo %}
+          <div style="width:58px;height:58px;border-radius:50%;overflow:hidden;flex-shrink:0">{% picture e.photo alt=e.photo_alt sizes="58px" style="width:58px;height:58px;object-fit:cover;display:block" %}</div>
+          {% else %}
           <div style="width:58px;height:58px;border-radius:50%;background:#15150F;color:#CBF24A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0">{{ e.initials }}</div>
+          {% endif %}
           <div>
             <div style="font-weight:800;font-size:18px">{{ e.name }}</div>
             <div style="font-size:13px;color:#5C5E54">{{ e.role }}</div>

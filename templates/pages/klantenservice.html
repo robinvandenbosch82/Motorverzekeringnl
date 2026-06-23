@@ -1,8 +1,8 @@
 {% extends "mv_base.html" %}
 {% load static %}
 
-{# Klantenservice — Claude Design. Live open/closed status, opening hours,
-   contact channels (SiteSettings) and self-service — via klantenservice_context. #}
+{# Klantenservice, Claude Design. Live open/closed status, opening hours,
+   contact channels (SiteSettings) and self-service, via klantenservice_context. #}
 
 {% block structured_data %}
 <script type="application/ld+json">
@@ -27,7 +27,7 @@
     </nav>
     <div class="mv-eyebrow">{{ page.eyebrow|default:"KLANTENSERVICE" }}</div>
     <h1 class="mv-h1" style="max-width:720px">{% if page.heading %}{{ page.heading }}{% else %}Waarmee kunnen we je helpen?{% endif %}</h1>
-    <p style="font-size:clamp(16px,2vw,18px);line-height:1.55;color:#5C5E54;margin:0 0 20px;max-width:600px">{% if page.intro %}{{ page.intro }}{% else %}Motorverzekering.nl is onderdeel van Autoverzekering.nl. Ons team helpt je graag met je aanvraag, wijzigingen of een schade — op werkdagen van 08:30 tot 17:00.{% endif %}</p>
+    <p style="font-size:clamp(16px,2vw,18px);line-height:1.55;color:#5C5E54;margin:0 0 20px;max-width:600px">{% if page.intro %}{{ page.intro }}{% else %}Motorverzekering.nl is onderdeel van Autoverzekering.nl. Ons team helpt je graag met je aanvraag, wijzigingen of een schade, op werkdagen van 08:30 tot 17:00.{% endif %}</p>
     <div style="display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;{% if ks_open %}background:#EAF7C8;color:#2E7D32{% else %}background:#F1F1EA;color:#5C5E54{% endif %}">
       <span style="width:9px;height:9px;border-radius:50%;flex-shrink:0;background:{% if ks_open %}#3FBF6A{% else %}#C9CAC0{% endif %}"></span>{{ ks_status }}
     </div>
@@ -60,7 +60,7 @@
         </div>
         {% endfor %}
       </div>
-      <p style="font-size:13px;color:#9A9C92;margin:14px 4px 0;line-height:1.5">Op feestdagen kunnen de openingstijden afwijken. Buiten openingstijden kun je altijd een e-mail of WhatsApp sturen — we reageren de volgende werkdag.</p>
+      <p style="font-size:13px;color:#9A9C92;margin:14px 4px 0;line-height:1.5">Op feestdagen kunnen de openingstijden afwijken. Buiten openingstijden kun je altijd een e-mail of WhatsApp sturen, we reageren de volgende werkdag.</p>
     </div>
   </div>
 

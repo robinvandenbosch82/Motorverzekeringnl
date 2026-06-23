@@ -45,6 +45,10 @@ class Command(BaseCommand):
         else:
             self.stdout.write("Content bestaat al -> seeden overgeslagen.")
 
+        # 1b) Gedachtestreepjes -> komma's (Robin's voorkeur). Idempotent: elke deploy
+        #     zodat ook admin-edits met een streepje genormaliseerd worden.
+        call_command("normalize_dashes")
+
         # 2) MEDIA — copy the bundled essential images onto the (possibly empty) disk.
         src = base / "deploy" / "seed_media"
         copied = 0

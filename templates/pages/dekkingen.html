@@ -1,7 +1,7 @@
 {% extends "mv_base.html" %}
 {% load static %}
 
-{# Dekkingen — Claude Design. Tier cards DB-coupled (Dekkingstier); coverage
+{# Dekkingen, Claude Design. Tier cards DB-coupled (Dekkingstier); coverage
    matrix, extras and FAQ from core/content.py. #}
 
 {% block structured_data %}
@@ -37,7 +37,7 @@
       <a href="/">Home</a><span>/</span><span class="cur">Dekkingen</span>
     </nav>
     <div class="mv-eyebrow">{{ page.eyebrow|default:"DEKKINGEN" }}</div>
-    <h1 class="mv-h1" style="max-width:740px">{% if page.heading %}{{ page.heading }}{% else %}WA, WA + Casco of Allrisk — wat past bij jou?{% endif %}</h1>
+    <h1 class="mv-h1" style="max-width:740px">{% if page.heading %}{{ page.heading }}{% else %}WA, WA + Casco of Allrisk, wat past bij jou?{% endif %}</h1>
     <p style="font-size:clamp(16px,2vw,18px);line-height:1.55;color:#5C5E54;margin:0 0 16px;max-width:600px">{% if page.intro %}{{ page.intro }}{% else %}Elke motorrijder is wettelijk verplicht minimaal WA te hebben. Daarboven kies je zelf hoeveel je verzekert. We leggen de drie dekkingen helder uit, zodat je een bewuste keuze maakt.{% endif %}</p>
     <div class="mv-checkpill"><span class="mv-tick">✓</span> Gecontroleerd door <a href="{% url 'over_ons' %}" style="color:#4B4DFF;font-weight:700">onze WFT-experts</a></div>
   </div>
@@ -73,9 +73,9 @@
         {% for r in cov_features %}
         <div class="mv-cov-row">
           <div class="rl">{{ r.titel }}</div>
-          <div class="rc">{% if r.incl_wa %}<span class="mv-yes">✓</span>{% else %}<span class="mv-no">–</span>{% endif %}</div>
-          <div class="rc rc--hl">{% if r.incl_waplus %}<span class="mv-yes">✓</span>{% else %}<span class="mv-no">–</span>{% endif %}</div>
-          <div class="rc">{% if r.incl_allrisk %}<span class="mv-yes">✓</span>{% else %}<span class="mv-no">–</span>{% endif %}</div>
+          <div class="rc">{% if r.incl_wa %}<span class="mv-yes">✓</span>{% else %}<span class="mv-no">,</span>{% endif %}</div>
+          <div class="rc rc--hl">{% if r.incl_waplus %}<span class="mv-yes">✓</span>{% else %}<span class="mv-no">,</span>{% endif %}</div>
+          <div class="rc">{% if r.incl_allrisk %}<span class="mv-yes">✓</span>{% else %}<span class="mv-no">,</span>{% endif %}</div>
         </div>
         {% endfor %}
       </div>
@@ -109,7 +109,7 @@
         <div class="mv-eyebrow">{{ s.eyebrow|default:"EIGEN RISICO" }}</div>
         <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px);margin-bottom:14px">{{ s.kop|default:"Bepaal zelf je eigen risico" }}</h2>
         {% if s.tekst %}{% for p in s.alineas %}<p style="font-size:15px;line-height:1.6;color:#5C5E54;margin:0 0 14px">{{ p }}</p>{% endfor %}
-        {% else %}<p style="font-size:15px;line-height:1.6;color:#5C5E54;margin:0 0 14px">Bij WA + Casco en Allrisk kies je je eigen risico — het bedrag dat je bij cascoschade zelf betaalt. Kies je een hoger eigen risico, dan daalt je premie.</p>
+        {% else %}<p style="font-size:15px;line-height:1.6;color:#5C5E54;margin:0 0 14px">Bij WA + Casco en Allrisk kies je je eigen risico, het bedrag dat je bij cascoschade zelf betaalt. Kies je een hoger eigen risico, dan daalt je premie.</p>
         <p style="font-size:15px;line-height:1.6;color:#5C5E54;margin:0">Je stelt je eigen risico in tijdens het berekenen van je premie, samen met je dekking en opties.</p>{% endif %}
       </div>
       {% endwith %}

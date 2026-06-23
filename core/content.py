@@ -32,7 +32,7 @@ def home_context():
     renders before seeding): the coverage tiers (Dekkingstier), reviews
     (Review), FAQ (Faq, page_key='home') and experts (Expert). The remaining
     presentational lists (why/docs/trust/info/contact) are authored content
-    that lives here in code — they have no natural admin model yet and are
+    that lives here in code, they have no natural admin model yet and are
     rendered server-side just the same.
     """
     return {
@@ -93,7 +93,7 @@ WHY_ITEMS = [
     {"tag": "MAIL", "titel": "Direct je documenten",
      "tekst": "Na afsluiten ontvang je polis, voorwaarden en groene kaart meteen per e-mail."},
     {"tag": "FLEX", "titel": "Flexibel & vrij",
-     "tekst": "Geen verplicht account en maandelijks opzegbaar — jij houdt de regie."},
+     "tekst": "Geen verplicht account en maandelijks opzegbaar, jij houdt de regie."},
 ]
 
 DOC_ITEMS = [
@@ -131,9 +131,9 @@ CONTACT_DIRECT = [
     {"titel": "Verzekering wijzigen"}, {"titel": "Overstappen naar ons"},
 ]
 CONTACT_CHANNELS = [
-    {"tag": "CHAT", "titel": "Chat met ons", "meta": "Direct antwoord, ma–zo"},
+    {"tag": "CHAT", "titel": "Chat met ons", "meta": "Direct antwoord, ma,zo"},
     {"tag": "APP", "titel": "WhatsApp", "meta": "Reactie binnen ~15 min"},
-    {"tag": "BEL", "titel": "Bel ons", "meta": "Werkdagen 8:00–20:00"},
+    {"tag": "BEL", "titel": "Bel ons", "meta": "Werkdagen 8:00,20:00"},
 ]
 
 # Homepage blog teasers (bundled motor images, served from static). Used as the
@@ -162,7 +162,7 @@ TIER_CARDS_FALLBACK = [
 # ── Coverage-tier feature matrix (motor), consumed by seed_content to fill the
 #    Dekkingstier + DekkingFeature rows. (label, in_wa, in_waplus, in_allrisk). ─
 TIER_FEATURES = [
-    ("Aansprakelijkheid — schade aan anderen", True, True, True),
+    ("Aansprakelijkheid, schade aan anderen", True, True, True),
     ("Inclusief groene kaart", True, True, True),
     ("Diefstal & brand", False, True, True),
     ("Ruitschade", False, True, True),
@@ -171,7 +171,7 @@ TIER_FEATURES = [
     ("Nieuwwaarderegeling eerste jaren", False, False, True),
 ]
 
-# (code, subtitle, prijs vanaf p/m, highlight, omschrijving) — seed source.
+# (code, subtitle, prijs vanaf p/m, highlight, omschrijving), seed source.
 TIER_META = [
     ("WA", "Wettelijk verplicht", "6", False,
      "Schade aan anderen, inclusief groene kaart. De wettelijke basis."),
@@ -440,16 +440,16 @@ def klantenservice_context():
     now = timezone.localtime()
     wd = now.weekday()                     # Mon=0 … Sun=6
     mins = now.hour * 60 + now.minute
-    is_open = wd <= 4 and 510 <= mins < 1020   # ma–vr 08:30–17:00
-    days = [("Maandag", "08:30 – 17:00"), ("Dinsdag", "08:30 – 17:00"),
-            ("Woensdag", "08:30 – 17:00"), ("Donderdag", "08:30 – 17:00"),
-            ("Vrijdag", "08:30 – 17:00"), ("Zaterdag", "Gesloten"), ("Zondag", "Gesloten")]
+    is_open = wd <= 4 and 510 <= mins < 1020   # ma,vr 08:30,17:00
+    days = [("Maandag", "08:30, 17:00"), ("Dinsdag", "08:30, 17:00"),
+            ("Woensdag", "08:30, 17:00"), ("Donderdag", "08:30, 17:00"),
+            ("Vrijdag", "08:30, 17:00"), ("Zaterdag", "Gesloten"), ("Zondag", "Gesloten")]
     return {
         "secties": secties("klantenservice"),
         "weten": _cards("klantenservice_weten", KLANTENSERVICE_WETEN),
         "ks_open": is_open,
         "ks_status": ("Nu open · gemiddelde reactietijd 5 minuten" if is_open
-                      else "Nu gesloten · bereikbaar ma–vr vanaf 08:30"),
+                      else "Nu gesloten · bereikbaar ma,vr vanaf 08:30"),
         "ks_rows": [{"d": d, "t": t, "today": i == wd} for i, (d, t) in enumerate(days)],
         "ks_contacts": [
             {"tag": "CHAT", "title": "Live chat", "sub": "Start een gesprek met ons team",
@@ -603,7 +603,7 @@ DEKKINGEN_EXTRAS = [
     {"tag": "+", "titel": "Vervangend vervoer", "tekst": "Mobiel blijven terwijl je motor wordt hersteld."},
 ]
 
-# Coverage matrix rows (titel + per-tier inclusion) — from the motor feature set.
+# Coverage matrix rows (titel + per-tier inclusion), from the motor feature set.
 DEKKINGEN_MATRIX = [
     {"titel": f[0], "incl_wa": f[1], "incl_waplus": f[2], "incl_allrisk": f[3]}
     for f in TIER_FEATURES
@@ -617,7 +617,7 @@ DEKKINGEN_EIGENRISICO = [
 
 DEKKINGEN_FAQS = [
     {"q": "Is WA echt verplicht voor mijn motor?",
-     "a": "Ja. Zodra een motor op jouw naam staat, moet die minimaal WA-verzekerd zijn — ook als je er niet mee rijdt. Zonder verzekering riskeer je een boete van € 500."},
+     "a": "Ja. Zodra een motor op jouw naam staat, moet die minimaal WA-verzekerd zijn, ook als je er niet mee rijdt. Zonder verzekering riskeer je een boete van € 500."},
     {"q": "Wat is het verschil tussen WA + Casco en Allrisk?",
      "a": "WA + Casco dekt schade aan je eigen motor door diefstal, brand, storm en ruit. Allrisk dekt daarbovenop ook schade door eigen schuld of een ongeval, plus een nieuwwaarderegeling in de eerste jaren."},
     {"q": "Kan ik later van dekking wisselen?",
@@ -682,7 +682,7 @@ FAQS = [
     {"q": "Kan ik in de winter stoppen met rijden?",
      "a": "Met de winterstop-optie betaal je minder in de maanden dat je niet rijdt. Je blijft dan beperkt verzekerd tegen diefstal en brand."},
     {"q": "Heb ik mijn schadevrije jaren nodig?",
-     "a": "Hoe meer schadevrije jaren, hoe lager je premie. Je hoeft ze niet zelf op te zoeken — wij vragen ze voor je op."},
+     "a": "Hoe meer schadevrije jaren, hoe lager je premie. Je hoeft ze niet zelf op te zoeken, wij vragen ze voor je op."},
 ]
 
 # Het echte redactie-/expertteam (gedeeld met zusje Autoverzekering.nl).

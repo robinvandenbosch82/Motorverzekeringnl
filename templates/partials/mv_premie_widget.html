@@ -1,11 +1,11 @@
-{# Reusable premie-conversion band (MV) — rendered before the footer on every MV page via mv_base's premie_widget block. Pages with their own premie form suppress it. GET to premie_tool. #}
+{# Reusable premie-conversion band (MV), rendered before the footer on every MV page via mv_base's premie_widget block. Pages with their own premie form suppress it. GET to premie_tool. #}
 <div class="mv">
 <section class="mv-pband" data-premie-widget aria-label="Bereken je premie">
   <div class="mv-pband-inner">
     <div>
       <div class="mv-eyebrow" style="color:#CBF24A">{{ premie_band.eyebrow|default:"BEREKEN JE PREMIE" }}</div>
       <h2 class="mv-h2" style="color:#fff;margin-bottom:10px">{{ premie_band.kop|default:"Jouw motor verzekerd in 1 minuut" }}</h2>
-      <p style="color:#9FA196;font-size:15px;line-height:1.55;margin:0 0 16px;max-width:420px">{{ premie_band.tekst|default:"Start met je kenteken — wij vullen je motorgegevens vast in. Vergelijk WA, WA+ en Allrisk en sluit direct online af." }}</p>
+      <p style="color:#9FA196;font-size:15px;line-height:1.55;margin:0 0 16px;max-width:420px">{{ premie_band.tekst|default:"Start met je kenteken, wij vullen je motorgegevens vast in. Vergelijk WA, WA+ en Allrisk en sluit direct online af." }}</p>
       <div class="mv-pband-trust"><span class="star">★★★★★</span> {{ review_score }} · 100.000+ motorrijders · No-claim tot 80%</div>
     </div>
     <form class="mv-pband-card" method="get" action="{% url 'premie_tool' %}">

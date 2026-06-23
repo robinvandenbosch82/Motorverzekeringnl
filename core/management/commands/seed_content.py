@@ -32,7 +32,7 @@ BEROEPEN = [
     ("Schilder", "37", "Verf, ladders & steigermateriaal"),
 ]
 
-# (naam, score, premie_vanaf, tags) — motor-verzekeraars voor de vergelijker.
+# (naam, score, premie_vanaf, tags), motor-verzekeraars voor de vergelijker.
 VERZEKERAARS = [
     ("Interpolis", "9,2", "12", "Pechhulp inbegrepen, Schadeservice"),
     ("ASR", "8,8", "9", "WA t/m Allrisk, Aanschafwaarde"),
@@ -48,7 +48,7 @@ VERZEKERAARS = [
     ("Unigarant", "8,5", "10", "Online, Snel geregeld"),
 ]
 
-# Editorial enrichment for the premie-vergelijker (placeholders — pas aan in de
+# Editorial enrichment for the premie-vergelijker (placeholders, pas aan in de
 # admin). Only applied to an insurer the first time (when 'omschrijving' is nog
 # leeg), zodat latere admin-bewerkingen behouden blijven bij een reseed.
 VZ_DETAILS = {
@@ -138,10 +138,10 @@ BLOG = [
      "overzichtelijk op een rij."),
     ("Beschermende kleding: waar let je op?", "Veiligheid", "5 min", "", False,
      "img/motor/moto-5093663.jpg",
-     "Van CE-protectoren tot het juiste materiaal — wat je gear moet kunnen voordat jij de weg op gaat."),
+     "Van CE-protectoren tot het juiste materiaal, wat je gear moet kunnen voordat jij de weg op gaat."),
     ("Bandenspanning en profiel: de basis", "Onderhoud", "3 min", "", False,
      "img/motor/moto-8985454.jpg",
-     "De twee checks die je grip en veiligheid het meest beïnvloeden — en hoe vaak je ze het beste doet."),
+     "De twee checks die je grip en veiligheid het meest beïnvloeden, en hoe vaak je ze het beste doet."),
     ("Winterstop: stopzetten of toch doorlopen?", "Verzekering", "4 min", "", False,
      "img/motor/moto-2611686.jpg",
      "Rij je 's winters niet? Zo kies je tussen winterstop-korting en doorlopende dekking tegen diefstal."),
@@ -168,7 +168,7 @@ KB_ARTIKELEN = [
 ]
 
 # Legal pages (slug, titel, meta_description, body_html). Adapted from the
-# Autoverzekering.nl family — Motorverzekering.nl is een handelsnaam van
+# Autoverzekering.nl family, Motorverzekering.nl is een handelsnaam van
 # Overstappen.nl B.V. (zelfde AFM/KvK/Kifid-registratie). Bewerkbaar in de admin.
 _MAIL = "hallo@motorverzekering.nl"
 LEGAL_PAGES = [
@@ -302,7 +302,7 @@ class Command(BaseCommand):
             if changed:
                 pg.save()
         # (The featured blog post's author is set below, where BlogArtikel rows
-        #  are recreated — Jean-Paul, news / data-onderzoek.)
+        #  are recreated, Jean-Paul, news / data-onderzoek.)
 
         # Situaties: een bestelauto-only feature. De bijbehorende pagina is
         # verwijderd en geen motor-pagina toont Situatie nog → ruim eerder geseede
@@ -352,7 +352,7 @@ class Command(BaseCommand):
                     setattr(obj, field, value)
                 obj.save()
 
-        BlogArtikel.objects.all().delete()  # ordered list — replace wholesale
+        BlogArtikel.objects.all().delete()  # ordered list, replace wholesale
         for i, (titel, cat, leestijd, datum, feat, img, exc) in enumerate(BLOG):
             BlogArtikel.objects.create(
                 titel=titel, categorie=cat, leestijd=leestijd, datum=datum,
@@ -382,7 +382,7 @@ class Command(BaseCommand):
                 obj.link = kb_links[c["title"]]
                 obj.save(update_fields=["link"])
 
-        KennisbankArtikel.objects.all().delete()  # ordered list — replace wholesale
+        KennisbankArtikel.objects.all().delete()  # ordered list, replace wholesale
         for i, (titel, cat, feat, leestijd, gelezen, exc, img) in enumerate(KB_ARTIKELEN):
             KennisbankArtikel.objects.create(
                 titel=titel, categorie=cat, featured=feat, leestijd=leestijd,
@@ -421,7 +421,7 @@ class Command(BaseCommand):
                 obj.body_html = body
                 obj.save(update_fields=["titel", "meta_description", "body_html"])
 
-        self.stdout.write(self.style.SUCCESS("Content seeded — admin is gevuld en bewerkbaar."))
+        self.stdout.write(self.style.SUCCESS("Content seeded, admin is gevuld en bewerkbaar."))
 
     def _seed_artikel_content(self):
         """Editorial bodies for the two demo articles as admin-managed rich HTML
@@ -431,13 +431,13 @@ class Command(BaseCommand):
 
         blog_body = (
             "<p>Na maanden in de schuur is je motor toe aan een grondige check voordat je weer de "
-            "weg op gaat. Een paar simpele controles voorkomen pech, schade en — niet onbelangrijk "
-            "— discussie met je verzekeraar als er iets misgaat. Dit is de checklist die wij elke "
+            "weg op gaat. Een paar simpele controles voorkomen pech, schade en, niet onbelangrijk "
+            ", discussie met je verzekeraar als er iets misgaat. Dit is de checklist die wij elke "
             "lente aanhouden.</p>\n"
             "<h2>1. Banden: spanning, profiel en ouderdom</h2>\n"
             "<p>Begin onderaan. Banden verliezen tijdens de stalling spanning en kunnen hard worden. "
             "Controleer de bandenspanning als de banden koud zijn en vergelijk met de waarden in je "
-            "instructieboekje. Kijk ook naar het profiel en naar scheurtjes in het rubber — een band "
+            "instructieboekje. Kijk ook naar het profiel en naar scheurtjes in het rubber, een band "
             "ouder dan vijf à zes jaar kun je beter laten beoordelen.</p>\n"
             "<h2>2. Accu en elektronica</h2>\n"
             "<p>Een accu die de hele winter stilstaat, loopt langzaam leeg. Laad hem volledig op of "
@@ -449,24 +449,24 @@ class Command(BaseCommand):
             "<h2>3. Remmen, vloeistoffen en ketting</h2>\n"
             "<p>Controleer het niveau en de kleur van je remvloeistof en kijk of de remblokken nog "
             "voldoende dik zijn. Loop daarna langs de olie en koelvloeistof. Smeer tot slot je ketting "
-            "en stel de spanning af — een droge of te strakke ketting slijt snel en rijdt onrustig.</p>\n"
+            "en stel de spanning af, een droge of te strakke ketting slijt snel en rijdt onrustig.</p>\n"
             "<ul><li>Remvloeistof en remblokken controleren</li>"
             "<li>Olie- en koelvloeistofniveau bijvullen</li>"
             "<li>Ketting reinigen, smeren en spannen</li>"
             "<li>Bouten en spiegels natrekken</li></ul>\n"
             "<div class=\"mv-prose-tip\"><strong>Tip</strong><p>Check ook je ART-slot en de "
             "beveiliging. Veel verzekeraars vragen minimaal een ART-goedgekeurd slot van klasse 3 of "
-            "4 — zonder het juiste slot loop je dekking bij diefstal mis.</p></div>\n"
+            "4, zonder het juiste slot loop je dekking bij diefstal mis.</p></div>\n"
             "<h2>Klaar voor vertrek?</h2>\n"
             "<p>Alles gecheckt? Maak dan eerst een rustig rondje om gevoel te krijgen voor de remmen "
-            "en het gewicht — na een winter stilstaan voelt je motor even anders. En zorg dat je "
+            "en het gewicht, na een winter stilstaan voelt je motor even anders. En zorg dat je "
             "verzekering klopt voordat je wegrijdt.</p>"
         )
         blog_bronnen = (
             "<a href=\"https://www.rdw.nl\" rel=\"nofollow noopener\" target=\"_blank\">"
-            "RDW — Verzekeringsplicht en boetebedragen ↗</a>\n"
+            "RDW, Verzekeringsplicht en boetebedragen ↗</a>\n"
             "<a href=\"https://www.stichtingart.nl\" rel=\"nofollow noopener\" target=\"_blank\">"
-            "Stichting ART — Goedgekeurde motorsloten ↗</a>"
+            "Stichting ART, Goedgekeurde motorsloten ↗</a>"
         )
 
         kb_kort = (
@@ -493,40 +493,40 @@ class Command(BaseCommand):
             "jouw verzekeraar eist. Twijfel je? Onze klantenservice zoekt het voor je op.</p>\n"
             "<h2>Waarom vraagt je verzekeraar hierom?</h2>\n"
             "<p>Een goedgekeurd slot verkleint de kans op diefstal flink. Daarom is het vaak een "
-            "<strong>voorwaarde voor je dekking</strong>: zonder het juiste slot — of als je vergeet "
-            "je motor op slot te zetten — kan de verzekeraar een uitkering bij diefstal afwijzen. Een "
+            "<strong>voorwaarde voor je dekking</strong>: zonder het juiste slot, of als je vergeet "
+            "je motor op slot te zetten, kan de verzekeraar een uitkering bij diefstal afwijzen. Een "
             "goed slot verlaagt bovendien vaak je premie.</p>\n"
             "<h2>Welke sloten zijn er?</h2>\n"
-            "<ul><li><strong>Schijfremslot</strong> — compact en makkelijk mee te nemen, vergrendelt "
+            "<ul><li><strong>Schijfremslot</strong>, compact en makkelijk mee te nemen, vergrendelt "
             "de remschijf.</li>"
-            "<li><strong>Kettingslot</strong> — sterke beveiliging, zet je motor vast aan een vast "
+            "<li><strong>Kettingslot</strong>, sterke beveiliging, zet je motor vast aan een vast "
             "object.</li>"
-            "<li><strong>Beugelslot</strong> — robuust en lastig door te knippen.</li>"
-            "<li><strong>Grond- of muuranker</strong> — voor thuis, ideaal in combinatie met een "
+            "<li><strong>Beugelslot</strong>, robuust en lastig door te knippen.</li>"
+            "<li><strong>Grond- of muuranker</strong>, voor thuis, ideaal in combinatie met een "
             "kettingslot.</li></ul>\n"
             "<div class=\"mv-prose-tip is-ink\"><strong>Tip</strong><p>Combineer twee verschillende "
             "sloten (bijv. schijfrem + ketting aan een anker). Dieven hebben dan meer tijd en "
-            "gereedschap nodig — en jij meer zekerheid bij je claim.</p></div>\n"
+            "gereedschap nodig, en jij meer zekerheid bij je claim.</p></div>\n"
             "<h2>Kort samengevat</h2>\n"
             "<ul><li>Meestal minimaal <strong>ART klasse 3</strong>, in steden vaak "
             "<strong>klasse 4</strong>.</li>"
-            "<li>Staat in je <strong>polisvoorwaarden</strong> — check die altijd.</li>"
+            "<li>Staat in je <strong>polisvoorwaarden</strong>, check die altijd.</li>"
             "<li>Geen goedgekeurd slot = mogelijk <strong>geen uitkering</strong> bij diefstal.</li>"
             "</ul>"
         )
         kb_bronnen = (
             "<a href=\"https://www.stichtingart.nl\" rel=\"nofollow noopener\" target=\"_blank\">"
-            "Stichting ART — Goedgekeurde motorsloten ↗</a>\n"
+            "Stichting ART, Goedgekeurde motorsloten ↗</a>\n"
             "<a href=\"https://www.rdw.nl\" rel=\"nofollow noopener\" target=\"_blank\">"
-            "RDW — Verzekeringsplicht en diefstal ↗</a>"
+            "RDW, Verzekeringsplicht en diefstal ↗</a>"
         )
 
         rows = [
-            ("blog_artikel", "body", "Blog-artikel — hoofdtekst", blog_body),
-            ("blog_artikel", "bronnen", "Blog-artikel — bronnen", blog_bronnen),
-            ("kennisbank_artikel", "kort_antwoord", "Kennisbank — kort antwoord", kb_kort),
-            ("kennisbank_artikel", "body", "Kennisbank — hoofdtekst", kb_body),
-            ("kennisbank_artikel", "bronnen", "Kennisbank — bronnen", kb_bronnen),
+            ("blog_artikel", "body", "Blog-artikel, hoofdtekst", blog_body),
+            ("blog_artikel", "bronnen", "Blog-artikel, bronnen", blog_bronnen),
+            ("kennisbank_artikel", "kort_antwoord", "Kennisbank, kort antwoord", kb_kort),
+            ("kennisbank_artikel", "body", "Kennisbank, hoofdtekst", kb_body),
+            ("kennisbank_artikel", "bronnen", "Kennisbank, bronnen", kb_bronnen),
         ]
         for i, (pagina, sl, naam, tekst) in enumerate(rows):
             SectieTekst.objects.get_or_create(
@@ -543,14 +543,14 @@ class Command(BaseCommand):
                 "naam": "Premie-band (alle pagina's)",
                 "eyebrow": "BEREKEN JE PREMIE",
                 "kop": "Jouw motor verzekerd in 1 minuut",
-                "tekst": ("Start met je kenteken — wij vullen je motorgegevens vast in. "
+                "tekst": ("Start met je kenteken, wij vullen je motorgegevens vast in. "
                           "Vergelijk WA, WA+ en Allrisk en sluit direct online af."),
                 "order": 0,
             })
         SectieTekst.objects.get_or_create(
             pagina="premie_tool", sleutel="intro",
             defaults={
-                "naam": "Premie-tool — intro (eyebrow + H1 + subtekst)",
+                "naam": "Premie-tool, intro (eyebrow + H1 + subtekst)",
                 "eyebrow": "PREMIE & AFSLUITEN",
                 "kop": "Bereken je premie en sluit direct online af.",
                 "tekst": ("Vul je kenteken in, vergelijk de premies van meerdere verzekeraars "
@@ -566,27 +566,27 @@ class Command(BaseCommand):
 
         # (sleutel, naam, eyebrow, kop, tekst, cta_label, cta_url)
         secties = [
-            ("premiekaart", "Home — Premie-kaart (hero)", "", "Bereken je premie",
-             "Start met je kenteken — wij vullen je motorgegevens vast in.", "", ""),
-            ("dekkingen", "Home — Dekkingen-sectie", "DE DEKKINGEN", "Wat dekt elke verzekering?",
+            ("premiekaart", "Home, Premie-kaart (hero)", "", "Bereken je premie",
+             "Start met je kenteken, wij vullen je motorgegevens vast in.", "", ""),
+            ("dekkingen", "Home, Dekkingen-sectie", "DE DEKKINGEN", "Wat dekt elke verzekering?",
              "Vergelijk WA, WA+ en Allrisk en zie precies wat er wél en niet in zit. Je premie "
-             "hangt af van je motor en profiel — die bereken je met je kenteken.",
+             "hangt af van je motor en profiel, die bereken je met je kenteken.",
              "Vergelijk alle dekkingen", "/dekkingen/"),
-            ("waarom", "Home — Waarom-sectie", "WAAROM MOTORVERZEKERING.NL", "Rider-first geregeld", "", "", ""),
-            ("documenten", "Home — Documenten-sectie", "TRANSPARANT", "Voorwaarden & documenten",
+            ("waarom", "Home, Waarom-sectie", "WAAROM MOTORVERZEKERING.NL", "Rider-first geregeld", "", "", ""),
+            ("documenten", "Home, Documenten-sectie", "TRANSPARANT", "Voorwaarden & documenten",
              "Alles vooraf in te zien. Na het afsluiten staan je polis en groene kaart direct in "
              "je mailbox en in Mijn omgeving.", "", ""),
-            ("stappen", "Home — Stappen-sectie", "ZO GEREGELD", "In drie stappen verzekerd", "", "", ""),
-            ("reviews", "Home — Reviews-sectie", "BEOORDELINGEN", "Wat motorrijders zeggen", "", "", ""),
-            ("blog", "Home — Blog-sectie", "UITGELICHT", "Handige verhalen voor onderweg", "", "", ""),
-            ("experts", "Home — Experts-CTA", "ONZE EXPERTS", "Advies van mensen die verzekeren én rijden",
+            ("stappen", "Home, Stappen-sectie", "ZO GEREGELD", "In drie stappen verzekerd", "", "", ""),
+            ("reviews", "Home, Reviews-sectie", "BEOORDELINGEN", "Wat motorrijders zeggen", "", "", ""),
+            ("blog", "Home, Blog-sectie", "UITGELICHT", "Handige verhalen voor onderweg", "", "", ""),
+            ("experts", "Home, Experts-CTA", "ONZE EXPERTS", "Advies van mensen die verzekeren én rijden",
              "Al onze informatie is geschreven door verzekeringsexperts en gecontroleerd door "
              "WFT-gecertificeerde adviseurs.", "Maak kennis met onze experts", "/over-ons/"),
-            ("faq", "Home — FAQ-sectie", "GOED OM TE WETEN", "Veelgestelde vragen",
+            ("faq", "Home, FAQ-sectie", "GOED OM TE WETEN", "Veelgestelde vragen",
              "Opgesteld en gecontroleerd door onze WFT-gecertificeerde verzekeringsexperts.", "", ""),
-            ("info", "Home — Info-links-sectie", "GOED GEREGELD", "Meer over je motorverzekering", "", "", ""),
-            ("contact", "Home — Contact-sectie", "CONTACT & SERVICE", "We staan voor je klaar", "", "", ""),
-            ("contact_zelf", "Home — Contact 'Liever zelf regelen'", "", "Liever zelf regelen?",
+            ("info", "Home, Info-links-sectie", "GOED GEREGELD", "Meer over je motorverzekering", "", "", ""),
+            ("contact", "Home, Contact-sectie", "CONTACT & SERVICE", "We staan voor je klaar", "", "", ""),
+            ("contact_zelf", "Home, Contact 'Liever zelf regelen'", "", "Liever zelf regelen?",
              "In Mijn omgeving pas je je dekking aan, download je documenten en start je een "
              "schademelding.", "Naar Mijn omgeving", ""),
         ]
@@ -620,7 +620,7 @@ class Command(BaseCommand):
                 pg.eyebrow = "DIRECT ONLINE · GEEN TUSSENPERSOON"; changed.append("eyebrow")
             if not pg.intro:
                 pg.intro = ("Begin met je kenteken en bereken je premie in ongeveer 1 minuut. "
-                            "Eerst vergelijken kan ook — bekijk hieronder wat WA, WA+ en Allrisk dekken.")
+                            "Eerst vergelijken kan ook, bekijk hieronder wat WA, WA+ en Allrisk dekken.")
                 changed.append("intro")
             if changed:
                 pg.save(update_fields=changed)
@@ -631,17 +631,17 @@ class Command(BaseCommand):
         from core.models import Faq, Kaart, Page, SectieTekst
 
         secties = [
-            ("wat_gedekt", "Dekkingen — Matrix-kop", "", "Wat is gedekt per verzekering?", "", "", ""),
-            ("extra", "Dekkingen — Aanvullende dekkingen", "ZELF UITBREIDEN", "Aanvullende dekkingen",
+            ("wat_gedekt", "Dekkingen, Matrix-kop", "", "Wat is gedekt per verzekering?", "", "", ""),
+            ("extra", "Dekkingen, Aanvullende dekkingen", "ZELF UITBREIDEN", "Aanvullende dekkingen",
              "Maak je verzekering compleet met opties die bij jouw manier van rijden passen.", "", ""),
-            ("eigenrisico", "Dekkingen — Eigen risico", "EIGEN RISICO", "Bepaal zelf je eigen risico",
-             "Bij WA + Casco en Allrisk kies je je eigen risico — het bedrag dat je bij cascoschade "
+            ("eigenrisico", "Dekkingen, Eigen risico", "EIGEN RISICO", "Bepaal zelf je eigen risico",
+             "Bij WA + Casco en Allrisk kies je je eigen risico, het bedrag dat je bij cascoschade "
              "zelf betaalt. Kies je een hoger eigen risico, dan daalt je premie.\n\nJe stelt je eigen "
              "risico in tijdens het berekenen van je premie, samen met je dekking en opties.", "", ""),
-            ("premie_cta", "Dekkingen — Premie-CTA", "JOUW PREMIE", "Bekijk wat jouw dekking kost",
+            ("premie_cta", "Dekkingen, Premie-CTA", "JOUW PREMIE", "Bekijk wat jouw dekking kost",
              "Start met je kenteken en zie in een minuut je premie voor elke dekking.",
              "Bereken je premie", ""),
-            ("faq", "Dekkingen — FAQ-kop", "", "Veelgestelde vragen over dekkingen", "", "", ""),
+            ("faq", "Dekkingen, FAQ-kop", "", "Veelgestelde vragen over dekkingen", "", "", ""),
         ]
         for i, (sl, naam, eb, kop, tk, cl, cu) in enumerate(secties):
             SectieTekst.objects.get_or_create(
@@ -675,7 +675,7 @@ class Command(BaseCommand):
             if not pg.eyebrow:
                 pg.eyebrow = "DEKKINGEN"; changed.append("eyebrow")
             if not pg.heading:
-                pg.heading = "WA, WA + Casco of Allrisk — wat past bij jou?"; changed.append("heading")
+                pg.heading = "WA, WA + Casco of Allrisk, wat past bij jou?"; changed.append("heading")
             if not pg.intro:
                 pg.intro = ("Elke motorrijder is wettelijk verplicht minimaal WA te hebben. Daarboven "
                             "kies je zelf hoeveel je verzekert. We leggen de drie dekkingen helder uit, "
@@ -689,20 +689,20 @@ class Command(BaseCommand):
         from core.models import Page, SectieTekst
         SectieTekst.objects.get_or_create(
             pagina="blog", sleutel="newsletter",
-            defaults={"naam": "Blog — Nieuwsbrief-CTA", "kop": "Niets missen voor onderweg?",
+            defaults={"naam": "Blog, Nieuwsbrief-CTA", "kop": "Niets missen voor onderweg?",
                       "tekst": "Eén keer per maand de beste tips en routes in je inbox. Geen spam.",
                       "order": 0})
         SectieTekst.objects.get_or_create(
             pagina="kennisbank", sleutel="categorieen",
-            defaults={"naam": "Kennisbank — Categorieën-kop", "kop": "Categorieën", "order": 0})
+            defaults={"naam": "Kennisbank, Categorieën-kop", "kop": "Categorieën", "order": 0})
         SectieTekst.objects.get_or_create(
             pagina="kennisbank", sleutel="cta",
-            defaults={"naam": "Kennisbank — CTA", "kop": "Staat je vraag er niet bij?",
+            defaults={"naam": "Kennisbank, CTA", "kop": "Staat je vraag er niet bij?",
                       "tekst": "Onze klantenservice helpt je op werkdagen van 08:30 tot 17:00.", "order": 1})
 
         heroes = {
             "blog": ("BLOG", "Verhalen, tips en uitleg voor onderweg",
-                     "Onderhoud, veiligheid, touring en alles over je verzekering — geschreven voor "
+                     "Onderhoud, veiligheid, touring en alles over je verzekering, geschreven voor "
                      "motorrijders, zonder verzekeringsjargon."),
             "kennisbank": ("KENNISBANK", "Waar kunnen we je mee helpen?", ""),
         }
@@ -725,23 +725,23 @@ class Command(BaseCommand):
         (Contact channels come from SiteSettings; opening hours are computed.)"""
         from core.models import Kaart, Page, SectieTekst
         secties = [
-            ("service", "Klantenservice — Over onze service", "OVER ONZE SERVICE",
+            ("service", "Klantenservice, Over onze service", "OVER ONZE SERVICE",
              "Onderdeel van Autoverzekering.nl",
              "Motorverzekering.nl maakt deel uit van Autoverzekering.nl. We helpen je een passende "
              "motorverzekering te kiezen en direct af te sluiten. De verzekering zelf sluit je af bij "
              "de verzekeraar; wij ondersteunen je bij je aanvraag, wijzigingen en schade.\n\nEén "
-             "klantenservice, dezelfde mensen, dezelfde openingstijden — of je nu een auto- of "
+             "klantenservice, dezelfde mensen, dezelfde openingstijden, of je nu een auto- of "
              "motorverzekering bij ons hebt.", "", ""),
-            ("weten_kop", "Klantenservice — 'Goed om te weten'-kop", "", "Goed om te weten", "", "", ""),
-            ("klacht_kop", "Klantenservice — Klacht-sectiekop", "", "Klacht of feedback", "", "", ""),
-            ("klacht", "Klantenservice — Klacht-kaart", "", "Niet tevreden?",
+            ("weten_kop", "Klantenservice, 'Goed om te weten'-kop", "", "Goed om te weten", "", "", ""),
+            ("klacht_kop", "Klantenservice, Klacht-sectiekop", "", "Klacht of feedback", "", "", ""),
+            ("klacht", "Klantenservice, Klacht-kaart", "", "Niet tevreden?",
              "Laat het ons weten. We zoeken samen naar een oplossing en gebruiken je klacht om onze "
              "service te verbeteren. Lees hoe onze klachtenprocedure werkt.",
              "Naar de klachtenprocedure", "/dienstenwijzer/"),
-            ("feedback", "Klantenservice — Feedback-kaart", "", "Tip of compliment?",
+            ("feedback", "Klantenservice, Feedback-kaart", "", "Tip of compliment?",
              "We horen graag wat goed gaat en wat beter kan. Jouw feedback helpt ons om de service "
              "voor alle motorrijders scherp te houden.", "Stuur je feedback", ""),
-            ("cta", "Klantenservice — CTA", "", "Staat je vraag er niet bij?",
+            ("cta", "Klantenservice, CTA", "", "Staat je vraag er niet bij?",
              "Bekijk onze veelgestelde vragen of bereken direct je premie.", "", ""),
         ]
         for i, (sl, naam, eb, kop, tk, cl, cu) in enumerate(secties):
@@ -761,7 +761,7 @@ class Command(BaseCommand):
                 pg.heading = "Waarmee kunnen we je helpen?"; changed.append("heading")
             if not pg.intro:
                 pg.intro = ("Motorverzekering.nl is onderdeel van Autoverzekering.nl. Ons team helpt je "
-                            "graag met je aanvraag, wijzigingen of een schade — op werkdagen van 08:30 tot 17:00.")
+                            "graag met je aanvraag, wijzigingen of een schade, op werkdagen van 08:30 tot 17:00.")
                 changed.append("intro")
             if changed:
                 pg.save(update_fields=changed)
@@ -770,12 +770,12 @@ class Command(BaseCommand):
         """Onze experts page: section copy + redactieproces/familie card lists + hero."""
         from core.models import Kaart, Page, SectieTekst
         secties = [
-            ("proces", "Onze experts — Redactieproces-kop", "REDACTIONEEL PROCES",
+            ("proces", "Onze experts, Redactieproces-kop", "REDACTIONEEL PROCES",
              "Zo houden we onze informatie betrouwbaar", "", "", ""),
-            ("familie", "Onze experts — Merkenfamilie", "ONDERDEEL VAN",
+            ("familie", "Onze experts, Merkenfamilie", "ONDERDEEL VAN",
              "Onderdeel van een sterke verzekeringsfamilie",
              "Samen met deze merken helpen we elke dag duizenden Nederlanders aan een passende verzekering.", "", ""),
-            ("cta", "Onze experts — CTA", "", "Een vraag aan onze experts?",
+            ("cta", "Onze experts, CTA", "", "Een vraag aan onze experts?",
              "Onze klantenservice met WFT-advies helpt je graag verder.", "Naar klantenservice", ""),
         ]
         for i, (sl, naam, eb, kop, tk, cl, cu) in enumerate(secties):
@@ -800,7 +800,7 @@ class Command(BaseCommand):
             if not pg.intro:
                 pg.intro = ("Onze content wordt geschreven door verzekeringsexperts en gecontroleerd "
                             "door WFT-gecertificeerde adviseurs. Zo weet je zeker dat je leest wat klopt "
-                            "— en wat voor jou relevant is.")
+                            ", en wat voor jou relevant is.")
                 changed.append("intro")
             if changed:
                 pg.save(update_fields=changed)
