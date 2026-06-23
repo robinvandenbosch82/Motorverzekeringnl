@@ -409,6 +409,62 @@ BLOG_BODIES = {
 <h3>Waar zie ik welke beveiliging mijn verzekeraar eist?</h3>
 <p>De beveiligingseisen staan in je polisvoorwaarden en in de clausules bij je polis. Daar lees je de vereiste slotklasse en of elektronische beveiliging of een bepaalde stalling verplicht is. Twijfel je, vraag het dan na bij je verzekeraar voordat je de motor verzekert. Bij het berekenen van je premie geef je zelf je beveiliging op, zodat de premie en acceptatie op de juiste situatie zijn gebaseerd.</p>
 """,
+    "Schadevrije jaren van auto naar motor meenemen": """
+<p>Schadevrije jaren van je auto en je motor worden apart geregistreerd. Toch staan sommige verzekeraars toe dat je je opgebouwde auto-schadevrije jaren eenmalig gebruikt voor een nieuwe motorverzekering, onder voorwaarden. Of het kan en hoeveel jaren meetellen, hangt af van de verzekeraar waar je de motor verzekert; andere maatschappijen doen het niet.</p>
+<h2>De kernregel: auto- en motorjaren staan los van elkaar</h2>
+<p>Verzekeraars registreren je schadevrije jaren centraal in Roy-data, maar per voertuigsoort apart: je auto heeft een eigen opbouw en je motor ook. Je bouwt met je auto dus niet automatisch schadevrije jaren op voor je motor. Wil je je auto-jaren tóch inzetten voor je motorverzekering, dan is dat een keuze van de verzekeraar waar je afsluit. Sommige maatschappijen accepteren het als gunst bij het afsluiten, andere niet. Ga er daarom niet vanuit dat het automatisch gebeurt; je geeft het zelf op en de verzekeraar beslist of en hoe je auto-jaren meetellen voor je premie.</p>
+<h2>Hoe het overzetten werkt</h2>
+<p>Bij verzekeraars die het toestaan, geef je bij het afsluiten van de motorverzekering op dat je schadevrije jaren op een auto hebt opgebouwd. De verzekeraar controleert dit via Roy-data of vraagt om een royementsverklaring van je autoverzekeraar. De jaren worden dan gebruikt om je no-claimkorting op de motor te bepalen. Belangrijk: het gaat om het overnemen van het aantal jaren voor de korting, niet altijd om het fysiek verplaatsen ervan. Houd je je auto en de autoverzekering aan, dan blijven die jaren in de regel aan je auto gekoppeld; de verzekeraar bepaalt of je dezelfde jaren ook op de motor mag laten meetellen.</p>
+<h2>Voorwaarden die verzekeraars stellen</h2>
+<ul>
+<li>Het is meestal een <strong>eenmalige</strong> overname bij het afsluiten van de motorverzekering.</li>
+<li>De jaren moeten <strong>aantoonbaar</strong> zijn via Roy-data of een royementsverklaring.</li>
+<li>Dezelfde jaren mogen vaak niet <strong>dubbel</strong> worden ingezet voor volledige korting op zowel auto als motor; of dat mag, verschilt per verzekeraar.</li>
+<li>Sommige verzekeraars hanteren een <strong>maximum</strong> aantal over te nemen jaren of accepteren alleen een schadevrij verleden zonder recente claims.</li>
+</ul>
+<h2>Andersom: van motor naar auto</h2>
+<p>De omgekeerde route komt ook voor: heb je veel schadevrije jaren op je motor en sluit je een autoverzekering af, dan accepteren sommige autoverzekeraars die motorjaren. Ook hier geldt dat het per verzekeraar verschilt, dat het meestal eenmalig is en dat de jaren aantoonbaar moeten zijn. De achterliggende gedachte is hetzelfde: een aantoonbaar schadevrij verleden als bestuurder is voor de verzekeraar een teken van lager risico, ongeacht of dat op twee of vier wielen is opgebouwd.</p>
+<h2>Uitzonderingen en aandachtspunten</h2>
+<p>Niet elke verzekeraar neemt jaren van een ander voertuig over; bij een deel begin je voor de motor gewoon op nul of op het aantal jaren dat je al op een motor had. Een <strong>recente schade</strong> op je auto telt mee in je schadevrije jaren en gaat dus mee bij een overname. Ook kan een verzekeraar de overgenomen jaren anders waarderen dan je gewend bent, omdat elke maatschappij een eigen bonus-malustabel gebruikt. Vraag daarom vooraf na hoeveel jaren worden overgenomen en welke korting daar bij die verzekeraar bij hoort.</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Aannemen dat het automatisch gaat.</strong> Je moet de auto-jaren zelf opgeven; ze verschijnen niet vanzelf op je motorpolis.</li>
+<li><strong>Denken dat het overal kan.</strong> Niet alle verzekeraars nemen jaren van een ander voertuig over.</li>
+<li><strong>Dubbel willen profiteren.</strong> Dezelfde jaren tegelijk volledig inzetten op auto én motor mag vaak niet.</li>
+<li><strong>Geen bewijs bewaren.</strong> Zonder Roy-data-registratie of royementsverklaring kun je de jaren niet aantonen.</li>
+</ul>
+<h2>Praktijkvoorbeeld</h2>
+<p>Iemand rijdt vijftien jaar schadevrij auto en koopt zijn eerste motor. Bij de ene verzekeraar begint hij voor de motor op nul schadevrije jaren en betaalt hij de volle premie. Bij een verzekeraar die auto-jaren accepteert, geeft hij zijn vijftien autojaren op; die worden via Roy-data gecontroleerd en eenmalig gebruikt voor de motor, waardoor hij direct een flinke no-claimkorting krijgt. Het verschil in premie tussen beide verzekeraars zit hier volledig in het wel of niet meetellen van zijn auto-verleden. Daarom loont het te vragen of een verzekeraar auto-jaren overneemt voordat je kiest.</p>
+<h2>Wel of niet over te zetten?</h2>
+<table><thead><tr><th>Situatie</th><th>Mogelijk?</th></tr></thead><tbody>
+<tr><td>Auto-jaren gebruiken voor je motor</td><td>Bij sommige verzekeraars, eenmalig en onder voorwaarden</td></tr>
+<tr><td>Motor-jaren gebruiken voor je auto</td><td>Bij sommige verzekeraars, eenmalig en onder voorwaarden</td></tr>
+<tr><td>Dezelfde jaren dubbel inzetten (auto én motor)</td><td>Meestal niet</td></tr>
+<tr><td>Jaren aantonen</td><td>Via Roy-data of een royementsverklaring</td></tr>
+</tbody></table>
+<h2>Checklist</h2>
+<ul>
+<li>Vraag bij de motorverzekeraar of auto-schadevrije jaren worden overgenomen.</li>
+<li>Controleer je aantal schadevrije jaren via je autoverzekeraar of Roy-data.</li>
+<li>Vraag zo nodig een royementsverklaring op als bewijs.</li>
+<li>Vraag na hoeveel jaren worden overgenomen en welke korting daarbij hoort.</li>
+<li>Check of je de jaren ook op je auto mag laten staan.</li>
+</ul>
+<p>Wil je zien wat je schadevrije jaren aan korting opleveren? Geef ze op bij het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>. Hoe je schadevrije jaren in het algemeen werken, lees je in het artikel <a href="/blog/schadevrije-jaren-bij-een-motorverzekering/">schadevrije jaren bij een motorverzekering</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Kan ik mijn schadevrije jaren van mijn auto gebruiken voor mijn motor?</h3>
+<p>Bij een deel van de verzekeraars wel, bij andere niet. Auto- en motorjaren worden apart geregistreerd in Roy-data, dus ze gaan niet automatisch over. Verzekeraars die het toestaan, gebruiken je auto-jaren meestal eenmalig bij het afsluiten van de motorverzekering om je no-claimkorting te bepalen. Of het kan en hoeveel jaren meetellen, verschilt per maatschappij; vraag het daarom na voordat je kiest, want het scheelt direct in je premie.</p>
+<h3>Houd ik de jaren dan ook nog op mijn auto?</h3>
+<p>Dat hangt af van de verzekeraar. Bij een overname voor de korting blijven je opgebouwde jaren vaak gekoppeld aan je auto en de autoverzekering die je aanhoudt. Sommige verzekeraars staan toe dat je hetzelfde verleden voor beide voertuigen laat meetellen, andere niet. Dezelfde jaren tegelijk volledig inzetten voor volledige korting op zowel je auto als je motor is meestal niet mogelijk. Vraag precies na hoe jouw verzekeraar hiermee omgaat.</p>
+<h3>Hoeveel jaren kan ik overzetten?</h3>
+<p>Dat verschilt per verzekeraar. Sommige nemen je volledige aantal aantoonbare schadevrije jaren over, andere hanteren een maximum. Omdat elke verzekeraar een eigen bonus-malustabel gebruikt, kan hetzelfde aantal jaren bij de ene maatschappij een andere korting opleveren dan bij de andere. Vraag bij het afsluiten na hoeveel jaren worden overgenomen en welk kortingspercentage daarbij hoort, zodat je weet wat je werkelijk aan premie bespaart.</p>
+<h3>Hoe toon ik mijn schadevrije jaren aan?</h3>
+<p>Je schadevrije jaren staan centraal in Roy-data, dat verzekeraars onderling kunnen raadplegen. Bij het afsluiten haalt de motorverzekeraar je jaren daar vaak automatisch op. Wil of moet je het zelf aantonen, dan vraag je een royementsverklaring op bij je autoverzekeraar; daarin staan je aantal schadevrije jaren en de royementsdatum. Bewaar die verklaring goed, zeker als je tijdelijk geen verzekering hebt, zodat je de jaren later kunt gebruiken.</p>
+<h3>Kan ik mijn motorjaren gebruiken voor mijn auto?</h3>
+<p>Ja, bij sommige verzekeraars kan dat ook andersom. Heb je veel schadevrije jaren op je motor en sluit je een autoverzekering af, dan accepteren bepaalde autoverzekeraars die motorjaren, meestal eenmalig en onder dezelfde voorwaarden: aantoonbaar via Roy-data of een royementsverklaring en niet dubbel inzetbaar. Of het kan, verschilt per verzekeraar. Een aantoonbaar schadevrij verleden als bestuurder weegt voor de verzekeraar mee, ongeacht het type voertuig waarop je het hebt opgebouwd.</p>
+<h3>Begin ik op nul als mijn verzekeraar auto-jaren niet overneemt?</h3>
+<p>Als je verzekeraar geen auto-jaren overneemt en je hebt nog niet eerder een motor verzekerd, dan start je voor de motor zonder opgebouwde schadevrije jaren. Je betaalt dan de premie zonder no-claimkorting en bouwt vanaf dat moment per schadevrij jaar zelf korting op. Het loont in dat geval om te vergelijken: een verzekeraar die je auto-jaren wél meetelt, kan je vanaf de start een flink lagere premie geven. Regel een eventuele overname meteen bij het afsluiten, want achteraf jaren laten meetellen is bij veel verzekeraars lastiger.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
