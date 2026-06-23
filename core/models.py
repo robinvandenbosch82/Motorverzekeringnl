@@ -266,6 +266,13 @@ class Expert(PhotoMixin):
         return [t.strip() for t in self.tags.split(",") if t.strip()]
 
     @property
+    def initials(self):
+        parts = [p for p in self.name.split() if p]
+        if not parts:
+            return "?"
+        return (parts[0][0] + (parts[-1][0] if len(parts) > 1 else "")).upper()
+
+    @property
     def sameas_list(self):
         return [u.strip() for u in (self.sameas or "").splitlines() if u.strip().startswith("http")]
 

@@ -72,6 +72,11 @@ PAGES: list[Page] = [
          "Bereik ons via chat, WhatsApp of e-mail, bekijk de openingstijden en regel "
          "veelvoorkomende zaken direct zelf.",
          0.6, "monthly", extra=content.klantenservice_context),
+    Page("mijn_omgeving", "mijn-omgeving/", "pages/mijn_omgeving.html",
+         "Mijn omgeving | Motorverzekering.nl",
+         "Je persoonlijke omgeving is nog in ontwikkeling. Voor wijzigingen en vragen "
+         "helpt onze klantenservice je graag persoonlijk.",
+         0.3, "monthly"),
 ]
 
 PAGES_BY_NAME = {p.name: p for p in PAGES}

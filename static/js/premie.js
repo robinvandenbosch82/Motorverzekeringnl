@@ -388,6 +388,26 @@
 
   /* ── STEP 4 — request ── */
   function prepRequest() {
+    // Overzicht van de keuze bovenaan, zodat de klant ziet dat het goed gaat.
+    var sum = $('[data-summary]');
+    if (sum) {
+      var v = state.vehicle || {};
+      var motor = [v.Brand, v.Model, v.Type].filter(Boolean).join(' ') + (v.ManufacturingYear ? ' · ' + v.ManufacturingYear : '');
+      var per = state.paymentPeriod === '12' ? 'per jaar' : 'per maand';
+      var base = state.selected ? Number(state.selected.Premium) || 0 : 0;
+      var addKeys = Object.keys(state.selectedAddons);
+      var add = addKeys.reduce(function (s, k) { return s + (Number(state.selectedAddons[k].Premium) || 0); }, 0);
+      var rows = [['Je motor', esc(motor) || '—'],
+                  ['Dekking', esc((COVERAGE[state.coverage] || {}).title || '')],
+                  ['Verzekeraar', esc(state.selected ? (state.selected.CompanyName || state.selected.ProductDescription || '') : '')]];
+      if (addKeys.length) {
+        var names = addKeys.map(function (k) { return state.selectedAddons[k].Description || state.selectedAddons[k].Type; });
+        rows.push(['Aanvullend', esc(names.join(', '))]);
+      }
+      sum.innerHTML = '<div class="wz-summary__h">Jouw keuze</div>' +
+        rows.map(function (x) { return '<div class="wz-dl"><span>' + x[0] + '</span><strong>' + x[1] + '</strong></div>'; }).join('') +
+        '<div class="wz-dl wz-summary__total"><span>Totaal ' + per + '</span><strong>' + money(base + add) + '</strong></div>';
+    }
     var box = $('[data-acceptance]');
     if (!box.dataset.built) {
       ACCEPTANCE.forEach(function (q) {

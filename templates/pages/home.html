@@ -292,7 +292,11 @@
           <div style="font-weight:800;font-size:16px;margin-bottom:14px">{{ g.titel }}</div>
           <div style="display:flex;flex-direction:column;gap:11px">
             {% for l in g.tekst.splitlines %}
-            <a href="{% url 'kennisbank' %}" class="mv-infolink"><span class="d"></span><span>{{ l }}</span></a>
+            {% if g.titel == "Je verzekering aanpassen" %}
+            <a href="{% url 'klantenservice' %}" class="mv-infolink"><span class="d"></span><span>{{ l }}</span></a>
+            {% else %}
+            <a href="{% url 'kennisbank' %}?q={{ l|urlencode }}" class="mv-infolink"><span class="d"></span><span>{{ l }}</span></a>
+            {% endif %}
             {% endfor %}
           </div>
         </div>

@@ -161,6 +161,7 @@
       {# ── STEP 4 ── #}
       <div class="wz-panel" data-panel="4">
         <h2 class="wz-h2">4 · Aanvraag afronden</h2>
+        <div class="wz-summary" data-summary></div>
         <div data-request-form>
           <div class="wz-ins__dh" style="margin-top:0">Verzekeringnemer</div>
           <div class="wz-grid2">
@@ -217,5 +218,5 @@
 </div>
 
 {{ verzekeraar_data|json_script:"vz-data" }}
-<script src="{% static 'js/premie.js' %}?v=8" defer></script>
+<script src="{% static 'js/premie.js' %}?v=9" defer></script>
 {% endblock %}

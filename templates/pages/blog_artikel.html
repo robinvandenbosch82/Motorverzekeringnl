@@ -1,5 +1,5 @@
 {% extends "mv_base.html" %}
-{% load static %}
+{% load static responsive_image %}
 
 {# Blog-artikel (Vraag), Claude Design. Representative motor article (winterstop)
    with an embedded premie mini-form (GET → premie_tool) + related posts.
@@ -48,10 +48,14 @@
     </div>
     <h1 style="font-size:clamp(32px,5vw,52px);line-height:1.06;font-weight:800;letter-spacing:-.03em;margin:0 0 20px">{% if page.heading %}{{ page.heading }}{% else %}Maak je motor rijklaar na de winterstop{% endif %}</h1>
     <div style="display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-bottom:28px">
-      <div style="width:46px;height:46px;border-radius:50%;background:#15150F;color:#CBF24A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0">TdV</div>
+      {% if page.author.get_photo_source %}
+      <div style="width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0">{% picture page.author.get_photo_source alt=page.author.get_photo_alt sizes="46px" style="width:46px;height:46px;object-fit:cover;display:block" %}</div>
+      {% else %}
+      <div style="width:46px;height:46px;border-radius:50%;background:#15150F;color:#CBF24A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0">{{ page.author.initials|default:"MV" }}</div>
+      {% endif %}
       <div>
-        <div style="font-size:14px">Geschreven door <strong>Thomas de Vries</strong> · Verzekeringsexpert</div>
-        <div style="font-size:13px;color:#5C5E54;display:flex;align-items:center;gap:6px;margin-top:3px"><span class="mv-tick" style="width:15px;height:15px;font-size:9px">✓</span> Gecontroleerd door Marloes Bakker (WFT) · bijgewerkt 4 juni 2026</div>
+        <div style="font-size:14px">Geschreven door <strong>{{ page.author.name|default:"onze redactie" }}</strong>{% if page.author.role %} · {{ page.author.role }}{% endif %}</div>
+        <div style="font-size:13px;color:#5C5E54;display:flex;align-items:center;gap:6px;margin-top:3px"><span class="mv-tick" style="width:15px;height:15px;font-size:9px">✓</span> Gecontroleerd door {% if page.reviewer %}{{ page.reviewer.name }} (WFT){% else %}onze WFT-experts{% endif %}{% if page.byline_date %} · bijgewerkt {{ page.byline_date }}{% endif %}</div>
       </div>
     </div>
   </div>
@@ -112,16 +116,22 @@
       {% endif %}
     </div>
 
+    {% if page.author %}
     <div style="margin-top:24px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:18px;padding:24px;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
-      <div style="width:54px;height:54px;border-radius:50%;background:#15150F;color:#CBF24A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex-shrink:0">TdV</div>
+      {% if page.author.get_photo_source %}
+      <div style="width:54px;height:54px;border-radius:50%;overflow:hidden;flex-shrink:0">{% picture page.author.get_photo_source alt=page.author.get_photo_alt sizes="54px" style="width:54px;height:54px;object-fit:cover;display:block" %}</div>
+      {% else %}
+      <div style="width:54px;height:54px;border-radius:50%;background:#15150F;color:#CBF24A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex-shrink:0">{{ page.author.initials }}</div>
+      {% endif %}
       <div style="flex:1;min-width:220px">
         <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.1em;color:#9A9C92;margin-bottom:4px">OVER DE AUTEUR</div>
-        <div style="font-weight:800;font-size:17px">Thomas de Vries</div>
-        <div style="font-size:13px;color:#5C5E54;margin-bottom:10px">Verzekeringsexpert · 12 jaar ervaring in motor- en schadeverzekeringen</div>
-        <p style="font-size:14px;line-height:1.6;color:#5C5E54;margin:0 0 12px">Thomas schrijft over verzekeren, onderhoud en veilig rijden. Hij vertaalt ingewikkelde voorwaarden naar heldere taal en rijdt zelf al 15 jaar motor.</p>
-        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#2E7D32;font-weight:700"><span class="mv-tick" style="width:18px;height:18px">✓</span> Inhoudelijk gecontroleerd door Marloes Bakker, WFT-gecertificeerd adviseur</div>
+        <div style="font-weight:800;font-size:17px">{{ page.author.name }}</div>
+        <div style="font-size:13px;color:#5C5E54;margin-bottom:10px">{{ page.author.role }}</div>
+        <p style="font-size:14px;line-height:1.6;color:#5C5E54;margin:0 0 12px">{{ page.author.bio }}</p>
+        {% if page.reviewer %}<div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#2E7D32;font-weight:700"><span class="mv-tick" style="width:18px;height:18px">✓</span> Inhoudelijk gecontroleerd door {{ page.reviewer.name }}, WFT-gecertificeerd adviseur</div>{% endif %}
       </div>
     </div>
+    {% endif %}
   </article>
 
   {# ── Premie mini-form (CTA) ── #}

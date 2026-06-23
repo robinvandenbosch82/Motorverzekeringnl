@@ -11,7 +11,7 @@
       <a href="{{ item.url|default:'#' }}" class="mv-navlink{% if request.path == item.url %} mv-navlink--active{% endif %}">{{ item.label }}</a>
       {% endfor %}
       <span class="mv-sep"></span>
-      <a href="{% url 'premie_tool' %}" class="mv-login"><span class="ic">↪</span>Inloggen</a>
+      <a href="{% url 'mijn_omgeving' %}" class="mv-login"><span class="ic">↪</span>Inloggen</a>
       <a href="{% url 'premie_tool' %}" class="mv-cta">Bereken premie</a>
     </div>
     <button type="button" class="mv-burger" aria-label="Menu openen" aria-expanded="false" aria-controls="mv-mobilemenu"><span></span><span></span><span></span></button>
@@ -22,7 +22,7 @@
     {% endfor %}
     <div style="height:1px;background:#ECECE3;margin:6px 12px"></div>
     <div style="display:flex;gap:10px;padding:10px 8px 8px">
-      <a href="{% url 'premie_tool' %}" style="flex:1;text-align:center;font-weight:700;font-size:15px;color:#15150F;border:1.5px solid #E6E6DD;padding:13px;border-radius:12px">Inloggen</a>
+      <a href="{% url 'mijn_omgeving' %}" style="flex:1;text-align:center;font-weight:700;font-size:15px;color:#15150F;border:1.5px solid #E6E6DD;padding:13px;border-radius:12px">Inloggen</a>
       <a href="{% url 'premie_tool' %}" class="mv-cta" style="flex:1;text-align:center">Bereken premie</a>
     </div>
   </div>
