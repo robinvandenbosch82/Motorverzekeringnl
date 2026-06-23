@@ -501,6 +501,10 @@ class KennisbankArtikel(PhotoMixin):
     slug = models.SlugField("Slug", max_length=220, unique=True, blank=True)
     categorie = models.CharField("Categorie", max_length=80, blank=True)
     excerpt = models.TextField("Samenvatting", blank=True)
+    kort_antwoord = models.TextField("Kort antwoord", blank=True,
+                                     help_text="Het directe antwoord in 1-3 zinnen (HTML toegestaan).")
+    body_html = models.TextField("Artikel (HTML)", blank=True,
+                                 help_text="De volledige uitleg. Mag h2/p/ul/strong bevatten.")
     leestijd = models.CharField("Leestijd", max_length=20, blank=True, help_text="bijv. '4 min'")
     gelezen = models.CharField("Aantal keer gelezen", max_length=20, blank=True, help_text="bijv. '12.4k'")
     featured = models.BooleanField("Uitgelicht", default=False)
@@ -514,6 +518,20 @@ class KennisbankArtikel(PhotoMixin):
 
     def __str__(self):
         return self.titel
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            base = slugify(self.titel)[:200] or "vraag"
+            slug, n = base, 2
+            while KennisbankArtikel.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug, n = f"{base}-{n}", n + 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("kennisbank_artikel", args=[self.slug])
 
     def save(self, *args, **kwargs):
         if not self.slug:

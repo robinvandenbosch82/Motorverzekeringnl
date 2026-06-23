@@ -1,9 +1,7 @@
 {% extends "mv_base.html" %}
 {% load static %}
 
-{# Kennisbank-artikel (Vraag), Claude Design. Representative motor article
-   (ART-slot). Bespoke editorial content; byline references the Page reviewer
-   when set (admin), else a generic WFT line. #}
+{% comment %}Kennisbank-artikel (één vraag). DB = bron (KennisbankArtikel.body_html / kort_antwoord).{% endcomment %}
 
 {% block structured_data %}
 <script type="application/ld+json">
@@ -13,7 +11,7 @@
   "@id": "{{ canonical_url }}#breadcrumb",
   "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "Kennisbank", "item": "{{ site_origin }}/kennisbank/"},
-    {"@type": "ListItem", "position": 2, "name": "ART-slot", "item": "{{ canonical_url }}"}
+    {"@type": "ListItem", "position": 2, "name": "{{ artikel.titel|escapejs }}", "item": "{{ canonical_url }}"}
   ]
 }
 </script>
@@ -22,7 +20,8 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "@id": "{{ canonical_url }}#article",
-  "headline": "Welk ART-slot heb ik nodig voor mijn motor?",
+  "headline": "{{ artikel.titel|escapejs }}",
+  {% if artikel.categorie %}"articleSection": "{{ artikel.categorie|escapejs }}",{% endif %}
   "inLanguage": "nl-NL",
   "isPartOf": {"@id": "{{ site_origin }}/#website"},
   "publisher": {"@id": "{{ site_origin }}/#organization"}
@@ -35,109 +34,50 @@
   {# ── Hero ── #}
   <div style="max-width:780px;margin:0 auto;width:100%;padding:clamp(20px,3vw,32px) clamp(18px,4vw,40px) 0">
     <nav class="mv-crumbs" aria-label="Kruimelpad">
-      <a href="{% url 'kennisbank' %}">Veelgestelde vragen</a><span>/</span><span>Beveiliging</span><span>/</span><span class="cur">ART-slot</span>
+      <a href="{% url 'kennisbank' %}">Veelgestelde vragen</a><span>/</span>{% if artikel.categorie %}<a href="{% url 'kennisbank' %}?cat={{ artikel.categorie|urlencode }}">{{ artikel.categorie }}</a><span>/</span>{% endif %}<span class="cur">{{ artikel.titel }}</span>
     </nav>
-    <span style="display:inline-block;font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.06em;color:#15150F;background:#CBF24A;padding:5px 10px;border-radius:7px;margin-bottom:16px">BEVEILIGING &amp; DIEFSTAL</span>
-    <h1 style="font-size:clamp(30px,4.5vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.03em;margin:0 0 18px">{% if page.heading %}{{ page.heading }}{% else %}Welk ART-slot heb ik nodig voor mijn motor?{% endif %}</h1>
+    {% if artikel.categorie %}<span style="display:inline-block;font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.06em;color:#15150F;background:#CBF24A;padding:5px 10px;border-radius:7px;margin-bottom:16px">{{ artikel.categorie|upper }}</span>{% endif %}
+    <h1 style="font-size:clamp(30px,4.5vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.03em;margin:0 0 18px">{{ artikel.titel }}</h1>
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px;color:#5C5E54">
-      <span style="display:flex;align-items:center;gap:6px"><span class="mv-tick" style="width:16px;height:16px;font-size:10px">✓</span> Gecontroleerd door {% if page.reviewer %}{{ page.reviewer.name }} (WFT){% else %}onze WFT-experts{% endif %}</span>
-      <span style="width:4px;height:4px;border-radius:50%;background:#C9CAC0"></span>
-      <span style="font-family:'JetBrains Mono'">Bijgewerkt {{ page.byline_date|default:"4 juni 2026" }} · {{ page.leestijd|default:"4 min" }}</span>
+      <span style="display:flex;align-items:center;gap:6px"><span class="mv-tick" style="width:16px;height:16px;font-size:10px">✓</span> Gecontroleerd door onze WFT-experts</span>
+      {% if artikel.leestijd %}<span style="width:4px;height:4px;border-radius:50%;background:#C9CAC0"></span><span style="font-family:'JetBrains Mono'">{{ artikel.leestijd }} leestijd</span>{% endif %}
     </div>
   </div>
 
   {# ── Kort antwoord ── #}
+  {% if artikel.kort_antwoord %}
   <div style="max-width:780px;margin:0 auto;width:100%;padding:clamp(24px,3vw,32px) clamp(18px,4vw,40px) 0">
     <div style="background:#F4F8E6;border:1.5px solid #CBF24A;border-radius:18px;padding:24px">
       <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.1em;color:#15150F;margin-bottom:10px">KORT ANTWOORD</div>
-      <p style="font-size:16px;line-height:1.6;color:#15150F;margin:0;font-weight:600">{% if secties.kort_antwoord %}{{ secties.kort_antwoord.tekst|safe }}{% else %}Voor de meeste motoren vraagt je verzekeraar minimaal een <strong>ART-goedgekeurd slot van klasse 3</strong>. In grote steden of voor duurdere en nieuwere motoren is vaak <strong>klasse 4</strong> verplicht. Gebruik je geen goedgekeurd slot, dan kan de verzekeraar bij diefstal de uitkering weigeren.{% endif %}</p>
+      <p style="font-size:16px;line-height:1.6;color:#15150F;margin:0;font-weight:600">{{ artikel.kort_antwoord|safe }}</p>
     </div>
   </div>
+  {% endif %}
 
   {# ── Body ── #}
-  <article style="max-width:720px;margin:0 auto;width:100%;padding:clamp(28px,4vw,40px) clamp(18px,4vw,40px) clamp(36px,5vw,56px);font-size:clamp(16px,2vw,17px);line-height:1.75;color:#2A2A24">
-    {% if secties.body %}<div class="mv-prose">{{ secties.body.tekst|safe }}</div>{% else %}
-    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Wat is een ART-slot?</h2>
-    <p style="margin:0 0 18px">ART staat voor de onafhankelijke <strong>Stichting ART</strong>, die motorsloten test op inbraakwerendheid. Hoe beter een slot bestand is tegen diefstal, hoe meer sterren (klassen) het krijgt. De keuring loopt van klasse 1 (lichte beveiliging) tot klasse 4 (zwaarste beveiliging). Voor motoren zijn vooral klasse 3 en 4 relevant.</p>
-
-    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Welke klasse heb jij nodig?</h2>
-    <p style="margin:0 0 16px">Dat hangt af van je verzekeraar, je woonplaats en de waarde van je motor. Als richtlijn:</p>
-    <div style="border:1.5px solid #ECECE3;border-radius:14px;overflow:hidden;margin:0 0 18px">
-      <div style="display:grid;grid-template-columns:1fr 1.6fr;background:#15150F;color:#fff;font-size:13px;font-weight:700">
-        <div style="padding:12px 16px">Situatie</div><div style="padding:12px 16px;border-left:1px solid #2A2A24">Meestal vereist</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1.6fr;border-top:1px solid #F0F0E8;font-size:14px;background:#fff">
-        <div style="padding:12px 16px;font-weight:600">Standaard motor</div><div style="padding:12px 16px;border-left:1px solid #F0F0E8">ART klasse 3</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1.6fr;border-top:1px solid #F0F0E8;font-size:14px;background:#FBFBF7">
-        <div style="padding:12px 16px;font-weight:600">Grote stad / hoog risico</div><div style="padding:12px 16px;border-left:1px solid #F0F0E8">ART klasse 4</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1.6fr;border-top:1px solid #F0F0E8;font-size:14px;background:#fff">
-        <div style="padding:12px 16px;font-weight:600">Nieuwe / dure motor</div><div style="padding:12px 16px;border-left:1px solid #F0F0E8">ART klasse 4 + ketting/anker</div>
-      </div>
-    </div>
-    <p style="margin:0 0 18px">Controleer altijd je <strong>polisvoorwaarden</strong>: daar staat exact welke klasse jouw verzekeraar eist. Twijfel je? Onze klantenservice zoekt het voor je op.</p>
-
-    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Waarom vraagt je verzekeraar hierom?</h2>
-    <p style="margin:0 0 18px">Een goedgekeurd slot verkleint de kans op diefstal flink. Daarom is het vaak een <strong>voorwaarde voor je dekking</strong>: zonder het juiste slot, of als je vergeet je motor op slot te zetten, kan de verzekeraar een uitkering bij diefstal afwijzen. Een goed slot verlaagt bovendien vaak je premie.</p>
-
-    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Welke sloten zijn er?</h2>
-    <ul style="margin:0 0 18px;padding-left:22px">
-      <li style="margin-bottom:10px"><strong>Schijfremslot</strong>, compact en makkelijk mee te nemen, vergrendelt de remschijf.</li>
-      <li style="margin-bottom:10px"><strong>Kettingslot</strong>, sterke beveiliging, zet je motor vast aan een vast object.</li>
-      <li style="margin-bottom:10px"><strong>Beugelslot</strong>, robuust en lastig door te knippen.</li>
-      <li style="margin-bottom:0"><strong>Grond- of muuranker</strong>, voor thuis, ideaal in combinatie met een kettingslot.</li>
-    </ul>
-
-    <div style="display:flex;gap:14px;background:#15150F;color:#fff;border-radius:16px;padding:20px 22px;margin:28px 0">
-      <div style="flex-shrink:0;width:32px;height:32px;border-radius:9px;background:#CBF24A;color:#15150F;display:flex;align-items:center;justify-content:center;font-weight:800">!</div>
-      <div>
-        <div style="font-weight:800;font-size:16px;margin-bottom:4px">Tip</div>
-        <div style="font-size:15px;line-height:1.55;color:#D6D7D0">Combineer twee verschillende sloten (bijv. schijfrem + ketting aan een anker). Dieven hebben dan meer tijd en gereedschap nodig, en jij meer zekerheid bij je claim.</div>
-      </div>
-    </div>
-
-    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Kort samengevat</h2>
-    <ul style="margin:0 0 8px;padding-left:22px">
-      <li style="margin-bottom:8px">Meestal minimaal <strong>ART klasse 3</strong>, in steden vaak <strong>klasse 4</strong>.</li>
-      <li style="margin-bottom:8px">Staat in je <strong>polisvoorwaarden</strong>, check die altijd.</li>
-      <li style="margin-bottom:0">Geen goedgekeurd slot = mogelijk <strong>geen uitkering</strong> bij diefstal.</li>
-    </ul>
-    {% endif %}
+  <article style="max-width:720px;margin:0 auto;width:100%;padding:clamp(28px,4vw,40px) clamp(18px,4vw,40px) clamp(36px,5vw,56px)">
+    {% if artikel.body_html %}<div class="mv-prose">{{ artikel.body_html|safe }}</div>{% else %}<p class="mv-prose">{{ artikel.excerpt }}</p>{% endif %}
 
     <div style="margin-top:34px;background:#fff;border:1.5px solid #ECECE3;border-radius:16px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <div style="font-weight:700;font-size:15px">Was dit antwoord nuttig?</div>
-      <div style="display:flex;gap:10px">
-        <span style="border:1.5px solid #E6E6DD;border-radius:11px;padding:10px 18px;font-weight:700;font-size:14px">Ja</span>
-        <span style="border:1.5px solid #E6E6DD;border-radius:11px;padding:10px 18px;font-weight:700;font-size:14px">Nee</span>
-      </div>
-    </div>
-
-    <div style="margin-top:24px;padding-top:24px;border-top:1.5px solid #ECECE3">
-      <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.12em;color:#9A9C92;margin-bottom:12px">BRONNEN</div>
-      {% if secties.bronnen %}
-      <div class="mv-prose" style="display:flex;flex-direction:column;gap:9px;font-size:14px;line-height:1.5">{{ secties.bronnen.tekst|safe }}</div>
-      {% else %}
-      <div style="display:flex;flex-direction:column;gap:9px;font-size:14px;line-height:1.5">
-        <a href="https://www.stichtingart.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">Stichting ART, Goedgekeurde motorsloten ↗</a>
-        <a href="https://www.rdw.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">RDW, Verzekeringsplicht en diefstal ↗</a>
-      </div>
-      {% endif %}
+      <div style="font-weight:700;font-size:15px">Staat je vraag er niet bij?</div>
+      <a href="{% url 'klantenservice' %}" class="mv-link" style="font-weight:700">Stel 'm aan onze klantenservice →</a>
     </div>
   </article>
 
   {# ── Gerelateerde vragen ── #}
+  {% if related %}
   <section class="mv-band mv-band--white">
     <div class="mv-wrap">
       <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px);margin-bottom:20px">Gerelateerde vragen</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
-        <a href="{% url 'kennisbank_artikel' %}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:14px;padding:18px 20px;font-weight:700;font-size:15px">Wat dekt WA + Casco precies? <span style="color:#4B4DFF;font-size:16px">→</span></a>
-        <a href="{% url 'kennisbank_artikel' %}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:14px;padding:18px 20px;font-weight:700;font-size:15px">Ben ik verzekerd bij diefstal? <span style="color:#4B4DFF;font-size:16px">→</span></a>
-        <a href="{% url 'kennisbank_artikel' %}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:14px;padding:18px 20px;font-weight:700;font-size:15px">Kan ik in de winter stopzetten? <span style="color:#4B4DFF;font-size:16px">→</span></a>
+        {% for r in related %}
+        <a href="{{ r.get_absolute_url }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:14px;padding:18px 20px;font-weight:700;font-size:15px">{{ r.titel }} <span style="color:#4B4DFF;font-size:16px">→</span></a>
+        {% endfor %}
       </div>
       <div style="margin-top:24px"><a href="{% url 'kennisbank' %}" class="mv-link">← Terug naar alle vragen</a></div>
     </div>
   </section>
+  {% endif %}
 
   {# ── CTA ── #}
   <section class="mv-band--ink" style="padding:clamp(36px,5vw,56px) clamp(18px,4vw,40px)">

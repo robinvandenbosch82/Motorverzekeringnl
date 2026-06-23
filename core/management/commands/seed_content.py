@@ -167,6 +167,86 @@ KB_ARTIKELEN = [
     ("Ben ik verzekerd bij diefstal van mijn motor?", "Beveiliging & diefstal", False, "4 min", "", "", ""),
 ]
 
+# Feitelijke antwoorden per vraag (kort_antwoord + body_html + excerpt). Beknopt,
+# geen fluff. Body mag h2/p/ul/ol/strong bevatten (gerenderd in .mv-prose).
+KB_CONTENT = {
+    "Wanneer moet mijn motor verzekerd zijn?": {
+        "excerpt": "Zodra het kenteken op je naam staat, ben je wettelijk verplicht minimaal WA te hebben — ook als de motor stilstaat.",
+        "kort": "Zolang je motor een kenteken op jouw naam heeft, ben je wettelijk verplicht minimaal een WA-verzekering te hebben, ook als de motor stilstaat of in de garage staat.",
+        "body": "<h2>De verzekeringsplicht geldt voor het kenteken</h2><p>In Nederland geldt de WA-plicht voor elk gekentekend motorvoertuig. Staat het kenteken op jouw naam, dan moet de motor verzekerd zijn, of je er nu mee rijdt of niet.</p><h2>Niet rijden? Schors je kenteken</h2><p>Rijd je een periode niet, bijvoorbeeld 's winters, dan kun je het kenteken <strong>schorsen</strong> bij de RDW. Tijdens een schorsing vervalt de verzekeringsplicht en betaal je geen motorrijtuigenbelasting, maar je mag dan niet rijden en de motor moet op eigen terrein staan.</p><h2>Boete bij onverzekerd rijden</h2><p>De RDW controleert automatisch of een gekentekende, niet-geschorste motor verzekerd is. Is dat niet zo, dan volgt een boete. Verzeker je motor dus direct bij aankoop of overschrijving.</p>",
+    },
+    "Wat is een meldcode en waar vind ik die?": {
+        "excerpt": "De 4-cijferige meldcode geeft de exacte uitvoering van je motor aan en staat op je kentekenbewijs.",
+        "kort": "De meldcode is een 4-cijferige code die de exacte uitvoering van je motor aangeeft. Je vindt 'm op je kentekenbewijs (deel 1B of de kentekencard).",
+        "body": "<h2>Waarvoor dient de meldcode?</h2><p>De meldcode identificeert het precieze type en de uitvoering van je motor. Verzekeraars gebruiken 'm om de juiste cataloguswaarde en premie te bepalen.</p><h2>Waar vind ik 'm?</h2><p>De meldcode staat op je kentekenbewijs (deel 1B) of op de kentekencard. Heb je 'm niet bij de hand, dan herkent onze tool je motor vaak al automatisch op basis van het kenteken.</p>",
+    },
+    "Heb ik een account nodig om af te sluiten?": {
+        "excerpt": "Nee, je sluit direct online af zonder verplicht account.",
+        "kort": "Nee. Je sluit direct online af zonder verplicht account: je vult je gegevens in, kiest een verzekeraar en rondt de aanvraag af.",
+        "body": "<h2>Afsluiten op basis van execution only</h2><p>Je sluit af zonder persoonlijk advies (execution only): jij bepaalt zelf welke dekking past. Daar is geen account voor nodig.</p><h2>Wat heb je wel nodig?</h2><ul><li>Je kenteken (of merk en bouwjaar)</li><li>Postcode, huisnummer en geboortedatum van de hoofdbestuurder</li><li>Je aantal schadevrije jaren</li><li>Een IBAN voor de automatische incasso</li></ul>",
+    },
+    "Wat dekt WA + Casco precies?": {
+        "excerpt": "WA + Casco dekt schade aan anderen plus schade aan je eigen motor door diefstal, brand, storm, ruit en aanrijding met dieren.",
+        "kort": "WA + Casco (beperkt casco) dekt schade die je aan anderen veroorzaakt (WA, wettelijk verplicht) plus schade aan je eigen motor door diefstal, brand, storm, ruitbreuk en aanrijding met dieren.",
+        "body": "<h2>WA: schade aan anderen</h2><p>Het WA-deel is wettelijk verplicht en vergoedt schade die jij met je motor aan anderen toebrengt, aan andere voertuigen, eigendommen of personen.</p><h2>Beperkt casco: schade aan je eigen motor</h2><p>Bovenop WA dekt beperkt casco een aantal vormen van schade aan je eigen motor die je niet zelf veroorzaakt:</p><ul><li>Diefstal en (poging tot) inbraak</li><li>Brand, kortsluiting en ontploffing</li><li>Storm, hagel, blikseminslag en overstroming</li><li>Ruitbreuk</li><li>Aanrijding met dieren, bijvoorbeeld overstekend wild</li></ul><h2>Wat valt er niet onder?</h2><p>Schade aan je eigen motor door een val of een aanrijding die je zelf veroorzaakt, valt <strong>niet</strong> onder beperkt casco. Daarvoor heb je Allrisk (volledig casco) nodig.</p>",
+    },
+    "Wat is het verschil tussen WA, WA+ en Allrisk?": {
+        "excerpt": "WA dekt alleen anderen, WA+ voegt diefstal/brand/ruit/natuur toe, Allrisk dekt ook schade aan je eigen motor door eigen toedoen.",
+        "kort": "WA dekt alleen schade aan anderen (verplicht). WA+ (beperkt casco) voegt diefstal, brand, ruit en natuur toe. Allrisk (volledig casco) dekt daarnaast ook schade aan je eigen motor door eigen toedoen.",
+        "body": "<h2>WA (Wettelijke Aansprakelijkheid)</h2><p>De wettelijk verplichte basis. Vergoedt schade die je aan anderen veroorzaakt, niet aan je eigen motor.</p><h2>WA + Beperkt Casco (WA+)</h2><p>WA plus dekking voor je eigen motor bij diefstal, brand, storm, ruitbreuk en aanrijding met dieren. Niet bij eigen schuld.</p><h2>Allrisk (WA + Volledig Casco)</h2><p>De ruimste dekking. Alles van WA+ én schade aan je eigen motor door bijvoorbeeld vallen, omvallen of een aanrijding die je zelf veroorzaakt.</p><h2>Welke kies je?</h2><p>Vuistregel: hoe nieuwer en duurder de motor, hoe eerder Allrisk de moeite waard is. Voor een oudere motor met een lage dagwaarde is WA of WA+ vaak voldoende. Sommige verzekeraars bieden casco alleen aan tot een bepaalde leeftijd van de motor.</p>",
+    },
+    "Ben ik verzekerd bij schade aan mijn opzittende?": {
+        "excerpt": "Letsel van je passagier valt onder de verplichte WA-dekking; voor jezelf als bestuurder heb je een aanvullende dekking nodig.",
+        "kort": "Letsel van je passagier (opzittende) valt onder de verplichte WA-dekking. Voor letsel van jezelf als bestuurder heb je een aanvullende ongevallen- of schadeverzekering voor opzittenden nodig.",
+        "body": "<h2>Je passagier is verzekerd via WA</h2><p>Een passagier geldt juridisch als 'derde'. Letselschade van je opzittende bij een ongeval valt daarom onder je wettelijk verplichte WA-dekking.</p><h2>Jezelf als bestuurder niet automatisch</h2><p>Schade en letsel van de bestuurder zelf zijn niet via WA gedekt. Wil je jezelf (en je passagier) ook bij eigen schuld verzekeren, kies dan een aanvullende dekking:</p><ul><li><strong>Ongevallenverzekering voor opzittenden</strong>: vaste bedragen bij blijvend letsel of overlijden.</li><li><strong>Schadeverzekering voor opzittenden (SVO)</strong>: vergoedt de werkelijke schade van bestuurder en passagier.</li></ul>",
+    },
+    "Hoe werken schadevrije jaren en no-claim?": {
+        "excerpt": "Elk jaar zonder geclaimde schade levert een schadevrij jaar op met meer no-claimkorting; bij schade val je terug.",
+        "kort": "Voor elk jaar dat je rijdt zonder een schade te claimen, bouw je een schadevrij jaar op. Meer schadevrije jaren geven een hogere no-claimkorting. Bij een geclaimde schade val je een aantal jaren terug.",
+        "body": "<h2>Opbouw en korting</h2><p>Elk verzekeringsjaar zonder geclaimde schade levert een schadevrij jaar op. Hoe meer schadevrije jaren, hoe hoger je no-claimkorting, die kan oplopen tot tientallen procenten.</p><h2>Terugval bij schade</h2><p>Claim je een schade waarvoor de verzekeraar uitkeert, dan val je een aantal schadevrije jaren terug en daalt je korting. Een kleine schade zelf betalen kan daardoor soms voordeliger zijn.</p><h2>Meenemen naar een andere verzekeraar</h2><p>Je schadevrije jaren zijn van jou. Stap je over, dan geeft je oude verzekeraar een <strong>royementsverklaring</strong> af waarmee je je opgebouwde jaren meeneemt. Schadevrije jaren op een auto en motor worden meestal apart geregistreerd.</p>",
+    },
+    "Kan ik mijn motorverzekering in de winter stopzetten?": {
+        "excerpt": "Ja, via een schorsing bij de RDW of een winterstopregeling van je verzekeraar. In beide gevallen mag je niet rijden.",
+        "kort": "Ja. Je kunt je kenteken schorsen bij de RDW of gebruikmaken van een winterstopregeling van je verzekeraar. In beide gevallen betaal je minder, maar mag je niet rijden.",
+        "body": "<h2>Optie 1: schorsen bij de RDW</h2><p>Schors je het kenteken, dan vervalt tijdelijk de verzekeringsplicht en de wegenbelasting. De motor moet op eigen terrein staan en je mag er niet mee de weg op. Zodra je weer wilt rijden, hef je de schorsing op en zet je de verzekering weer aan.</p><h2>Optie 2: winterstopregeling</h2><p>Sommige motorverzekeraars hebben een winterstop in de voorwaarden: in de wintermaanden betaal je een lagere premie en geldt vaak alleen een beperkte dekking (zoals diefstal en brand) terwijl de motor stilstaat. De details verschillen per verzekeraar, check de voorwaarden.</p>",
+    },
+    "Waarom verschilt mijn premie van vorig jaar?": {
+        "excerpt": "Je premie verandert door je schadevrije jaren, leeftijd, woonplaats, een geclaimde schade of de jaarlijkse indexatie.",
+        "kort": "Je premie kan wijzigen door je leeftijd, een verandering in je schadevrije jaren, een verhuizing, een geclaimde schade, een gewijzigde dekking of de jaarlijkse indexatie van de verzekeraar.",
+        "body": "<h2>Persoonlijke factoren</h2><ul><li><strong>Schadevrije jaren</strong>: een jaar zonder schade verhoogt je korting, een schade verlaagt 'm.</li><li><strong>Leeftijd</strong>: jongere bestuurders betalen doorgaans meer.</li><li><strong>Woonplaats</strong>: een verhuizing naar een postcode met meer risico kan de premie veranderen.</li></ul><h2>Factoren bij de verzekeraar</h2><ul><li><strong>Indexatie</strong>: verzekeraars passen premies jaarlijks aan op basis van inflatie en schadelast.</li><li><strong>Gewijzigde voorwaarden of dekking</strong>: een andere dekking of aangepaste voorwaarden werken door in de premie.</li></ul><p>Vergelijk bij twijfel opnieuw, overstappen kan na het eerste jaar maandelijks.</p>",
+    },
+    "Hoe meld ik schade aan mijn motor?": {
+        "excerpt": "Meld schade zo snel mogelijk bij je verzekeraar; doe bij diefstal, letsel of vandalisme ook aangifte bij de politie.",
+        "kort": "Meld schade zo snel mogelijk bij je verzekeraar, meestal online of telefonisch. Bij diefstal, een aanrijding met letsel of vandalisme doe je ook aangifte bij de politie.",
+        "body": "<h2>Stap voor stap</h2><ol><li>Zorg eerst voor je veiligheid en die van anderen.</li><li>Verzamel gegevens: foto's, datum, plaats en (bij een tegenpartij) een ingevuld schadeformulier met kenteken en verzekeraar.</li><li>Doe bij diefstal, letsel of vandalisme aangifte bij de politie.</li><li>Meld de schade bij je verzekeraar, vaak via een online schadeformulier of de schade-app.</li></ol><h2>Op tijd melden</h2><p>Meld schade zo snel mogelijk, te laat melden kan gevolgen hebben voor de uitkering. Twijfel je of je moet claimen? Bedenk dat een claim je schadevrije jaren kan kosten.</p>",
+    },
+    "Wat heb ik nodig bij een schademelding?": {
+        "excerpt": "Houd je polis-/kentekengegevens, datum en plaats, een omschrijving, foto's en eventueel een schadeformulier of proces-verbaal bij de hand.",
+        "kort": "Houd je polis- of kentekengegevens, de datum en plaats, een omschrijving van wat er gebeurde, foto's en (bij een tegenpartij) een ingevuld schadeformulier of proces-verbaal bij de hand.",
+        "body": "<h2>Checklist schademelding</h2><ul><li>Je polisnummer en kenteken</li><li>Datum, tijd en plaats van de schade</li><li>Een korte, feitelijke omschrijving van wat er gebeurde</li><li>Foto's van de schade en de situatie</li><li>Gegevens van de tegenpartij en eventuele getuigen</li><li>Een ingevuld <strong>Europees schadeformulier</strong> bij een aanrijding</li><li>Het proces-verbaal of aangiftenummer bij diefstal of vandalisme</li></ul><p>Hoe completer je melding, hoe sneller de verzekeraar de schade kan afhandelen.</p>",
+    },
+    "Hoe kan ik mijn verzekering wijzigen of opzeggen?": {
+        "excerpt": "Wijzigingen geef je door aan je verzekeraar; na het eerste jaar is de verzekering dagelijks opzegbaar met maximaal één maand opzegtermijn.",
+        "kort": "Wijzigingen geef je door aan je verzekeraar. Na het eerste contractjaar is je motorverzekering dagelijks opzegbaar met een opzegtermijn van maximaal één maand.",
+        "body": "<h2>Wijzigen</h2><p>Veranderingen zoals een nieuw adres, een andere motor of een aangepaste dekking geef je door aan je verzekeraar. Sommige wijzigingen (zoals een duurdere motor) kunnen de premie beïnvloeden.</p><h2>Opzeggen</h2><p>In het eerste jaar zit je vast aan het contract, tenzij de voorwaarden anders zeggen. Daarna is je verzekering <strong>dagelijks opzegbaar</strong> met een opzegtermijn van maximaal één maand. Stap je over naar een nieuwe verzekeraar, dan regelt die de opzegging vaak voor je.</p>",
+    },
+    "Mijn motor is verkocht, wat nu?": {
+        "excerpt": "Laat het kenteken overschrijven, bewaar het vrijwaringsbewijs en geef de verkoop door aan je verzekeraar. Je schadevrije jaren behoud je.",
+        "kort": "Laat het kenteken bij verkoop overschrijven en bewaar het vrijwaringsbewijs. Geef de verkoop door aan je verzekeraar zodat de verzekering stopt. Je schadevrije jaren behoud je.",
+        "body": "<h2>Regel de overschrijving</h2><p>Bij verkoop schrijf je het kenteken over op naam van de koper, bijvoorbeeld bij een RDW-erkend bedrijf. Je ontvangt een <strong>vrijwaringsbewijs</strong>: bewaar dit goed, het is je bewijs dat de motor niet meer op jouw naam staat.</p><h2>Stop je verzekering</h2><p>Geef de verkoopdatum door aan je verzekeraar. Vanaf de overschrijving stopt de verzekeringsplicht en wordt de verzekering beëindigd. Te veel vooruitbetaalde premie krijg je terug.</p><h2>Je schadevrije jaren blijven van jou</h2><p>Verkoop je je motor, dan behoud je je opgebouwde schadevrije jaren. Je kunt ze gebruiken voor je volgende motor, vraag een royementsverklaring op.</p>",
+    },
+    "Welk ART-slot heb ik nodig voor mijn motor?": {
+        "excerpt": "Meestal minimaal een ART-goedgekeurd slot van klasse 3, in steden of voor dure motoren vaak klasse 4.",
+        "kort": "Voor de meeste motoren vraagt je verzekeraar minimaal een <strong>ART-goedgekeurd slot van klasse 3</strong>. In grote steden of voor duurdere en nieuwere motoren is vaak <strong>klasse 4</strong> verplicht. Zonder goedgekeurd slot kan de verzekeraar bij diefstal de uitkering weigeren.",
+        "body": "<h2>Wat is een ART-slot?</h2><p>ART staat voor de onafhankelijke Stichting ART, die motorsloten test op inbraakwerendheid. De keuring loopt van klasse 1 (licht) tot klasse 4 (zwaarst). Voor motoren zijn vooral klasse 3 en 4 relevant.</p><h2>Welke klasse heb je nodig?</h2><p>Dat hangt af van je verzekeraar, je woonplaats en de waarde van je motor. Als richtlijn: standaard minimaal klasse 3, in grote steden of voor nieuwe en dure motoren klasse 4, vaak in combinatie met een ketting of anker. Controleer altijd je polisvoorwaarden.</p><h2>Waarom vraagt je verzekeraar hierom?</h2><p>Een goedgekeurd slot verkleint de kans op diefstal. Zonder het juiste slot, of als je vergeet je motor op slot te zetten, kan de verzekeraar een uitkering bij diefstal weigeren. Een goed slot verlaagt bovendien vaak je premie.</p><h2>Welke sloten zijn er?</h2><ul><li><strong>Schijfremslot</strong>: compact en makkelijk mee te nemen, vergrendelt de remschijf.</li><li><strong>Kettingslot</strong>: sterke beveiliging, zet je motor vast aan een vast object.</li><li><strong>Beugelslot</strong>: robuust en lastig door te knippen.</li><li><strong>Grond- of muuranker</strong>: voor thuis, ideaal in combinatie met een kettingslot.</li></ul>",
+    },
+    "Ben ik verzekerd bij diefstal van mijn motor?": {
+        "excerpt": "Diefstal is gedekt bij WA+ en Allrisk, niet bij alleen WA. Voorwaarde is meestal een goedgekeurd slot dat ook gebruikt is.",
+        "kort": "Diefstal is gedekt bij WA+ (beperkt casco) en Allrisk, niet bij alleen WA. Voorwaarde is meestal een goedgekeurd (ART-)slot en dat de motor daadwerkelijk op slot stond.",
+        "body": "<h2>Alleen met casco-dekking</h2><p>Diefstal valt onder beperkt casco (WA+) en volledig casco (Allrisk). Heb je alleen WA, dan ben je niet verzekerd tegen diefstal van je eigen motor.</p><h2>Voorwaarden voor uitkering</h2><ul><li>Een door je verzekeraar geëist <strong>ART-goedgekeurd slot</strong>, vaak klasse 3 of 4.</li><li>De motor stond daadwerkelijk op slot.</li><li>Je doet <strong>aangifte bij de politie</strong> en meldt de diefstal bij je verzekeraar.</li><li>Je levert de sleutels en (vaak) de meldcode of het kentekenbewijs in.</li></ul><h2>Wat krijg je vergoed?</h2><p>De verzekeraar vergoedt meestal de dagwaarde van de motor, of de aanschafwaarde als je een nieuwwaarde- of aanschafwaarderegeling hebt. Het opgegeven bedrag aan accessoires kan binnen de grenzen van je polis meeverzekerd zijn.</p>",
+    },
+}
+
 # Legal pages (slug, titel, meta_description, body_html). Adapted from the
 # Autoverzekering.nl family, Motorverzekering.nl is een handelsnaam van
 # Overstappen.nl B.V. (zelfde AFM/KvK/Kifid-registratie). Bewerkbaar in de admin.
@@ -384,9 +464,11 @@ class Command(BaseCommand):
 
         KennisbankArtikel.objects.all().delete()  # ordered list, replace wholesale
         for i, (titel, cat, feat, leestijd, gelezen, exc, img) in enumerate(KB_ARTIKELEN):
+            c = KB_CONTENT.get(titel, {})
             KennisbankArtikel.objects.create(
                 titel=titel, categorie=cat, featured=feat, leestijd=leestijd,
-                gelezen=gelezen, excerpt=exc, photo_url=img, order=i)
+                gelezen=gelezen, excerpt=c.get("excerpt", exc), photo_url=img, order=i,
+                kort_antwoord=c.get("kort", ""), body_html=c.get("body", ""))
 
         # ── Menus (nav + footer): seed once from the fallback, then admin-managed ──
         from core.context_processors import _NAV_FALLBACK, _FOOTER_FALLBACK, _resolve

@@ -67,7 +67,7 @@
     {% else %}
     <div style="background:#fff;border:1.5px solid #ECECE3;border-radius:20px;overflow:hidden">
       {% for q in kb_results %}
-      <a href="{% url 'kennisbank_artikel' %}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid #F0F0E8">
+      <a href="{{ q.get_absolute_url }}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid #F0F0E8">
         <div>
           <div style="font-weight:700;font-size:16px">{{ q.titel }}</div>
           <div style="font-size:13px;color:#9A9C92;margin-top:3px;font-family:'JetBrains Mono'">{{ q.categorie }} · {{ q.leestijd }}</div>

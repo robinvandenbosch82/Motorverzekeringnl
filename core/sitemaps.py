@@ -93,8 +93,21 @@ class ContentPaginaSitemap(_CanonicalSitemap):
         return obj.imported_at
 
 
+class KennisbankSitemap(_CanonicalSitemap):
+    changefreq = "monthly"
+    priority = 0.6
+
+    def items(self):
+        from .models import KennisbankArtikel
+        return KennisbankArtikel.objects.filter(active=True).order_by("order")
+
+    def location(self, obj):
+        return obj.get_absolute_url()
+
+
 SITEMAPS = {
     "pages": PageSitemap,
     "extra": ExtraSitemap,
     "content": ContentPaginaSitemap,
+    "kennisbank": KennisbankSitemap,
 }

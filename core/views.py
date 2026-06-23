@@ -47,11 +47,6 @@ PAGES: list[Page] = [
          "Antwoord op je vragen over afsluiten, dekkingen, premie, schade en beveiliging — "
          "geschreven en gecontroleerd door onze WFT-experts.",
          0.8, "weekly", extra=content.kennisbank_context),
-    Page("kennisbank_artikel", "kennisbank/welk-art-slot-heb-ik-nodig/", "pages/kennisbank_artikel.html",
-         "Welk ART-slot heb ik nodig voor mijn motor? | Motorverzekering.nl",
-         "Meestal minimaal ART klasse 3, in steden vaak klasse 4. Lees welk slot je verzekeraar "
-         "vraagt en hoe een goedgekeurd slot je premie verlaagt.",
-         0.7, "monthly", extra=content.kennisbank_artikel_context),
     Page("blog", "blog/", "pages/blog.html",
          "Blog: tips, onderhoud en verzekeren voor motorrijders | Motorverzekering.nl",
          "Verhalen, tips en uitleg voor onderweg: onderhoud, veiligheid, touring en alles over "
@@ -131,6 +126,24 @@ _SECTION_LABELS = {
 # Prefixes that get the rich product-style template (à la the Timmerman demo),
 # mapped to the plural noun used in the "ook voor andere …" section.
 _RICH_PREFIXES = {"beroep": "beroepen", "merk-model": "modellen"}
+
+
+def kennisbank_artikel(request, slug):
+    """Detailpagina van één kennisbank-vraag (slug-based, DB = bron)."""
+    import re
+
+    from .models import KennisbankArtikel
+    artikel = get_object_or_404(KennisbankArtikel, slug=slug, active=True)
+    related = list(KennisbankArtikel.objects.filter(categorie=artikel.categorie, active=True)
+                   .exclude(pk=artikel.pk)[:3])
+    plain = re.sub(r"<[^>]+>", "", artikel.kort_antwoord or artikel.excerpt or "")
+    return render(request, "pages/kennisbank_artikel.html", {
+        "artikel": artikel,
+        "related": related,
+        "seo_title": f"{artikel.titel} | Motorverzekering.nl",
+        "seo_description": (artikel.excerpt or plain)[:160],
+        "active_page": "kennisbank",
+    })
 
 
 def content_pagina(request, slug):
