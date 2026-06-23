@@ -52,7 +52,10 @@
     available: {}, results: [], selected: null, addons: [], selectedAddons: {},
   };
 
-  function money(n) { return '€ ' + (Number(n) || 0).toFixed(2).replace('.', ','); }
+  function money(n) {
+    var p = (Number(n) || 0).toFixed(2).split('.');
+    return '€ ' + p[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + p[1];
+  }
   function $(sel, root) { return (root || app).querySelector(sel); }
   function $all(sel, root) { return Array.prototype.slice.call((root || app).querySelectorAll(sel)); }
   function show(el, on) { if (el) el.hidden = !on; }
@@ -147,11 +150,17 @@
     show($('[data-cond="dayvalue"]'), cov === '2');
     show($('[data-cond="accessories"]'), cov === '2' || cov === '3');
     show($('[data-cond="helm"]'), cov === '3');
+    // Casco heeft een dagwaarde nodig; vul 'm vast met de voertuigwaarde (aanpasbaar)
+    // zodat de bezoeker niet onbedoeld 'geen premies' krijgt.
+    var dv = $('#dv');
+    if (cov === '2' && dv && !dv.value && state.vehicle && state.vehicle.DayValue) {
+      dv.value = String(state.vehicle.DayValue).split('.')[0];
+    }
   }
   function checkCoverages() {
     var list = $('[data-coverage-list]'), err = $('[data-coverage-err]');
     show(err, false);
-    list.innerHTML = '<p class="wz-sub">Beschikbaarheid controleren…</p>';
+    list.innerHTML = '<div class="wz-loading"><span class="wz-spinner"></span>Beschikbaarheid controleren…</div>';
     var base = collectDetails();
     Promise.all(['1', '2', '3'].map(function (cov) {
       var probe = Object.assign({}, base, { Coverage: cov });
@@ -203,7 +212,7 @@
   var compToken = 0;
   function runComparison() {
     var box = $('[data-results]');
-    box.innerHTML = '<p class="wz-sub">Premies ophalen…</p>';
+    box.innerHTML = '<div class="wz-loading"><span class="wz-spinner"></span>Premies ophalen…</div>';
     show($('[data-addons]'), false);
     state.selected = null; $('[data-need-selection]').hidden = true;
     var my = ++compToken;
@@ -214,29 +223,65 @@
       renderResults();
     });
   }
-  function buildDetails(r, vz) {
-    var per = state.paymentPeriod === '12' ? 'per jaar' : 'per maand';
-    var rows = [];
-    if (r.NetPremium) rows.push(['Nettopremie', money(r.NetPremium)]);
-    if (r.Taxes) rows.push(['Assurantiebelasting', money(r.Taxes)]);
-    if (r.TotalCosts) rows.push(['Poliskosten', money(r.TotalCosts)]);
-    rows.push(['Totaal ' + per, money(r.Premium)]);
-    var cost = '<div class="wz-ins__dh">Premie-opbouw</div>' + rows.map(function (x) {
+  function dlRows(rows) {
+    return rows.map(function (x) {
       return '<div class="wz-dl"><span>' + x[0] + '</span><strong>' + x[1] + '</strong></div>';
     }).join('');
-    var desc = (vz && vz.omschrijving)
-      ? '<div class="wz-ins__dh">Over ' + esc(vz.naam) + '</div><p style="font-size:14px;color:#5C5E54;line-height:1.55;margin:0">' + esc(vz.omschrijving) + '</p>' : '';
-    // RISK levert polisvoorwaarden (ConditionUrls) + verzekeringskaart
-    // (InsuranceCards), beide als arrays van {URL, Description}.
+  }
+  function buildDetails(r, vz) {
+    var per = state.paymentPeriod === '12' ? 'per jaar' : 'per maand';
+
+    // ── Dekking (wat zit erin) — uit de RISK-respons.
+    var dek = [];
+    if (r.LegalLiabilityDescription) dek.push(['Aansprakelijkheid', esc(r.LegalLiabilityDescription)]);
+    if (r.CascoDescription) {
+      dek.push(['Casco', esc(r.CascoDescription)]);
+      if (r.CascoInsuredAmount) dek.push(['Verzekerd bedrag', money(r.CascoInsuredAmount)]);
+      if (r.CascoDeductibles != null && r.CascoDeductibles !== '') dek.push(['Eigen risico', money(r.CascoDeductibles)]);
+    }
+    if (Number(r.ValueAccessories) > 0) dek.push(['Accessoires meeverzekerd', money(r.ValueAccessories)]);
+    if (Number(r.HelmetClothingAmount) > 0) dek.push(['Helm &amp; kleding', money(r.HelmetClothingAmount)]);
+    var dekHtml = dek.length ? dlRows(dek)
+      : '<p class="wz-sub" style="margin:0">Dekkingsdetails zie je in de polisvoorwaarden.</p>';
+
+    // ── Premie-opbouw.
+    var prem = [];
+    if (r.NetPremium) prem.push(['Nettopremie', money(r.NetPremium)]);
+    if (r.Taxes) prem.push(['Assurantiebelasting', money(r.Taxes)]);
+    if (r.TotalCosts) prem.push(['Poliskosten', money(r.TotalCosts)]);
+    prem.push(['<strong>Totaal ' + per + '</strong>', money(r.Premium)]);
+    var premHtml = dlRows(prem);
+
+    // ── Voorwaarden (ConditionUrls + InsuranceCards: {URL, Description}).
     var docLinks = [].concat(r.ConditionUrls || [], r.InsuranceCards || [])
       .filter(function (c) { return c && c.URL; });
-    var docs = docLinks.length
+    var docHtml = docLinks.length
       ? '<div class="wz-ins__docs">' + docLinks.map(function (c) {
           return '<a href="' + esc(c.URL) + '" target="_blank" rel="noopener">' +
             esc(c.Description || 'Voorwaarden') + ' ↗</a>';
         }).join('') + '</div>'
-      : '';
-    return desc + cost + docs;
+      : '<p class="wz-sub" style="margin:0">Geen documenten beschikbaar.</p>';
+
+    // ── Over de verzekeraar (optioneel, uit onze CMS-verrijking).
+    var overHtml = '';
+    if (vz && vz.omschrijving) {
+      overHtml = '<p style="font-size:14px;color:#5C5E54;line-height:1.55;margin:0 0 10px">' + esc(vz.omschrijving) + '</p>';
+      var meta = [];
+      if (vz.score) meta.push(['Beoordeling', esc(vz.score) + ' / 10']);
+      if (vz.reviewCount) meta.push(['Reviews', esc(vz.reviewCount)]);
+      if (meta.length) overHtml += dlRows(meta);
+    }
+
+    var tabs = [['dekking', 'Dekking', dekHtml], ['premie', 'Premie', premHtml],
+                ['voorwaarden', 'Voorwaarden', docHtml]];
+    if (overHtml) tabs.push(['over', 'Over de verzekeraar', overHtml]);
+    var btns = '<div class="wz-dtabs">' + tabs.map(function (t, i) {
+      return '<button type="button" class="wz-dtab' + (i === 0 ? ' is-on' : '') + '" data-dtab="' + t[0] + '">' + t[1] + '</button>';
+    }).join('') + '</div>';
+    var panels = tabs.map(function (t, i) {
+      return '<div class="wz-dpanel" data-dpanel="' + t[0] + '"' + (i === 0 ? '' : ' hidden') + '>' + t[2] + '</div>';
+    }).join('');
+    return btns + panels;
   }
   function buildCard(r, cheapest) {
     var per = state.paymentPeriod === '12' ? 'per jaar' : 'per maand';
@@ -270,6 +315,14 @@
       var det = card.querySelector('.wz-ins__details');
       det.hidden = !det.hidden;
       this.textContent = det.hidden ? 'Meer informatie ▾' : 'Minder informatie ▴';
+    });
+    // Tabs binnen het detailpaneel (Dekking / Premie / Voorwaarden / Over).
+    $all('[data-dtab]', card).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var key = b.dataset.dtab;
+        $all('[data-dtab]', card).forEach(function (x) { x.classList.toggle('is-on', x === b); });
+        $all('[data-dpanel]', card).forEach(function (p) { p.hidden = p.dataset.dpanel !== key; });
+      });
     });
     return card;
   }

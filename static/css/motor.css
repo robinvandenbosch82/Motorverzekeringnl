@@ -246,6 +246,17 @@ select.mv-field{font-size:15px;padding-right:34px;background-image:url("data:ima
 .wz-field input,.wz-field select,.wz-field textarea{width:100%;border:1.5px solid #E6E6DD;border-radius:11px;padding:13px 14px;font-family:'Manrope';font-weight:600;font-size:15px;color:#15150F;outline:0;background:#FBFBF7}
 .wz-field input:focus,.wz-field select:focus,.wz-field textarea:focus{border-color:#4B4DFF}
 .wz-field .is-invalid,.wz-field input.is-invalid{border-color:#E0584F;background:#FEF3F2}
+/* Nette custom dropdown-pijl op alle wizard-selects (o.a. de sorteer-select). */
+.wz-field select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:38px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='none' stroke='%237A7C72' stroke-width='1.8' d='M1 1.5l5 5 5-5'/></svg>");background-repeat:no-repeat;background-position:right 14px center}
+/* Loader (lopertje) bij 'controleren'/'ophalen'. */
+.wz-loading{display:flex;align-items:center;gap:10px;color:#5C5E54;font-size:14px;padding:10px 0}
+.wz-spinner{width:18px;height:18px;border:2.5px solid #E6E6DD;border-top-color:#4B4DFF;border-radius:50%;animation:wz-spin .7s linear infinite;flex-shrink:0}
+@keyframes wz-spin{to{transform:rotate(360deg)}}
+/* Tabs binnen de verzekeraars-detailkaart. */
+.wz-dtabs{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 14px;border-bottom:1.5px solid #ECECE3}
+.wz-dtab{appearance:none;border:0;background:none;font-family:'Manrope';font-weight:700;font-size:13px;color:#7A7C72;padding:8px 10px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1.5px}
+.wz-dtab:hover{color:#15150F}
+.wz-dtab.is-on{color:#15150F;border-bottom-color:#4B4DFF}
 .wz-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .wz-help-link{display:inline-block;font-size:12px;color:#4B4DFF;font-weight:600;margin-top:6px}
 .wz-hint{font-size:13px;margin-top:9px;display:flex;align-items:center;gap:7px;color:#15150F;font-weight:600}
