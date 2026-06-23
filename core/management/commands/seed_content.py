@@ -565,6 +565,54 @@ BLOG_BODIES = {
 <h3>Kan ik vast een motor kopen en verzekeren terwijl ik nog mijn rijbewijs haal?</h3>
 <p>Ja, dat kan. Je mag de motor kopen, op je naam zetten en verzekeren terwijl je nog voor je rijbewijs A oefent. Houd er rekening mee dat je pas zelf mag rijden zodra je het rijbewijs hebt gehaald; tot die tijd rijd je tijdens lessen onder de verzekering van de rijschool. Wil je in de tussentijd geen premie betalen, dan kun je het kenteken laten schorsen tot je je rijbewijs hebt. Pas daarna zet je de verzekering weer actief en ga je zelf rijden.</p>
 """,
+    "Zijn helm, motorkleding en accessoires meeverzekerd?": """
+<p>Je helm, motorkleding en accessoires zijn <strong>niet automatisch</strong> meeverzekerd op een standaard motorverzekering. De verzekering dekt in de basis de motor zelf: WA voor schade aan anderen en casco voor schade aan of diefstal van het voertuig. Wil je dat ook je uitrusting en accessoires worden vergoed, dan kies je daar bij veel verzekeraars een aanvullende dekking voor, vaak tot een vooraf gekozen maximumbedrag.</p>
+<h2>De kernregel: de standaarddekking is voor de motor, niet je uitrusting</h2>
+<p>Een motorverzekering is opgebouwd rond het voertuig. WA dekt de schade die je aan anderen toebrengt, casco (WA+ of Allrisk) dekt schade aan of diefstal van de motor zelf. Je helm en motorkleding horen daar standaard niet bij: het zijn losse spullen die je draagt, geen onderdeel van het kenteken. Datzelfde geldt voor accessoires die geen vast onderdeel van de motor zijn. Of die spullen vergoed worden, hangt dus af van een aanvullende dekking die je bewust afsluit, niet van de basispolis.</p>
+<h2>Accessoires: vaak mee te verzekeren tot een maximum</h2>
+<p>Accessoires zijn zaken die je aan de motor toevoegt: een topkoffer, handkappen, een aangebouwd navigatiesysteem, een alarm of extra verlichting. Veel verzekeraars laten je deze meeverzekeren tot een gekozen maximumbedrag. In onze premievergelijker kies je dat bedrag bijvoorbeeld in vaste stappen: geen accessoiredekking, of dekking tot € 1.000, € 2.500 of € 5.000. Wat je opgeeft, bepaalt tot welk bedrag aangebouwde accessoires bij schade of diefstal worden vergoed. Spullen die boven dat bedrag uitkomen, vallen buiten de dekking, dus tel de waarde van je accessoires realistisch op voordat je een bedrag kiest.</p>
+<h2>Helm- en kledingdekking: een aparte optie</h2>
+<p>Voor je helm en motorkleding bieden veel verzekeraars een aparte helm- en kledingdekking. Die keert uit wanneer je uitrusting beschadigd raakt bij een ongeval met de motor, meestal tot een vooraf gekozen maximumbedrag dat je bij het afsluiten opgeeft. De gedachte erachter: val je met de motor, dan raakt niet alleen het voertuig beschadigd maar vaak ook je helm en pak. Zonder deze dekking betaal je die vervanging zelf. Met de dekking worden de kosten vergoed binnen de grenzen en voorwaarden die de verzekeraar stelt.</p>
+<h2>Wanneer keert het wel en niet uit?</h2>
+<p>De meeste helm- en kledingdekkingen keren uit bij een ongeval waarbij ook de motor is betrokken, niet bij elke willekeurige schade. Valt je helm in de garage van een plank, of wordt je motorjas uit huis gestolen, dan is dat doorgaans geen zaak voor je motorverzekering; daarvoor kijk je eerder naar je inboedelverzekering. Diefstal van losse uitrusting van een geparkeerde motor wordt soms wel en soms niet gedekt, afhankelijk van de voorwaarden. Lees daarom altijd na in welke situaties de dekking precies geldt; de polisvoorwaarden zijn hierin leidend.</p>
+<table><thead><tr><th>Item</th><th>Standaard gedekt?</th><th>Met aanvullende dekking</th></tr></thead><tbody>
+<tr><td>De motor zelf (casco)</td><td>Ja, bij WA+ of Allrisk</td><td>n.v.t.</td></tr>
+<tr><td>Helm en motorkleding</td><td>Nee</td><td>Via helm- en kledingdekking, tot een maximumbedrag</td></tr>
+<tr><td>Aangebouwde accessoires</td><td>Soms beperkt; vaak apart</td><td>Via accessoiredekking, bijv. tot € 1.000, € 2.500 of € 5.000</td></tr>
+<tr><td>Losse uitrusting gestolen uit huis</td><td>Nee</td><td>Eerder via je inboedelverzekering</td></tr>
+</tbody></table>
+<h2>Let op maximumbedrag, nieuwwaarde en eigen risico</h2>
+<p>Bij een uitkering voor uitrusting of accessoires spelen drie dingen mee. Ten eerste het maximumbedrag dat je hebt gekozen: daarboven krijg je niets vergoed. Ten tweede de waarderingsgrondslag: sommige verzekeraars vergoeden de nieuwwaarde gedurende de eerste periode na aankoop en daarna de dagwaarde, andere rekenen meteen met de dagwaarde, waarbij de leeftijd van je spullen de uitkering verlaagt. Ten derde kan er een eigen risico van toepassing zijn. Bewaar daarom aankoopbonnen van je helm, pak en accessoires; daarmee toon je de waarde en de ouderdom aan als je een claim indient.</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Aannemen dat je helm en pak standaard meeverzekerd zijn.</strong> Dat zijn ze niet; het is een aparte dekking.</li>
+<li><strong>Een te laag accessoirebedrag kiezen.</strong> Boven het gekozen maximum krijg je niets vergoed.</li>
+<li><strong>Geen aankoopbonnen bewaren.</strong> Zonder bewijs van waarde en ouderdom is een claim lastig te onderbouwen.</li>
+<li><strong>Verwachten dat diefstal uit huis onder de motorpolis valt.</strong> Daarvoor kijk je naar je inboedelverzekering.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Tel de waarde van je helm, kleding en accessoires realistisch op.</li>
+<li>Kies bij het afsluiten een passend maximumbedrag voor accessoires.</li>
+<li>Sluit zo nodig een aparte helm- en kledingdekking af.</li>
+<li>Lees na in welke situaties de dekking uitkeert.</li>
+<li>Bewaar aankoopbonnen als bewijs van waarde en ouderdom.</li>
+</ul>
+<p>Wil je weten welke uitrusting je kunt meeverzekeren en wat dat kost? Geef je accessoire- en kledingbedrag op bij het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>. Welke basisdekking je nodig hebt, lees je in <a href="/blog/wa-wa-of-allrisk-welke-motorverzekering-past-bij-jouw-motor/">WA, WA+ of Allrisk</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Is mijn helm standaard meeverzekerd op mijn motorverzekering?</h3>
+<p>Nee. Een standaard motorverzekering dekt de motor zelf, niet je helm of motorkleding. Wil je dat je helm bij een ongeval wordt vergoed, dan sluit je een aparte helm- en kledingdekking af. Die keert meestal uit als je helm beschadigd raakt bij een ongeval met de motor, tot een vooraf gekozen maximumbedrag. Zonder deze dekking betaal je een nieuwe helm na een val zelf. Controleer bij het afsluiten of je verzekeraar deze dekking aanbiedt en tot welk bedrag.</p>
+<h3>Kan ik mijn accessoires meeverzekeren?</h3>
+<p>Ja, bij veel verzekeraars kun je aangebouwde accessoires zoals een topkoffer, navigatie of alarm meeverzekeren tot een gekozen maximumbedrag. In onze premievergelijker kies je dat bedrag in vaste stappen, bijvoorbeeld tot € 1.000, € 2.500 of € 5.000. Dat bedrag bepaalt tot hoever accessoires bij schade of diefstal worden vergoed. Tel de waarde van je accessoires realistisch op voordat je kiest, want spullen boven het gekozen bedrag vallen buiten de dekking.</p>
+<h3>Wordt mijn motorkleding vergoed bij een val?</h3>
+<p>Dat hangt af van je dekking. Heb je een helm- en kledingdekking, dan wordt je beschadigde kleding bij een ongeval met de motor vergoed tot het maximumbedrag en binnen de voorwaarden van je verzekeraar. Houd rekening met de waarderingsgrondslag: sommige verzekeraars vergoeden de nieuwwaarde in de eerste periode en daarna de dagwaarde, andere rekenen meteen met de dagwaarde. Een eigen risico kan ook van toepassing zijn. Bewaar je aankoopbonnen om de waarde en ouderdom aan te tonen.</p>
+<h3>Geldt de dekking ook als mijn uitrusting uit huis wordt gestolen?</h3>
+<p>Meestal niet. Helm- en kledingdekkingen richten zich op schade bij een ongeval met de motor, niet op diefstal uit je woning. Wordt je motorkleding of helm uit huis gestolen, dan val je daarvoor eerder onder je inboedelverzekering. Diefstal van losse uitrusting van een geparkeerde motor wordt soms wel en soms niet gedekt, afhankelijk van de voorwaarden. Lees daarom altijd de polisvoorwaarden om te zien in welke situaties je verzekeraar precies uitkeert.</p>
+<h3>Tot welk bedrag wordt mijn uitrusting vergoed?</h3>
+<p>Tot het maximumbedrag dat je bij het afsluiten kiest. Voor accessoires gaat dat vaak in vaste stappen, en voor helm en kleding geldt eveneens een gekozen maximum. Boven dat bedrag krijg je niets vergoed, dus stem het af op de werkelijke waarde van je spullen. Houd er daarnaast rekening mee dat de uitkering kan worden verlaagd door de dagwaarde van oudere spullen en door een eventueel eigen risico. Bekijk de exacte bedragen en voorwaarden per verzekeraar voordat je kiest.</p>
+<h3>Is een helm- en kledingdekking de moeite waard?</h3>
+<p>Dat hangt af van de waarde van je uitrusting en de extra premie. Een complete set van een goede helm, jas, broek, handschoenen en laarzen vertegenwoordigt al snel een flinke waarde, en juist die spullen raken beschadigd als je met de motor valt. Is je uitrusting nieuw of kostbaar, dan kan de dekking de relatief beperkte meerpremie waard zijn. Rijd je weinig of is je uitrusting al sterk afgeschreven, dan weegt het voordeel minder zwaar. Reken de jaarlijkse meerkosten af tegen wat je in één keer zou moeten vervangen en beslis op basis daarvan.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
