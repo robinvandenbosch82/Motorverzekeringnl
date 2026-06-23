@@ -223,6 +223,9 @@ RISK_API_USERNAME = os.getenv("RISK_API_USERNAME", "")
 RISK_API_PASSWORD = os.getenv("RISK_API_PASSWORD", "")
 RISK_BROKER_ID = os.getenv("RISK_BROKER_ID", "")
 RISK_API_VERSION = os.getenv("RISK_API_VERSION", "9.0")
+# Product version (PP_PRDVERS) that RISK requires in the calculate body. RISK
+# provides the exact value with the motor account; set it in .env.
+RISK_MOTOR_PRODUCT_VERSION = os.getenv("RISK_MOTOR_PRODUCT_VERSION", "")
 # Hard timeout (seconds) for every outbound RISK call.
 RISK_API_TIMEOUT = int(os.getenv("RISK_API_TIMEOUT", "20"))
 

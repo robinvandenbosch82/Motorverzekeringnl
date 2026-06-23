@@ -1,17 +1,18 @@
 """
-Premie-tool proxy views — the server-side equivalent of the Lovable Supabase
-edge function. The browser's wizard talks ONLY to these endpoints; they hold the
-RISK credentials (via core.services.risk), validate input, call RISK, and log
-every step to the Berekening model.
+Premie-tool proxy views — particuliere motorverzekering (RISK V9).
+
+The browser's wizard talks ONLY to these endpoints; they hold the RISK
+credentials (via core.services.risk), validate input, call RISK, and log every
+step to the Berekening model.
 
 Endpoints (all POST, JSON in/out, same-origin + CSRF protected):
-    /premie/api/voertuig      → vehicle lookup
+    /premie/api/voertuig      → vehicle lookup (GetPrivateMotorInfo)
     /premie/api/bereken       → calculate premiums
     /premie/api/aanvullend    → additional coverages
-    /premie/api/aanvraag      → bind policy (RISK Request)
+    /premie/api/aanvraag      → bind policy (RequestPrivateInsurance, REAL)
 
 The wizard page itself:
-    /bestelautoverzekering-berekenen/  → SSR shell + JS island
+    /motorverzekering-berekenen/  → SSR shell + JS island
 """
 
 from __future__ import annotations
@@ -50,8 +51,7 @@ def _client_ip(request) -> str:
 
 
 def _rate_ok(request, bucket: str, limit: int, window: int = 300) -> bool:
-    """Soft per-IP rate limit (default 300s window). Backed by the Django cache;
-    fails open if the cache misbehaves so a real user is never wrongly blocked."""
+    """Soft per-IP rate limit. Fails open if the cache misbehaves."""
     key = f"premie:{bucket}:{_client_ip(request)}"
     try:
         count = cache.get_or_set(key, 0, window)
@@ -60,15 +60,14 @@ def _rate_ok(request, bucket: str, limit: int, window: int = 300) -> bool:
         if count >= limit:
             return False
         cache.incr(key)
-    except Exception:  # cache backend unavailable → don't block the user
+    except Exception:
         return True
     return True
 
 
 def _berekening(request, create: bool = False) -> Berekening | None:
-    """Fetch (or create) the Berekening row bound to this session. The id lives
-    in the server-side session, so the client can't tamper with which row it
-    writes — unlike a client-supplied id."""
+    """Fetch (or create) the Berekening row bound to this session (id lives in
+    the server-side session, so the client can't tamper with which row it writes)."""
     bid = request.session.get("berekening_id")
     if bid:
         obj = Berekening.objects.filter(pk=bid).first()
@@ -81,11 +80,6 @@ def _berekening(request, create: bool = False) -> Berekening | None:
     obj = Berekening.objects.create(session_id=request.session.session_key or "")
     request.session["berekening_id"] = obj.pk
     return obj
-
-
-def _kvk_valid(value: str) -> bool:
-    digits = "".join(ch for ch in str(value or "") if ch.isdigit())
-    return len(digits) == 8
 
 
 # ── vehicle lookup ───────────────────────────────────────────────────────────
@@ -106,10 +100,9 @@ def vehicle(request):
     obj = _berekening(request, create=True)
     obj.license_plate = plate
     obj.vehicle_info = info
-    obj.is_van = bool(info.get("isVan"))
     obj.status = "vehicle-lookup"
-    obj.current_step = "business-details"
-    obj.save(update_fields=["license_plate", "vehicle_info", "is_van",
+    obj.current_step = "driver-details"
+    obj.save(update_fields=["license_plate", "vehicle_info",
                             "status", "current_step", "updated_at"])
     return JsonResponse(info)
 
@@ -119,22 +112,17 @@ def vehicle(request):
 def calculate(request):
     if not _rate_ok(request, "bereken", limit=120):
         return _err("Te veel verzoeken. Probeer het zo opnieuw.", status=429)
-    data = _body(request)
-    details = data.get("details") or {}
-    is_van = bool(data.get("isVan"))
+    details = _body(request).get("details") or {}
 
     if not details.get("LicensePlate"):
         return _err("Kenteken ontbreekt. Begin opnieuw bij stap 1.")
-    if details.get("CompanyTradeRegisterNumber") and not _kvk_valid(details["CompanyTradeRegisterNumber"]):
-        return _err("Vul een geldig KvK-nummer in (8 cijfers).")
-    if details.get("DriverOne") == "J":
-        missing = [f for f in ("DriverZipCode", "DriverHouseNumber", "DriverBirthdate")
-                   if not details.get(f) and not details.get(f.replace("Birthdate", "BirthDate"))]
-        if missing:
-            return _err("Vul alle verplichte velden in.")
+    missing = [f for f in ("DriverZipCode", "DriverHouseNumber", "DriverBirthdate")
+               if not details.get(f) and not details.get(f.replace("Birthdate", "BirthDate"))]
+    if missing:
+        return _err("Vul je postcode, huisnummer en geboortedatum in.")
 
     try:
-        results = risk.calculate_premiums(details, is_van)
+        results = risk.calculate_premiums(details)
     except RiskAPIError as exc:
         status = 503 if exc.upstream_down else 502
         return _err(exc.message, status=status, upstreamDown=exc.upstream_down)
@@ -142,12 +130,11 @@ def calculate(request):
     obj = _berekening(request, create=True)
     obj.business_details = details
     obj.coverage = str(details.get("Coverage") or "")
-    obj.is_van = is_van
     obj.results = results
     if obj.status in ("started", "vehicle-lookup"):
         obj.status = "calculated"
     obj.current_step = "comparison"
-    obj.save(update_fields=["business_details", "coverage", "is_van", "results",
+    obj.save(update_fields=["business_details", "coverage", "results",
                             "status", "current_step", "updated_at"])
     return JsonResponse({"results": results})
 
@@ -160,11 +147,10 @@ def additional(request):
     data = _body(request)
     details = data.get("details") or {}
     identifier = data.get("identifier") or ""
-    is_van = bool(data.get("isVan"))
     if not identifier:
         return _err("Geen verzekeraar geselecteerd.")
     try:
-        coverages = risk.calculate_additional_coverages(details, identifier, is_van)
+        coverages = risk.calculate_additional_coverages(details, identifier)
     except RiskAPIError as exc:
         status = 503 if exc.upstream_down else 502
         return _err(exc.message, status=status, upstreamDown=exc.upstream_down)
@@ -184,20 +170,19 @@ def additional(request):
 def aanvraag(request):
     if not _rate_ok(request, "aanvraag", limit=15):
         return _err("Te veel verzoeken. Probeer het zo opnieuw.", status=429)
-    data = _body(request)
-    payload = data.get("data") or {}
-    is_van = bool(data.get("isVan"))
+    payload = _body(request).get("data") or {}
 
-    # Binding guards — mirror the wizard's required-field toasts.
     if str(payload.get("Agreement") or "").upper() not in ("J", "TRUE", "1"):
         return _err("Je moet akkoord gaan met de slotverklaring.")
-    required = ("CompanyName", "CompanyEmail", "CompanyPhoneNumber", "IBAN")
-    if any(not payload.get(f) for f in required) or not payload.get("selectedIdentifier"):
-        return _err("Vul alle verplichte velden in.")
+    name = payload.get("Name") or payload.get("DriverName")
+    required = {"Naam": name, "E-mail": payload.get("Email"),
+                "Mobiel nummer": payload.get("MobileNumber"), "IBAN": payload.get("IBAN")}
+    if not payload.get("selectedIdentifier") or any(not v for v in required.values()):
+        return _err("Vul alle verplichte velden in (naam, e-mail, mobiel nummer en IBAN).")
     payload["Agreement"] = "J"
 
     try:
-        result = risk.request_insurance(payload, is_van)
+        result = risk.request_insurance(payload)
     except RiskAPIError as exc:
         obj = _berekening(request, create=True)
         obj.status = "failed"
@@ -219,8 +204,7 @@ def aanvraag(request):
 
 def _verzekeraar_enrichment() -> dict:
     """Editable per-insurer data (score + kenmerken) from our CMS, keyed by a
-    normalised name so the wizard can enrich the RISK comparison results. The
-    RISK API gives premie/dekking/voorwaarden; this adds our editorial layer."""
+    normalised name so the wizard can enrich the RISK comparison results."""
     import re
 
     from .models import Verzekeraar
@@ -231,13 +215,9 @@ def _verzekeraar_enrichment() -> dict:
     data = {}
     for v in Verzekeraar.objects.filter(active=True):
         data[norm(v.naam)] = {
-            "naam": v.naam,
-            "score": v.score,
-            "tags": v.tags_list,
-            "omschrijving": v.omschrijving,
-            "reviewCount": v.review_count,
-            "beoordeling": v.beoordeling_list,   # [[label, "8,4"], ...]
-            "kenmerken": v.kenmerken_list,        # [[label, "Ja"], ...]
+            "naam": v.naam, "score": v.score, "tags": v.tags_list,
+            "omschrijving": v.omschrijving, "reviewCount": v.review_count,
+            "beoordeling": v.beoordeling_list, "kenmerken": v.kenmerken_list,
         }
     return data
 
@@ -247,10 +227,12 @@ def _verzekeraar_enrichment() -> dict:
 def tool_page(request):
     """Render the wizard shell. ensure_csrf_cookie so the JS island can read the
     CSRF token for its POSTs to the endpoints above."""
+    from . import content
     return render(request, "pages/premie_tool.html", {
-        "seo_title": "Bestelautoverzekering berekenen & afsluiten | Bestelautoverzekering.nl",
-        "seo_description": "Bereken in 2 minuten je premie, vergelijk verzekeraars en sluit "
-                           "direct online af. Speciaal voor ondernemers met een bestelauto.",
+        "seo_title": "Motorverzekering berekenen & direct afsluiten | Motorverzekering.nl",
+        "seo_description": "Bereken in ongeveer 1 minuut je premie, vergelijk verzekeraars en "
+                           "sluit je motorverzekering direct online af.",
         "active_page": "premie_tool",
         "verzekeraar_data": _verzekeraar_enrichment(),
+        "secties": content.secties("premie_tool"),
     })

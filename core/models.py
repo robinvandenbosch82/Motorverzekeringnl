@@ -210,8 +210,11 @@ class Faq(models.Model):
 
 class Review(PhotoMixin):
     name = models.CharField("Naam", max_length=120)
-    role = models.CharField("Functie / voertuig", max_length=160)
+    role = models.CharField("Plaats / functie", max_length=160,
+                            help_text="Wordt onder de review getoond, bijv. 'Utrecht'.")
     quote = models.TextField("Review")
+    score = models.CharField("Cijfer", max_length=5, blank=True, help_text="bijv. '10' of '9'")
+    datum = models.CharField("Datum (weergave)", max_length=40, blank=True, help_text="bijv. '4 juni 2026'")
     order = models.PositiveIntegerField("Volgorde", default=0)
     active = models.BooleanField("Actief", default=True)
 
@@ -271,7 +274,7 @@ class Expert(PhotoMixin):
         return f"{origin}/over-ons/#person-{self.slug}"
 
     def default_photo_alt(self):
-        return f"{self.name}, {self.role} bij Bestelautoverzekering.nl"
+        return f"{self.name}, {self.role} bij {settings.SITE_NAME}"
 
 
 # ── Coverage tiers (WA / WA+ / Allrisk) ─────────────────────────────────────
@@ -572,7 +575,13 @@ class ContentPagina(models.Model):
         return self.image_local or self.image_url
 
     def get_seo_title(self):
-        return self.meta_title or self.titel
+        # Voeg de merknaam toe als die nog niet in de titel staat (juridische
+        # pagina's hadden anders een kale SERP-title als 'Disclaimer').
+        title = self.meta_title or self.titel
+        brand = settings.SITE_NAME
+        if title and brand.lower() not in title.lower():
+            return f"{title} | {brand}"
+        return title
 
     def get_seo_description(self):
         return self.meta_description
@@ -761,3 +770,100 @@ class MenuItem(models.Model):
         if self.parent_id:  # children always live in the same menu as their parent
             self.menu = self.parent.menu
         super().save(*args, **kwargs)
+
+
+# ── Generic editable content: section copy + repeatable cards ───────────────
+# Two friendly, label-driven models that make every remaining hardcoded bit of
+# template copy editable in the admin (design decision 2026-06-19, Robin:
+# "alles aanpasbaar", gestructureerd CMS). Templates read these with a fallback
+# to the seeded defaults, so the site renders identically before/after editing.
+PAGINA_CHOICES = [
+    ("home", "Homepage"),
+    ("dekkingen", "Dekkingen"),
+    ("over_ons", "Onze experts"),
+    ("klantenservice", "Klantenservice"),
+    ("blog", "Blog"),
+    ("blog_artikel", "Blog-artikel"),
+    ("kennisbank", "Kennisbank"),
+    ("kennisbank_artikel", "Kennisbank-artikel"),
+    ("premie_widget", "Premie-widget (band)"),
+    ("premie_tool", "Premie-tool (wizard-intro)"),
+]
+
+
+class SectieTekst(models.Model):
+    """One block of section copy on a page (eyebrow + heading + text + optional
+    CTA). Keyed by (pagina, sleutel). The hero of each page uses the Page model's
+    eyebrow/heading/intro; everything else uses this."""
+
+    pagina = models.CharField("Pagina", max_length=40, choices=PAGINA_CHOICES)
+    sleutel = models.SlugField("Sectie-sleutel", max_length=60,
+                               help_text="Technische naam binnen de pagina, bv. 'dekkingen', 'waarom', 'cta'.")
+    naam = models.CharField("Omschrijving", max_length=160, blank=True,
+                            help_text="Alleen ter herkenning in de admin.")
+    eyebrow = models.CharField("Bovenkop (eyebrow)", max_length=120, blank=True)
+    kop = models.CharField("Kop", max_length=255, blank=True)
+    tekst = models.TextField("Tekst", blank=True,
+                             help_text="Mag meerdere alinea's bevatten (gescheiden door een lege regel).")
+    cta_label = models.CharField("Knop-tekst", max_length=120, blank=True)
+    cta_url = models.CharField("Knop-link (pad of URL)", max_length=200, blank=True)
+    order = models.PositiveIntegerField("Volgorde", default=0)
+
+    class Meta:
+        verbose_name = "Sectietekst"
+        verbose_name_plural = "Sectieteksten"
+        unique_together = [("pagina", "sleutel")]
+        ordering = ["pagina", "order", "sleutel"]
+
+    def __str__(self):
+        return f"{self.get_pagina_display()} — {self.naam or self.sleutel}"
+
+    @property
+    def alineas(self):
+        """Tekst split into paragraphs on blank lines (for templates)."""
+        import re
+        return [p.strip() for p in re.split(r"\n\s*\n", self.tekst or "") if p.strip()]
+
+
+class Kaart(models.Model):
+    """A repeatable card / list item, grouped by `blok`. One model covers every
+    homepage/marketing list (why, steps, documents, extras, contact, info,
+    coverage-matrix rows, …) so the admin stays compact but labelled."""
+
+    BLOK_CHOICES = [
+        ("home_waarom", "Home — Waarom-kaarten"),
+        ("home_documenten", "Home — Documenten"),
+        ("home_trust", "Home — Trust-cijfers (donkere balk)"),
+        ("home_stappen", "Home — In drie stappen"),
+        ("home_info", "Home — Meer over je motorverzekering (link-kolommen)"),
+        ("home_contact_direct", "Home — Contact: direct regelen"),
+        ("home_contact_kanaal", "Home — Contact: kanalen"),
+        ("dekkingen_extra", "Dekkingen — Aanvullende dekkingen"),
+        ("dekkingen_matrix", "Dekkingen — Dekkingsmatrix (rijen)"),
+        ("dekkingen_eigenrisico", "Dekkingen — Eigen-risico-opties"),
+        ("over_ons_proces", "Onze experts — Redactieproces"),
+        ("over_ons_familie", "Onze experts — Merkenfamilie"),
+        ("klantenservice_weten", "Klantenservice — Goed om te weten"),
+        ("klantenservice_zelf", "Klantenservice — Liever zelf regelen"),
+    ]
+
+    blok = models.CharField("Blok", max_length=50, choices=BLOK_CHOICES)
+    volgorde = models.PositiveIntegerField("Volgorde", default=0)
+    tag = models.CharField("Tag/label", max_length=40, blank=True,
+                           help_text="Klein mono-label of nummer, bv. 'EU', 'PDF', '01'.")
+    titel = models.CharField("Titel", max_length=200, blank=True)
+    tekst = models.TextField("Tekst", blank=True)
+    meta = models.CharField("Subtekst / meta", max_length=200, blank=True)
+    url = models.CharField("Link (pad of URL)", max_length=200, blank=True)
+    incl_wa = models.BooleanField("Inbegrepen bij WA", default=False)
+    incl_waplus = models.BooleanField("Inbegrepen bij WA + Casco", default=False)
+    incl_allrisk = models.BooleanField("Inbegrepen bij Allrisk", default=False)
+    actief = models.BooleanField("Actief", default=True)
+
+    class Meta:
+        verbose_name = "Kaart / lijst-item"
+        verbose_name_plural = "Kaarten & lijst-items"
+        ordering = ["blok", "volgorde"]
+
+    def __str__(self):
+        return f"{self.get_blok_display()} — {self.titel or self.tag or self.meta}"

@@ -1,5 +1,8 @@
-{% extends "base.html" %}
-{% load static responsive_image %}
+{% extends "mv_base.html" %}
+{% load static %}
+
+{# Kennisbank — Claude Design. Category cards + question list (KennisbankArtikel),
+   server-side category (?cat=) + search (?q=) filtering. #}
 
 {% block structured_data %}
 <script type="application/ld+json">
@@ -8,124 +11,86 @@
   "@type": "BreadcrumbList",
   "@id": "{{ canonical_url }}#breadcrumb",
   "itemListElement": [
-    {"@type":"ListItem","position":1,"name":"Home","item":"{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}"},
-    {"@type":"ListItem","position":2,"name":"Kennisbank","item":"{{ request.scheme }}://{{ request.get_host }}{% url 'kennisbank' %}"}
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_origin }}/"},
+    {"@type": "ListItem", "position": 2, "name": "Kennisbank", "item": "{{ canonical_url }}"}
   ]
 }
 </script>
 {% endblock %}
 
-{% block head_extra %}<style>@media (max-width:980px){.kb-doc{grid-template-columns:1fr!important}.kb-toc{display:none!important}}@media (max-width:680px){.kb-featured{grid-template-columns:1fr!important}.kb-articles{grid-template-columns:1fr!important}}</style>{% endblock %}
+{% block mv_content %}
 
-{% block content %}
+  {# ── Dark hero + search ── #}
+  <section class="mv-band--ink" style="padding:clamp(34px,5vw,60px) clamp(18px,4vw,40px)">
+    <div class="mv-wrap">
+      <nav class="mv-crumbs" aria-label="Kruimelpad" style="color:#7A7C72">
+        <a href="/" style="color:#9FA196">Home</a><span>/</span><span style="color:#fff">Veelgestelde vragen</span>
+      </nav>
+      <div class="mv-eyebrow" style="color:#CBF24A">{{ page.eyebrow|default:"KENNISBANK" }}</div>
+      <h1 class="mv-h1" style="font-size:clamp(32px,5.5vw,54px);max-width:720px">{% if page.heading %}{{ page.heading }}{% else %}Waar kunnen we je mee helpen?{% endif %}</h1>
+      <form method="get" action="{% url 'kennisbank' %}" style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;padding:6px 6px 6px 18px;max-width:560px">
+        <span style="color:#9A9C92;font-size:18px">⌕</span>
+        <input name="q" value="{{ kb_query }}" placeholder="Zoek een vraag, bijv. winterstop" aria-label="Zoeken" style="flex:1;min-width:0;border:0;outline:0;font-family:Manrope;font-weight:600;font-size:16px;color:#15150F;padding:11px 0;background:transparent">
+        <button type="submit" class="mv-cta" style="border:0;cursor:pointer">Zoek</button>
+      </form>
+    </div>
+  </section>
 
-<!-- ===================== HERO ===================== -->
-<header style="border-bottom:1px solid rgba(18,59,93,0.08);background:#fff;">
-  <div class="container" style="padding:56px 24px;">
-    <nav class="breadcrumb" aria-label="Kruimelpad" style="margin-bottom:22px;">
-      <a href="{% url 'home' %}">Home</a>
-      <span class="sep">›</span>
-      <span style="color:var(--petrol);font-weight:500;">Kennisbank</span>
-    </nav>
-    <span class="eyebrow">Kennisbank</span>
-    <h1 class="h1" style="margin:14px 0 16px;max-width:720px;">{% if page.heading %}{{ page.heading }}{% else %}Alles over de bus. Helder uitgelegd.{% endif %}</h1>
-    <p class="lead" style="margin:0 0 28px;max-width:600px;">{% if page.intro %}{{ page.intro }}{% else %}534 artikelen over dekkingen, beroepen, modellen, schade en regelgeving, geschreven in gewoon Nederlands, niet in verzekeraarstaal.{% endif %}</p>
-    <form action="{% url 'kennisbank' %}" method="get" style="max-width:600px;background:var(--cream);border:1px solid var(--line-strong);border-radius:14px;padding:4px 4px 4px 18px;display:flex;align-items:center;gap:12px;">
-      <span style="color:var(--slate-400);font-size:17px;">⌕</span>
-      <input name="q" value="{{ kb_query|default:'' }}" placeholder="Zoek bijv. 'gereedschap diefstal' of 'Ford Transit'…" style="flex:1;border:0;outline:0;background:transparent;font-size:15px;color:var(--ink);padding:14px 0;min-width:0;">
-      <button type="submit" style="background:var(--petrol);color:#fff;font-size:13.5px;font-weight:600;padding:11px 18px;border-radius:10px;border:0;cursor:pointer;">Zoek</button>
-    </form>
+  {# ── Category cards ── #}
+  <div class="mv-wrap" style="padding:clamp(36px,4vw,52px) clamp(18px,4vw,40px) 0">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px">
+      <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px)">{{ secties.categorieen.kop|default:"Categorieën" }}</h2>
+      {% if kb_active_cat %}<a href="{% url 'kennisbank' %}" class="mv-link" style="font-size:14px">Alle categorieën <span>×</span></a>{% endif %}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+      {% for c in kb_cats %}
+      <a href="{% url 'kennisbank' %}?cat={{ c.title|urlencode }}" style="display:block;background:#fff;border-radius:18px;padding:24px;border:1.5px solid {% if c.title == kb_active_cat %}#15150F{% else %}#ECECE3{% endif %}{% if c.title == kb_active_cat %};box-shadow:0 14px 30px rgba(21,21,15,.10){% endif %}">
+        <div style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:11px;font-family:'JetBrains Mono';font-weight:700;font-size:11px;margin-bottom:14px;background:{% if c.title == kb_active_cat %}#15150F{% else %}#F4F8E6{% endif %};color:{% if c.title == kb_active_cat %}#CBF24A{% else %}#15150F{% endif %}">{{ c.tag }}</div>
+        <div style="font-weight:800;font-size:17px;margin-bottom:4px">{{ c.title }}</div>
+        <div style="font-size:13px;color:#5C5E54">{{ c.count }} artikelen</div>
+      </a>
+      {% endfor %}
+    </div>
   </div>
-</header>
 
-<!-- ===================== DOCS LAYOUT ===================== -->
-<div class="container kb-doc" style="padding:44px 24px 70px;display:grid;grid-template-columns:230px 1fr;gap:44px;align-items:start;">
+  {# ── Question list ── #}
+  <div class="mv-wrap" style="padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+    <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px);margin-bottom:6px">{{ kb_list_title }}</h2>
+    <p style="font-size:14px;color:#5C5E54;margin:0 0 20px;display:flex;align-items:center;gap:8px"><span class="mv-tick">✓</span> Geschreven en gecontroleerd door onze WFT-experts.</p>
 
-  <!-- SIDEBAR -->
-  <aside class="kb-toc" style="position:sticky;top:90px;">
-    <div style="font-family:var(--font-head);font-weight:600;font-size:12px;color:var(--slate-400);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px;">Categorieën</div>
-    <div style="display:flex;flex-direction:column;gap:2px;">
-      <a href="{% url 'kennisbank' %}" style="text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;background:rgba(18,59,93,0.06);color:var(--petrol);font-size:14px;font-weight:600;">Alle onderwerpen <span style="font-size:12px;color:var(--slate-400);">534</span></a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;color:var(--slate-600);font-size:14px;">Vragen &amp; antwoorden <span style="font-size:12px;color:var(--slate-400);">214</span></a>
-      <a href="{% url 'verzekeraars' %}" style="text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;color:var(--slate-600);font-size:14px;">Verzekeraars <span style="font-size:12px;color:var(--slate-400);">32</span></a>
-      <a href="{% url 'beroep_timmerman' %}" style="text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;color:var(--slate-600);font-size:14px;">Beroepen <span style="font-size:12px;color:var(--slate-400);">48</span></a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;color:var(--slate-600);font-size:14px;">Modellen <span style="font-size:12px;color:var(--slate-400);">76</span></a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;color:var(--slate-600);font-size:14px;">Schade melden <span style="font-size:12px;color:var(--slate-400);">63</span></a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;color:var(--slate-600);font-size:14px;">Regelgeving <span style="font-size:12px;color:var(--slate-400);">39</span></a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;color:var(--slate-600);font-size:14px;">Elektrische bussen <span style="font-size:12px;color:var(--slate-400);">27</span></a>
-      <a href="{% url 'blog' %}" style="text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;color:var(--slate-600);font-size:14px;">Blog &amp; nieuws <span style="font-size:12px;color:var(--slate-400);">128</span></a>
-    </div>
-    <div style="margin-top:22px;background:var(--petrol);border-radius:14px;padding:18px;">
-      <div style="font-family:var(--font-head);font-weight:600;font-size:15px;color:#fff;margin-bottom:6px;">Liever direct weten?</div>
-      <div style="font-size:13px;color:var(--steel-300);line-height:1.5;margin-bottom:12px;">Bereken je premie in 2 minuten.</div>
-      <a href="{% url 'premie_tool' %}" style="text-decoration:none;display:block;text-align:center;background:var(--orange);color:#fff;font-weight:600;font-size:13.5px;padding:10px;border-radius:9px;">Bereken premie →</a>
-    </div>
-  </aside>
-
-  <!-- MAIN -->
-  <main style="min-width:0;">
-    {% if kb_query %}
-    <!-- SEARCH RESULTS -->
-    <div style="font-family:var(--font-head);font-weight:600;font-size:20px;color:var(--petrol);margin:0 0 4px;">Zoekresultaten voor “{{ kb_query }}”</div>
-    <p style="font-size:14px;color:var(--slate-500);margin:0 0 22px;">{{ kb_results|length }} resulta{{ kb_results|length|pluralize:"at,ten" }} gevonden.</p>
-    {% if kb_results %}
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      {% for c in kb_results %}
-      <a href="{{ c.get_absolute_url }}" class="card-hover" style="text-decoration:none;display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;">
-        <div style="font-family:var(--font-head);font-weight:600;font-size:16.5px;color:var(--petrol);line-height:1.3;">{{ c.titel }}</div>
-        {% if c.meta_description %}<div style="font-size:13.5px;color:var(--slate-500);margin-top:5px;line-height:1.55;">{{ c.meta_description|truncatechars:140 }}</div>{% endif %}
-      </a>
-      {% endfor %}
+    {% if kb_empty %}
+    <div style="background:#fff;border:1.5px solid #ECECE3;border-radius:20px;padding:40px;text-align:center">
+      <div style="font-weight:800;font-size:18px;margin-bottom:6px">Geen vraag gevonden</div>
+      <p style="font-size:14px;color:#5C5E54;margin:0 0 18px">We hebben geen vraag die past bij "{{ kb_query }}". Probeer een andere term of bekijk alle vragen.</p>
+      <a href="{% url 'kennisbank' %}" style="display:inline-flex;background:#15150F;color:#fff;font-weight:700;font-size:14px;padding:12px 20px;border-radius:11px">Toon alle vragen</a>
     </div>
     {% else %}
-    <p class="lead">Geen resultaten gevonden. Probeer een andere zoekterm of <a href="{% url 'kennisbank' %}" style="color:var(--orange);text-decoration:none;font-weight:600;">bekijk alle onderwerpen</a>.</p>
-    {% endif %}
-    {% else %}
-    <!-- featured -->
-    {% if kb_featured %}{% with f=kb_featured %}
-    <a href="{% url 'kennisbank_artikel' %}" class="card-hover" style="text-decoration:none;display:block;background:var(--petrol);border-radius:20px;overflow:hidden;margin-bottom:28px;">
-      <div style="display:grid;grid-template-columns:1.3fr 1fr;" class="kb-featured">
-        <div style="padding:34px;">
-          <span style="font-size:11px;font-weight:700;color:var(--orange-300);letter-spacing:0.06em;">UITGELICHT · {{ f.categorie|upper }}</span>
-          <h2 style="font-family:var(--font-head);font-weight:700;font-size:28px;line-height:1.1;letter-spacing:-0.02em;color:#fff;margin:12px 0 10px;">{{ f.titel }}</h2>
-          <p style="font-size:15px;line-height:1.6;color:var(--steel-300);margin:0 0 18px;">{{ f.excerpt }}</p>
-          <span style="font-size:14px;font-weight:600;color:#fff;">Lees het artikel →</span>
+    <div style="background:#fff;border:1.5px solid #ECECE3;border-radius:20px;overflow:hidden">
+      {% for q in kb_results %}
+      <a href="{% url 'kennisbank_artikel' %}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid #F0F0E8">
+        <div>
+          <div style="font-weight:700;font-size:16px">{{ q.titel }}</div>
+          <div style="font-size:13px;color:#9A9C92;margin-top:3px;font-family:'JetBrains Mono'">{{ q.categorie }} · {{ q.leestijd }}</div>
         </div>
-        <div class="media" style="background-color:var(--petrol-900);min-height:220px;overflow:hidden;position:relative;">{% picture f.get_photo_source alt=f.get_photo_alt sizes="(max-width:980px) 100vw, 40vw" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
-      </div>
-    </a>
-    {% endwith %}{% endif %}
-
-    <div style="font-family:var(--font-head);font-weight:600;font-size:18px;color:var(--petrol);margin:0 0 16px;">Populaire artikelen</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:34px;" class="kb-articles">
-      {% for a in kb_populair %}
-      <a href="{% url 'kennisbank_artikel' %}" class="card-hover" style="text-decoration:none;display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;">
-        <div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:8px;">{{ a.categorie }}</div>
-        <div style="font-family:var(--font-head);font-weight:600;font-size:17px;color:var(--petrol);line-height:1.25;margin-bottom:8px;">{{ a.titel }}</div>
-        <div style="font-size:13.5px;color:var(--slate-500);">{{ a.leestijd }} lezen · {{ a.gelezen }} keer gelezen</div>
+        <span style="color:#4B4DFF;font-size:18px;flex-shrink:0">→</span>
       </a>
       {% endfor %}
     </div>
-
-    <div style="font-family:var(--font-head);font-weight:600;font-size:18px;color:var(--petrol);margin:0 0 16px;">Veelgezocht per categorie</div>
-    <div style="display:flex;gap:9px;flex-wrap:wrap;">
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;background:#fff;border:1px solid var(--line-strong);color:var(--petrol);font-size:13.5px;font-weight:500;padding:9px 14px;border-radius:100px;">Negatieve schadevrije jaren</a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;background:#fff;border:1px solid var(--line-strong);color:var(--petrol);font-size:13.5px;font-weight:500;padding:9px 14px;border-radius:100px;">Bus zakelijk of privé verzekeren</a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;background:#fff;border:1px solid var(--line-strong);color:var(--petrol);font-size:13.5px;font-weight:500;padding:9px 14px;border-radius:100px;">Eigen risico aanpassen</a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;background:#fff;border:1px solid var(--line-strong);color:var(--petrol);font-size:13.5px;font-weight:500;padding:9px 14px;border-radius:100px;">Laadpaal schade dekking</a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;background:#fff;border:1px solid var(--line-strong);color:var(--petrol);font-size:13.5px;font-weight:500;padding:9px 14px;border-radius:100px;">Schade melden in het weekend</a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;background:#fff;border:1px solid var(--line-strong);color:var(--petrol);font-size:13.5px;font-weight:500;padding:9px 14px;border-radius:100px;">Wagenpark vanaf 2 bussen</a>
-    </div>
-    {% if kb_infopaginas %}
-    <div style="font-family:var(--font-head);font-weight:600;font-size:18px;color:var(--petrol);margin:34px 0 16px;">Alle onderwerpen</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 28px;" class="kb-allesgrid">
-      {% for c in kb_infopaginas %}
-      <a href="{{ c.get_absolute_url }}" style="text-decoration:none;color:var(--slate-600);font-size:14px;line-height:1.4;padding:8px 0;border-bottom:1px solid rgba(18,59,93,0.06);">{{ c.titel }}</a>
-      {% endfor %}
-    </div>
     {% endif %}
-    {% endif %}{# /kb_query #}
-  </main>
-</div>
+  </div>
+
+  {# ── CTA ── #}
+  <section class="mv-band--ink" style="padding:clamp(36px,5vw,56px) clamp(18px,4vw,40px)">
+    <div class="mv-wrap" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+      <div style="flex:1 1 320px">
+        <h2 class="mv-h2" style="font-size:clamp(24px,3vw,32px);margin-bottom:8px">{{ secties.cta.kop|default:"Staat je vraag er niet bij?" }}</h2>
+        <p style="font-size:15px;line-height:1.5;color:#9FA196;margin:0">{{ secties.cta.tekst|default:"Onze klantenservice helpt je op werkdagen van 08:30 tot 17:00." }}</p>
+      </div>
+      <div style="flex-shrink:0;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="{% url 'klantenservice' %}" class="mv-btn-lime">Naar klantenservice</a>
+        <a href="{% url 'premie_tool' %}" style="background:transparent;border:1.5px solid #3A3A34;color:#fff;font-weight:800;font-size:15px;padding:15px 22px;border-radius:12px">Bereken premie</a>
+      </div>
+    </div>
+  </section>
 
 {% endblock %}

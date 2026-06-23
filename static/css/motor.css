@@ -1,0 +1,344 @@
+/* Self-hosted fonts (no external Google Fonts request → faster, reliable,
+   no render-blocking third-party). Files in static/fonts/. */
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/manrope-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/manrope-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url(../fonts/manrope-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/manrope-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:800;font-display:swap;src:url(../fonts/manrope-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2')}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Motorverzekering.nl — design system (Claude Design "MV").
+   All rules are scoped under .mv so they never touch the (legacy) bestelauto
+   pages that still use styles.css. Fonts: Manrope (body/headings) + JetBrains
+   Mono (labels/numbers). Palette: ink #15150F, indigo #4B4DFF, lime #CBF24A,
+   cream #F6F6F0.
+   ────────────────────────────────────────────────────────────────────────── */
+.mv{font-family:'Manrope',sans-serif;color:#15150F;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.mv *{box-sizing:border-box}
+.mv a{color:inherit;text-decoration:none}
+.mv input::placeholder{color:#A8AAA0}
+.mv select{appearance:none;-webkit-appearance:none}
+.mv-wrap{max-width:1180px;margin:0 auto;width:100%}
+.mv-wrap--narrow{max-width:820px}
+.mv-band{padding:clamp(44px,6vw,74px) clamp(18px,4vw,40px)}
+.mv-band--white{background:#fff;border-top:1.5px solid #ECECE3}
+.mv-band--ink{background:#15150F;color:#fff}
+.mv-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.14em;color:#4B4DFF;margin-bottom:10px}
+.mv-h1{font-size:clamp(34px,5.5vw,56px);line-height:1.05;font-weight:800;letter-spacing:-.03em;margin:0 0 16px}
+.mv-h2{font-size:clamp(24px,3.4vw,38px);line-height:1.12;font-weight:800;letter-spacing:-.025em;margin:0}
+.mv-lead{font-size:15px;line-height:1.55;color:#5C5E54;margin:10px 0 0;max-width:560px}
+.mv-arrow{font-size:16px}
+.mv-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mv-grid2{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.mv-autofit{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.mv-autofill{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.mv-checkpill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#5C5E54;background:#fff;border:1.5px solid #ECECE3;padding:9px 14px;border-radius:999px}
+.mv-tick{width:18px;height:18px;border-radius:50%;background:#CBF24A;color:#15150F;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.mv-crumbs{display:flex;align-items:center;gap:8px;font-size:13px;color:#9A9C92;font-family:'JetBrains Mono';margin-bottom:22px;flex-wrap:wrap}
+.mv-crumbs a{color:#5C5E54}
+.mv-crumbs .cur{color:#15150F}
+.mv-btn-ink{display:inline-flex;align-items:center;gap:8px;background:#15150F;color:#fff;font-weight:700;font-size:15px;padding:14px 22px;border-radius:12px}
+.mv-btn-indigo{display:inline-flex;align-items:center;gap:9px;background:#4B4DFF;color:#fff;font-weight:800;font-size:16px;padding:16px 26px;border-radius:13px}
+.mv-btn-indigo:hover{background:#3A3CE6}
+.mv-btn-lime{display:inline-flex;align-items:center;gap:8px;background:#CBF24A;color:#15150F;font-weight:800;font-size:15px;padding:13px 20px;border-radius:11px}
+.mv-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:#4B4DFF}
+
+/* ── Nav ── */
+.mv-nav{position:relative;max-width:1180px;margin:0 auto;width:100%}
+.mv-navbar{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,40px)}
+.mv-logo{display:flex;align-items:center;gap:10px}
+.mv-logotile{width:27px;height:27px;border-radius:7px;background:#15150F;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mv-logodot{width:11px;height:11px;border-radius:3px;background:#CBF24A}
+.mv-logotxt{font-weight:800;font-size:17px;letter-spacing:-.02em;white-space:nowrap}
+.mv-navlinks{display:flex;align-items:center;gap:8px}
+.mv-navlink{font-size:14px;font-weight:600;color:#5C5E54;padding:8px 12px;border-radius:9px}
+.mv-navlink:hover{background:#EDEDE5;color:#15150F}
+.mv-navlink--active{color:#15150F;font-weight:700}
+.mv-sep{width:1px;height:20px;background:#DEDED5;margin:0 6px}
+.mv-login{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:#15150F;cursor:pointer;padding:8px 10px}
+.mv-login .ic{width:18px;height:18px;border-radius:50%;border:1.5px solid #15150F;display:inline-flex;align-items:center;justify-content:center;font-size:10px}
+.mv-cta{font-size:14px;font-weight:700;color:#fff;background:#4B4DFF;padding:10px 18px;border-radius:11px}
+.mv-cta:hover{background:#3A3CE6}
+.mv-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;align-items:center;border-radius:11px;background:#15150F;flex-shrink:0;cursor:pointer}
+.mv-burger span{width:19px;height:2px;background:#fff;border-radius:2px}
+.mv-menutoggle{position:absolute;opacity:0;pointer-events:none}
+.mv-mobilemenu{display:none;position:absolute;top:100%;left:12px;right:12px;z-index:60;background:#fff;border:1.5px solid #E6E6DD;border-radius:18px;box-shadow:0 24px 50px rgba(21,21,15,.18);padding:10px;margin-top:4px}
+.mv-mobilelink{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-radius:12px;font-weight:700;font-size:16px;color:#15150F}
+.mv-mobilelink:hover{background:#F6F6F0}
+.mv-mobilelink span{color:#4B4DFF}
+
+/* ── Hero (home) ── */
+.mv-hero{max-width:1180px;margin:0 auto;width:100%;padding:clamp(22px,3vw,48px) clamp(18px,4vw,40px) 8px}
+.mv-herogrid{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,4vw,52px);align-items:center}
+.mv-hl{background:linear-gradient(transparent 56%,#CBF24A 56%);padding:0 2px}
+.mv-herop{font-size:17px;line-height:1.5;color:#5C5E54;margin:0 0 22px;max-width:470px}
+.mv-hstats{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:18px;font-size:14px;color:#5C5E54}
+.mv-hstats strong{color:#15150F}
+.mv-stardot{width:5px;height:5px;border-radius:50%;background:#C9CAC0}
+.mv-stars{color:#F2B600;letter-spacing:1px}
+.mv-hnote{display:flex;align-items:flex-start;gap:9px;font-size:13px;line-height:1.45;color:#5C5E54;max-width:450px}
+.mv-hnote i{flex-shrink:0;width:17px;height:17px;border-radius:50%;border:1.5px solid #9A9C92;color:#5C5E54;font-size:11px;font-weight:800;font-style:normal;display:flex;align-items:center;justify-content:center;margin-top:1px}
+
+/* ── Premie-kaart (home hero form) ── */
+.mv-card{background:#fff;border:1.5px solid #E6E6DD;border-radius:24px;padding:clamp(20px,2vw,26px);box-shadow:0 30px 70px rgba(21,21,15,.10)}
+.mv-card h3{font-weight:800;font-size:19px;margin:0 0 4px}
+.mv-card .sub{font-size:14px;color:#5C5E54;margin-bottom:18px}
+.mv-lbl{font-size:13px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.mv-req{color:#E0584F}
+.mv-i{width:16px;height:16px;border-radius:50%;background:#1A3FA0;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;font-style:normal}
+.mv-plate{display:flex;align-items:stretch;border-radius:11px;overflow:hidden;border:2px solid #15150F;box-shadow:0 3px 0 #15150F}
+.mv-plate-eu{background:#1A3FA0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 9px;gap:1px;flex-shrink:0}
+.mv-plate input{flex:1;min-width:0;width:100%;border:0;outline:0;background:#F2C200;color:#15150F;font-family:'JetBrains Mono';font-weight:700;font-size:24px;letter-spacing:3px;text-align:center;padding:13px 4px;text-transform:uppercase}
+/* In de wizard zou .wz-field input de plaat overschrijven (cream + border) → herstel de gele plaat. */
+.wz-field .mv-plate input{background:#F2C200;border:0;border-radius:0;padding:13px 4px;text-align:center;font-family:'JetBrains Mono';font-weight:700;letter-spacing:3px}
+.mv-field{width:100%;border:1.5px solid #E6E6DD;border-radius:11px;padding:13px 14px;font-family:'Manrope';font-weight:600;font-size:16px;color:#15150F;outline:0;background:#FBFBF7}
+select.mv-field{font-size:15px;padding-right:34px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' fill='none' stroke='%235C5E54' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 13px center}
+.mv-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mv-submit{margin-top:18px;width:100%;border:0;cursor:pointer;background:#4B4DFF;color:#fff;font-family:'Manrope';font-weight:800;font-size:17px;padding:16px;border-radius:13px;display:flex;align-items:center;justify-content:center;gap:9px}
+.mv-submit:hover{background:#3A3CE6}
+.mv-cardmeta{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:13px;font-size:12px;color:#5C5E54;flex-wrap:wrap}
+
+/* ── Coverage tiers (home cards) ── */
+.mv-tier{background:#fff;border:1.5px solid #E6E6DD;border-radius:20px;padding:24px;display:flex;flex-direction:column;position:relative}
+.mv-tier--hl{border:2px solid #15150F;box-shadow:0 14px 32px rgba(21,21,15,.10)}
+.mv-tier .nm{font-weight:800;font-size:19px}
+.mv-tier .sub{font-size:13px;color:#5C5E54;margin-bottom:12px}
+.mv-tier .price{font-family:'JetBrains Mono';font-size:13px;color:#15150F;margin-bottom:14px}
+.mv-tier .price b{font-size:17px}
+.mv-tier .price .g{color:#9A9C92}
+.mv-tier .desc{font-size:14px;line-height:1.55;color:#5C5E54}
+.mv-ribbon{position:absolute;top:-11px;left:24px;background:#CBF24A;color:#15150F;font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.04em;padding:4px 10px;border-radius:8px}
+
+/* ── Generic tiles ── */
+.mv-tile{background:#fff;border:1.5px solid #ECECE3;border-radius:20px;padding:26px}
+.mv-tag{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:#CBF24A;color:#15150F;font-family:'JetBrains Mono';font-weight:700;font-size:13px;margin-bottom:16px}
+.mv-tile h3{font-weight:800;font-size:19px;margin:0}
+.mv-tile p{color:#5C5E54;font-size:14px;line-height:1.5;margin:8px 0 0}
+.mv-num{font-family:'JetBrains Mono';font-weight:700;font-size:14px;color:#15150F;background:#CBF24A;display:inline-flex;padding:6px 10px;border-radius:8px}
+
+/* ── Docs ── */
+.mv-doc{display:flex;align-items:center;gap:14px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:16px;padding:18px 20px}
+.mv-doctag{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:11px;background:#15150F;color:#CBF24A;font-family:'JetBrains Mono';font-weight:700;font-size:11px;flex-shrink:0}
+
+/* ── Trust strip ── */
+.mv-trust{padding:clamp(34px,4vw,46px) clamp(18px,4vw,40px)}
+.mv-trustgrid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.mv-trust .big{font-family:'JetBrains Mono';font-weight:700;font-size:clamp(27px,3vw,34px);color:#CBF24A;letter-spacing:-.02em}
+.mv-trust .cap{font-size:13px;color:#9FA196;margin-top:6px;line-height:1.4}
+
+/* ── Reviews ── */
+.mv-reviews{display:grid;grid-template-columns:.85fr 1.15fr;gap:18px;align-items:start}
+.mv-rscore{background:#15150F;color:#fff;border-radius:22px;padding:32px;text-align:center}
+.mv-rscore .n{font-family:'JetBrains Mono';font-weight:700;font-size:56px;color:#CBF24A;line-height:1}
+.mv-review{background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:16px;padding:20px}
+.mv-rbadge{background:#CBF24A;color:#15150F;font-family:'JetBrains Mono';font-weight:700;font-size:13px;padding:4px 8px;border-radius:7px}
+
+/* ── Experts CTA ── */
+.mv-experts{background:#15150F;color:#fff;border-radius:24px;padding:clamp(28px,3vw,40px);display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between}
+.mv-expert{display:flex;align-items:center;gap:13px;background:#1E1E18;border:1px solid #2E2E27;border-radius:14px;padding:12px 14px}
+.mv-avatar{width:42px;height:42px;border-radius:50%;background:#CBF24A;color:#15150F;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0}
+.mv-wft{margin-left:auto;font-family:'JetBrains Mono';font-size:10px;font-weight:700;color:#15150F;background:#CBF24A;padding:3px 7px;border-radius:6px}
+
+/* ── FAQ (native details) ── */
+.mv-faq{background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:14px;overflow:hidden}
+.mv-faq+.mv-faq{margin-top:12px}
+.mv-faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;cursor:pointer;font-weight:700;font-size:16px;list-style:none}
+.mv-faq summary::-webkit-details-marker{display:none}
+.mv-faq summary::after{content:'+';font-size:24px;line-height:1;color:#4B4DFF;flex-shrink:0;transition:transform .2s}
+.mv-faq[open] summary::after{transform:rotate(45deg)}
+.mv-faq .a{padding:0 20px 20px;font-size:15px;line-height:1.55;color:#5C5E54;max-width:680px}
+
+/* ── Info-links (home) ── */
+.mv-infocard{background:#fff;border:1.5px solid #ECECE3;border-radius:22px;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.mv-infolink{display:flex;align-items:center;gap:9px}
+.mv-infolink .d{width:5px;height:5px;border-radius:50%;background:#4B4DFF;flex-shrink:0}
+.mv-infolink span{font-size:14px;color:#15150F;text-decoration:underline;text-decoration-color:#C9CAC0;text-underline-offset:3px}
+
+/* ── Contact (home) ── */
+.mv-contactcard{background:#F6F6F0;border:1.5px solid #ECECE3;border-radius:20px;padding:26px}
+.mv-contactrow{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:600;color:#15150F}
+.mv-contactrow span{color:#4B4DFF}
+.mv-channel{display:flex;align-items:center;gap:12px}
+.mv-channeltag{width:42px;height:42px;border-radius:11px;background:#CBF24A;color:#15150F;font-family:'JetBrains Mono';font-weight:700;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── Coverage comparison table (Dekkingen) ── */
+.mv-cov{background:#fff;border:1.5px solid #ECECE3;border-radius:22px;overflow:hidden}
+.mv-cov-row{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr}
+.mv-cov-head{border-bottom:1px solid #F0F0E8;background:#FBFBF7}
+.mv-cov-head .h{padding:18px 10px;text-align:center;font-weight:800;font-size:16px}
+.mv-cov-head .h--hl{background:#F4F8E6}
+.mv-cov-head .lbl{padding:18px 22px;font-family:'JetBrains Mono';font-size:12px;font-weight:700;letter-spacing:.04em;color:#9A9C92;display:flex;align-items:flex-end}
+.mv-cov-body .mv-cov-row{border-bottom:1px solid #F4F4EC}
+.mv-cov-body .rl{padding:15px 22px;font-size:14px;font-weight:600;display:flex;align-items:center}
+.mv-cov-body .rc{padding:15px 8px;display:flex;align-items:center;justify-content:center}
+.mv-cov-body .rc--hl{background:#F4F8E6}
+.mv-yes{color:#4B4DFF;font-weight:800;font-size:17px}
+.mv-no{color:#C5C6BC;font-size:17px}
+
+/* ── Extras (Dekkingen) ── */
+.mv-extra{background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:18px;padding:22px}
+.mv-extra .plus{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#F4F8E6;color:#4B4DFF;font-size:22px;font-weight:500;line-height:1;margin-bottom:14px}
+.mv-extra h3{font-weight:800;font-size:16px;margin:0 0 6px}
+.mv-extra p{font-size:14px;line-height:1.5;color:#5C5E54;margin:0}
+
+/* ── Eigen-risico panel (Dekkingen) ── */
+.mv-er{background:#15150F;color:#fff;border-radius:20px;padding:clamp(24px,3vw,32px)}
+.mv-er-row{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid #2A2A24}
+.mv-er-row:last-child{padding-bottom:0;border-bottom:0}
+.mv-er-row .meta{font-family:'JetBrains Mono';font-size:13px;color:#9FA196}
+.mv-er-row .meta--lime{color:#CBF24A}
+
+/* ── Premie conversion band (reusable widget, before the footer) ── */
+.mv-pband{background:#15150F;color:#fff;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)}
+.mv-pband-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,48px);align-items:center}
+.mv-pband-card{background:#fff;border-radius:20px;padding:clamp(20px,2vw,26px);color:#15150F;box-shadow:0 30px 70px rgba(0,0,0,.25)}
+.mv-pband-trust{font-family:'JetBrains Mono';font-size:13px;color:#9FA196;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mv-pband-trust .star{color:#F2B600;letter-spacing:1px}
+@media(max-width:880px){.mv-pband-inner{grid-template-columns:1fr}}
+
+/* ── CTA band ── */
+.mv-ctaband{background:#fff;border:1.5px solid #ECECE3;border-radius:22px;padding:clamp(26px,3vw,38px);display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;box-shadow:0 24px 60px rgba(21,21,15,.07)}
+
+/* ── Footer ── */
+.mv-footer{background:#15150F;color:#fff}
+.mv-footinner{max-width:1180px;margin:0 auto;padding:clamp(40px,5vw,54px) clamp(18px,4vw,40px)}
+.mv-foot{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:28px}
+.mv-footcol h4{font-size:12px;font-family:'JetBrains Mono';letter-spacing:.1em;color:#7A7C72;margin:0 0 14px;font-weight:700}
+.mv-footcol .lnks{display:flex;flex-direction:column;gap:11px;font-size:14px;color:#D6D7D0}
+.mv-footbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.mv-ideal{background:#fff;border-radius:6px;padding:6px 9px;font-weight:800;font-size:12px;color:#CC0066;font-family:'JetBrains Mono'}
+
+/* ── Link-colour overrides ──────────────────────────────────────────────────
+   `.mv a{color:inherit}` (1 class + 1 element) is MORE specific than a single
+   `.class`, so it silently overrode every button/link text colour below (e.g.
+   the ink button rendered black-on-black). These compound selectors win. */
+.mv a.mv-cta,
+.mv a.mv-btn-ink,
+.mv a.mv-btn-indigo{color:#fff}
+.mv a.mv-btn-lime{color:#15150F}
+.mv a.mv-link{color:#4B4DFF}
+.mv a.mv-navlink{color:#5C5E54}
+.mv a.mv-navlink--active,
+.mv a.mv-login{color:#15150F}
+.mv a.mv-navlink:hover{color:#15150F}
+
+/* ── Premie-wizard (motorverzekering-berekenen) ── */
+.wz-steps{display:flex;gap:8px;flex-wrap:wrap;list-style:none;padding:0;margin:0 0 22px}
+/* Pills volledig zelfstandig (overschrijft bestelauto styles.css petrol-pill). */
+.wz-step{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#7A7C72;background:#EFEFE7;padding:8px 14px;border-radius:999px}
+.wz-step span{width:22px;height:22px;border-radius:50%;background:#fff;color:#9A9C92;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.wz-step.is-active{background:#15150F;color:#fff}
+.wz-step.is-active span{background:#4B4DFF;color:#fff}
+.wz-step.is-done{background:#EAF0D8;color:#46591F}
+.wz-step.is-done span{background:#CBF24A;color:#15150F}
+.wz-card{background:#fff;border:1.5px solid #E6E6DD;border-radius:22px;padding:clamp(20px,3vw,32px);box-shadow:0 24px 60px rgba(21,21,15,.06)}
+.wz-panel{display:none}
+.wz-panel.is-active{display:block}
+.wz-h2{font-weight:800;font-size:clamp(20px,2.4vw,24px);letter-spacing:-.02em;margin:0 0 6px}
+.wz-sub{font-size:14px;color:#5C5E54;margin:0 0 18px}
+.wz-field{margin-bottom:14px}
+.wz-field>label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+.wz-field input,.wz-field select,.wz-field textarea{width:100%;border:1.5px solid #E6E6DD;border-radius:11px;padding:13px 14px;font-family:'Manrope';font-weight:600;font-size:15px;color:#15150F;outline:0;background:#FBFBF7}
+.wz-field input:focus,.wz-field select:focus,.wz-field textarea:focus{border-color:#4B4DFF}
+.wz-field .is-invalid,.wz-field input.is-invalid{border-color:#E0584F;background:#FEF3F2}
+.wz-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wz-help-link{display:inline-block;font-size:12px;color:#4B4DFF;font-weight:600;margin-top:6px}
+.wz-hint{font-size:13px;margin-top:9px;display:flex;align-items:center;gap:7px;color:#15150F;font-weight:600}
+.wz-hint::before{content:"";width:7px;height:7px;border-radius:50%;background:#3FBF6A;flex-shrink:0}
+.wz-error{font-size:13px;color:#E0584F;font-weight:600;margin:8px 0 0}
+.wz-seg{display:flex;gap:6px;background:#F1F1EA;padding:5px;border-radius:12px}
+.wz-seg button{flex:1;border:0;background:transparent;cursor:pointer;font-family:'Manrope';font-weight:700;font-size:13px;color:#5C5E54;padding:10px 8px;border-radius:9px}
+.wz-seg button.is-on{background:#15150F;color:#fff}
+.wz-actions{display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap}
+.wz-actions .spacer{flex:1}
+/* coverage cards */
+.wz-cover{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.wz-cover__card{cursor:pointer;text-align:left;background:#fff;border:1.5px solid #E6E6DD;border-radius:16px;padding:18px;position:relative}
+.wz-cover__card.is-sel{border:2px solid #15150F;box-shadow:0 10px 24px rgba(21,21,15,.10)}
+.wz-cover__card.is-rec{border-color:#CBF24A}
+.wz-cover__badge{position:absolute;top:-10px;left:14px;background:#CBF24A;color:#15150F;font-family:'JetBrains Mono';font-size:10px;font-weight:700;padding:3px 8px;border-radius:7px}
+.wz-cover__title{font-weight:800;font-size:18px}
+.wz-cover__price{font-family:'JetBrains Mono';font-size:13px;color:#15150F;margin:6px 0 10px}
+.wz-cover__price span{color:#9A9C92}
+.wz-cover__feats{list-style:none;padding:0;margin:0;font-size:13px;color:#5C5E54;display:flex;flex-direction:column;gap:5px}
+/* insurer results */
+.wz-results-head{margin:0 0 12px;font-size:13px;color:#5C5E54;font-weight:600}
+.wz-results{display:flex;flex-direction:column;gap:14px}
+.wz-ins{background:#fff;border:1.5px solid #E6E6DD;border-radius:18px;padding:20px;position:relative}
+.wz-ins.is-sel{border:2px solid #4B4DFF}
+.wz-ins__rank{position:absolute;top:-10px;left:18px;background:#15150F;color:#fff;font-family:'JetBrains Mono';font-size:10px;font-weight:700;padding:3px 9px;border-radius:7px}
+.wz-ins__rank--advies{background:#CBF24A;color:#15150F}
+.wz-ins__top{display:grid;grid-template-columns:1.1fr 1.4fr .9fr;gap:16px;align-items:center}
+.wz-ins__logo{max-height:34px;max-width:130px}
+.wz-ins__name{font-weight:800;font-size:17px}
+.wz-ins__rating{font-size:13px;color:#5C5E54;margin-top:4px}
+.wz-star{color:#F2B600}
+.wz-ins__cov{font-family:'JetBrains Mono';font-size:11px;font-weight:700;color:#4B4DFF;background:#EEF0FF;padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:8px}
+.wz-ins__feats{list-style:none;padding:0;margin:0;font-size:13px;color:#5C5E54;display:flex;flex-direction:column;gap:4px}
+.wz-ins__pricecol{text-align:right}
+.wz-ins__amount{font-family:'JetBrains Mono';font-weight:700;font-size:24px;color:#15150F}
+.wz-ins__per{font-size:12px;color:#9A9C92;margin-bottom:10px}
+.wz-ins__more{margin-top:14px;border:0;background:transparent;cursor:pointer;color:#4B4DFF;font-weight:700;font-size:14px;padding:0}
+.wz-ins__details{margin-top:14px;border-top:1px solid #ECECE3;padding-top:14px}
+.wz-ins__dh{font-weight:800;font-size:14px;margin:14px 0 8px}
+.wz-dl{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;border-bottom:1px solid #F4F4EC}
+.wz-ins__docs a{display:block;color:#4B4DFF;font-weight:600;font-size:14px;margin-top:6px}
+.wz-addons{margin-top:20px;border-top:1px solid #ECECE3;padding-top:18px}
+.wz-addon{display:flex;align-items:center;gap:12px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:12px;padding:13px 16px;margin-bottom:10px;cursor:pointer}
+.wz-addon input{width:18px;height:18px;flex-shrink:0}
+.wz-addon__txt{flex:1;font-size:14px;font-weight:600}
+.wz-addon__price{font-family:'JetBrains Mono';font-weight:700;font-size:14px}
+.wz-total{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1.5px solid #ECECE3;font-weight:800;font-size:16px}
+.wz-total strong{font-family:'JetBrains Mono';font-size:20px;color:#4B4DFF}
+.wz-pills{display:flex;gap:6px;background:#F1F1EA;padding:5px;border-radius:11px;flex-wrap:wrap}
+.wz-pills button{border:0;background:transparent;cursor:pointer;font-family:'Manrope';font-weight:700;font-size:13px;color:#5C5E54;padding:8px 12px;border-radius:8px}
+.wz-pills button.is-on{background:#15150F;color:#fff}
+.wz-agree{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:#5C5E54;margin:16px 0}
+.wz-agree input{width:18px;height:18px;flex-shrink:0;margin-top:2px}
+.wz-agree a{color:#4B4DFF;font-weight:600}
+.wz-done{text-align:center;padding:20px}
+.wz-done__check{width:56px;height:56px;border-radius:50%;background:#CBF24A;color:#15150F;font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+@media(max-width:680px){.wz-grid2{grid-template-columns:1fr}.wz-ins__top{grid-template-columns:1fr}.wz-ins__pricecol{text-align:left}}
+
+/* ── Editorial prose (admin-managed article bodies) ──────────────────────── */
+.mv-prose{font-size:clamp(16px,2vw,18px);line-height:1.75;color:#2A2A24}
+.mv-prose>:first-child{margin-top:0}
+.mv-prose h2{font-size:clamp(21px,3vw,28px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:36px 0 14px;scroll-margin-top:88px}
+.mv-prose h3{font-size:18px;font-weight:800;color:#15150F;margin:24px 0 8px}
+.mv-prose p{margin:0 0 18px}
+.mv-prose ul,.mv-prose ol{margin:0 0 18px;padding-left:22px}
+.mv-prose li{margin-bottom:10px}
+.mv-prose a{color:#4B4DFF;font-weight:600}
+.mv-prose strong{color:#15150F}
+.mv-prose blockquote{background:#15150F;color:#fff;border-radius:20px;padding:clamp(24px,3vw,32px);margin:32px 0;font-size:clamp(20px,2.6vw,26px);line-height:1.35;font-weight:700;letter-spacing:-.01em}
+.mv-prose blockquote p{margin:0;color:#fff}
+.mv-prose table{width:100%;border-collapse:collapse;border:1.5px solid #ECECE3;border-radius:14px;overflow:hidden;margin:0 0 18px;font-size:14px}
+.mv-prose thead{background:#15150F;color:#fff}
+.mv-prose th{text-align:left;padding:12px 16px;font-weight:700;font-size:13px}
+.mv-prose td{padding:12px 16px;border-top:1px solid #F0F0E8}
+.mv-prose tbody tr:nth-child(even){background:#FBFBF7}
+.mv-prose-tip{background:#F4F8E6;border:1.5px solid #CBF24A;border-radius:16px;padding:20px 22px;margin:32px 0}
+.mv-prose-tip.is-ink{background:#15150F;border-color:#15150F;color:#D6D7D0}
+.mv-prose-tip>strong{display:block;font-size:16px;color:#15150F;margin-bottom:4px}
+.mv-prose-tip.is-ink>strong{color:#fff}
+.mv-prose-tip p{margin:0;font-size:15px;line-height:1.55}
+
+/* ── Responsive ── */
+@media(max-width:880px){
+  .mv-navlinks{display:none}
+  .mv-burger{display:flex}
+  .mv-menutoggle:checked ~ .mv-mobilemenu,
+  .mv-mobilemenu.is-open{display:block}
+  .mv-herogrid,.mv-grid3,.mv-reviews{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .mv-grid2,.mv-infocard{grid-template-columns:1fr}
+  .mv-foot{grid-template-columns:1fr 1fr}
+  .mv-cov-row{grid-template-columns:1.4fr .9fr .9fr .9fr}
+  .mv-cov-body .rl,.mv-cov-head .lbl{padding-left:14px;padding-right:6px;font-size:13px}
+}
+@media(max-width:600px){
+  .mv-trustgrid{grid-template-columns:1fr 1fr;gap:26px 18px}
+}

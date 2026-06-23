@@ -1,197 +1,103 @@
-{% extends "base.html" %}
-{% load static responsive_image %}
+{% extends "mv_base.html" %}
+{% load static %}
+
+{# Onze experts — Claude Design. Expert cards DB-coupled (Expert model via
+   over_ons_context); editorial-process, family and CTA are authored sections. #}
 
 {% block structured_data %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
-    {% for e in experts %}{
-      "@type": "Person",
-      "@id": "{{ site_origin }}/over-ons/#person-{{ e.slug }}",
-      "name": "{{ e.name|escapejs }}",
-      "jobTitle": "{{ e.role|escapejs }}",
-      "worksFor": {"@id": "{{ site_origin }}/#organization"},
-      "url": "{{ canonical_url }}"{% if e.tags_list %},
-      "knowsAbout": [{% for t in e.tags_list %}"{{ t|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %}]{% endif %}{% if e.sameas_list %},
-      "sameAs": [{% for u in e.sameas_list %}"{{ u|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %}]{% endif %}
-    },
-    {% endfor %}{
-      "@type": "AboutPage",
-      "@id": "{{ canonical_url }}#webpage",
-      "about": {"@id": "{{ site_origin }}/#organization"},
-      "mainEntity": {"@id": "{{ site_origin }}/#organization"}
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "{{ canonical_url }}#breadcrumb",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_origin }}/"},
-        {"@type": "ListItem", "position": 2, "name": "Over ons & vertrouwen", "item": "{{ canonical_url }}"}
-      ]
-    }
+  "@type": "BreadcrumbList",
+  "@id": "{{ canonical_url }}#breadcrumb",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_origin }}/"},
+    {"@type": "ListItem", "position": 2, "name": "Onze experts", "item": "{{ canonical_url }}"}
   ]
 }
 </script>
 {% endblock %}
 
-{% block head_extra %}<style>
-@media (max-width:880px){
-  .ovr-expertise,.ovr-bronnen{grid-template-columns:1fr!important}
-}
-</style>{% endblock %}
+{% block mv_content %}
 
-{% block content %}
-
-<!-- ===================== HERO ===================== -->
-<header class="container" style="padding-top:40px;padding-bottom:24px;">
-  <nav class="breadcrumb" style="margin-bottom:22px;" aria-label="Kruimelpad">
-    <a href="{% url 'home' %}">Home</a>
-    <span class="sep">›</span>
-    <span style="color:var(--petrol);font-weight:500;">Over ons &amp; vertrouwen</span>
-  </nav>
-  <div style="max-width:760px;animation:revealUp .6s ease both;">
-    <span class="eyebrow">Expertise · gezag · betrouwbaarheid</span>
-    <h1 class="h1" style="font-size:clamp(38px,6vw,52px);margin:14px 0 18px;">{% if page.heading %}{{ page.heading }}{% else %}Waarom je ons kunt vertrouwen met je verzekering.{% endif %}</h1>
-    <p class="lead" style="font-size:18px;">{% if page.intro %}{{ page.intro }}{% else %}Een bestelautoverzekering raakt je inkomen en je bedrijf. Dat is geen onderwerp voor giswerk. Daarom werken we met gediplomeerde specialisten, controleerbare bronnen en volledige transparantie over hoe we werken en verdienen.{% endif %}</p>
+  {# ── Hero ── #}
+  <div class="mv-wrap" style="padding:clamp(24px,4vw,44px) clamp(18px,4vw,40px) 0">
+    <nav class="mv-crumbs" aria-label="Kruimelpad">
+      <a href="/">Home</a><span>/</span><span class="cur">Onze experts</span>
+    </nav>
+    <div class="mv-eyebrow">{{ page.eyebrow|default:"ONZE EXPERTS" }}</div>
+    <h1 class="mv-h1" style="max-width:760px">{% if page.heading %}{{ page.heading }}{% else %}De mensen achter onze adviezen{% endif %}</h1>
+    <p style="font-size:clamp(16px,2vw,18px);line-height:1.55;color:#5C5E54;margin:0;max-width:620px">{% if page.intro %}{{ page.intro }}{% else %}Onze content wordt geschreven door verzekeringsexperts en gecontroleerd door WFT-gecertificeerde adviseurs. Zo weet je zeker dat je leest wat klopt — en wat voor jou relevant is.{% endif %}</p>
   </div>
-</header>
 
-<!-- ===================== CREDENTIALS BAR ===================== -->
-<section class="container" style="padding-top:24px;">
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;" class="grid--4">
-    <div style="background:#fff;padding:24px;">
-      <div class="stat-num" style="font-size:24px;">AFM</div>
-      <div style="font-size:13px;color:var(--slate-500);margin-top:4px;">Vergunning {{ site.afm_nummer }}</div>
-    </div>
-    <div style="background:#fff;padding:24px;">
-      <div class="stat-num" style="font-size:24px;">Kifid</div>
-      <div style="font-size:13px;color:var(--slate-500);margin-top:4px;">Aangesloten · nr. {{ site.kifid_nummer }}</div>
-    </div>
-    <div style="background:#fff;padding:24px;">
-      <div class="stat-num" style="font-size:24px;">15 jaar</div>
-      <div style="font-size:13px;color:var(--slate-500);margin-top:4px;">Gespecialiseerd in bestelauto's</div>
-    </div>
-    <div style="background:#fff;padding:24px;">
-      <div class="stat-num stat-num--orange" style="font-size:24px;">18.742</div>
-      <div style="font-size:13px;color:var(--slate-500);margin-top:4px;">Ondernemers verzekerd</div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== EXPERTISE ===================== -->
-<section class="container" style="padding:64px 24px 10px;">
-  <div style="display:grid;grid-template-columns:0.8fr 1.2fr;gap:50px;align-items:start;" class="ovr-expertise">
-    <div>
-      <span class="eyebrow">Expertise</span>
-      <h2 class="h2" style="font-size:34px;margin:12px 0 0;line-height:1.05;">Eén specialisme, geen supermarkt.</h2>
-    </div>
-    <div>
-      <p style="font-size:17px;line-height:1.8;color:var(--slate-600);margin:0 0 16px;">Wij verzekeren uitsluitend bestelauto's van ondernemers. Geen woonhuizen, geen reisverzekeringen, geen afleiding. Die focus betekent dat onze adviseurs de risico's van jouw werk écht kennen, van gereedschap dat 's nachts uit de bus verdwijnt tot de accudekking van een elektrische bus.</p>
-      <p style="font-size:17px;line-height:1.8;color:var(--slate-600);margin:0;">Elk advies is gebaseerd op de actuele polisvoorwaarden van de verzekeraars die we vergelijken, geverifieerd aan bronnen als de AFM en het Verbond van Verzekeraars. Wij geven geen mening, we geven onderbouwde keuzes.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== REDACTIETEAM ===================== -->
-<section class="container" style="padding:60px 24px;">
-  <div style="margin-bottom:30px;">
-    <span class="eyebrow">Het team achter de content</span>
-    <h2 class="h2" style="font-size:34px;margin:12px 0 0;">Gediplomeerde specialisten, met naam en toenaam.</h2>
-  </div>
-  <div class="grid grid--3" style="gap:20px;">
-    {% for e in experts %}
-    <div class="card" style="padding:26px;">
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
-        {% if e.photo %}<span class="ph-avatar" style="width:56px;height:56px;border-radius:50%;flex:none;overflow:hidden;display:block;">{% picture e.photo alt=e.photo_alt sizes="56px" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" %}</span>{% else %}<div class="ph-avatar" style="width:56px;height:56px;border-radius:50%;flex:none;"></div>{% endif %}
-        <div>
-          <div style="font-family:var(--font-head);font-weight:600;font-size:17px;color:var(--petrol);">{{ e.name }}</div>
-          <div style="font-size:13px;color:var(--slate-500);">{{ e.role }}</div>
+  {# ── Expert cards (DB-coupled) ── #}
+  <div class="mv-wrap" style="padding:clamp(28px,4vw,40px) clamp(18px,4vw,40px) 0">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+      {% for e in experts %}
+      <div class="mv-tile">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+          <div style="width:58px;height:58px;border-radius:50%;background:#15150F;color:#CBF24A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0">{{ e.initials }}</div>
+          <div>
+            <div style="font-weight:800;font-size:18px">{{ e.name }}</div>
+            <div style="font-size:13px;color:#5C5E54">{{ e.role }}</div>
+          </div>
         </div>
+        {% if e.tags %}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+          {% for tag in e.tags %}<span style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;color:#15150F;background:{% cycle '#F4F8E6' '#F1F1EA' %};padding:4px 9px;border-radius:7px">{{ tag }}</span>{% endfor %}
+        </div>
+        {% endif %}
+        <p style="font-size:14px;line-height:1.6;color:#5C5E54;margin:0">{{ e.bio }}</p>
       </div>
-      <p style="font-size:14px;line-height:1.6;color:var(--slate-500);margin:0 0 14px;">{{ e.bio }}</p>
-      <div style="display:flex;gap:7px;flex-wrap:wrap;">
-        {% for t in e.tags %}<span class="tag">{{ t }}</span>{% endfor %}
-      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
-</section>
 
-<!-- ===================== REDACTIEPROCES ===================== -->
-<section class="section--petrol" style="padding:70px 24px;">
-  <div class="container">
-    <div style="max-width:600px;margin-bottom:36px;">
-      <span class="eyebrow" style="color:var(--orange-300);">Onze werkwijze</span>
-      <h2 class="h2 on-dark" style="font-size:36px;margin:12px 0 0;line-height:1.05;">Hoe elke pagina tot stand komt</h2>
+  {# ── Redactioneel proces ── #}
+  <div class="mv-wrap" style="padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+    {% with s=secties.proces %}
+    <div style="margin-bottom:26px">
+      <div class="mv-eyebrow">{{ s.eyebrow|default:"REDACTIONEEL PROCES" }}</div>
+      <h2 class="mv-h2" style="font-size:clamp(24px,3vw,34px);max-width:600px">{{ s.kop|default:"Zo houden we onze informatie betrouwbaar" }}</h2>
     </div>
-    <div class="grid grid--4" style="gap:18px;">
-      <div style="background:rgba(255,255,255,0.05);border:1px solid var(--line-on-dark);border-radius:16px;padding:24px;">
-        <div style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);width:38px;height:38px;border:2px solid var(--orange);border-radius:11px;display:grid;place-items:center;margin-bottom:18px;">01</div>
-        <div style="font-family:var(--font-head);font-weight:600;font-size:17px;color:#fff;margin-bottom:7px;">Onderzoek</div>
-        <p style="font-size:14px;line-height:1.6;color:var(--steel-300);margin:0;">We baseren content op actuele polisvoorwaarden en officiële bronnen.</p>
-      </div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid var(--line-on-dark);border-radius:16px;padding:24px;">
-        <div style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);width:38px;height:38px;border:2px solid var(--orange);border-radius:11px;display:grid;place-items:center;margin-bottom:18px;">02</div>
-        <div style="font-family:var(--font-head);font-weight:600;font-size:17px;color:#fff;margin-bottom:7px;">Expert-check</div>
-        <p style="font-size:14px;line-height:1.6;color:var(--steel-300);margin:0;">Een gediplomeerd adviseur controleert de inhoud op juistheid.</p>
-      </div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid var(--line-on-dark);border-radius:16px;padding:24px;">
-        <div style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);width:38px;height:38px;border:2px solid var(--orange);border-radius:11px;display:grid;place-items:center;margin-bottom:18px;">03</div>
-        <div style="font-family:var(--font-head);font-weight:600;font-size:17px;color:#fff;margin-bottom:7px;">Bronvermelding</div>
-        <p style="font-size:14px;line-height:1.6;color:var(--steel-300);margin:0;">We verwijzen naar de bron, zodat je alles zelf kunt nalezen.</p>
-      </div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid var(--line-on-dark);border-radius:16px;padding:24px;">
-        <div style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);width:38px;height:38px;border:2px solid var(--orange);border-radius:11px;display:grid;place-items:center;margin-bottom:18px;">04</div>
-        <div style="font-family:var(--font-head);font-weight:600;font-size:17px;color:#fff;margin-bottom:7px;">Jaarlijkse update</div>
-        <p style="font-size:14px;line-height:1.6;color:var(--steel-300);margin:0;">Elke pagina krijgt een datum en wordt minimaal jaarlijks herzien.</p>
-      </div>
+    {% endwith %}
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+      {% for p in proces %}
+      <div class="mv-tile"><div class="mv-num">{{ p.tag }}</div><h3 style="margin-top:16px">{{ p.titel }}</h3><p>{{ p.tekst }}</p></div>
+      {% endfor %}
     </div>
   </div>
-</section>
 
-<!-- ===================== BRONNEN & TRANSPARANTIE ===================== -->
-<section class="container" style="padding:64px 24px;">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="ovr-bronnen">
-    <div class="card" style="padding:30px;">
-      <h2 class="h2" style="font-size:24px;margin:0 0 16px;">Onze bronnen</h2>
-      <p style="font-size:14.5px;line-height:1.6;color:var(--slate-500);margin:0 0 18px;">We werken uitsluitend met gezaghebbende, controleerbare bronnen:</p>
-      <div style="display:flex;flex-direction:column;gap:11px;">
-        <div style="display:flex;gap:10px;align-items:center;font-size:15px;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Autoriteit Financiële Markten (AFM)</div>
-        <div style="display:flex;gap:10px;align-items:center;font-size:15px;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Verbond van Verzekeraars</div>
-        <div style="display:flex;gap:10px;align-items:center;font-size:15px;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Kifid (klachteninstituut)</div>
-        <div style="display:flex;gap:10px;align-items:center;font-size:15px;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Belastingdienst &amp; RDW</div>
-        <div style="display:flex;gap:10px;align-items:center;font-size:15px;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Officiële polisvoorwaarden van verzekeraars</div>
+  {# ── Onderdeel van ── #}
+  <section class="mv-band mv-band--white">
+    <div class="mv-wrap" style="display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,48px);align-items:center;justify-content:space-between">
+      {% with s=secties.familie %}
+      <div style="flex:1 1 280px;max-width:380px">
+        <div class="mv-eyebrow">{{ s.eyebrow|default:"ONDERDEEL VAN" }}</div>
+        <h2 class="mv-h2" style="font-size:clamp(20px,2.6vw,26px);margin-bottom:8px">{{ s.kop|default:"Onderdeel van een sterke verzekeringsfamilie" }}</h2>
+        <p style="font-size:14px;line-height:1.55;color:#5C5E54;margin:0">{{ s.tekst|default:"Samen met deze merken helpen we elke dag duizenden Nederlanders aan een passende verzekering." }}</p>
+      </div>
+      {% endwith %}
+      <div style="flex:1 1 300px;display:flex;flex-wrap:wrap;gap:10px">
+        {% for m in familie %}
+        <div style="border:1.5px solid #ECECE3;border-radius:12px;padding:14px 18px;font-weight:800;font-size:15px;color:#15150F">{{ m.titel }}</div>
+        {% endfor %}
       </div>
     </div>
-    <div class="card" style="padding:30px;">
-      <h2 class="h2" style="font-size:24px;margin:0 0 16px;">Onafhankelijk &amp; transparant</h2>
-      <p style="font-size:14.5px;line-height:1.7;color:var(--slate-600);margin:0 0 16px;">We hebben geen eigen verzekeraar en verdienen aan geen enkele aanbieder méér dan aan een ander. Onze inkomsten bestaan uit een vaste, vooraf getoonde afsluitvergoeding, ongeacht welke verzekeraar je kiest.</p>
-      <p style="font-size:14.5px;line-height:1.7;color:var(--slate-600);margin:0;">Daardoor is er geen enkele prikkel om je naar een duurdere polis te sturen. Onze enige opdracht is de beste match voor jouw bus en werk.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ===================== KEURMERKEN ===================== -->
-<section class="container" style="padding:0 24px 64px;">
-  <div style="background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:30px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
-    <div style="font-family:var(--font-head);font-weight:600;font-size:15px;color:var(--petrol);">Erkend &amp; gecertificeerd</div>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
-      <img src="{% static 'img/keurmerken/afm.svg' %}" alt="AFM-vergunning {{ site.afm_nummer }}" width="130" height="54" loading="lazy" decoding="async" style="display:block;">
-      <img src="{% static 'img/keurmerken/kifid.svg' %}" alt="Aangesloten bij Kifid, nr. {{ site.kifid_nummer }}" width="130" height="54" loading="lazy" decoding="async" style="display:block;">
-      <img src="{% static 'img/keurmerken/kvk.svg' %}" alt="Ingeschreven bij de KvK, {{ site.kvk_nummer }}" width="130" height="54" loading="lazy" decoding="async" style="display:block;">
-      <img src="{% static 'img/keurmerken/ssl.svg' %}" alt="SSL-beveiligde verbinding" width="130" height="54" loading="lazy" decoding="async" style="display:block;">
+  {# ── CTA ── #}
+  <section class="mv-band--ink" style="padding:clamp(36px,5vw,56px) clamp(18px,4vw,40px)">
+    <div class="mv-wrap" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+      <div style="flex:1 1 320px">
+        <h2 class="mv-h2" style="font-size:clamp(24px,3vw,32px);margin-bottom:8px">{{ secties.cta.kop|default:"Een vraag aan onze experts?" }}</h2>
+        <p style="font-size:15px;line-height:1.5;color:#9FA196;margin:0">{{ secties.cta.tekst|default:"Onze klantenservice met WFT-advies helpt je graag verder." }}</p>
+      </div>
+      <div style="flex-shrink:0;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="{% url 'klantenservice' %}" class="mv-btn-lime">{{ secties.cta.cta_label|default:"Naar klantenservice" }}</a>
+        <a href="{% url 'blog' %}" style="background:transparent;border:1.5px solid #3A3A34;color:#fff;font-weight:800;font-size:15px;padding:15px 22px;border-radius:12px">Lees de blog</a>
+      </div>
     </div>
-  </div>
-</section>
-
-<!-- ===================== DISCLAIMER / YMYL ===================== -->
-<section class="container container--narrow" style="max-width:860px;padding:0 24px 70px;">
-  <div class="callout" style="margin:0;padding:24px 26px;background:#fff;border-color:var(--line-strong);border-left:4px solid var(--orange);">
-    <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);margin-bottom:8px;">Belangrijk om te weten</div>
-    <p style="font-size:14.5px;line-height:1.7;color:var(--slate-600);margin:0 0 12px;">De informatie op deze website is met de grootste zorg samengesteld en bedoeld als algemene voorlichting. Het is geen persoonlijk financieel advies. De exacte dekking, premie en voorwaarden volgen altijd uit de polisvoorwaarden van de gekozen verzekeraar.</p>
-    <p style="font-size:14.5px;line-height:1.7;color:var(--slate-600);margin:0;">Twijfel je over je situatie? Neem contact op met een van onze gediplomeerde adviseurs. Voor klachten kun je terecht bij ons en, als we er samen niet uitkomen, bij Kifid.</p>
-  </div>
-</section>
+  </section>
 
 {% endblock %}

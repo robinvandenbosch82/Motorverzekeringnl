@@ -1,5 +1,8 @@
-{% extends "base.html" %}
-{% load static responsive_image %}
+{% extends "mv_base.html" %}
+{% load static %}
+
+{# Dekkingen — Claude Design. Tier cards DB-coupled (Dekkingstier); coverage
+   matrix, extras and FAQ from core/content.py. #}
 
 {% block structured_data %}
 <script type="application/ld+json">
@@ -8,8 +11,8 @@
   "@type": "BreadcrumbList",
   "@id": "{{ canonical_url }}#breadcrumb",
   "itemListElement": [
-    {"@type":"ListItem","position":1,"name":"Home","item":"{{ request.scheme }}://{{ request.get_host }}/"},
-    {"@type":"ListItem","position":2,"name":"Dekkingen","item":"{{ canonical_url }}"}
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_origin }}/"},
+    {"@type": "ListItem", "position": 2, "name": "Dekkingen", "item": "{{ canonical_url }}"}
   ]
 }
 </script>
@@ -17,275 +20,137 @@
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    {"@type":"Question","name":"Wat is het verschil tussen WA+ en Allrisk?","acceptedAnswer":{"@type":"Answer","text":"WA+ (beperkt casco) dekt schade van buitenaf: diefstal, brand, storm en ruitschade. Allrisk dekt daarnaast ook schade aan je eigen bus die je zelf veroorzaakt, bijvoorbeeld een aanrijding of een paaltje dat je over het hoofd zag."}},
-    {"@type":"Question","name":"Kan ik mijn gereedschap los meeverzekeren?","acceptedAnswer":{"@type":"Answer","text":"Ja. Bij WA+ en Allrisk voeg je een gereedschap- en inventarisdekking toe tot € 25.000, ook tegen diefstal buiten werktijd. Bij kale WA kan dit niet."}},
-    {"@type":"Question","name":"Welk niveau kiezen de meeste ondernemers?","acceptedAnswer":{"@type":"Answer","text":"Ongeveer 6 op de 10 kiest WA+, de balans tussen premie en gemoedsrust voor een werkbus van 4 tot 10 jaar oud."}},
-    {"@type":"Question","name":"Kan ik later up- of downgraden?","acceptedAnswer":{"@type":"Answer","text":"Zeker. Je past je dekking maandelijks aan. Wordt je bus ouder, dan stap je eenvoudig terug van Allrisk naar WA+."}}
-  ]
+  "@id": "{{ canonical_url }}#faq",
+  "mainEntity": [{% for f in dekkingen_faqs %}{
+    "@type": "Question", "name": "{{ f.q|escapejs }}",
+    "acceptedAnswer": {"@type": "Answer", "text": "{{ f.a|escapejs }}"}
+  }{% if not forloop.last %},{% endif %}{% endfor %}]
 }
 </script>
-{% if dekkingstiers %}<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "@id": "{{ canonical_url }}#dekkingen",
-  "name": "Bestelautoverzekering — dekkingen",
-  "itemListElement": [
-    {% for t in dekkingstiers %}{
-      "@type": "ListItem",
-      "position": {{ forloop.counter }},
-      "item": {
-        "@type": "FinancialProduct",
-        "name": "Bestelautoverzekering {{ t.naam|escapejs }}",
-        "category": "{{ t.code|escapejs }}",
-        "provider": {"@id": "{{ site_origin }}/#organization"},
-        "areaServed": {"@type": "Country", "name": "Nederland"},
-        "offers": {
-          "@type": "Offer",
-          "priceCurrency": "EUR",
-          "price": "{{ t.prijs|escapejs }}",
-          "availability": "https://schema.org/InStock",
-          "priceSpecification": {"@type": "UnitPriceSpecification", "price": "{{ t.prijs|escapejs }}", "priceCurrency": "EUR", "referenceQuantity": {"@type": "QuantitativeValue", "value": "1", "unitCode": "MON"}}
-        }
-      }
-    }{% if not forloop.last %},{% endif %}{% endfor %}
-  ]
-}
-</script>{% endif %}
 {% endblock %}
 
-{% block head_extra %}
-<style>
-  @media (max-width: 880px) {
-    .cmp-table .cmp-row { grid-template-columns: 1fr !important; }
-    .voorwie-grid { grid-template-columns: 1fr !important; }
-  }
-</style>
-{% endblock %}
+{% block mv_content %}
 
-{% block content %}
+  {# ── Hero ── #}
+  <div class="mv-wrap" style="padding:clamp(24px,4vw,44px) clamp(18px,4vw,40px) 0">
+    <nav class="mv-crumbs" aria-label="Kruimelpad">
+      <a href="/">Home</a><span>/</span><span class="cur">Dekkingen</span>
+    </nav>
+    <div class="mv-eyebrow">{{ page.eyebrow|default:"DEKKINGEN" }}</div>
+    <h1 class="mv-h1" style="max-width:740px">{% if page.heading %}{{ page.heading }}{% else %}WA, WA + Casco of Allrisk — wat past bij jou?{% endif %}</h1>
+    <p style="font-size:clamp(16px,2vw,18px);line-height:1.55;color:#5C5E54;margin:0 0 16px;max-width:600px">{% if page.intro %}{{ page.intro }}{% else %}Elke motorrijder is wettelijk verplicht minimaal WA te hebben. Daarboven kies je zelf hoeveel je verzekert. We leggen de drie dekkingen helder uit, zodat je een bewuste keuze maakt.{% endif %}</p>
+    <div class="mv-checkpill"><span class="mv-tick">✓</span> Gecontroleerd door <a href="{% url 'over_ons' %}" style="color:#4B4DFF;font-weight:700">onze WFT-experts</a></div>
+  </div>
 
-<!-- ===================== HERO ===================== -->
-<header class="container" style="padding-top:30px;padding-bottom:20px;">
-  <nav class="breadcrumb" aria-label="Kruimelpad" style="margin-bottom:26px;">
-    <a href="{% url 'home' %}">Home</a>
-    <span class="sep">›</span>
-    <span style="color:var(--petrol);font-weight:500;">Dekkingen</span>
-  </nav>
-  <div style="display:grid;grid-template-columns:1.3fr 0.7fr;gap:50px;align-items:end;animation:revealUp .6s ease both;" class="dekking-hero">
-    <div>
-      <span class="eyebrow">Dekkingen vergeleken</span>
-      <h1 class="h1" style="margin:14px 0 18px;">{% if page.heading %}{{ page.heading }}{% else %}WA, WA+ of Allrisk?<br>Kies wat je werk verdient.{% endif %}</h1>
-      <p class="lead" style="max-width:560px;">{% if page.intro %}{{ page.intro }}{% else %}Drie helder afgebakende niveaus voor je bestelauto. Hieronder zie je precies wat wél en niet gedekt is, zonder kleine lettertjes.{% endif %}</p>
-    </div>
-    <div class="card--petrol" style="border-radius:18px;padding:24px;">
-      <div style="font-size:13px;color:var(--steel-300);margin-bottom:4px;">Twijfel je welke past?</div>
-      <div style="font-family:var(--font-head);font-weight:600;font-size:19px;margin-bottom:16px;">Bereken in 2 min je premie per niveau.</div>
-      <a href="{% url 'premie_tool' %}" class="btn btn--primary btn--block btn--sm">Bereken premie →</a>
+  {# ── Tier cards ── #}
+  <div class="mv-wrap" style="padding:clamp(28px,4vw,40px) clamp(18px,4vw,40px) 0">
+    <div class="mv-autofit">
+      {% for t in dekking_cards %}
+      <div class="mv-tier{% if t.highlight %} mv-tier--hl{% endif %}" style="border-radius:22px;padding:28px">
+        {% if t.highlight %}<div class="mv-ribbon" style="left:28px">MEEST GEKOZEN</div>{% endif %}
+        <div class="nm" style="font-size:22px">{{ t.code }}</div>
+        <div class="sub" style="font-size:14px;margin-bottom:14px">{{ t.naam }}</div>
+        <div class="price" style="font-size:14px;margin-bottom:16px"><span class="g">vanaf</span> <b style="font-size:20px">€ {{ t.prijs }}</b> <span class="g">p/m</span></div>
+        <p style="font-size:14px;line-height:1.6;color:#5C5E54;margin:0 0 18px">{{ t.omschrijving }}</p>
+        <div style="margin-top:auto;font-size:13px;font-weight:700;color:#15150F">Het beste voor</div>
+        <div style="font-size:14px;color:#5C5E54">{{ t.best_for }}</div>
+      </div>
+      {% endfor %}
     </div>
   </div>
-</header>
 
-<!-- ===================== BEELDBAND ===================== -->
-<section class="container" style="padding-top:34px;">
-  <div class="media" style="border-radius:18px;overflow:hidden;background-color:var(--cream-200);height:220px;position:relative;">{% picture "heroes/1598317940377-w1600.jpg" alt="Rij bestelbussen op een bedrijventerrein" sizes="100vw" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
-</section>
-
-<!-- ===================== VERGELIJKTABEL ===================== -->
-<section class="container" style="padding-top:50px;padding-bottom:20px;">
-  <div class="cmp-table" style="border:1px solid var(--line-strong);border-radius:22px;overflow:hidden;background:#fff;">
-
-    <!-- header row -->
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;">
-      <div style="padding:26px 26px 22px;">
-        <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);">Wat is gedekt?</div>
+  {# ── Coverage matrix ── #}
+  <div class="mv-wrap" style="padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+    <h2 class="mv-h2" style="margin-bottom:22px">{{ secties.wat_gedekt.kop|default:"Wat is gedekt per verzekering?" }}</h2>
+    <div class="mv-cov">
+      <div class="mv-cov-row mv-cov-head">
+        <div class="lbl">WAT IS GEDEKT</div>
+        <div class="h">WA</div>
+        <div class="h h--hl">WA + Casco</div>
+        <div class="h">Allrisk</div>
       </div>
-      <div style="padding:22px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.08);">
-        <div style="font-family:var(--font-head);font-weight:700;font-size:13px;color:var(--slate-500);letter-spacing:0.04em;">WA</div>
-        <div style="font-family:var(--font-head);font-weight:700;font-size:26px;color:var(--petrol);margin-top:2px;">&euro; 19</div>
-        <div style="font-size:12px;color:var(--slate-400);">p/mnd vanaf</div>
-      </div>
-      <div style="padding:22px 18px;text-align:center;background:var(--petrol);position:relative;">
-        <span style="position:absolute;top:0;left:0;right:0;background:var(--orange);color:#fff;font-size:10.5px;font-weight:700;padding:4px;letter-spacing:0.04em;">MEEST GEKOZEN</span>
-        <div style="font-family:var(--font-head);font-weight:700;font-size:13px;color:var(--orange-300);letter-spacing:0.04em;margin-top:16px;">WA+</div>
-        <div style="font-family:var(--font-head);font-weight:700;font-size:26px;color:#fff;margin-top:2px;">&euro; 34</div>
-        <div style="font-size:12px;color:var(--steel-300);">p/mnd vanaf</div>
-      </div>
-      <div style="padding:22px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.08);">
-        <div style="font-family:var(--font-head);font-weight:700;font-size:13px;color:var(--slate-500);letter-spacing:0.04em;">ALLRISK</div>
-        <div style="font-family:var(--font-head);font-weight:700;font-size:26px;color:var(--petrol);margin-top:2px;">&euro; 52</div>
-        <div style="font-size:12px;color:var(--slate-400);">p/mnd vanaf</div>
+      <div class="mv-cov-body">
+        {% for r in cov_features %}
+        <div class="mv-cov-row">
+          <div class="rl">{{ r.titel }}</div>
+          <div class="rc">{% if r.incl_wa %}<span class="mv-yes">✓</span>{% else %}<span class="mv-no">–</span>{% endif %}</div>
+          <div class="rc rc--hl">{% if r.incl_waplus %}<span class="mv-yes">✓</span>{% else %}<span class="mv-no">–</span>{% endif %}</div>
+          <div class="rc">{% if r.incl_allrisk %}<span class="mv-yes">✓</span>{% else %}<span class="mv-no">–</span>{% endif %}</div>
+        </div>
+        {% endfor %}
       </div>
     </div>
+    <p style="font-size:13px;color:#9A9C92;margin:14px 4px 0">Dit is een vereenvoudigd overzicht. De exacte dekking en uitsluitingen staan in de polisvoorwaarden en op de verzekeringskaart.</p>
+  </div>
 
-    {# Feature rows. Cell value classes: .yes (green ✓), .no (grey ✕), .opt (orange +) #}
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:16px 26px;">
-        <div style="font-size:15px;font-weight:600;color:var(--ink);">Schade aan anderen</div>
-        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">Wettelijk verplicht (WA)</div>
+  {# ── Extras ── #}
+  <section class="mv-band mv-band--white">
+    <div class="mv-wrap">
+      {% with s=secties.extra %}
+      <div style="margin-bottom:26px">
+        <div class="mv-eyebrow">{{ s.eyebrow|default:"ZELF UITBREIDEN" }}</div>
+        <h2 class="mv-h2">{{ s.kop|default:"Aanvullende dekkingen" }}</h2>
+        <p class="mv-lead">{{ s.tekst|default:"Maak je verzekering compleet met opties die bij jouw manier van rijden passen." }}</p>
       </div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;background:rgba(18,59,93,0.03);font-size:19px;">✓</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
+      {% endwith %}
+      <div class="mv-autofill">
+        {% for x in extras %}
+        <div class="mv-extra"><div class="plus">+</div><h3>{{ x.titel }}</h3><p>{{ x.tekst }}</p></div>
+        {% endfor %}
+      </div>
     </div>
+  </section>
 
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:16px 26px;">
-        <div style="font-size:15px;font-weight:600;color:var(--ink);">Hulp na ongeval &amp; rechtsbijstand</div>
-        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">Sleephulp en juridische bijstand</div>
+  {# ── Eigen risico ── #}
+  <div class="mv-wrap" style="padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(20px,3vw,40px);align-items:center">
+      {% with s=secties.eigenrisico %}
+      <div>
+        <div class="mv-eyebrow">{{ s.eyebrow|default:"EIGEN RISICO" }}</div>
+        <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px);margin-bottom:14px">{{ s.kop|default:"Bepaal zelf je eigen risico" }}</h2>
+        {% if s.tekst %}{% for p in s.alineas %}<p style="font-size:15px;line-height:1.6;color:#5C5E54;margin:0 0 14px">{{ p }}</p>{% endfor %}
+        {% else %}<p style="font-size:15px;line-height:1.6;color:#5C5E54;margin:0 0 14px">Bij WA + Casco en Allrisk kies je je eigen risico — het bedrag dat je bij cascoschade zelf betaalt. Kies je een hoger eigen risico, dan daalt je premie.</p>
+        <p style="font-size:15px;line-height:1.6;color:#5C5E54;margin:0">Je stelt je eigen risico in tijdens het berekenen van je premie, samen met je dekking en opties.</p>{% endif %}
       </div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;background:rgba(18,59,93,0.03);font-size:19px;">✓</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
-    </div>
-
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:16px 26px;">
-        <div style="font-size:15px;font-weight:600;color:var(--ink);">Diefstal &amp; inbraak</div>
-        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">Van de bus zelf</div>
-      </div>
-      <div class="no" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✕</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;background:rgba(18,59,93,0.03);font-size:19px;">✓</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
-    </div>
-
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:16px 26px;">
-        <div style="font-size:15px;font-weight:600;color:var(--ink);">Brand &amp; stormschade</div>
-        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">Natuur en externe oorzaken</div>
-      </div>
-      <div class="no" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✕</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;background:rgba(18,59,93,0.03);font-size:19px;">✓</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
-    </div>
-
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:16px 26px;">
-        <div style="font-size:15px;font-weight:600;color:var(--ink);">Ruitschade</div>
-        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">Ster of barst, vaak zonder eigen risico</div>
-      </div>
-      <div class="no" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✕</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;background:rgba(18,59,93,0.03);font-size:19px;">✓</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
-    </div>
-
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:16px 26px;">
-        <div style="font-size:15px;font-weight:600;color:var(--ink);">Gereedschap in de bus</div>
-        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">Optioneel mee te verzekeren tot &euro; 25.000</div>
-      </div>
-      <div class="no" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✕</div>
-      <div style="padding:16px 18px;text-align:center;background:rgba(18,59,93,0.03);font-size:19px;font-weight:700;color:var(--orange);">+</div>
-      <div style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;font-weight:700;color:var(--orange);">+</div>
-    </div>
-
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:16px 26px;">
-        <div style="font-size:15px;font-weight:600;color:var(--ink);">Eigen schade (ook eigen schuld)</div>
-        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">Schade aan je eigen bus</div>
-      </div>
-      <div class="no" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✕</div>
-      <div class="no" style="padding:16px 18px;text-align:center;background:rgba(18,59,93,0.03);font-size:19px;">✕</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
-    </div>
-
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:16px 26px;">
-        <div style="font-size:15px;font-weight:600;color:var(--ink);">Vervangende bus binnen 24 uur</div>
-        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">Zodat het werk doorgaat</div>
-      </div>
-      <div class="no" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✕</div>
-      <div class="no" style="padding:16px 18px;text-align:center;background:rgba(18,59,93,0.03);font-size:19px;">✕</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
-    </div>
-
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:16px 26px;">
-        <div style="font-size:15px;font-weight:600;color:var(--ink);">Nieuwwaarderegeling</div>
-        <div style="font-size:12.5px;color:var(--slate-400);margin-top:2px;">Tot 36 maanden na aanschaf</div>
-      </div>
-      <div class="no" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✕</div>
-      <div class="no" style="padding:16px 18px;text-align:center;background:rgba(18,59,93,0.03);font-size:19px;">✕</div>
-      <div class="yes" style="padding:16px 18px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);font-size:19px;">✓</div>
-    </div>
-
-    <!-- CTA row -->
-    <div class="cmp-row" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-top:1px solid rgba(18,59,93,0.08);align-items:center;">
-      <div style="padding:20px 26px;font-size:13.5px;color:var(--slate-400);">Premies zijn indicatief o.b.v. een gemiddelde ZZP'er.</div>
-      <div style="padding:16px 14px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);">
-        <a href="{% url 'premie_tool' %}" class="btn btn--ghost btn--block btn--sm">Kies WA</a>
-      </div>
-      <div style="padding:16px 14px;text-align:center;background:rgba(18,59,93,0.03);">
-        <a href="{% url 'premie_tool' %}" class="btn btn--primary btn--block btn--sm">Kies WA+</a>
-      </div>
-      <div style="padding:16px 14px;text-align:center;border-left:1px solid rgba(18,59,93,0.06);">
-        <a href="{% url 'premie_tool' %}" class="btn btn--ghost btn--block btn--sm">Kies Allrisk</a>
+      {% endwith %}
+      <div class="mv-er">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          {% for r in eigenrisico %}
+          <div class="mv-er-row"><span style="font-weight:700">{{ r.titel }}</span><span class="meta{% if r.meta == 'standaard' %} meta--lime{% endif %}">{{ r.meta }}</span></div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ===================== VOOR WIE ===================== -->
-<section class="container" style="padding-top:60px;padding-bottom:60px;">
-  <h2 class="h2" style="margin:0 0 28px;">Voor wie is welk niveau?</h2>
-  <div class="voorwie-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-    <div class="card" style="border-radius:18px;">
-      <div style="font-family:var(--font-head);font-weight:700;font-size:13px;color:var(--slate-500);letter-spacing:0.06em;margin-bottom:8px;">WA, DE BASIS</div>
-      <p style="font-size:15px;line-height:1.6;color:var(--slate-600);margin:0 0 14px;">Voor de oudere bus die je vooral nog gebruikt voor korte ritten. Je dekt schade aan anderen af, het wettelijke minimum.</p>
-      <div style="font-size:13.5px;color:var(--petrol);font-weight:600;">Ideaal bij dagwaarde &lt; &euro; 4.000</div>
+  {# ── CTA band ── #}
+  <div class="mv-wrap" style="padding:0 clamp(18px,4vw,40px) clamp(40px,5vw,64px)">
+    {% with s=secties.premie_cta %}
+    <div class="mv-ctaband">
+      <div style="flex:1 1 300px">
+        <div class="mv-eyebrow" style="font-size:11px;letter-spacing:.12em">{{ s.eyebrow|default:"JOUW PREMIE" }}</div>
+        <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px);margin-bottom:8px">{{ s.kop|default:"Bekijk wat jouw dekking kost" }}</h2>
+        <p style="font-size:15px;line-height:1.5;color:#5C5E54;margin:0">{{ s.tekst|default:"Start met je kenteken en zie in een minuut je premie voor elke dekking." }}</p>
+      </div>
+      <a href="{% url 'premie_tool' %}" class="mv-btn-indigo">{{ s.cta_label|default:"Bereken je premie" }} <span style="font-size:18px">→</span></a>
     </div>
-    <div class="card--petrol" style="border-radius:18px;padding:28px;">
-      <div style="font-family:var(--font-head);font-weight:700;font-size:13px;color:var(--orange-300);letter-spacing:0.06em;margin-bottom:8px;">WA+, MEEST GEKOZEN</div>
-      <p style="font-size:15px;line-height:1.6;color:var(--steel-300);margin:0 0 14px;">Voor de dagelijkse werkbus van 4–10 jaar oud. Diefstal, brand, storm en ruitschade gedekt, plus optioneel je gereedschap.</p>
-      <div style="font-size:13.5px;color:#fff;font-weight:600;">De gulden middenweg voor de meeste ZZP'ers</div>
-    </div>
-    <div class="card" style="border-radius:18px;">
-      <div style="font-family:var(--font-head);font-weight:700;font-size:13px;color:var(--slate-500);letter-spacing:0.06em;margin-bottom:8px;">ALLRISK, VOLLEDIG</div>
-      <p style="font-size:15px;line-height:1.6;color:var(--slate-600);margin:0 0 14px;">Voor de nieuwe of geleasete bus waarmee je elke dag je omzet rijdt. Ook eigen schade gedekt, plus vervanging binnen 24 uur.</p>
-      <div style="font-size:13.5px;color:var(--petrol);font-weight:600;">Aangeraden tot 3 jaar oud of bij lease</div>
-    </div>
+    {% endwith %}
   </div>
-</section>
 
-<!-- ===================== ALLE DEKKINGEN-PAGINA'S ===================== -->
-{% if dekking_paginas %}
-<section class="container" style="padding-top:6px;padding-bottom:24px;">
-  <h2 class="h2" style="font-size:clamp(26px,4vw,32px);margin-bottom:8px;">Verdiep je in de dekkingen</h2>
-  <p class="lead" style="max-width:620px;margin-bottom:24px;">Per dekking de details, voorwaarden en wanneer je 'm nodig hebt.</p>
-  <div class="grid grid--3">
-    {% for c in dekking_paginas %}
-    <a href="{{ c.get_absolute_url }}" class="card card-hover" style="display:flex;flex-direction:column;text-decoration:none;">
-      <h3 style="font-family:var(--font-head);font-weight:600;font-size:17px;line-height:1.3;color:var(--petrol);margin:0 0 8px;letter-spacing:-0.01em;">{{ c.titel }}</h3>
-      <p style="font-size:13.5px;line-height:1.5;color:var(--slate-500);margin:0 0 14px;flex:1;">{{ c.excerpt }}</p>
-      <span style="font-family:var(--font-head);font-weight:600;font-size:13.5px;color:var(--orange);">Lees meer →</span>
-    </a>
-    {% endfor %}
-  </div>
-</section>
-{% endif %}
-
-<!-- ===================== FAQ ===================== -->
-<section class="container container--narrow" style="max-width:820px;padding-top:30px;padding-bottom:70px;">
-  <h2 class="h2" style="margin:0 0 22px;">Veelgestelde vragen over dekkingen</h2>
-  <div class="faq" data-faq>
-    <div class="faq__item">
-      <button class="faq__q" type="button" aria-expanded="false">Wat is het verschil tussen WA+ en Allrisk? <span class="faq__sign">+</span></button>
-      <div class="faq__a"><p>WA+ (beperkt casco) dekt schade van buitenaf: diefstal, brand, storm en ruitschade. Allrisk dekt daarnaast ook schade aan je eigen bus die je zelf veroorzaakt, bijvoorbeeld een aanrijding of een paaltje dat je over het hoofd zag.</p></div>
+  {# ── FAQ ── #}
+  <section class="mv-band mv-band--white">
+    <div class="mv-wrap mv-wrap--narrow">
+      <h2 class="mv-h2" style="margin-bottom:22px">{{ secties.faq.kop|default:"Veelgestelde vragen over dekkingen" }}</h2>
+      <div>
+        {% for f in dekkingen_faqs %}
+        <details class="mv-faq"{% if forloop.first %} open{% endif %}>
+          <summary>{{ f.q }}</summary>
+          <div class="a">{{ f.a }}</div>
+        </details>
+        {% endfor %}
+      </div>
+      <div style="margin-top:22px"><a href="{% url 'kennisbank' %}" class="mv-link">Naar de kennisbank <span class="mv-arrow">→</span></a></div>
     </div>
-    <div class="faq__item">
-      <button class="faq__q" type="button" aria-expanded="false">Kan ik mijn gereedschap los meeverzekeren? <span class="faq__sign">+</span></button>
-      <div class="faq__a"><p>Ja. Bij WA+ en Allrisk voeg je een gereedschap- en inventarisdekking toe tot &euro; 25.000, ook tegen diefstal buiten werktijd. Bij kale WA kan dit niet.</p></div>
-    </div>
-    <div class="faq__item">
-      <button class="faq__q" type="button" aria-expanded="false">Welk niveau kiezen de meeste ondernemers? <span class="faq__sign">+</span></button>
-      <div class="faq__a"><p>Ongeveer 6 op de 10 kiest WA+, de balans tussen premie en gemoedsrust voor een werkbus van 4 tot 10 jaar oud.</p></div>
-    </div>
-    <div class="faq__item">
-      <button class="faq__q" type="button" aria-expanded="false">Kan ik later up- of downgraden? <span class="faq__sign">+</span></button>
-      <div class="faq__a"><p>Zeker. Je past je dekking maandelijks aan. Wordt je bus ouder, dan stap je eenvoudig terug van Allrisk naar WA+.</p></div>
-    </div>
-  </div>
-</section>
+  </section>
 
 {% endblock %}

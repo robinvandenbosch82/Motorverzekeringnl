@@ -1,7 +1,8 @@
 """
-Tests for the premie-tool: RISK body builders (pure) + the proxy views (with
-RISK mocked, so no credentials/network needed). Live RISK integration is a
-separate manual check once credentials are in .env.
+Tests for the premie-tool: RISK body builders (pure) + the proxy views (RISK
+mocked, so no credentials/network needed). Live RISK integration is a separate
+manual check once the motor credentials are in .env. Product: particuliere
+motorverzekering (RISK V9).
 """
 
 import json
@@ -16,38 +17,50 @@ from core.services.risk import RiskAPIError
 
 
 class BodyBuilderTests(TestCase):
-    @override_settings(RISK_BROKER_ID="TESTBROKER")
+    @override_settings(RISK_BROKER_ID="TESTBROKER", RISK_MOTOR_PRODUCT_VERSION="MV1")
     def test_calculate_body_defaults(self):
-        body = risk.build_calculate_body({"LicensePlate": "VNT88K"})
-        self.assertEqual(body["BrokerID"], "TESTBROKER")  # injected from settings
-        self.assertEqual(body["KmPerYear"], "20000")
-        self.assertEqual(body["CascoDeductibles"], 250)
+        body = risk.build_calculate_body({"LicensePlate": "MG-XX-21"})
+        self.assertEqual(body["BrokerID"], "TESTBROKER")   # injected from settings
+        self.assertEqual(body["Version"], "MV1")
+        self.assertEqual(body["Use"], "P")                 # particulier
         self.assertEqual(body["Coverage"], "1")
-        self.assertEqual(body["OwnerShip"], "E")
+        self.assertEqual(body["KmPerYear"], "12000")
+        self.assertEqual(body["TheftProtectionClass"], "B4")
         self.assertEqual(body["PaymentPeriod"], 1)
         self.assertIs(body["IncludeXml"], False)
+        self.assertEqual(body["LicensePlate"], "MGXX21")   # normalised (no dashes)
+        # business-only fields must NOT be present (this is a private product)
+        self.assertNotIn("CascoDeductibles", body)
+        self.assertNotIn("CompanyTradeRegisterNumber", body)
+        self.assertNotIn("OwnerShip", body)                # only added in offer for casco
 
-    def test_calculate_body_passthrough_and_types(self):
+    def test_coverage_conditional_amounts(self):
+        b2 = risk.build_calculate_body({"LicensePlate": "X", "Coverage": "2",
+                                        "DayValue": "3000", "ValueAccessories": "1000"})
+        self.assertEqual(b2["DayValue"], 3000)
+        self.assertEqual(b2["ValueAccessories"], 1000)
+        self.assertNotIn("HelmetClothingAmount", b2)       # casco-3 only
+        b3 = risk.build_calculate_body({"LicensePlate": "X", "Coverage": "3",
+                                        "HelmetClothingAmount": "500"})
+        self.assertEqual(b3["HelmetClothingAmount"], 500)
+        self.assertNotIn("DayValue", b3)                   # WA+ only
+
+    def test_types_and_birthdate_normalised(self):
         body = risk.build_calculate_body({
-            "LicensePlate": "VNT88K", "Coverage": "3", "ClaimFreeYears": "10",
-            "PaymentPeriod": "12", "DriverHouseNumber": "12", "CascoDeductibles": "500",
-        })
-        self.assertEqual(body["Coverage"], "3")
-        self.assertEqual(body["ClaimFreeYears"], 10)        # coerced to int
+            "LicensePlate": "X", "ClaimFreeYears": "10", "PaymentPeriod": "12",
+            "DriverHouseNumber": "12", "DriverBirthdate": "01-02-1990"})
+        self.assertEqual(body["ClaimFreeYears"], 10)       # coerced to int
         self.assertEqual(body["PaymentPeriod"], 12)
         self.assertEqual(body["DriverHouseNumber"], 12)
-        self.assertEqual(body["CascoDeductibles"], 500)
-
-    def test_birthdate_alias(self):
-        self.assertEqual(risk.build_calculate_body({"DriverBirthdate": "1980-01-01"})["DriverBirthDate"],
-                         "1980-01-01")
+        self.assertEqual(body["DriverBirthdate"], "1990-02-01")  # DD-MM-YYYY → ISO
 
     def test_request_body_binding_fields(self):
-        body = risk.build_request_body({"LicensePlate": "VNT88K"})
-        self.assertEqual(body["Agreement"], "J")            # default
-        self.assertEqual(body["LicencePlateHolder"], "3")
-        self.assertEqual(body["DriverLicensedToDrive"], "J")
-        self.assertIn("Cancelled", body)                    # acceptance questions present
+        body = risk.build_request_body({"LicensePlate": "X", "Coverage": "1"})
+        self.assertEqual(body["Agreement"], "J")           # default
+        self.assertEqual(body["LicencePlateHolder"], "A")
+        self.assertEqual(body["DriverLicense"], "J")
+        self.assertIn("Cancelled", body)                   # acceptance questions present
+        self.assertIn("CarSignCode", body)                 # meldcode field present
 
 
 class VehicleEndpointTests(TestCase):
@@ -65,27 +78,26 @@ class VehicleEndpointTests(TestCase):
 
     @mock.patch("core.views_premie.risk.get_vehicle_info")
     def test_valid_lookup_logs_berekening(self, m):
-        m.return_value = {"Brand": "Ford", "Model": "Transit", "isVan": True}
-        r = self._post({"licensePlate": "vn-t88-k"})
+        m.return_value = {"Brand": "Yamaha", "Model": "MT-07"}
+        r = self._post({"licensePlate": "mg-xx-21"})
         self.assertEqual(r.status_code, 200)
-        self.assertEqual(r.json()["Brand"], "Ford")
-        m.assert_called_once_with("VNT88K")              # stripped + uppercased
+        self.assertEqual(r.json()["Brand"], "Yamaha")
+        m.assert_called_once_with("MGXX21")                # stripped + uppercased
         obj = Berekening.objects.get()
-        self.assertEqual(obj.license_plate, "VNT88K")
-        self.assertTrue(obj.is_van)
+        self.assertEqual(obj.license_plate, "MGXX21")
         self.assertEqual(obj.status, "vehicle-lookup")
 
     @mock.patch("core.views_premie.risk.get_vehicle_info")
     def test_upstream_down_returns_503(self, m):
         m.side_effect = RiskAPIError("down", upstream_down=True, status=503)
-        r = self._post({"licensePlate": "VNT88K"})
+        r = self._post({"licensePlate": "MGXX21"})
         self.assertEqual(r.status_code, 503)
         self.assertTrue(r.json()["upstreamDown"])
 
     @mock.patch("core.views_premie.risk.get_vehicle_info")
     def test_not_found_returns_404(self, m):
         m.side_effect = RiskAPIError("nope", status=404)
-        r = self._post({"licensePlate": "VNT88K"})
+        r = self._post({"licensePlate": "MGXX21"})
         self.assertEqual(r.status_code, 404)
 
 
@@ -98,23 +110,19 @@ class CalculateEndpointTests(TestCase):
         return self.c.post(self.url, data=json.dumps(payload), content_type="application/json")
 
     def test_missing_plate(self):
-        self.assertEqual(self._post({"details": {}, "isVan": True}).status_code, 400)
+        self.assertEqual(self._post({"details": {}}).status_code, 400)
 
-    def test_bad_kvk(self):
-        r = self._post({"details": {"LicensePlate": "VNT88K", "CompanyTradeRegisterNumber": "123"},
-                        "isVan": True})
+    def test_requires_driver_fields(self):
+        r = self._post({"details": {"LicensePlate": "MGXX21"}})
         self.assertEqual(r.status_code, 400)
-        self.assertIn("KvK", r.json()["error"])
-
-    def test_driver_one_requires_fields(self):
-        r = self._post({"details": {"LicensePlate": "VNT88K", "DriverOne": "J"}, "isVan": True})
-        self.assertEqual(r.status_code, 400)
+        self.assertIn("postcode", r.json()["error"])
 
     @mock.patch("core.views_premie.risk.calculate_premiums")
     def test_valid_calculate_logs(self, m):
-        m.return_value = [{"Identifier": "X", "Premium": 41.0}]
-        r = self._post({"details": {"LicensePlate": "VNT88K", "Coverage": "3",
-                                    "DriverOne": "N"}, "isVan": True})
+        m.return_value = [{"Identifier": "X", "Premium": 12.0}]
+        r = self._post({"details": {"LicensePlate": "MGXX21", "Coverage": "3",
+                                    "DriverZipCode": "1011AB", "DriverHouseNumber": "1",
+                                    "DriverBirthdate": "1990-01-01"}})
         self.assertEqual(r.status_code, 200)
         self.assertEqual(len(r.json()["results"]), 1)
         obj = Berekening.objects.get()
@@ -124,7 +132,8 @@ class CalculateEndpointTests(TestCase):
     @mock.patch("core.views_premie.risk.calculate_premiums")
     def test_no_coverage_empty_list(self, m):
         m.return_value = []
-        r = self._post({"details": {"LicensePlate": "VNT88K", "DriverOne": "N"}, "isVan": True})
+        r = self._post({"details": {"LicensePlate": "MGXX21", "DriverZipCode": "1011AB",
+                                    "DriverHouseNumber": "1", "DriverBirthdate": "1990-01-01"}})
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.json()["results"], [])
 
@@ -138,10 +147,9 @@ class AanvraagEndpointTests(TestCase):
         return self.c.post(self.url, data=json.dumps(payload), content_type="application/json")
 
     def _full_payload(self):
-        return {"data": {"LicensePlate": "VNT88K", "Agreement": "J", "CompanyName": "Test BV",
-                         "CompanyEmail": "a@b.nl", "CompanyPhoneNumber": "0612345678",
-                         "IBAN": "NL00BANK0123456789", "selectedIdentifier": "12345A001B001"},
-                "isVan": True}
+        return {"data": {"LicensePlate": "MGXX21", "Agreement": "J", "Name": "Jansen",
+                         "Initials": "J", "Email": "a@b.nl", "MobileNumber": "0612345678",
+                         "IBAN": "NL00BANK0123456789", "selectedIdentifier": "12345A001P001"}}
 
     def test_requires_agreement(self):
         p = self._full_payload(); p["data"]["Agreement"] = ""

@@ -34,16 +34,16 @@ class Command(BaseCommand):
         base = Path(settings.BASE_DIR)
         media_root = Path(settings.MEDIA_ROOT)
 
-        # 1) DATA — load the fixture into an empty DB (idempotent guard on content).
-        fixture = base / "deploy" / "seed.json"
+        # 1) DATA — seed the authored motor content (idempotent guard on content).
+        #    seed_content is the single source of truth (alle SectieTekst/Kaart/menu's/
+        #    verzekeraars/legal pages); sync_pages maakt de Page-rijen. Eenmalig op een
+        #    lege DB; daarna bezit de admin de content (de guard slaat latere deploys over).
         if opts["force"] or not ContentPagina.objects.exists():
-            if fixture.exists():
-                self.stdout.write("Seed-data laden…")
-                call_command("loaddata", str(fixture))
-            else:
-                self.stderr.write(self.style.WARNING(f"Geen fixture gevonden: {fixture}"))
+            self.stdout.write("Motor-content seeden (seed_content + sync_pages)…")
+            call_command("seed_content")
+            call_command("sync_pages")
         else:
-            self.stdout.write("Content bestaat al -> loaddata overgeslagen.")
+            self.stdout.write("Content bestaat al -> seeden overgeslagen.")
 
         # 2) MEDIA — copy the bundled essential images onto the (possibly empty) disk.
         src = base / "deploy" / "seed_media"

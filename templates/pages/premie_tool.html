@@ -1,34 +1,20 @@
-{% extends "base.html" %}
+{% extends "mv_base.html" %}
 {% load static %}
 
-{% comment %}Focused tool page: replace the full nav with a minimal topbar
-(terug + klantenservice) and drop the premie-band before the footer.{% endcomment %}
-{% block site_nav %}
-<header class="tool-topbar">
-  <a href="{% url 'home' %}" class="tool-topbar__back">← Terug</a>
-  <a href="{% url 'home' %}" class="wordmark" aria-label="Bestelautoverzekering.nl home">
-    <span class="wordmark__text">bestelauto<span style="color:var(--slate-500);font-weight:600;">verzekering</span><span style="color:var(--orange);">.nl</span></span>
-  </a>
-  <a href="{% url 'klantenservice' %}" class="btn btn--ghost btn--sm">Klantenservice</a>
-</header>
-{% endblock %}
+{# Premie-wizard (particuliere motorverzekering, RISK V9). 4 stappen; alle premie-
+   data komt van RISK via de proxy in core.views_premie. premie.js verzamelt input,
+   roept de endpoints aan en rendert. #}
 
 {% block premie_widget %}{% endblock %}
-
-{# Focused tool page: no breadcrumb trail, so drop the dangling WebPage ref. #}
 {% block ld_breadcrumb_ref %}{% endblock %}
 
 {% block structured_data %}
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "@id": "{{ canonical_url }}#app",
-  "name": "Premieberekening bestelautoverzekering",
-  "url": "{{ canonical_url }}",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "inLanguage": "nl-NL",
+  "@context": "https://schema.org", "@type": "WebApplication",
+  "@id": "{{ canonical_url }}#app", "name": "Premieberekening motorverzekering",
+  "url": "{{ canonical_url }}", "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web", "inLanguage": "nl-NL",
   "isPartOf": {"@id": "{{ site_origin }}/#website"},
   "provider": {"@id": "{{ site_origin }}/#organization"},
   "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}
@@ -36,21 +22,13 @@
 </script>
 {% endblock %}
 
-{% block content %}
-<section class="container" style="padding:34px 24px 12px;">
-  <nav class="breadcrumb" aria-label="Kruimelpad" style="margin-bottom:18px;">
-    <a href="{% url 'home' %}">Home</a><span class="sep">›</span>
-    <span style="color:var(--petrol);font-weight:500;">Premie berekenen</span>
-  </nav>
-  <div style="max-width:680px;">
-    <span class="eyebrow">Premie &amp; afsluiten</span>
-    <h1 class="h1" style="font-size:clamp(30px,4.5vw,44px);margin:12px 0 12px;">Bereken je premie en sluit direct online af.</h1>
-    <p class="lead">Vul je kenteken in, vergelijk de premies van meerdere verzekeraars en sluit
-    in één doorlopend proces af. Speciaal voor ondernemers met een bestelauto.</p>
-  </div>
-</section>
+{% block mv_content %}
+<div class="mv-wrap" style="padding:clamp(24px,4vw,44px) clamp(18px,4vw,40px) clamp(48px,6vw,72px);max-width:880px">
+  <nav class="mv-crumbs" aria-label="Kruimelpad"><a href="/">Home</a><span>/</span><span class="cur">Premie berekenen</span></nav>
+  <div class="mv-eyebrow">{{ secties.intro.eyebrow|default:"PREMIE &amp; AFSLUITEN" }}</div>
+  <h1 class="mv-h1" style="font-size:clamp(28px,4vw,42px)">{{ secties.intro.kop|default:"Bereken je premie en sluit direct online af." }}</h1>
+  <p style="font-size:clamp(15px,2vw,17px);line-height:1.55;color:#5C5E54;margin:0 0 26px;max-width:560px">{{ secties.intro.tekst|default:"Vul je kenteken in, vergelijk de premies van meerdere verzekeraars en sluit in één doorlopend proces af." }}</p>
 
-<section class="container" style="padding:8px 24px 60px;">
   <div id="premie-app"
        data-url-voertuig="{% url 'premie_voertuig' %}"
        data-url-bereken="{% url 'premie_bereken' %}"
@@ -58,244 +36,186 @@
        data-url-aanvraag="{% url 'premie_aanvraag' %}">
     {% csrf_token %}
 
-    <!-- Step indicator -->
     <ol class="wz-steps" aria-label="Voortgang">
-      <li class="wz-step is-active" data-step-dot="1"><span>1</span> Bedrijfsgegevens</li>
+      <li class="wz-step is-active" data-step-dot="1"><span>1</span> Jouw motor</li>
       <li class="wz-step" data-step-dot="2"><span>2</span> Dekking</li>
       <li class="wz-step" data-step-dot="3"><span>3</span> Vergelijken</li>
-      <li class="wz-step" data-step-dot="4"><span>4</span> Aanvragen</li>
+      <li class="wz-step" data-step-dot="4"><span>4</span> Afsluiten</li>
     </ol>
 
     <div class="wz-card">
-      <!-- ===== STEP 1, Bedrijfsgegevens ===== -->
+
+      {# ── STEP 1 ── #}
       <div class="wz-panel is-active" data-panel="1">
-        <h2 class="wz-h2">1 · Jouw bus &amp; bedrijf</h2>
+        <h2 class="wz-h2">1 · Jouw motor &amp; profiel</h2>
+        <p class="wz-sub">Start met je kenteken — we herkennen je motor automatisch.</p>
 
         <div class="wz-field">
           <label for="pl">Kenteken</label>
-          <div class="wz-plate">
-            <span class="wz-plate__nl">NL</span>
-            <input id="pl" name="licensePlate" maxlength="9" autocomplete="off"
-                   placeholder="VB-123-K" inputmode="text">
-            <button type="button" class="wz-plate__go" data-lookup>Zoek</button>
+          <div class="mv-plate">
+            <span class="mv-plate-eu"><span style="font-size:9px;line-height:1">★</span><span style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;line-height:1">NL</span></span>
+            <input id="pl" name="licensePlate" maxlength="9" autocomplete="off" placeholder="MG-XX-21" style="font-size:20px">
+            <button type="button" data-lookup style="border:0;background:#15150F;color:#fff;font-weight:700;font-size:14px;padding:0 16px;cursor:pointer">Zoek</button>
           </div>
           <p class="wz-hint" data-vehicle-out hidden></p>
           <p class="wz-error" data-vehicle-err hidden></p>
         </div>
 
         <div class="wz-grid2">
-          <div class="wz-field">
-            <label for="kvk">KvK-nummer</label>
-            <input id="kvk" name="CompanyTradeRegisterNumber" maxlength="17" inputmode="numeric" placeholder="8 cijfers">
-            <a class="wz-help-link" href="https://www.kvk.nl/zoeken/" target="_blank" rel="noopener">Weet je je KvK-nummer niet? Zoek het op kvk.nl →</a>
-          </div>
-          <div class="wz-field">
-            <label for="use">Waar gebruik je de bus voor?</label>
-            <select id="use" name="CarVehicleUse" data-van-options></select>
-          </div>
+          <div class="wz-field"><label for="zip">Postcode</label><input id="zip" name="DriverZipCode" maxlength="7" placeholder="1234 AB"></div>
+          <div class="wz-field"><label for="hn">Huisnummer</label><input id="hn" name="DriverHouseNumber" inputmode="numeric" placeholder="12"></div>
         </div>
-
         <div class="wz-grid2">
-          <div class="wz-field">
-            <label for="own">Eigendom</label>
-            <select id="own" name="OwnerShip">
-              <option value="E">Eigendom</option>
-              <option value="L">Geleased</option>
-              <option value="F">Gefinancierd</option>
+          <div class="wz-field"><label for="hna">Toevoeging</label><input id="hna" name="DriverHouseNumberAddition" maxlength="7" placeholder="optioneel"></div>
+          <div class="wz-field"><label for="bd">Geboortedatum</label><input id="bd" name="DriverBirthdate" type="date"></div>
+        </div>
+        <div class="wz-grid2">
+          <div class="wz-field"><label for="cfy">Schadevrije jaren</label><input id="cfy" name="ClaimFreeYears" type="number" min="0" max="40" placeholder="bijv. 8"></div>
+          <div class="wz-field"><label for="km">Kilometers per jaar</label>
+            <select id="km" name="KmPerYear">
+              <option value="6000">Tot 6.000 km</option>
+              <option value="12000" selected>Tot 12.000 km</option>
+              <option value="20000">Tot 20.000 km</option>
+              <option value="99999">Onbeperkt</option>
             </select>
           </div>
-          <div class="wz-field">
-            <label for="cfy">Schadevrije jaren</label>
-            <input id="cfy" name="ClaimFreeYears" type="number" min="0" max="30" placeholder="bijv. 8">
-          </div>
         </div>
-
+        <div class="wz-field"><label for="tp">Beveiliging van je motor</label>
+          <select id="tp" name="TheftProtectionClass">
+            <option value="9">Geen alarm / slot</option>
+            <option value="B3">ART klasse 3 slot</option>
+            <option value="B4" selected>ART klasse 4 slot</option>
+            <option value="B5">ART klasse 5 slot</option>
+            <option value="M1">Klasse M1 startonderbreker</option>
+            <option value="M2">Klasse M2 (alarm + kanteldetectie)</option>
+            <option value="M3">Klasse M3 (met volgsysteem)</option>
+            <option value="4M1">ART 4 + M1 startonderbreker</option>
+            <option value="5M2">ART 5 + M2 alarm</option>
+            <option value="5M3">ART 5 + M3 volgsysteem</option>
+          </select>
+        </div>
         <div class="wz-grid2">
-          <div class="wz-field">
-            <label>Heb je personeel in dienst?</label>
-            <div class="wz-seg" data-seg="selfEmployedWorker" data-default="N">
-              <button type="button" data-val="J">Ja</button>
-              <button type="button" data-val="N" class="is-on">Nee</button>
-            </div>
+          <div class="wz-field"><label>Winterstop (1 dec – 1 mrt)?</label>
+            <div class="wz-seg" data-seg="WinterStop" data-default="N"><button type="button" data-val="J">Ja</button><button type="button" data-val="N" class="is-on">Nee</button></div>
           </div>
-          <div class="wz-field">
-            <label>Btw verrekenen?</label>
-            <div class="wz-seg" data-seg="VatDeductible" data-default="N">
-              <button type="button" data-val="J">Ja</button>
-              <button type="button" data-val="N" class="is-on">Nee</button>
-            </div>
+          <div class="wz-field"><label>Gestald in afgesloten ruimte?</label>
+            <div class="wz-seg" data-seg="Storage" data-default="N"><button type="button" data-val="J">Ja</button><button type="button" data-val="N" class="is-on">Nee</button></div>
           </div>
         </div>
-
-        <div class="wz-field">
-          <label>Eén vaste bestuurder?</label>
-          <div class="wz-seg" data-seg="DriverOne" data-default="J">
-            <button type="button" data-val="J" class="is-on">Ja, één bestuurder</button>
-            <button type="button" data-val="N">Nee, meerdere</button>
-          </div>
+        <div class="wz-field"><label>Aanvullend rijvaardigheidscertificaat?</label>
+          <div class="wz-seg" data-seg="AdditionalDrivingAbility" data-default="N"><button type="button" data-val="J">Ja</button><button type="button" data-val="N" class="is-on">Nee</button></div>
         </div>
 
-        <div class="wz-driver" data-driver-block>
-          <div class="wz-grid2">
-            <div class="wz-field"><label for="zip">Postcode bestuurder</label>
-              <input id="zip" name="DriverZipCode" maxlength="7" placeholder="1234 AB"></div>
-            <div class="wz-field"><label for="hn">Huisnummer</label>
-              <input id="hn" name="DriverHouseNumber" inputmode="numeric" placeholder="12"></div>
-          </div>
-          <div class="wz-grid2">
-            <div class="wz-field"><label for="hna">Toevoeging</label>
-              <input id="hna" name="DriverHouseNumberAddition" maxlength="7" placeholder="optioneel"></div>
-            <div class="wz-field"><label for="bd">Geboortedatum bestuurder</label>
-              <input id="bd" name="DriverBirthdate" type="date"></div>
-          </div>
-        </div>
-
-        <p class="wz-driver-note" data-driver-note hidden>Bij meerdere of wisselende bestuurders hoef je geen individuele
-          bestuurdersgegevens in te vullen, de verzekeraar berekent de premie met een opslag voor wisselend gebruik,
-          op basis van je bedrijfsgegevens.</p>
-
-        <p class="wz-error" data-step1-err hidden style="text-align:right;"></p>
-        <div class="wz-actions">
-          <button type="button" class="btn btn--primary" data-next="2" data-need-vehicle>Naar dekking →</button>
-        </div>
+        <p class="wz-error" data-step1-err hidden style="text-align:right"></p>
+        <div class="wz-actions"><span class="spacer"></span><button type="button" class="mv-btn-indigo" data-next="2" data-need-vehicle style="cursor:pointer;border:0">Naar dekking →</button></div>
       </div>
 
-      <!-- ===== STEP 2, Dekking ===== -->
+      {# ── STEP 2 ── #}
       <div class="wz-panel" data-panel="2">
         <h2 class="wz-h2">2 · Kies je dekking</h2>
-        <p class="wz-sub">We checken live welke dekkingen voor jouw bus beschikbaar zijn.</p>
+        <p class="wz-sub">We checken live welke dekkingen en premies voor jouw motor beschikbaar zijn.</p>
         <div class="wz-cover" data-coverage-list></div>
         <p class="wz-error" data-coverage-err hidden></p>
-        <div class="wz-actions">
-          <button type="button" class="btn btn--ghost" data-prev="1">← Terug</button>
-          <button type="button" class="btn btn--primary" data-next="3" data-need-coverage>Vergelijk verzekeraars →</button>
+
+        <div data-cond="dayvalue" style="margin-top:16px" hidden>
+          <div class="wz-field"><label for="dv">Dagwaarde van je motor (€)</label><input id="dv" name="DayValue" inputmode="numeric" placeholder="bijv. 6000"></div>
         </div>
+        <div data-cond="accessories" style="margin-top:4px" hidden>
+          <div class="wz-field"><label for="va">Waarde accessoires</label>
+            <select id="va" name="ValueAccessories"><option value="0">€ 0</option><option value="1000">€ 1.000</option><option value="2500">€ 2.500</option><option value="5000">€ 5.000</option></select>
+          </div>
+        </div>
+        <div data-cond="helm" style="margin-top:4px" hidden>
+          <div class="wz-field"><label for="hk">Helm, kleding &amp; schoenen</label>
+            <select id="hk" name="HelmetClothingAmount"><option value="0">€ 0</option><option value="500">€ 500</option><option value="1500">€ 1.500</option><option value="3000">€ 3.000</option></select>
+          </div>
+        </div>
+
+        <div class="wz-actions"><button type="button" class="mv-btn-ink" data-prev="1" style="cursor:pointer;border:0">← Terug</button><button type="button" class="mv-btn-indigo" data-next="3" data-need-coverage style="cursor:pointer;border:0">Vergelijk verzekeraars →</button></div>
       </div>
 
-      <!-- ===== STEP 3, Vergelijken ===== -->
+      {# ── STEP 3 ── #}
       <div class="wz-panel" data-panel="3">
         <h2 class="wz-h2">3 · Vergelijk &amp; kies</h2>
-        <div class="wz-filters">
-          <div class="wz-filt">
-            <span class="wz-filt__lbl">Dekking</span>
-            <div class="wz-pills" data-filter-pills="Coverage">
-              <button type="button" data-val="1">WA</button>
-              <button type="button" data-val="2">WA+</button>
-              <button type="button" data-val="3" class="is-on">All Risk</button>
-            </div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
+          <div><div style="font-size:12px;font-weight:700;margin-bottom:6px">Betaling</div>
+            <div class="wz-pills" data-filter-pills="PaymentPeriod"><button type="button" data-val="1" class="is-on">Per maand</button><button type="button" data-val="12">Per jaar</button></div>
           </div>
-          <div class="wz-filt">
-            <span class="wz-filt__lbl">Betaling</span>
-            <div class="wz-pills" data-filter-pills="PaymentPeriod">
-              <button type="button" data-val="1" class="is-on">Per maand</button>
-              <button type="button" data-val="12">Per jaar</button>
-            </div>
-          </div>
-          <div class="wz-filt wz-filt--sort">
-            <span class="wz-filt__lbl">Sorteer</span>
-            <select data-sort>
-              <option value="price">Laagste premie</option><option value="name">Naam</option>
-            </select>
+          <div style="margin-left:auto"><div style="font-size:12px;font-weight:700;margin-bottom:6px">Sorteer</div>
+            <select data-sort class="wz-field" style="margin:0;min-width:170px" aria-label="Sorteer verzekeraars"><option value="price">Laagste premie</option><option value="name">Naam</option></select>
           </div>
         </div>
-        <div class="wz-results-head"><span class="wz-results-count" data-results-count></span></div>
+        <div class="wz-results-head"><span data-results-count></span></div>
         <div class="wz-results" data-results aria-live="polite"></div>
 
-        <!-- Aanvullende dekkingen (na keuze verzekeraar) -->
         <div class="wz-addons" data-addons hidden>
-          <h3 class="wz-h3">Aanvullende dekkingen</h3>
+          <div class="wz-ins__dh" style="margin-top:0">Aanvullende dekkingen</div>
           <div data-addons-list></div>
-          <div class="wz-total">
-            <span>Totale premie</span>
-            <strong data-total>€ 0,00</strong>
-          </div>
+          <div class="wz-total"><span>Totale premie</span><strong data-total>€ 0,00</strong></div>
         </div>
 
-        <div class="wz-actions">
-          <button type="button" class="btn btn--ghost" data-prev="2">← Terug</button>
-          <button type="button" class="btn btn--primary" data-next="4" data-need-selection hidden>Naar aanvraag →</button>
-        </div>
-        <p class="wz-note">● 100% onafhankelijk · Je hebt 14 dagen bedenktijd · Onze klanten geven ons een 9,0</p>
+        <div class="wz-actions"><button type="button" class="mv-btn-ink" data-prev="2" style="cursor:pointer;border:0">← Terug</button><button type="button" class="mv-btn-indigo" data-next="4" data-need-selection hidden style="cursor:pointer;border:0">Naar afsluiten →</button></div>
+        <p class="wz-sub" style="margin:16px 0 0;text-align:center">● 100% onafhankelijk · 14 dagen bedenktijd</p>
       </div>
 
-      <!-- ===== STEP 4, Aanvragen ===== -->
+      {# ── STEP 4 ── #}
       <div class="wz-panel" data-panel="4">
         <h2 class="wz-h2">4 · Aanvraag afronden</h2>
-
         <div data-request-form>
-          <h3 class="wz-h3">Bedrijf</h3>
+          <div class="wz-ins__dh" style="margin-top:0">Verzekeringnemer</div>
           <div class="wz-grid2">
-            <div class="wz-field"><label for="cn">Bedrijfsnaam</label>
-              <input id="cn" name="CompanyName"></div>
-            <div class="wz-field"><label for="lf">Rechtsvorm</label>
-              <select id="lf" name="LegalFormBusiness">
-                <option value="E">Eenmanszaak</option><option value="VF">VOF</option>
-                <option value="BV">BV</option><option value="NV">NV</option>
-                <option value="CV">CV</option><option value="MS">Maatschap</option>
-                <option value="ST">Stichting</option><option value="VE">Vereniging</option>
-                <option value="CO">Coöperatie</option>
-              </select></div>
+            <div class="wz-field"><label for="vn">Achternaam</label><input id="vn" name="Name"></div>
+            <div class="wz-field"><label for="vi">Voorletters</label><input id="vi" name="Initials" maxlength="12"></div>
           </div>
           <div class="wz-grid2">
-            <div class="wz-field"><label for="ph">Telefoon</label>
-              <input id="ph" name="CompanyPhoneNumber" type="tel"></div>
-            <div class="wz-field"><label for="em">E-mail</label>
-              <input id="em" name="CompanyEmail" type="email"></div>
+            <div class="wz-field"><label for="vv">Tussenvoegsel</label><input id="vv" name="NameInfix" placeholder="optioneel"></div>
+            <div class="wz-field"><label>Geslacht</label><div class="wz-seg" data-seg="Gender" data-default="M"><button type="button" data-val="M" class="is-on">Man</button><button type="button" data-val="V">Vrouw</button></div></div>
           </div>
           <div class="wz-grid2">
-            <div class="wz-field"><label for="iban">IBAN</label>
-              <input id="iban" name="IBAN" maxlength="34" style="text-transform:uppercase"></div>
-            <div class="wz-field"><label for="ten">Rekening op naam van</label>
-              <input id="ten" name="collectionAccountInNameOf" placeholder="optioneel"></div>
+            <div class="wz-field"><label for="em">E-mail</label><input id="em" name="Email" type="email"></div>
+            <div class="wz-field"><label for="mb">Mobiel nummer</label><input id="mb" name="MobileNumber" type="tel" placeholder="06…"></div>
           </div>
-
-          <div data-driver-fields>
-            <h3 class="wz-h3">Bestuurder</h3>
-            <div class="wz-grid2">
-              <div class="wz-field"><label for="dn">Achternaam</label><input id="dn" name="DriverName"></div>
-              <div class="wz-field"><label for="di">Voorletters</label><input id="di" name="DriverInitials" maxlength="12"></div>
-            </div>
-            <div class="wz-field"><label>Geslacht</label>
-              <div class="wz-seg" data-seg="DriverGender" data-default="M">
-                <button type="button" data-val="M" class="is-on">Man</button>
-                <button type="button" data-val="V">Vrouw</button>
-              </div>
+          <div class="wz-grid2">
+            <div class="wz-field"><label for="iban">IBAN</label><input id="iban" name="IBAN" maxlength="34" style="text-transform:uppercase"></div>
+            <div class="wz-field"><label for="ten">Rekening op naam van</label><input id="ten" name="collectionAccountInNameOf" placeholder="optioneel"></div>
+          </div>
+          <div class="wz-grid2">
+            <div class="wz-field"><label>Eigendom van de motor</label><div class="wz-seg" data-seg="OwnerShip" data-default="E"><button type="button" data-val="E" class="is-on">Eigendom</button><button type="button" data-val="L">Lease</button><button type="button" data-val="F">Financiering</button></div></div>
+            <div class="wz-field"><label for="lph">Kentekenhouder</label>
+              <select id="lph" name="LicencePlateHolder"><option value="A">Ikzelf</option><option value="T">Partner</option><option value="C">Kind</option><option value="Z">Ander persoon</option></select>
             </div>
           </div>
+          <div class="wz-field"><label for="msc">Meldcode (staat op je kentekenbewijs)</label><input id="msc" name="CarSignCode" maxlength="4" placeholder="4 tekens"></div>
 
-          <h3 class="wz-h3">Acceptatievragen</h3>
+          <div class="wz-ins__dh">Acceptatievragen</div>
           <p class="wz-sub">Beantwoord alleen wat van toepassing is, laat leeg bij ‘nee’.</p>
           <div data-acceptance></div>
 
           <label class="wz-agree">
             <input type="checkbox" name="Agreement" data-agreement>
-            <span>U verklaart alle vragen juist en volledig te hebben beantwoord, gaat akkoord met de
+            <span>Ik verklaar alle vragen juist en volledig te hebben beantwoord, ga akkoord met de
             <a href="https://www.risk.nl/slotverklaring" target="_blank" rel="noopener">slotverklaring</a>,
-            heeft kennisgenomen van de verzekeringskaart(en) en het
+            heb kennisgenomen van de verzekeringskaart(en) en het
             <a href="https://www.risk.nl/privacy-statement" target="_blank" rel="noopener">privacy statement</a>,
-            en geeft toestemming voor automatische incasso.</span>
+            en geef toestemming voor automatische incasso.</span>
           </label>
           <p class="wz-error" data-request-err hidden></p>
-
-          <div class="wz-actions">
-            <button type="button" class="btn btn--ghost" data-prev="3">← Terug</button>
-            <button type="button" class="btn btn--primary" data-submit-request>Verzekering aanvragen</button>
-          </div>
+          <div class="wz-actions"><button type="button" class="mv-btn-ink" data-prev="3" style="cursor:pointer;border:0">← Terug</button><button type="button" class="mv-btn-indigo" data-submit-request style="cursor:pointer;border:0">Verzekering aanvragen</button></div>
         </div>
 
-        <!-- Bevestiging -->
         <div class="wz-done" data-confirmation hidden>
           <div class="wz-done__check">✓</div>
-          <h3 class="wz-h2">Verzekering aangevraagd!</h3>
+          <h3 class="wz-h2" style="text-align:center">Verzekering aangevraagd!</h3>
           <p>Polisnummer: <strong data-policy></strong></p>
           <p>Je ontvangt een bevestiging per e-mail.</p>
           <p class="wz-sub">Je hebt 14 dagen bedenktijd. Binnen deze periode kun je de verzekering kosteloos annuleren.</p>
         </div>
       </div>
+
     </div>
   </div>
-</section>
+</div>
 
 {{ verzekeraar_data|json_script:"vz-data" }}
-<script src="{% static 'js/premie.js' %}" defer></script>
+<script src="{% static 'js/premie.js' %}?v=6" defer></script>
 {% endblock %}

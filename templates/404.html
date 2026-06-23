@@ -1,0 +1,25 @@
+{% extends "mv_base.html" %}
+{% load static %}
+
+{# Gebrande 404 (gebruikt door Django wanneer DEBUG=False). Houdt de bezoeker op
+   de site: links terug naar home + de premie-tool + populaire pagina's. #}
+
+{% block mv_content %}
+<div class="mv-wrap" style="text-align:center;padding:clamp(56px,10vw,116px) clamp(18px,4vw,40px)">
+  <div class="mv-eyebrow" style="display:inline-block">FOUT 404</div>
+  <h1 class="mv-h1" style="font-size:clamp(38px,8vw,80px);margin:6px 0 14px">Pagina niet gevonden</h1>
+  <p style="font-size:clamp(16px,2vw,18px);line-height:1.55;color:#5C5E54;max-width:480px;margin:0 auto 28px">
+    Deze pagina bestaat niet (meer). Geen zorgen — bereken direct je premie of ga terug naar de homepage.
+  </p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="/" class="mv-btn-ink" style="text-decoration:none">← Naar home</a>
+    <a href="{% url 'premie_tool' %}" class="mv-btn-indigo" style="text-decoration:none">Bereken je premie →</a>
+  </div>
+  <div style="margin-top:32px;font-size:14px;color:#9A9C92">
+    Populair:
+    <a href="{% url 'dekkingen' %}" class="mv-link">Dekkingen</a> ·
+    <a href="{% url 'kennisbank' %}" class="mv-link">Kennisbank</a> ·
+    <a href="{% url 'klantenservice' %}" class="mv-link">Klantenservice</a>
+  </div>
+</div>
+{% endblock %}

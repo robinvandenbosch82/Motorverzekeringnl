@@ -1,198 +1,125 @@
-{% extends "base.html" %}
+{% extends "mv_base.html" %}
 {% load static %}
+
+{# Klantenservice — Claude Design. Live open/closed status, opening hours,
+   contact channels (SiteSettings) and self-service — via klantenservice_context. #}
 
 {% block structured_data %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "ContactPage",
-      "@id": "{{ canonical_url }}#webpage",
-      "url": "{{ canonical_url }}",
-      "name": "Klantenservice, {{ site_name }}",
-      "about": {"@id": "{{ site_origin }}/#organization"},
-      "mainEntity": {"@id": "{{ site_origin }}/#organization"}
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "{{ canonical_url }}#breadcrumb",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_origin }}/"},
-        {"@type": "ListItem", "position": 2, "name": "Klantenservice", "item": "{{ canonical_url }}"}
-      ]
-    }
+  "@type": "BreadcrumbList",
+  "@id": "{{ canonical_url }}#breadcrumb",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_origin }}/"},
+    {"@type": "ListItem", "position": 2, "name": "Klantenservice", "item": "{{ canonical_url }}"}
   ]
 }
 </script>
 {% endblock %}
 
-{% block head_extra %}<style>
-.ks-status { display:inline-flex; align-items:center; gap:9px; padding:10px 16px; border-radius:999px; font-weight:600; font-size:14px; background:rgba(18,59,93,0.07); color:var(--slate-600); }
-.ks-status.is-open { background:rgba(43,157,110,0.12); color:#1E7A4F; }
-.ks-status .ks-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; animation:pulseDot 1.8s ease-in-out infinite; background:#C9CAC0; }
-.ks-status.is-open .ks-dot { background:var(--green); }
-.ks-hours-row { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-radius:10px; }
-.ks-hours-row.is-today { background:rgba(255,107,44,0.10); }
-.ks-hours-row .ks-day { font-weight:500; font-size:14px; color:var(--petrol); }
-.ks-hours-row.is-today .ks-day { font-weight:700; }
-.ks-hours-row .ks-time { font-size:13.5px; font-weight:600; color:var(--ink); }
-.ks-hours-row .ks-time.is-closed { color:var(--slate-400); }
-@media (max-width:880px){
-  .ks-cols,.ks-service,.ks-klacht-grid{grid-template-columns:1fr!important}
-}
-</style>{% endblock %}
+{% block mv_content %}
 
-{% block content %}
-
-<!-- ===================== HERO ===================== -->
-<header class="container" style="padding-top:40px;padding-bottom:0;animation:revealUp .6s ease both;">
-  <nav class="breadcrumb" style="margin-bottom:22px;" aria-label="Kruimelpad">
-    <a href="{% url 'home' %}">Home</a>
-    <span class="sep">›</span>
-    <span style="color:var(--petrol);font-weight:500;">Klantenservice</span>
-  </nav>
-  <span class="eyebrow">Klantenservice</span>
-  <h1 class="h1" style="font-size:clamp(38px,6vw,52px);margin:14px 0 16px;max-width:720px;">{% if page.heading %}{{ page.heading }}{% else %}Waarmee kunnen we je helpen?{% endif %}</h1>
-  <p class="lead" style="font-size:18px;margin:0 0 20px;max-width:600px;">{% if page.intro %}{{ page.intro }}{% else %}Onze specialisten helpen je met je aanvraag, een wijziging of een schade, zodat jij door kunt met je werk. We zijn er voor je op werkdagen en op zaterdagochtend.{% endif %}</p>
-  <div class="ks-status" data-ks-status>
-    <span class="ks-dot"></span>
-    <span data-ks-status-text>Bereikbaar ma–vr 08:00–18:00 en zaterdag 09:00–13:00</span>
-  </div>
-</header>
-
-<!-- ===================== CONTACT CARDS ===================== -->
-<section class="container" style="padding:34px 24px 0;">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;" class="grid--3">
-    {% if site.show_phone and site.phone %}
-    <a href="tel:{{ site.phone }}" class="card card-hover" style="display:flex;flex-direction:column;border-radius:20px;padding:26px;text-decoration:none;">
-      <div style="display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:var(--orange);color:#fff;font-family:var(--font-head);font-weight:700;font-size:11px;letter-spacing:0.04em;margin-bottom:16px;">BEL</div>
-      <div style="font-family:var(--font-head);font-weight:600;font-size:19px;color:var(--petrol);">Bel ons</div>
-      <div style="font-size:14px;color:var(--ink);margin-top:6px;font-weight:600;">{{ site.phone }}</div>
-      <div style="font-size:13px;color:var(--slate-500);margin-top:4px;">Gratis · ma–vr 08:00–18:00</div>
-      <div style="margin-top:18px;font-weight:700;font-size:14px;color:var(--orange);display:flex;align-items:center;gap:7px;">Bekijk nummer <span style="font-size:16px;">→</span></div>
-    </a>
-    {% endif %}
-    <a href="{{ site.whatsapp_link }}" class="card card-hover" style="display:flex;flex-direction:column;border-radius:20px;padding:26px;text-decoration:none;">
-      <div style="display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:var(--orange);color:#fff;font-family:var(--font-head);font-weight:700;font-size:11px;letter-spacing:0.04em;margin-bottom:16px;">APP</div>
-      <div style="font-family:var(--font-head);font-weight:600;font-size:19px;color:var(--petrol);">WhatsApp</div>
-      <div style="font-size:14px;color:var(--ink);margin-top:6px;font-weight:600;">{{ site.whatsapp }}</div>
-      <div style="font-size:13px;color:var(--slate-500);margin-top:4px;">Reactie binnen enkele minuten</div>
-      <div style="margin-top:18px;font-weight:700;font-size:14px;color:var(--orange);display:flex;align-items:center;gap:7px;">Open WhatsApp <span style="font-size:16px;">→</span></div>
-    </a>
-    <a href="mailto:klantenservice@bestelautoverzekering.nl" class="card card-hover" style="display:flex;flex-direction:column;border-radius:20px;padding:26px;text-decoration:none;">
-      <div style="display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:var(--orange);color:#fff;font-family:var(--font-head);font-weight:700;font-size:11px;letter-spacing:0.04em;margin-bottom:16px;">MAIL</div>
-      <div style="font-family:var(--font-head);font-weight:600;font-size:19px;color:var(--petrol);">E-mail</div>
-      <div style="font-size:14px;color:var(--ink);margin-top:6px;font-weight:600;">klantenservice@bestelautoverzekering.nl</div>
-      <div style="font-size:13px;color:var(--slate-500);margin-top:4px;">Reactie binnen 2 uur</div>
-      <div style="margin-top:18px;font-weight:700;font-size:14px;color:var(--orange);display:flex;align-items:center;gap:7px;">Stuur een e-mail <span style="font-size:16px;">→</span></div>
-    </a>
-  </div>
-</section>
-
-<!-- ===================== OPENINGSTIJDEN + ZELF REGELEN ===================== -->
-<section class="container" style="padding:56px 24px;">
-  <div style="max-width:560px;" class="ks-cols">
-    <div>
-      <h2 class="h2" style="font-size:28px;margin:0 0 18px;">Openingstijden</h2>
-      <div style="background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;" data-ks-hours>
-        <div class="ks-hours-row" data-day="1"><span class="ks-day">Maandag</span><span class="ks-time">08:00 – 18:00</span></div>
-        <div class="ks-hours-row" data-day="2"><span class="ks-day">Dinsdag</span><span class="ks-time">08:00 – 18:00</span></div>
-        <div class="ks-hours-row" data-day="3"><span class="ks-day">Woensdag</span><span class="ks-time">08:00 – 18:00</span></div>
-        <div class="ks-hours-row" data-day="4"><span class="ks-day">Donderdag</span><span class="ks-time">08:00 – 18:00</span></div>
-        <div class="ks-hours-row" data-day="5"><span class="ks-day">Vrijdag</span><span class="ks-time">08:00 – 18:00</span></div>
-        <div class="ks-hours-row" data-day="6"><span class="ks-day">Zaterdag</span><span class="ks-time">09:00 – 13:00</span></div>
-        <div class="ks-hours-row" data-day="0"><span class="ks-day">Zondag</span><span class="ks-time is-closed">Gesloten</span></div>
-      </div>
-      <p style="font-size:13px;color:var(--slate-400);margin:14px 4px 0;line-height:1.5;">Op feestdagen kunnen de tijden afwijken. Buiten openingstijden stuur je een e-mail of WhatsApp, we reageren de volgende werkdag.</p>
+  {# ── Hero ── #}
+  <div class="mv-wrap" style="padding:clamp(24px,4vw,44px) clamp(18px,4vw,40px) 0">
+    <nav class="mv-crumbs" aria-label="Kruimelpad">
+      <a href="/">Home</a><span>/</span><span class="cur">Klantenservice</span>
+    </nav>
+    <div class="mv-eyebrow">{{ page.eyebrow|default:"KLANTENSERVICE" }}</div>
+    <h1 class="mv-h1" style="max-width:720px">{% if page.heading %}{{ page.heading }}{% else %}Waarmee kunnen we je helpen?{% endif %}</h1>
+    <p style="font-size:clamp(16px,2vw,18px);line-height:1.55;color:#5C5E54;margin:0 0 20px;max-width:600px">{% if page.intro %}{{ page.intro }}{% else %}Motorverzekering.nl is onderdeel van Autoverzekering.nl. Ons team helpt je graag met je aanvraag, wijzigingen of een schade — op werkdagen van 08:30 tot 17:00.{% endif %}</p>
+    <div style="display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;{% if ks_open %}background:#EAF7C8;color:#2E7D32{% else %}background:#F1F1EA;color:#5C5E54{% endif %}">
+      <span style="width:9px;height:9px;border-radius:50%;flex-shrink:0;background:{% if ks_open %}#3FBF6A{% else %}#C9CAC0{% endif %}"></span>{{ ks_status }}
     </div>
   </div>
-</section>
 
-<!-- ===================== OVER ONZE SERVICE ===================== -->
-<section class="section--white" style="border-top:1px solid rgba(18,59,93,0.08);border-bottom:1px solid rgba(18,59,93,0.08);">
-  <div class="container" style="padding:56px 24px;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;" class="ks-service">
-      <div>
-        <span class="eyebrow">Over onze service</span>
-        <h2 class="h2" style="font-size:30px;margin:12px 0 14px;">Échte vakmensen aan de lijn, geen keuzemenu.</h2>
-        <p style="font-size:15px;line-height:1.7;color:var(--slate-600);margin:0 0 14px;">Je spreekt een specialist die jouw branche kent. Wij helpen je een passende bestelautoverzekering te kiezen en direct af te sluiten; de verzekering zelf loopt via de verzekeraar. Bij je aanvraag, wijzigingen en schade staan we naast je.</p>
-        <a href="{% url 'over_ons' %}" style="display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:14px;color:var(--orange);text-decoration:none;">Maak kennis met ons team &amp; onze werkwijze <span style="font-size:16px;">→</span></a>
+  {# ── Contact channels ── #}
+  <div class="mv-wrap" style="padding:clamp(28px,4vw,40px) clamp(18px,4vw,40px) 0">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+      {% for c in ks_contacts %}
+      <a href="{{ c.href }}" class="mv-tile" style="display:flex;flex-direction:column;padding:26px">
+        <div class="mv-channeltag" style="width:46px;height:46px;border-radius:12px;font-size:12px;margin-bottom:16px">{{ c.tag }}</div>
+        <div style="font-weight:800;font-size:19px">{{ c.title }}</div>
+        <div style="font-size:14px;color:#15150F;margin-top:6px;font-weight:600">{{ c.sub }}</div>
+        <div style="font-size:13px;color:#5C5E54;margin-top:4px">{{ c.meta }}</div>
+        <div style="margin-top:18px;font-weight:700;font-size:14px;color:#4B4DFF;display:flex;align-items:center;gap:7px">{{ c.cta }} <span class="mv-arrow">→</span></div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  {# ── Opening hours + self-service ── #}
+  <div class="mv-wrap" style="padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+    <div style="max-width:620px">
+      <h2 class="mv-h2" style="font-size:clamp(22px,3vw,28px);margin-bottom:18px">Openingstijden</h2>
+      <div style="background:#fff;border:1.5px solid #ECECE3;border-radius:20px;padding:14px">
+        {% for r in ks_rows %}
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:10px;{% if r.today %}background:#F4F8E6{% endif %}">
+          <span style="font-weight:{% if r.today %}800{% else %}600{% endif %};font-size:14px">{{ r.d }}</span>
+          <span style="font-family:'JetBrains Mono';font-size:13px;color:{% if r.t == 'Gesloten' %}#9A9C92{% else %}#15150F{% endif %}">{{ r.t }}</span>
+        </div>
+        {% endfor %}
       </div>
-      <div class="card card--cream" style="border-radius:20px;padding:26px;">
-        <div style="font-family:var(--font-head);font-weight:600;font-size:17px;color:var(--petrol);margin-bottom:14px;">Goed om te weten</div>
-        <div style="display:flex;flex-direction:column;gap:13px;">
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Wft-gecertificeerde medewerkers</div>
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> 14 dagen bedenktijd na het afsluiten</div>
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> 100% onafhankelijk, wij vergelijken 12+ verzekeraars</div>
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Ondernemers beoordelen ons met een 9,1</div>
+      <p style="font-size:13px;color:#9A9C92;margin:14px 4px 0;line-height:1.5">Op feestdagen kunnen de openingstijden afwijken. Buiten openingstijden kun je altijd een e-mail of WhatsApp sturen — we reageren de volgende werkdag.</p>
+    </div>
+  </div>
+
+  {# ── Over onze service ── #}
+  <section class="mv-band mv-band--white">
+    <div class="mv-wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(20px,3vw,40px);align-items:center">
+      {% with s=secties.service %}
+      <div>
+        <div class="mv-eyebrow">{{ s.eyebrow|default:"OVER ONZE SERVICE" }}</div>
+        <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px);margin-bottom:14px">{{ s.kop|default:"Onderdeel van Autoverzekering.nl" }}</h2>
+        {% if s.tekst %}{% for p in s.alineas %}<p style="font-size:15px;line-height:1.6;color:#5C5E54;margin:0 0 14px">{{ p }}</p>{% endfor %}
+        {% else %}<p style="font-size:15px;line-height:1.6;color:#5C5E54;margin:0 0 14px">Motorverzekering.nl maakt deel uit van Autoverzekering.nl. We helpen je een passende motorverzekering te kiezen en direct af te sluiten.</p>{% endif %}
+        <a href="{% url 'over_ons' %}" class="mv-link" style="margin-top:16px">Maak kennis met onze experts <span class="mv-arrow">→</span></a>
+      </div>
+      {% endwith %}
+      <div style="background:#F6F6F0;border:1.5px solid #ECECE3;border-radius:20px;padding:26px">
+        <div style="font-weight:800;font-size:17px;margin-bottom:14px">{{ secties.weten_kop.kop|default:"Goed om te weten" }}</div>
+        <div style="display:flex;flex-direction:column;gap:13px">
+          {% for w in weten %}
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5"><span style="color:#4B4DFF;font-weight:800">✓</span><span>{{ w.titel }}</span></div>
+          {% endfor %}
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ===================== KLACHT / FEEDBACK ===================== -->
-<section class="container" style="padding:56px 24px;">
-  <h2 class="h2" style="font-size:30px;margin:0 0 20px;">Klacht of feedback</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="ks-klacht-grid">
-    <div class="card" style="border-radius:20px;padding:26px;">
-      <div style="font-family:var(--font-head);font-weight:600;font-size:18px;color:var(--petrol);margin-bottom:8px;">Niet tevreden?</div>
-      <p style="font-size:14px;line-height:1.55;color:var(--slate-600);margin:0 0 16px;">Laat het ons weten. We zoeken samen naar een oplossing. Komen we er niet uit, dan kun je je klacht voorleggen aan het onafhankelijke klachteninstituut Kifid.</p>
-      <a href="#" style="font-weight:700;font-size:14px;color:var(--orange);display:inline-flex;align-items:center;gap:7px;text-decoration:none;">Naar de klachtenprocedure <span style="font-size:16px;">→</span></a>
-    </div>
-    <div class="card" style="border-radius:20px;padding:26px;">
-      <div style="font-family:var(--font-head);font-weight:600;font-size:18px;color:var(--petrol);margin-bottom:8px;">Tip of compliment?</div>
-      <p style="font-size:14px;line-height:1.55;color:var(--slate-600);margin:0 0 16px;">We horen graag wat goed gaat en wat beter kan. Jouw feedback houdt onze service voor alle ondernemers scherp.</p>
-      <a href="mailto:klantenservice@bestelautoverzekering.nl" style="font-weight:700;font-size:14px;color:var(--orange);display:inline-flex;align-items:center;gap:7px;text-decoration:none;">Stuur je feedback <span style="font-size:16px;">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== CTA BAND ===================== -->
-<section style="padding:0 24px 80px;">
-  <div class="container" style="background:var(--petrol);color:#fff;border-radius:24px;padding:44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
-    <div style="flex:1 1 320px;">
-      <h2 class="h2 on-dark" style="font-size:30px;line-height:1.1;margin:0 0 8px;">Staat je vraag er niet bij?</h2>
-      <p style="font-size:15px;line-height:1.5;color:var(--steel-300);margin:0;">Bekijk de veelgestelde vragen of bereken direct je premie.</p>
-    </div>
-    <div style="flex-shrink:0;display:flex;gap:12px;flex-wrap:wrap;">
-      <a href="{% url 'kennisbank' %}" class="btn btn--primary">Veelgestelde vragen</a>
-      <a href="{% url 'premie_tool' %}" class="btn" style="background:transparent;border:1.5px solid rgba(255,255,255,0.3);color:#fff;">Bereken premie</a>
+  {# ── Klacht / feedback ── #}
+  <div class="mv-wrap" style="padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+    <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px);margin-bottom:20px">{{ secties.klacht_kop.kop|default:"Klacht of feedback" }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+      {% with s=secties.klacht %}
+      <div class="mv-tile">
+        <div style="font-weight:800;font-size:18px;margin-bottom:8px">{{ s.kop|default:"Niet tevreden?" }}</div>
+        <p style="font-size:14px;line-height:1.55;color:#5C5E54;margin:0 0 16px">{{ s.tekst|default:"Laat het ons weten. We zoeken samen naar een oplossing en gebruiken je klacht om onze service te verbeteren." }}</p>
+        <a href="{{ s.cta_url|default:'/dienstenwijzer/' }}" class="mv-link" style="font-size:14px">{{ s.cta_label|default:"Naar de klachtenprocedure" }} <span class="mv-arrow">→</span></a>
+      </div>
+      {% endwith %}
+      {% with s=secties.feedback %}
+      <div class="mv-tile">
+        <div style="font-weight:800;font-size:18px;margin-bottom:8px">{{ s.kop|default:"Tip of compliment?" }}</div>
+        <p style="font-size:14px;line-height:1.55;color:#5C5E54;margin:0 0 16px">{{ s.tekst|default:"We horen graag wat goed gaat en wat beter kan. Jouw feedback helpt ons om de service voor alle motorrijders scherp te houden." }}</p>
+        <a href="mailto:{{ site.email }}" class="mv-link" style="font-size:14px">{{ s.cta_label|default:"Stuur je feedback" }} <span class="mv-arrow">→</span></a>
+      </div>
+      {% endwith %}
     </div>
   </div>
-</section>
 
-{% endblock %}
+  {# ── CTA ── #}
+  <section class="mv-band--ink" style="padding:clamp(36px,5vw,56px) clamp(18px,4vw,40px)">
+    <div class="mv-wrap" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+      <div style="flex:1 1 320px">
+        <h2 class="mv-h2" style="font-size:clamp(24px,3vw,32px);margin-bottom:8px">{{ secties.cta.kop|default:"Staat je vraag er niet bij?" }}</h2>
+        <p style="font-size:15px;line-height:1.5;color:#9FA196;margin:0">{{ secties.cta.tekst|default:"Bekijk onze veelgestelde vragen of bereken direct je premie." }}</p>
+      </div>
+      <div style="flex-shrink:0;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="{% url 'kennisbank' %}" class="mv-btn-lime">Veelgestelde vragen</a>
+        <a href="{% url 'premie_tool' %}" style="background:transparent;border:1.5px solid #3A3A34;color:#fff;font-weight:800;font-size:15px;padding:15px 22px;border-radius:12px">Bereken premie</a>
+      </div>
+    </div>
+  </section>
 
-{% block body_extra %}
-<script>
-(function () {
-  var now = new Date();
-  var dow = now.getDay();               // 0=zo … 6=za
-  var mins = now.getHours() * 60 + now.getMinutes();
-  var weekday = dow >= 1 && dow <= 5;
-  var saturday = dow === 6;
-  var open = (weekday && mins >= 480 && mins < 1080) || (saturday && mins >= 540 && mins < 780);
-
-  var status = document.querySelector('[data-ks-status]');
-  if (status) {
-    var txt = status.querySelector('[data-ks-status-text]');
-    if (open) {
-      status.classList.add('is-open');
-      if (txt) txt.textContent = 'Nu open · gemiddelde wachttijd 2 minuten';
-    } else {
-      status.classList.remove('is-open');
-      if (txt) txt.textContent = 'Nu gesloten · bereikbaar ma–vr vanaf 08:00';
-    }
-  }
-
-  var rows = document.querySelectorAll('[data-ks-hours] .ks-hours-row');
-  for (var i = 0; i < rows.length; i++) {
-    if (parseInt(rows[i].getAttribute('data-day'), 10) === dow) {
-      rows[i].classList.add('is-today');
-    }
-  }
-})();
-</script>
 {% endblock %}

@@ -20,11 +20,13 @@ from .models import (
     Dekkingstier,
     Expert,
     Faq,
+    Kaart,
     KennisbankArtikel,
     KennisbankCategorie,
     MenuItem,
     Page,
     Review,
+    SectieTekst,
     Situatie,
     SiteSettings,
     TrustpilotProfile,
@@ -32,9 +34,29 @@ from .models import (
     Verzekeraar,
 )
 
-admin.site.site_header = "Bestelautoverzekering.nl — beheer"
-admin.site.site_title = "Bestelautoverzekering.nl"
+admin.site.site_header = "Motorverzekering.nl — beheer"
+admin.site.site_title = "Motorverzekering.nl"
 admin.site.index_title = "Content & instellingen"
+
+
+@admin.register(SectieTekst)
+class SectieTekstAdmin(admin.ModelAdmin):
+    list_display = ("naam", "pagina", "sleutel", "kop", "order")
+    list_filter = ("pagina",)
+    list_editable = ("order",)
+    search_fields = ("naam", "sleutel", "kop", "tekst")
+    fields = ("pagina", "sleutel", "naam", "order", "eyebrow", "kop", "tekst",
+              "cta_label", "cta_url")
+
+
+@admin.register(Kaart)
+class KaartAdmin(admin.ModelAdmin):
+    list_display = ("blok", "volgorde", "tag", "titel", "meta", "actief")
+    list_filter = ("blok", "actief")
+    list_editable = ("volgorde", "actief")
+    search_fields = ("titel", "tekst", "meta", "tag")
+    fields = ("blok", "volgorde", "actief", "tag", "titel", "tekst", "meta", "url",
+              ("incl_wa", "incl_waplus", "incl_allrisk"))
 
 
 @admin.register(SiteSettings)

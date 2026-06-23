@@ -1,185 +1,178 @@
-{% extends "base.html" %}
-{% load static responsive_image %}
+{% extends "mv_base.html" %}
+{% load static %}
+
+{# Blog-artikel (Vraag) — Claude Design. Representative motor article (winterstop)
+   with an embedded premie mini-form (GET → premie_tool) + related posts.
+   Article bodies are bespoke (not yet CMS-managed); the blog index is DB-driven. #}
+
+{% block og_type %}article{% endblock %}
+{# Heeft al een premie-mini-form midden in het artikel → onderdruk de band. #}
+{% block premie_widget %}{% endblock %}
 
 {% block structured_data %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "@id": "{{ canonical_url }}#article",
-  "headline": "{{ page.heading|default:'Elektrische bedrijfswagen allrisk verzekeren: waarom het nu slim is'|escapejs }}",
-  {% if page.og_image %}"image": "{{ site_origin }}{{ page.og_image.url }}",{% elif site.default_og_image %}"image": "{{ site_origin }}{{ site.default_og_image.url }}",{% endif %}
-  "datePublished": "2026-06-12",
-  "dateModified": "{{ page.updated_at|date:'Y-m-d'|default:'2026-06-12' }}",
-  "inLanguage": "nl-NL",
-  "author": {% if page.author %}{"@id": "{{ site_origin }}/over-ons/#person-{{ page.author.slug }}"}{% else %}{"@type": "Person", "name": "Jean-Paul"}{% endif %},
-  "reviewedBy": {% if page.reviewer %}{"@id": "{{ site_origin }}/over-ons/#person-{{ page.reviewer.slug }}"}{% else %}{"@type": "Person", "name": "Jerry"}{% endif %},
-  "publisher": {"@id": "{{ site_origin }}/#organization"},
-  "isPartOf": {"@id": "{{ site_origin }}/#website"},
-  "mainEntityOfPage": {"@id": "{{ canonical_url }}#webpage"}
-}
-</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "@id": "{{ canonical_url }}#breadcrumb",
   "itemListElement": [
-    {"@type":"ListItem","position":1,"name":"Home","item":"{{ request.scheme }}://{{ request.get_host }}/"},
-    {"@type":"ListItem","position":2,"name":"Blog","item":"{{ request.scheme }}://{{ request.get_host }}{% url 'blog' %}"},
-    {"@type":"ListItem","position":3,"name":"Elektrisch","item":"{{ request.scheme }}://{{ request.get_host }}{% url 'blog_artikel' %}"}
+    {"@type": "ListItem", "position": 1, "name": "Blog", "item": "{{ site_origin }}/blog/"},
+    {"@type": "ListItem", "position": 2, "name": "Maak je motor rijklaar na de winterstop", "item": "{{ canonical_url }}"}
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "{{ canonical_url }}#article",
+  "headline": "Maak je motor rijklaar na de winterstop",
+  "articleSection": "Onderhoud",
+  "inLanguage": "nl-NL",
+  "isPartOf": {"@id": "{{ site_origin }}/#website"},
+  "publisher": {"@id": "{{ site_origin }}/#organization"}
 }
 </script>
 {% endblock %}
 
-{% block content %}
+{% block mv_content %}
 
-<!-- ===================== ARTICLE HEADER ===================== -->
-<header style="max-width:760px;margin:0 auto;padding:40px 24px 24px;text-align:center;">
-  <nav class="breadcrumb" style="justify-content:center;margin-bottom:20px;" aria-label="Kruimelpad">
-    <a href="{% url 'home' %}">Home</a>
-    <span class="sep">›</span>
-    <a href="{% url 'blog' %}">Blog</a>
-    <span class="sep">›</span>
-    <span style="color:var(--petrol);">Elektrisch</span>
-  </nav>
-  <span style="display:inline-block;font-size:11px;font-weight:700;color:var(--orange);letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,107,44,0.10);padding:5px 11px;border-radius:6px;">Elektrisch</span>
-  <h1 class="h1" style="font-size:46px;line-height:1.05;margin:16px 0 16px;">{% if page.heading %}{{ page.heading }}{% else %}Elektrische bedrijfswagen allrisk verzekeren: waarom het nu slim is{% endif %}</h1>
-  <p class="lead" style="font-size:19px;color:var(--slate-600);margin:0 auto 24px;max-width:620px;">{% if page.intro %}{{ page.intro }}{% else %}Een elektrische bus rijdt stiller, maar de schadekosten zijn anders, en vaak hoger. Dit lees je voordat je kiest tussen WA+ en Allrisk.{% endif %}</p>
-  <div style="display:flex;align-items:center;justify-content:center;gap:16px;">
-    <div style="display:flex;align-items:center;gap:10px;">
-      {% if page.author.get_photo_source %}<span class="ph-avatar" style="width:38px;height:38px;border-radius:50%;flex:none;overflow:hidden;display:block;">{% picture page.author.get_photo_source alt=page.author.get_photo_alt sizes="38px" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" %}</span>{% else %}<div class="ph-avatar" style="width:38px;height:38px;border-radius:50%;flex:none;"></div>{% endif %}
-      <div style="text-align:left;">
-        <div style="font-size:13.5px;font-weight:600;color:var(--petrol);"><a href="{% url 'over_ons' %}" style="color:var(--petrol);text-decoration:none;">{{ page.author.name|default:"Jean-Paul" }}</a></div>
-        <div style="font-size:12.5px;color:var(--slate-400);">{{ page.author.role|default:"Expert verzekeringen" }}{% if page.reviewer %} · gecontroleerd door {{ page.reviewer.name }}{% endif %} · {{ page.byline_date|default:"12 juni 2026" }} · {{ page.leestijd|default:"5 min" }}</div>
-      </div>
+  {# ── Hero ── #}
+  <div style="max-width:780px;margin:0 auto;width:100%;padding:clamp(20px,3vw,32px) clamp(18px,4vw,40px) 0">
+    <nav class="mv-crumbs" aria-label="Kruimelpad">
+      <a href="{% url 'blog' %}">Blog</a><span>/</span><span class="cur">Onderhoud</span>
+    </nav>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+      <span style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.06em;color:#15150F;background:#CBF24A;padding:5px 10px;border-radius:7px">ONDERHOUD</span>
+      <span style="font-size:13px;color:#9A9C92;font-family:'JetBrains Mono'">6 min leestijd · 4 juni 2026</span>
     </div>
-    <div style="width:1px;height:28px;background:rgba(18,59,93,0.12);"></div>
-    <div style="display:flex;gap:7px;">
-      <span style="width:32px;height:32px;border-radius:8px;border:1px solid rgba(18,59,93,0.14);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--petrol);cursor:pointer;">in</span>
-      <span style="width:32px;height:32px;border-radius:8px;border:1px solid rgba(18,59,93,0.14);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--petrol);cursor:pointer;">f</span>
-      <span style="width:32px;height:32px;border-radius:8px;border:1px solid rgba(18,59,93,0.14);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--petrol);cursor:pointer;">↗</span>
-    </div>
-  </div>
-</header>
-
-<!-- ===================== HERO IMAGE ===================== -->
-<div style="max-width:1080px;margin:0 auto;padding:0 24px;">
-  <div class="media" style="border-radius:22px;overflow:hidden;background-color:var(--cream-200);height:440px;position:relative;">{% picture "heroes/1755555707544-w1600.jpg" alt="Elektrische bedrijfswagen aan de laadpaal" sizes="(max-width:1080px) 100vw, 1080px" loading="eager" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
-</div>
-
-<!-- ===================== BODY ===================== -->
-<div class="container" style="padding-top:44px;padding-bottom:20px;">
-  <div class="prose" style="max-width:740px;margin:0 auto;">
-
-    <p>Steeds meer ondernemers stappen over op een elektrische bestelauto. Logisch: lagere brandstofkosten, toegang tot milieuzones en een steeds groter aanbod. Maar verzekeringstechnisch is een EV-bus een ander verhaal dan een diesel. De waarde zit voor een groot deel in de accu, reparaties zijn specialistischer en de schadebedragen lopen sneller op. Daardoor pakt de afweging tussen WA+ en Allrisk vaak anders uit.</p>
-
-    <h2>Waarom een EV-bus anders is om te verzekeren</h2>
-    <p>De accu is het duurste onderdeel van een elektrische bestelauto, al snel een derde van de nieuwwaarde. Schade aan dat accupakket, bijvoorbeeld na een aanrijding of waterschade, is kostbaar en vaak niet partieel te repareren. Daarnaast horen er onderdelen bij die een dieselbus niet heeft: de laadkabel die gestolen kan worden en de laadpaal op je eigen terrein die beschadigd kan raken.</p>
-
-    <blockquote class="pull-quote">"Bij een elektrische bus zit de waarde in de accu. Eén flinke schade en je bent zonder Allrisk duizenden euro's kwijt."</blockquote>
-
-    <h2>Wat dekt Allrisk bij een elektrische bestelauto?</h2>
-    <p>Een goede Allrisk-dekking voor een EV-bus gaat verder dan de standaard cascodekking. Let specifiek op deze punten:</p>
-    <div style="display:flex;flex-direction:column;gap:11px;margin:0 0 24px;">
-      <div style="display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.6;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> <span><strong>Accuschade</strong>, ook als de accu gehuurd of geleased is.</span></div>
-      <div style="display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.6;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> <span><strong>Laadkabel</strong>, tegen diefstal en beschadiging tijdens het laden.</span></div>
-      <div style="display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.6;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> <span><strong>Laadpaalschade</strong>, schade aan je eigen laadpunt op het terrein.</span></div>
-      <div style="display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.6;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> <span><strong>Eigen schade</strong>, ook bij eigen schuld, inclusief de dure EV-elektronica.</span></div>
-    </div>
-
-    <div class="media" style="border-radius:16px;overflow:hidden;background-color:var(--cream-200);height:240px;margin:28px 0;position:relative;">{% picture "heroes/1755555707544-w1300.jpg" alt="Elektrische bestelbus wordt opgeladen" sizes="(max-width:760px) 100vw, 740px" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
-
-    <h2>Allrisk of WA+: wanneer loont het?</h2>
-    <p>Vuistregel: hoe nieuwer en duurder de bus, hoe eerder Allrisk loont. Voor een gloednieuwe of geleasete EV-bus is Allrisk bijna altijd verstandig. Rijd je in een oudere elektrische bus met een lagere dagwaarde, dan kan WA+ volstaan.</p>
-    <table class="cmp" style="margin:0 0 26px;">
-      <thead>
-        <tr>
-          <th>Situatie</th>
-          <th style="text-align:center;">WA+</th>
-          <th style="text-align:center;">Allrisk</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Nieuwe of geleasete EV (&lt; 3 jaar)</td>
-          <td style="text-align:center;color:var(--steel-300);">✕</td>
-          <td style="text-align:center;color:var(--green);font-weight:700;">✓</td>
-        </tr>
-        <tr>
-          <td>EV van 3–7 jaar, hoge waarde</td>
-          <td style="text-align:center;color:var(--orange);font-weight:700;">~</td>
-          <td style="text-align:center;color:var(--green);font-weight:700;">✓</td>
-        </tr>
-        <tr>
-          <td>Oudere EV, lage dagwaarde</td>
-          <td style="text-align:center;color:var(--green);font-weight:700;">✓</td>
-          <td style="text-align:center;color:var(--slate-500);">optioneel</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- INLINE CTA -->
-    <div style="background:var(--petrol);border-radius:16px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin:30px 0;">
+    <h1 style="font-size:clamp(32px,5vw,52px);line-height:1.06;font-weight:800;letter-spacing:-.03em;margin:0 0 20px">{% if page.heading %}{{ page.heading }}{% else %}Maak je motor rijklaar na de winterstop{% endif %}</h1>
+    <div style="display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-bottom:28px">
+      <div style="width:46px;height:46px;border-radius:50%;background:#15150F;color:#CBF24A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0">TdV</div>
       <div>
-        <div style="font-family:var(--font-head);font-weight:600;font-size:19px;color:#fff;margin-bottom:4px;">Bereken je premie voor een elektrische bus</div>
-        <div style="font-size:14.5px;color:var(--steel-300);">Inclusief accu-, laadkabel- en laadpaaldekking.</div>
-      </div>
-      <a href="{% url 'premie_tool' %}" class="btn btn--primary" style="white-space:nowrap;">Bereken premie →</a>
-    </div>
-
-    <h2>Checklist voor je EV-busverzekering</h2>
-    <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:0 0 10px;">
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.6;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Is de accu meeverzekerd, ook bij lease of huur?</div>
-        <div style="display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.6;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Vallen laadkabel en laadpaal onder de dekking?</div>
-        <div style="display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.6;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Geldt er een nieuwwaarderegeling voor de eerste jaren?</div>
-        <div style="display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.6;color:var(--ink);"><span style="color:var(--green);font-weight:700;">✓</span> Krijg je vervangend vervoer dat ook elektrisch kan laden?</div>
+        <div style="font-size:14px">Geschreven door <strong>Thomas de Vries</strong> · Verzekeringsexpert</div>
+        <div style="font-size:13px;color:#5C5E54;display:flex;align-items:center;gap:6px;margin-top:3px"><span class="mv-tick" style="width:15px;height:15px;font-size:9px">✓</span> Gecontroleerd door Marloes Bakker (WFT) · bijgewerkt 4 juni 2026</div>
       </div>
     </div>
-
   </div>
-</div>
 
-<!-- ===================== AUTHOR BOX ===================== -->
-<section style="max-width:740px;margin:0 auto;padding:20px 24px 0;">
-  <div style="background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;gap:16px;align-items:center;">
-    {% if page.author.get_photo_source %}<span class="ph-avatar" style="width:56px;height:56px;border-radius:50%;flex:none;overflow:hidden;display:block;">{% picture page.author.get_photo_source alt=page.author.get_photo_alt sizes="56px" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" %}</span>{% else %}<div class="ph-avatar" style="width:56px;height:56px;border-radius:50%;flex:none;"></div>{% endif %}
-    <div>
-      <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);">{{ page.author.name|default:"Jean-Paul" }} <span style="font-weight:500;font-size:13.5px;color:var(--slate-500);">· {{ page.author.role|default:"Expert verzekeringen" }}</span></div>
-      <p style="font-size:14px;line-height:1.55;color:var(--slate-500);margin:5px 0 9px;">{% if page.author.bio %}{{ page.author.bio }}{% else %}Schrijft en redigeert de content van Bestelautoverzekering.nl op basis van eigen data-onderzoek. Elk artikel wordt vóór publicatie gecontroleerd op feitelijke juistheid door Jerry.{% endif %}</p>
-      <a href="{% url 'over_ons' %}" style="font-size:13.5px;font-weight:600;color:var(--orange);text-decoration:none;">Meer over ons team &amp; werkwijze →</a>
+  {# ── Hero image ── #}
+  <div style="max-width:980px;margin:0 auto;width:100%;padding:0 clamp(18px,4vw,40px)">
+    <div style="height:clamp(220px,40vw,440px);border-radius:24px;overflow:hidden">
+      <img src="{% static 'img/motor/moto-11890953.jpg' %}" alt="Motor in de werkplaats, klaar voor onderhoud" style="width:100%;height:100%;object-fit:cover;display:block">
     </div>
   </div>
-</section>
 
-<!-- ===================== RELATED ===================== -->
-<section style="max-width:1080px;margin:0 auto;padding:50px 24px 20px;">
-  <div style="font-family:var(--font-head);font-weight:700;font-size:24px;letter-spacing:-0.02em;color:var(--petrol);margin:0 0 18px;">Lees ook</div>
-  <div class="grid grid--3">
-    <a href="{% url 'blog_artikel' %}" class="card-hover" style="text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;">
-      <div class="media" style="height:150px;background-color:var(--cream-200);position:relative;overflow:hidden;">{% picture "heroes/1735447814038-w1000.jpg" alt="Bestelauto en BPM-regelgeving in 2026" sizes="(max-width:880px) 100vw, 33vw" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
-      <div style="padding:18px;">
-        <div style="font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:7px;">Regelgeving</div>
-        <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);line-height:1.3;">BPM op bestelauto's in 2026: dit verandert er</div>
+  {# ── Body ── #}
+  <article style="max-width:720px;margin:0 auto;width:100%;padding:clamp(32px,4vw,48px) clamp(18px,4vw,40px) clamp(40px,5vw,64px);font-size:clamp(16px,2vw,18px);line-height:1.75;color:#2A2A24">
+    {% if secties.body %}<div class="mv-prose">{{ secties.body.tekst|safe }}</div>{% else %}
+    <p style="margin:0 0 24px">Na maanden in de schuur is je motor toe aan een grondige check voordat je weer de weg op gaat. Een paar simpele controles voorkomen pech, schade en — niet onbelangrijk — discussie met je verzekeraar als er iets misgaat. Dit is de checklist die wij elke lente aanhouden.</p>
+
+    <h2 style="font-size:clamp(22px,3vw,28px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:36px 0 14px">1. Banden: spanning, profiel en ouderdom</h2>
+    <p style="margin:0 0 18px">Begin onderaan. Banden verliezen tijdens de stalling spanning en kunnen hard worden. Controleer de bandenspanning als de banden koud zijn en vergelijk met de waarden in je instructieboekje. Kijk ook naar het profiel en naar scheurtjes in het rubber — een band ouder dan vijf à zes jaar kun je beter laten beoordelen.</p>
+
+    <h2 style="font-size:clamp(22px,3vw,28px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:36px 0 14px">2. Accu en elektronica</h2>
+    <p style="margin:0 0 18px">Een accu die de hele winter stilstaat, loopt langzaam leeg. Laad hem volledig op of vervang hem als hij geen lading meer houdt. Test daarna je verlichting, knipperlichten, claxon en remlicht. Werkt alles? Dan ben je al een groot deel van de keuringspunten voorbij.</p>
+
+    <div style="background:#15150F;color:#fff;border-radius:20px;padding:clamp(24px,3vw,32px);margin:32px 0">
+      <div style="font-size:clamp(20px,2.6vw,26px);line-height:1.35;font-weight:700;letter-spacing:-.01em">“Een onderhoudsbeurt na de winter kost je een uurtje. Een ongeval door achterstallig onderhoud kost je veel meer.”</div>
+    </div>
+
+    <h2 style="font-size:clamp(22px,3vw,28px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:36px 0 14px">3. Remmen, vloeistoffen en ketting</h2>
+    <p style="margin:0 0 18px">Controleer het niveau en de kleur van je remvloeistof en kijk of de remblokken nog voldoende dik zijn. Loop daarna langs de olie en koelvloeistof. Smeer tot slot je ketting en stel de spanning af — een droge of te strakke ketting slijt snel en rijdt onrustig.</p>
+
+    <ul style="margin:0 0 18px;padding-left:22px">
+      <li style="margin-bottom:10px">Remvloeistof en remblokken controleren</li>
+      <li style="margin-bottom:10px">Olie- en koelvloeistofniveau bijvullen</li>
+      <li style="margin-bottom:10px">Ketting reinigen, smeren en spannen</li>
+      <li style="margin-bottom:0">Bouten en spiegels natrekken</li>
+    </ul>
+
+    <div style="display:flex;gap:14px;background:#F4F8E6;border:1.5px solid #CBF24A;border-radius:16px;padding:20px 22px;margin:32px 0">
+      <div style="flex-shrink:0;width:32px;height:32px;border-radius:9px;background:#CBF24A;color:#15150F;display:flex;align-items:center;justify-content:center;font-weight:800">!</div>
+      <div>
+        <div style="font-weight:800;font-size:16px;color:#15150F;margin-bottom:4px">Tip</div>
+        <div style="font-size:15px;line-height:1.55;color:#2A2A24">Check ook je ART-slot en de beveiliging. Veel verzekeraars vragen minimaal een ART-goedgekeurd slot van klasse 3 of 4 — zonder het juiste slot loop je dekking bij diefstal mis.</div>
       </div>
-    </a>
-    <a href="{% url 'blog_artikel' %}" class="card-hover" style="text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;">
-      <div class="media" style="height:150px;background-color:var(--petrol-900);position:relative;overflow:hidden;">{% picture "heroes/1593941707882-w1000.jpg" alt="Laadpaal voor een elektrische bestelauto" sizes="(max-width:880px) 100vw, 33vw" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
-      <div style="padding:18px;">
-        <div style="font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:7px;">Elektrisch</div>
-        <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);line-height:1.3;">Laadpaal beschadigd: wie betaalt de schade?</div>
+    </div>
+
+    <h2 style="font-size:clamp(22px,3vw,28px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:36px 0 14px">Klaar voor vertrek?</h2>
+    <p style="margin:0 0 8px">Alles gecheckt? Maak dan eerst een rustig rondje om gevoel te krijgen voor de remmen en het gewicht — na een winter stilstaan voelt je motor even anders. En zorg dat je verzekering klopt voordat je wegrijdt.</p>
+    {% endif %}
+
+    <div style="margin-top:34px;padding-top:24px;border-top:1.5px solid #ECECE3">
+      <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.12em;color:#9A9C92;margin-bottom:12px">BRONNEN</div>
+      {% if secties.bronnen %}
+      <div class="mv-prose" style="display:flex;flex-direction:column;gap:9px;font-size:14px;line-height:1.5">{{ secties.bronnen.tekst|safe }}</div>
+      {% else %}
+      <div style="display:flex;flex-direction:column;gap:9px;font-size:14px;line-height:1.5">
+        <a href="https://www.rdw.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">RDW — Verzekeringsplicht en boetebedragen ↗</a>
+        <a href="https://www.stichtingart.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">Stichting ART — Goedgekeurde motorsloten ↗</a>
       </div>
-    </a>
-    <a href="{% url 'situatie_gereedschap' %}" class="card-hover" style="text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;">
-      <div class="media" style="height:150px;background-color:var(--cream-200);position:relative;overflow:hidden;">{% picture "heroes/1683115098516-w1000.jpg" alt="Gereedschap in een bestelbus" sizes="(max-width:880px) 100vw, 33vw" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
-      <div style="padding:18px;">
-        <div style="font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:7px;">Situatie</div>
-        <div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);line-height:1.3;">Gereedschap in de bus meeverzekeren</div>
+      {% endif %}
+    </div>
+
+    <div style="margin-top:24px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:18px;padding:24px;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
+      <div style="width:54px;height:54px;border-radius:50%;background:#15150F;color:#CBF24A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex-shrink:0">TdV</div>
+      <div style="flex:1;min-width:220px">
+        <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.1em;color:#9A9C92;margin-bottom:4px">OVER DE AUTEUR</div>
+        <div style="font-weight:800;font-size:17px">Thomas de Vries</div>
+        <div style="font-size:13px;color:#5C5E54;margin-bottom:10px">Verzekeringsexpert · 12 jaar ervaring in motor- en schadeverzekeringen</div>
+        <p style="font-size:14px;line-height:1.6;color:#5C5E54;margin:0 0 12px">Thomas schrijft over verzekeren, onderhoud en veilig rijden. Hij vertaalt ingewikkelde voorwaarden naar heldere taal en rijdt zelf al 15 jaar motor.</p>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#2E7D32;font-weight:700"><span class="mv-tick" style="width:18px;height:18px">✓</span> Inhoudelijk gecontroleerd door Marloes Bakker — WFT-gecertificeerd adviseur</div>
       </div>
-    </a>
+    </div>
+  </article>
+
+  {# ── Premie mini-form (CTA) ── #}
+  <div style="max-width:980px;margin:0 auto;width:100%;padding:0 clamp(18px,4vw,40px) clamp(40px,5vw,64px)">
+    <div class="mv-ctaband" style="align-items:flex-start">
+      <div style="flex:1 1 270px">
+        <div class="mv-eyebrow" style="font-size:11px;letter-spacing:.12em">BEREKEN JE PREMIE</div>
+        <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px);margin-bottom:8px">Klopt je verzekering nog?</h2>
+        <p style="font-size:15px;line-height:1.5;color:#5C5E54;margin:0">Start met je kenteken en zie in een minuut je premie voor WA, WA+ en Allrisk.</p>
+      </div>
+      <form method="get" action="{% url 'premie_tool' %}" style="flex:1 1 320px;min-width:280px">
+        <div class="mv-lbl" style="margin-bottom:14px">Kenteken <span class="mv-i">i</span></div>
+        <div class="mv-plate">
+          <span class="mv-plate-eu"><span style="font-size:9px;line-height:1">★</span><span style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;line-height:1">NL</span></span>
+          <input name="kenteken" value="" placeholder="MG-XX-21" aria-label="Kenteken" style="font-size:22px">
+        </div>
+        <div style="margin-top:14px"><div class="mv-lbl">Postcode <span class="mv-req">*</span></div><input name="postcode" value="1011 AB" class="mv-field" placeholder="bv. 1234 AZ" aria-label="Postcode"></div>
+        <div class="mv-row2" style="margin-top:12px">
+          <div><div class="mv-lbl">Huisnummer <span class="mv-req">*</span></div><input name="huisnummer" class="mv-field" placeholder="bv. 1" aria-label="Huisnummer"></div>
+          <div><div class="mv-lbl">Toevoeging</div><select name="toevoeging" class="mv-field" aria-label="Toevoeging"><option value="">Kies…</option><option>A</option><option>B</option><option>C</option><option>bis</option></select></div>
+        </div>
+        <div style="margin-top:12px"><div class="mv-lbl">Geboortedatum hoofdbestuurder <span class="mv-req">*</span></div><input name="geboortedatum" class="mv-field" placeholder="DD-MM-JJJJ" aria-label="Geboortedatum hoofdbestuurder"></div>
+        <button type="submit" class="mv-submit" style="font-size:16px;padding:15px">Bereken je premie <span style="font-size:18px">→</span></button>
+        <div style="font-size:12px;color:#9A9C92;margin-top:10px;text-align:center">± 1 minuut · geen verplicht account</div>
+      </form>
+    </div>
   </div>
-</section>
+
+  {# ── Related ── #}
+  <section class="mv-band mv-band--white">
+    <div class="mv-wrap">
+      <div style="margin-bottom:26px">
+        <div class="mv-eyebrow">LEES OOK</div>
+        <h2 class="mv-h2">Meer voor onderweg</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px">
+        <a href="{% url 'blog_artikel' %}" class="mv-tile" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:160px;overflow:hidden"><img src="{% static 'img/motor/moto-1413412.jpg' %}" alt="Welk ART-slot heb je echt nodig?" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="padding:20px"><span style="font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.06em;color:#4B4DFF;background:#EEF0FF;padding:4px 8px;border-radius:6px">Veiligheid</span><h3 style="font-size:18px;line-height:1.22;font-weight:800;letter-spacing:-.01em;margin:12px 0 0">Welk ART-slot heb je echt nodig?</h3></div>
+        </a>
+        <a href="{% url 'blog_artikel' %}" class="mv-tile" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:160px;overflow:hidden"><img src="{% static 'img/motor/moto-8985454.jpg' %}" alt="Bandenspanning en profiel: de basis" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="padding:20px"><span style="font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.06em;color:#4B4DFF;background:#EEF0FF;padding:4px 8px;border-radius:6px">Onderhoud</span><h3 style="font-size:18px;line-height:1.22;font-weight:800;letter-spacing:-.01em;margin:12px 0 0">Bandenspanning en profiel: de basis</h3></div>
+        </a>
+        <a href="{% url 'blog_artikel' %}" class="mv-tile" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:160px;overflow:hidden"><img src="{% static 'img/motor/moto-18323972.jpg' %}" alt="Schadevrije jaren: zo werkt je no-claim" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="padding:20px"><span style="font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.06em;color:#4B4DFF;background:#EEF0FF;padding:4px 8px;border-radius:6px">Verzekering</span><h3 style="font-size:18px;line-height:1.22;font-weight:800;letter-spacing:-.01em;margin:12px 0 0">Schadevrije jaren: zo werkt je no-claim</h3></div>
+        </a>
+      </div>
+      <div style="margin-top:28px"><a href="{% url 'blog' %}" class="mv-link">← Terug naar alle artikelen</a></div>
+    </div>
+  </section>
 
 {% endblock %}

@@ -1,217 +1,153 @@
-{% extends "base.html" %}
-{% load static responsive_image %}
+{% extends "mv_base.html" %}
+{% load static %}
+
+{# Kennisbank-artikel (Vraag) — Claude Design. Representative motor article
+   (ART-slot). Bespoke editorial content; byline references the Page reviewer
+   when set (admin), else a generic WFT line. #}
 
 {% block structured_data %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "@id": "{{ canonical_url }}#article",
-  "headline": "{{ page.heading|default:'Gereedschap meeverzekeren: dit kost het en zo werkt het'|escapejs }}",
-  {% if page.og_image %}"image": "{{ site_origin }}{{ page.og_image.url }}",{% elif site.default_og_image %}"image": "{{ site_origin }}{{ site.default_og_image.url }}",{% endif %}
-  "datePublished": "2026-06-14",
-  "dateModified": "{{ page.updated_at|date:'Y-m-d'|default:'2026-06-14' }}",
-  "inLanguage": "nl-NL",
-  "author": {% if page.author %}{"@id": "{{ site_origin }}/over-ons/#person-{{ page.author.slug }}"}{% else %}{"@type": "Person", "name": "Jerry"}{% endif %},
-  "publisher": {"@id": "{{ site_origin }}/#organization"},
-  "isPartOf": {"@id": "{{ site_origin }}/#website"},
-  "mainEntityOfPage": {"@id": "{{ canonical_url }}#webpage"}
-}
-</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "@id": "{{ canonical_url }}#breadcrumb",
   "itemListElement": [
-    {"@type":"ListItem","position":1,"name":"Home","item":"{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}"},
-    {"@type":"ListItem","position":2,"name":"Kennisbank","item":"{{ request.scheme }}://{{ request.get_host }}{% url 'kennisbank' %}"},
-    {"@type":"ListItem","position":3,"name":"Gereedschap","item":"{{ request.scheme }}://{{ request.get_host }}{% url 'kennisbank_artikel' %}"}
+    {"@type": "ListItem", "position": 1, "name": "Kennisbank", "item": "{{ site_origin }}/kennisbank/"},
+    {"@type": "ListItem", "position": 2, "name": "ART-slot", "item": "{{ canonical_url }}"}
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "{{ canonical_url }}#article",
+  "headline": "Welk ART-slot heb ik nodig voor mijn motor?",
+  "inLanguage": "nl-NL",
+  "isPartOf": {"@id": "{{ site_origin }}/#website"},
+  "publisher": {"@id": "{{ site_origin }}/#organization"}
 }
 </script>
 {% endblock %}
 
-{% block head_extra %}<style>@media (max-width:980px){.kb-doc{grid-template-columns:1fr!important}.kb-toc{display:none!important}}@media (max-width:680px){.kb-related{grid-template-columns:1fr!important}}</style>{% endblock %}
+{% block mv_content %}
 
-{% block content %}
-
-<!-- ===================== DOCS 3-COL ===================== -->
-<div class="container kb-doc" style="max-width:1240px;padding:36px 24px 70px;display:grid;grid-template-columns:210px 1fr 210px;gap:40px;align-items:start;">
-
-  <!-- LEFT SIDEBAR -->
-  <aside class="kb-toc" style="position:sticky;top:90px;">
-    <a href="{% url 'kennisbank' %}" style="text-decoration:none;font-size:13.5px;color:var(--slate-400);display:inline-flex;align-items:center;gap:6px;margin-bottom:18px;">← Kennisbank</a>
-    <div style="font-family:var(--font-head);font-weight:600;font-size:12px;color:var(--slate-400);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;">Gereedschap</div>
-    <div style="display:flex;flex-direction:column;gap:2px;">
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;padding:8px 12px;border-radius:8px;background:rgba(18,59,93,0.06);color:var(--petrol);font-size:13.5px;font-weight:600;">Gereedschap meeverzekeren</a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--slate-600);font-size:13.5px;">Diefstal buiten werktijd</a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--slate-600);font-size:13.5px;">Inventaris taxeren</a>
-      <a href="{% url 'kennisbank_artikel' %}" style="text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--slate-600);font-size:13.5px;">Eigen risico bij inbraak</a>
-    </div>
-  </aside>
-
-  <!-- ARTICLE -->
-  <main style="min-width:0;">
-    <nav class="breadcrumb" aria-label="Kruimelpad" style="margin-bottom:18px;">
-      <a href="{% url 'home' %}">Home</a>
-      <span class="sep">›</span>
-      <a href="{% url 'kennisbank' %}">Kennisbank</a>
-      <span class="sep">›</span>
-      <span style="color:var(--petrol);">Gereedschap</span>
+  {# ── Hero ── #}
+  <div style="max-width:780px;margin:0 auto;width:100%;padding:clamp(20px,3vw,32px) clamp(18px,4vw,40px) 0">
+    <nav class="mv-crumbs" aria-label="Kruimelpad">
+      <a href="{% url 'kennisbank' %}">Veelgestelde vragen</a><span>/</span><span>Beveiliging</span><span>/</span><span class="cur">ART-slot</span>
     </nav>
-    <span style="display:inline-block;font-size:11px;font-weight:700;color:var(--orange);letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,107,44,0.10);padding:5px 10px;border-radius:6px;">Gereedschap</span>
-    <h1 class="h1" style="font-size:42px;line-height:1.05;margin:16px 0 16px;">{% if page.heading %}{{ page.heading }}{% else %}Gereedschap meeverzekeren: dit kost het en zo werkt het{% endif %}</h1>
-    <div style="display:flex;align-items:center;gap:14px;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:30px;">
-      {% if page.author.get_photo_source %}<span class="ph-avatar" style="width:38px;height:38px;border-radius:50%;flex:none;overflow:hidden;display:block;">{% picture page.author.get_photo_source alt=page.author.get_photo_alt sizes="38px" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" %}</span>{% else %}<div class="ph-avatar" style="width:38px;height:38px;border-radius:50%;flex:none;"></div>{% endif %}
+    <span style="display:inline-block;font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.06em;color:#15150F;background:#CBF24A;padding:5px 10px;border-radius:7px;margin-bottom:16px">BEVEILIGING &amp; DIEFSTAL</span>
+    <h1 style="font-size:clamp(30px,4.5vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.03em;margin:0 0 18px">{% if page.heading %}{{ page.heading }}{% else %}Welk ART-slot heb ik nodig voor mijn motor?{% endif %}</h1>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px;color:#5C5E54">
+      <span style="display:flex;align-items:center;gap:6px"><span class="mv-tick" style="width:16px;height:16px;font-size:10px">✓</span> Gecontroleerd door {% if page.reviewer %}{{ page.reviewer.name }} (WFT){% else %}onze WFT-experts{% endif %}</span>
+      <span style="width:4px;height:4px;border-radius:50%;background:#C9CAC0"></span>
+      <span style="font-family:'JetBrains Mono'">Bijgewerkt {{ page.byline_date|default:"4 juni 2026" }} · {{ page.leestijd|default:"4 min" }}</span>
+    </div>
+  </div>
+
+  {# ── Kort antwoord ── #}
+  <div style="max-width:780px;margin:0 auto;width:100%;padding:clamp(24px,3vw,32px) clamp(18px,4vw,40px) 0">
+    <div style="background:#F4F8E6;border:1.5px solid #CBF24A;border-radius:18px;padding:24px">
+      <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.1em;color:#15150F;margin-bottom:10px">KORT ANTWOORD</div>
+      <p style="font-size:16px;line-height:1.6;color:#15150F;margin:0;font-weight:600">{% if secties.kort_antwoord %}{{ secties.kort_antwoord.tekst|safe }}{% else %}Voor de meeste motoren vraagt je verzekeraar minimaal een <strong>ART-goedgekeurd slot van klasse 3</strong>. In grote steden of voor duurdere en nieuwere motoren is vaak <strong>klasse 4</strong> verplicht. Gebruik je geen goedgekeurd slot, dan kan de verzekeraar bij diefstal de uitkering weigeren.{% endif %}</p>
+    </div>
+  </div>
+
+  {# ── Body ── #}
+  <article style="max-width:720px;margin:0 auto;width:100%;padding:clamp(28px,4vw,40px) clamp(18px,4vw,40px) clamp(36px,5vw,56px);font-size:clamp(16px,2vw,17px);line-height:1.75;color:#2A2A24">
+    {% if secties.body %}<div class="mv-prose">{{ secties.body.tekst|safe }}</div>{% else %}
+    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Wat is een ART-slot?</h2>
+    <p style="margin:0 0 18px">ART staat voor de onafhankelijke <strong>Stichting ART</strong>, die motorsloten test op inbraakwerendheid. Hoe beter een slot bestand is tegen diefstal, hoe meer sterren (klassen) het krijgt. De keuring loopt van klasse 1 (lichte beveiliging) tot klasse 4 (zwaarste beveiliging). Voor motoren zijn vooral klasse 3 en 4 relevant.</p>
+
+    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Welke klasse heb jij nodig?</h2>
+    <p style="margin:0 0 16px">Dat hangt af van je verzekeraar, je woonplaats en de waarde van je motor. Als richtlijn:</p>
+    <div style="border:1.5px solid #ECECE3;border-radius:14px;overflow:hidden;margin:0 0 18px">
+      <div style="display:grid;grid-template-columns:1fr 1.6fr;background:#15150F;color:#fff;font-size:13px;font-weight:700">
+        <div style="padding:12px 16px">Situatie</div><div style="padding:12px 16px;border-left:1px solid #2A2A24">Meestal vereist</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1.6fr;border-top:1px solid #F0F0E8;font-size:14px;background:#fff">
+        <div style="padding:12px 16px;font-weight:600">Standaard motor</div><div style="padding:12px 16px;border-left:1px solid #F0F0E8">ART klasse 3</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1.6fr;border-top:1px solid #F0F0E8;font-size:14px;background:#FBFBF7">
+        <div style="padding:12px 16px;font-weight:600">Grote stad / hoog risico</div><div style="padding:12px 16px;border-left:1px solid #F0F0E8">ART klasse 4</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1.6fr;border-top:1px solid #F0F0E8;font-size:14px;background:#fff">
+        <div style="padding:12px 16px;font-weight:600">Nieuwe / dure motor</div><div style="padding:12px 16px;border-left:1px solid #F0F0E8">ART klasse 4 + ketting/anker</div>
+      </div>
+    </div>
+    <p style="margin:0 0 18px">Controleer altijd je <strong>polisvoorwaarden</strong>: daar staat exact welke klasse jouw verzekeraar eist. Twijfel je? Onze klantenservice zoekt het voor je op.</p>
+
+    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Waarom vraagt je verzekeraar hierom?</h2>
+    <p style="margin:0 0 18px">Een goedgekeurd slot verkleint de kans op diefstal flink. Daarom is het vaak een <strong>voorwaarde voor je dekking</strong>: zonder het juiste slot — of als je vergeet je motor op slot te zetten — kan de verzekeraar een uitkering bij diefstal afwijzen. Een goed slot verlaagt bovendien vaak je premie.</p>
+
+    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Welke sloten zijn er?</h2>
+    <ul style="margin:0 0 18px;padding-left:22px">
+      <li style="margin-bottom:10px"><strong>Schijfremslot</strong> — compact en makkelijk mee te nemen, vergrendelt de remschijf.</li>
+      <li style="margin-bottom:10px"><strong>Kettingslot</strong> — sterke beveiliging, zet je motor vast aan een vast object.</li>
+      <li style="margin-bottom:10px"><strong>Beugelslot</strong> — robuust en lastig door te knippen.</li>
+      <li style="margin-bottom:0"><strong>Grond- of muuranker</strong> — voor thuis, ideaal in combinatie met een kettingslot.</li>
+    </ul>
+
+    <div style="display:flex;gap:14px;background:#15150F;color:#fff;border-radius:16px;padding:20px 22px;margin:28px 0">
+      <div style="flex-shrink:0;width:32px;height:32px;border-radius:9px;background:#CBF24A;color:#15150F;display:flex;align-items:center;justify-content:center;font-weight:800">!</div>
       <div>
-        <div style="font-size:14px;font-weight:600;color:var(--petrol);">Geschreven door <a href="{% url 'over_ons' %}" style="color:var(--orange);text-decoration:none;">{{ page.author.name|default:"Jerry" }}</a></div>
-        <div style="font-size:13px;color:var(--slate-400);">{{ page.author.role|default:"Expert verzekeringen" }}{% if page.byline_date %} · bijgewerkt {{ page.byline_date }}{% endif %}{% if page.leestijd %} · {{ page.leestijd }} lezen{% endif %}</div>
+        <div style="font-weight:800;font-size:16px;margin-bottom:4px">Tip</div>
+        <div style="font-size:15px;line-height:1.55;color:#D6D7D0">Combineer twee verschillende sloten (bijv. schijfrem + ketting aan een anker). Dieven hebben dan meer tijd en gereedschap nodig — en jij meer zekerheid bij je claim.</div>
       </div>
     </div>
 
-    <div class="media" style="border-radius:16px;overflow:hidden;background-color:var(--cream-200);height:300px;margin:0 0 30px;position:relative;">{% picture "heroes/1683115098516-w1400.jpg" alt="Gereedschap opgeborgen in een bestelbus" sizes="(max-width:980px) 100vw, 720px" loading="eager" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
+    <h2 style="font-size:clamp(21px,3vw,26px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#15150F;margin:32px 0 12px">Kort samengevat</h2>
+    <ul style="margin:0 0 8px;padding-left:22px">
+      <li style="margin-bottom:8px">Meestal minimaal <strong>ART klasse 3</strong>, in steden vaak <strong>klasse 4</strong>.</li>
+      <li style="margin-bottom:8px">Staat in je <strong>polisvoorwaarden</strong> — check die altijd.</li>
+      <li style="margin-bottom:0">Geen goedgekeurd slot = mogelijk <strong>geen uitkering</strong> bij diefstal.</li>
+    </ul>
+    {% endif %}
 
-    <div class="prose">
-      <p style="font-size:19px;color:var(--ink);font-weight:500;margin:0 0 26px;">Voor veel vakmensen is het gereedschap in de bus meer waard dan de bus zelf. Toch is het standaard níet meeverzekerd. In dit artikel lees je precies hoe je je inventaris afdekt, wat het kost, voor welke beroepen het extra telt en waar je op moet letten.</p>
-
-      <h2 id="basis">Is gereedschap standaard verzekerd?</h2>
-      <p>Nee. Een gewone bestelautoverzekering, of het nu WA, WA+ of Allrisk is, dekt het voertuig, niet de losse spullen erin. Wordt je bus opengebroken en je gereedschap gestolen, dan val je zonder aanvullende dekking buiten de boot.</p>
-
-      <div class="callout">
-        <div style="font-family:var(--font-head);font-weight:600;font-size:15px;color:var(--petrol);margin-bottom:6px;">Let op</div>
-        <p style="margin:0;">Veel diefstallen gebeuren 's nachts, als de bus voor de deur staat. Controleer of jouw dekking ook geldt buiten werktijd en buiten een afgesloten ruimte, dat verschilt per verzekeraar.</p>
-      </div>
-
-      <h2 id="beroepen">Voor welke vakmensen is dit extra belangrijk?</h2>
-      <p>Hoe meer en hoe duurder het gereedschap dat je dagelijks meeneemt, hoe groter het risico bij diefstal of brand. Voor de ene vakman gaat het om een handzame set, voor de ander om een complete machinekamer op wielen. Dit zijn typische inventariswaardes die we in de praktijk zien:</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 22px;">
-        <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:15px;font-weight:600;color:var(--petrol);">Timmerman</span><span style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);">± € 15.000</span></div>
-        <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:15px;font-weight:600;color:var(--petrol);">Installateur</span><span style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);">± € 20.000</span></div>
-        <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:15px;font-weight:600;color:var(--petrol);">Loodgieter</span><span style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);">± € 12.000</span></div>
-        <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:15px;font-weight:600;color:var(--petrol);">Hovenier</span><span style="font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--orange);">± € 18.000</span></div>
-      </div>
-      <p>Ben je timmerman, dan lees je in onze <a href="{% url 'beroep_timmerman' %}">beroeppagina voor timmerlieden</a> precies welke dekking we aanraden. Werk je vooral vanuit een busje vol meetapparatuur, dan weegt de inventarisdekking nog zwaarder mee dan de cascopremie van de bus zelf.</p>
-
-      <blockquote class="pull-quote">"Gemiddeld ligt er voor € 14.800 aan gereedschap in een ZZP-bus, maar een kale autoverzekering vergoedt er € 0 van."</blockquote>
-
-      <h2 id="diefstal">Diefstal binnen én buiten werktijd: het cruciale verschil</h2>
-      <p>Het grootste misverstand zit in de dekking buiten werktijd. Veel verzekeraars dekken gereedschap alleen overdag, of alleen wanneer de bus in een afgesloten ruimte staat. Maar juist 's nachts, als je bus voor de deur of op de bouwplaats staat, wordt het vaakst ingebroken. Controleer daarom altijd drie dingen in de voorwaarden: geldt de dekking 24 uur per dag, geldt die ook buiten een garage, en is er een eis voor zichtbare braaksporen?</p>
-      <div class="media" style="border-radius:14px;overflow:hidden;background-color:var(--petrol);height:220px;margin:22px 0;position:relative;">{% picture "heroes/1719364478285-w1200.jpg" alt="Bestelbus 's nachts geparkeerd op straat" sizes="(max-width:980px) 100vw, 720px" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %}</div>
-
-      <h2 id="kosten">Wat kost het om gereedschap mee te verzekeren?</h2>
-      <p>De premie hangt af van het verzekerde bedrag en je beroep. Indicatief:</p>
-      <table class="cmp" style="margin-bottom:24px;">
-        <thead>
-          <tr>
-            <th>Verzekerd bedrag</th>
-            <th style="text-align:center;">Premie p/mnd</th>
-            <th style="text-align:center;">Eigen risico</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>tot € 10.000</td>
-            <td style="text-align:center;font-weight:600;color:var(--petrol);">€ 6,50</td>
-            <td style="text-align:center;color:var(--slate-500);">€ 150</td>
-          </tr>
-          <tr>
-            <td>tot € 25.000</td>
-            <td style="text-align:center;font-weight:600;color:var(--petrol);">€ 13,00</td>
-            <td style="text-align:center;color:var(--slate-500);">€ 250</td>
-          </tr>
-          <tr>
-            <td>tot € 50.000</td>
-            <td style="text-align:center;font-weight:600;color:var(--petrol);">€ 22,50</td>
-            <td style="text-align:center;color:var(--slate-500);">€ 350</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- INLINE CTA -->
-      <div style="background:var(--petrol);border-radius:16px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin:30px 0;">
-        <div>
-          <div style="font-family:var(--font-head);font-weight:600;font-size:19px;color:#fff;margin-bottom:4px;">Bereken je premie inclusief gereedschap</div>
-          <div style="font-size:14.5px;color:var(--steel-300);">Vul je kenteken in en zie direct wat het kost, vrijblijvend.</div>
-        </div>
-        <a href="{% url 'premie_tool' %}" style="text-decoration:none;background:var(--orange);color:#fff;font-weight:700;font-size:15px;padding:14px 24px;border-radius:11px;white-space:nowrap;">Bereken premie →</a>
-      </div>
-
-      <h2 id="bedrag">Hoe bepaal je het juiste verzekerde bedrag?</h2>
-      <p>Het verzekerde bedrag is het maximum dat je bij totale schade uitgekeerd krijgt. Te laag inschatten betekent onderverzekering, dan keert de verzekeraar naar verhouding minder uit. Te hoog kost je onnodig premie. Stel het bedrag in drie stappen vast:</p>
-      <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:0 0 24px;">
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;gap:12px;align-items:flex-start;"><span style="color:var(--green);font-weight:700;font-size:16px;">✓</span><span style="font-size:15.5px;line-height:1.6;color:var(--ink);">Maak een inventarislijst van alle machines en gereedschap, met merk en type.</span></div>
-          <div style="display:flex;gap:12px;align-items:flex-start;"><span style="color:var(--green);font-weight:700;font-size:16px;">✓</span><span style="font-size:15.5px;line-height:1.6;color:var(--ink);">Noteer de vervangingswaarde (nieuwprijs), niet wat je er ooit voor betaalde.</span></div>
-          <div style="display:flex;gap:12px;align-items:flex-start;"><span style="color:var(--green);font-weight:700;font-size:16px;">✓</span><span style="font-size:15.5px;line-height:1.6;color:var(--ink);">Tel er een marge bij op voor wat je het komende jaar nog aanschaft.</span></div>
-        </div>
-      </div>
-
-      <h2 id="tips">3 tips om je premie laag te houden</h2>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
-        <div style="display:flex;gap:14px;align-items:flex-start;"><span style="width:26px;height:26px;border-radius:8px;background:rgba(255,107,44,0.12);color:var(--orange);font-weight:700;font-size:13px;display:grid;place-items:center;flex:none;">1</span><p style="font-size:16px;line-height:1.6;color:var(--slate-600);margin:0;">Monteer een gecertificeerd alarm of een gereedschapkluis in de laadruimte, veel verzekeraars geven dan korting.</p></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><span style="width:26px;height:26px;border-radius:8px;background:rgba(255,107,44,0.12);color:var(--orange);font-weight:700;font-size:13px;display:grid;place-items:center;flex:none;">2</span><p style="font-size:16px;line-height:1.6;color:var(--slate-600);margin:0;">Houd een actuele inventarislijst bij met foto's en bonnen. Bij schade keer je sneller en vollediger uit.</p></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><span style="width:26px;height:26px;border-radius:8px;background:rgba(255,107,44,0.12);color:var(--orange);font-weight:700;font-size:13px;display:grid;place-items:center;flex:none;">3</span><p style="font-size:16px;line-height:1.6;color:var(--slate-600);margin:0;">Verzeker het bedrag dat je écht nodig hebt. Te hoog kost onnodig premie, te laag betekent onderverzekering.</p></div>
-      </div>
-
-      <h2 id="fouten">5 veelgemaakte fouten</h2>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
-        <div style="display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.6;color:var(--slate-600);"><span style="color:#C9CFD4;font-weight:700;">✕</span> Denken dat gereedschap automatisch onder de Allrisk valt.</div>
-        <div style="display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.6;color:var(--slate-600);"><span style="color:#C9CFD4;font-weight:700;">✕</span> Geen inventarislijst bijhouden, waardoor je bij schade niets kunt aantonen.</div>
-        <div style="display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.6;color:var(--slate-600);"><span style="color:#C9CFD4;font-weight:700;">✕</span> De dekking buiten werktijd niet controleren.</div>
-        <div style="display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.6;color:var(--slate-600);"><span style="color:#C9CFD4;font-weight:700;">✕</span> Het verzekerde bedrag jarenlang niet bijwerken na nieuwe aankopen.</div>
-        <div style="display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.6;color:var(--slate-600);"><span style="color:#C9CFD4;font-weight:700;">✕</span> Alleen op premie vergelijken in plaats van op voorwaarden.</div>
-      </div>
-
-      <h2 id="vragen">Veelgestelde vragen</h2>
-    </div>
-
-    <div class="faq" data-faq style="margin-bottom:8px;">
-      <div class="faq__item">
-        <button class="faq__q" type="button" aria-expanded="false">Geldt de dekking ook als ik mijn bus thuis voor de deur parkeer? <span class="faq__sign">+</span></button>
-        <div class="faq__a"><p>Ja, mits er sprake is van braak. Een diefstal uit een afgesloten bus is gedekt; gereedschap dat los in een open laadbak ligt niet.</p></div>
-      </div>
-      <div class="faq__item">
-        <button class="faq__q" type="button" aria-expanded="false">Wat als mijn gereedschap meer waard is dan € 25.000? <span class="faq__sign">+</span></button>
-        <div class="faq__a"><p>Een hoger verzekerd bedrag is op aanvraag mogelijk. Neem contact op, dan stemmen we de dekking af op je werkelijke inventaris.</p></div>
-      </div>
-      <div class="faq__item">
-        <button class="faq__q" type="button" aria-expanded="false">Telt geleend of gehuurd gereedschap ook mee? <span class="faq__sign">+</span></button>
-        <div class="faq__a"><p>Vaak wel, maar dit verschilt per verzekeraar. Geef het door bij je aanvraag zodat je niet voor verrassingen komt te staan.</p></div>
+    <div style="margin-top:34px;background:#fff;border:1.5px solid #ECECE3;border-radius:16px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div style="font-weight:700;font-size:15px">Was dit antwoord nuttig?</div>
+      <div style="display:flex;gap:10px">
+        <span style="border:1.5px solid #E6E6DD;border-radius:11px;padding:10px 18px;font-weight:700;font-size:14px">Ja</span>
+        <span style="border:1.5px solid #E6E6DD;border-radius:11px;padding:10px 18px;font-weight:700;font-size:14px">Nee</span>
       </div>
     </div>
 
-    <!-- related -->
-    <div style="border-top:1px solid var(--line);margin-top:36px;padding-top:28px;">
-      <div style="font-family:var(--font-head);font-weight:600;font-size:18px;color:var(--petrol);margin-bottom:14px;">Lees ook</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;" class="kb-related">
-        <a href="{% url 'situatie_gereedschap' %}" class="card-hover" style="text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;"><div style="font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:6px;">Situatie</div><div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);line-height:1.3;">Gereedschap in de bus: de complete dekking</div></a>
-        <a href="{% url 'beroep_timmerman' %}" class="card-hover" style="text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;"><div style="font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:6px;">Beroep</div><div style="font-family:var(--font-head);font-weight:600;font-size:16px;color:var(--petrol);line-height:1.3;">Bestelautoverzekering voor timmerlieden</div></a>
+    <div style="margin-top:24px;padding-top:24px;border-top:1.5px solid #ECECE3">
+      <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.12em;color:#9A9C92;margin-bottom:12px">BRONNEN</div>
+      {% if secties.bronnen %}
+      <div class="mv-prose" style="display:flex;flex-direction:column;gap:9px;font-size:14px;line-height:1.5">{{ secties.bronnen.tekst|safe }}</div>
+      {% else %}
+      <div style="display:flex;flex-direction:column;gap:9px;font-size:14px;line-height:1.5">
+        <a href="https://www.stichtingart.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">Stichting ART — Goedgekeurde motorsloten ↗</a>
+        <a href="https://www.rdw.nl" rel="nofollow noopener" target="_blank" style="color:#4B4DFF;font-weight:600">RDW — Verzekeringsplicht en diefstal ↗</a>
       </div>
+      {% endif %}
     </div>
-  </main>
+  </article>
 
-  <!-- RIGHT TOC -->
-  <aside class="kb-toc" style="position:sticky;top:90px;">
-    <div style="font-family:var(--font-head);font-weight:600;font-size:12px;color:var(--slate-400);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;">Op deze pagina</div>
-    <div style="display:flex;flex-direction:column;gap:8px;border-left:2px solid var(--line);padding-left:14px;">
-      <a href="#basis" style="text-decoration:none;font-size:13.5px;color:var(--orange);font-weight:600;">Is gereedschap standaard verzekerd?</a>
-      <a href="#beroepen" style="text-decoration:none;font-size:13.5px;color:var(--slate-500);">Voor welke vakmensen?</a>
-      <a href="#diefstal" style="text-decoration:none;font-size:13.5px;color:var(--slate-500);">Binnen én buiten werktijd</a>
-      <a href="#kosten" style="text-decoration:none;font-size:13.5px;color:var(--slate-500);">Wat kost het?</a>
-      <a href="#bedrag" style="text-decoration:none;font-size:13.5px;color:var(--slate-500);">Juiste verzekerde bedrag</a>
-      <a href="#tips" style="text-decoration:none;font-size:13.5px;color:var(--slate-500);">Tips voor lagere premie</a>
-      <a href="#fouten" style="text-decoration:none;font-size:13.5px;color:var(--slate-500);">Veelgemaakte fouten</a>
-      <a href="#vragen" style="text-decoration:none;font-size:13.5px;color:var(--slate-500);">Veelgestelde vragen</a>
-    </div>
-    <div style="margin-top:22px;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:16px;">
-      <div style="font-size:13px;color:var(--slate-500);line-height:1.5;margin-bottom:10px;">Was dit artikel nuttig?</div>
-      <div style="display:flex;gap:8px;">
-        <button type="button" style="flex:1;text-align:center;border:1px solid var(--line-strong);border-radius:8px;padding:8px;font-size:13px;font-weight:600;color:var(--petrol);cursor:pointer;background:#fff;">Ja</button>
-        <button type="button" style="flex:1;text-align:center;border:1px solid var(--line-strong);border-radius:8px;padding:8px;font-size:13px;font-weight:600;color:var(--petrol);cursor:pointer;background:#fff;">Nee</button>
+  {# ── Gerelateerde vragen ── #}
+  <section class="mv-band mv-band--white">
+    <div class="mv-wrap">
+      <h2 class="mv-h2" style="font-size:clamp(22px,3vw,30px);margin-bottom:20px">Gerelateerde vragen</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+        <a href="{% url 'kennisbank_artikel' %}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:14px;padding:18px 20px;font-weight:700;font-size:15px">Wat dekt WA + Casco precies? <span style="color:#4B4DFF;font-size:16px">→</span></a>
+        <a href="{% url 'kennisbank_artikel' %}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:14px;padding:18px 20px;font-weight:700;font-size:15px">Ben ik verzekerd bij diefstal? <span style="color:#4B4DFF;font-size:16px">→</span></a>
+        <a href="{% url 'kennisbank_artikel' %}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FBFBF7;border:1.5px solid #ECECE3;border-radius:14px;padding:18px 20px;font-weight:700;font-size:15px">Kan ik in de winter stopzetten? <span style="color:#4B4DFF;font-size:16px">→</span></a>
       </div>
+      <div style="margin-top:24px"><a href="{% url 'kennisbank' %}" class="mv-link">← Terug naar alle vragen</a></div>
     </div>
-  </aside>
-</div>
+  </section>
+
+  {# ── CTA ── #}
+  <section class="mv-band--ink" style="padding:clamp(36px,5vw,56px) clamp(18px,4vw,40px)">
+    <div class="mv-wrap" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+      <div style="flex:1 1 320px">
+        <h2 class="mv-h2" style="font-size:clamp(24px,3vw,32px);margin-bottom:8px">Goed verzekerd de weg op?</h2>
+        <p style="font-size:15px;line-height:1.5;color:#9FA196;margin:0">Bereken in een minuut je premie en vergelijk WA, WA+ en Allrisk.</p>
+      </div>
+      <a href="{% url 'premie_tool' %}" class="mv-btn-lime" style="font-size:16px;padding:16px 24px">Bereken je premie <span style="font-size:18px">→</span></a>
+    </div>
+  </section>
 
 {% endblock %}

@@ -1,0 +1,54 @@
+{# MV shared top navigation. Links from MenuItem (nav_items, context_processor)
+   with a hardcoded fallback; JS-toggled mobile menu (.is-open); active link via
+   request.path. #}
+<div class="mv">
+<nav class="mv-nav" aria-label="Hoofdmenu" data-site-nav>
+  <div class="mv-navbar">
+    <a href="/" class="mv-logo" aria-label="Motorverzekering.nl home">
+      <span class="mv-logotile"><span class="mv-logodot"></span></span>
+      <span class="mv-logotxt">Motorverzekering<span style="color:#4B4DFF">.nl</span></span>
+    </a>
+    <div class="mv-navlinks">
+      {% for item in nav_items %}
+      <a href="{{ item.url|default:'#' }}" class="mv-navlink{% if request.path == item.url %} mv-navlink--active{% endif %}">{{ item.label }}</a>
+      {% endfor %}
+      <span class="mv-sep"></span>
+      <a href="{% url 'premie_tool' %}" class="mv-login"><span class="ic">↪</span>Inloggen</a>
+      <a href="{% url 'premie_tool' %}" class="mv-cta">Bereken premie</a>
+    </div>
+    <button type="button" class="mv-burger" aria-label="Menu openen" aria-expanded="false" aria-controls="mv-mobilemenu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mv-mobilemenu" id="mv-mobilemenu">
+    {% for item in nav_items %}
+    <a href="{{ item.url|default:'#' }}" class="mv-mobilelink">{{ item.label }} <span>→</span></a>
+    {% endfor %}
+    <div style="height:1px;background:#ECECE3;margin:6px 12px"></div>
+    <div style="display:flex;gap:10px;padding:10px 8px 8px">
+      <a href="{% url 'premie_tool' %}" style="flex:1;text-align:center;font-weight:700;font-size:15px;color:#15150F;border:1.5px solid #E6E6DD;padding:13px;border-radius:12px">Inloggen</a>
+      <a href="{% url 'premie_tool' %}" class="mv-cta" style="flex:1;text-align:center">Bereken premie</a>
+    </div>
+  </div>
+</nav>
+</div>
+<script>
+(function(){
+  var nav=document.querySelector('.mv-nav[data-site-nav]');
+  if(!nav) return;
+  var burger=nav.querySelector('.mv-burger');
+  var menu=nav.querySelector('#mv-mobilemenu');
+  if(!burger||!menu) return;
+  function setOpen(open){
+    menu.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', open?'true':'false');
+  }
+  burger.addEventListener('click', function(e){
+    e.stopPropagation();
+    setOpen(!menu.classList.contains('is-open'));
+  });
+  // Close after picking a destination or tapping outside the menu.
+  menu.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
+  document.addEventListener('click', function(e){
+    if(menu.classList.contains('is-open') && !menu.contains(e.target) && !burger.contains(e.target)) setOpen(false);
+  });
+})();
+</script>

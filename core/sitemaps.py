@@ -77,18 +77,6 @@ class ExtraSitemap(_CanonicalSitemap):
         return reverse(name)
 
 
-class HubSitemap(_CanonicalSitemap):
-    changefreq = "weekly"
-    priority = 0.7
-
-    def items(self):
-        from .hubs import HUBS
-        return HUBS
-
-    def location(self, hub):
-        return "/" + hub["path"]
-
-
 class ContentPaginaSitemap(_CanonicalSitemap):
     changefreq = "monthly"
     priority = 0.6
@@ -108,6 +96,5 @@ class ContentPaginaSitemap(_CanonicalSitemap):
 SITEMAPS = {
     "pages": PageSitemap,
     "extra": ExtraSitemap,
-    "hubs": HubSitemap,
     "content": ContentPaginaSitemap,
 }

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{# Shared base for all Motorverzekering.nl (MV design) pages. Keeps base.html's
+   SEO + structured-data machinery; swaps in the MV fonts, stylesheet, nav and
+   footer. Child pages only fill the mv_content block (already wrapped in the
+   .mv scope). Legacy bestelauto pages keep extending base.html directly. #}
+
+{% block head_extra %}
+<link rel="preload" href="{% static 'fonts/manrope-latin-700-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{% static 'fonts/manrope-latin-800-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{% static 'css/motor.css' %}?v=6">
+<style>body{background:#F6F6F0}</style>
+{% block mv_head_extra %}{% endblock %}
+{% endblock %}
+
+{% block site_nav %}{% include "partials/mv_nav.html" %}{% endblock %}
+{% block premie_widget %}{% include "partials/mv_premie_widget.html" %}{% endblock %}
+{% block site_footer %}{% include "partials/mv_footer.html" %}{% endblock %}
+
+{% block content %}<div class="mv">{% block mv_content %}{% endblock %}</div>{% endblock %}

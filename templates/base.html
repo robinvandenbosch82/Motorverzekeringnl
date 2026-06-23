@@ -136,7 +136,7 @@
   </main>
 
   {% block premie_widget %}{% include "partials/premie_widget.html" %}{% endblock %}
-  {% include "partials/site_footer.html" %}
+  {% block site_footer %}{% include "partials/site_footer.html" %}{% endblock %}
 
   <script src="{% static 'js/site.js' %}" defer></script>
   {% block body_extra %}{% endblock %}

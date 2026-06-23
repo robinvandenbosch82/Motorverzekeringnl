@@ -1,0 +1,32 @@
+{# Motorverzekering.nl — shared footer (MV design). Reads SiteSettings (site.*). #}
+<div class="mv">
+<footer class="mv-footer" data-site-footer>
+  <div class="mv-footinner">
+    <div class="mv-foot">
+      <div class="mv-footcol">
+        <a href="/" class="mv-logo" style="margin-bottom:14px">
+          <span style="width:27px;height:27px;border-radius:7px;background:#CBF24A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:11px;height:11px;border-radius:3px;background:#15150F"></span></span>
+          <span style="font-weight:800;font-size:17px">Motorverzekering<span style="color:#7C7EFF">.nl</span></span>
+        </a>
+        <p style="font-size:14px;line-height:1.5;color:#9FA196;margin:14px 0 0;max-width:280px">{{ site.footer_blurb }}</p>
+      </div>
+      {% for col in footer_columns %}
+      <div class="mv-footcol">
+        <h4>{{ col.title|upper }}</h4>
+        <div class="lnks">
+          {% for link in col.links %}<a href="{{ link.url|default:'#' }}"{% if 'http' in link.url %} target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>{% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div style="height:1px;background:#2A2A24;margin:30px 0 18px"></div>
+    <div class="mv-footbar">
+      <div style="font-size:12px;color:#7A7C72;line-height:1.5;max-width:640px">Motorverzekering.nl{% if site.kvk_nummer %} · KvK {{ site.kvk_nummer }}{% endif %}{% if site.afm_nummer %} · AFM {{ site.afm_nummer }}{% endif %}. Een motor moet WA-verzekerd zijn zodra hij op jouw naam staat; zonder verzekering riskeer je een boete van € 500.</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:11px;color:#7A7C72;font-family:'JetBrains Mono'">BETALEN MET</span>
+        <span class="mv-ideal">iDEAL</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>

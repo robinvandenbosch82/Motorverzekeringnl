@@ -22,52 +22,39 @@ FOOTER_CACHE_KEY = "menu_footer_v1"
 MENU_CACHE_TTL = 3600
 
 # ── Hardcoded fallback (used only until the menus are seeded/edited) ─────────
+# Motor (MV-design): flat top-nav, 5 footer columns incl. Juridisch.
 _NAV_FALLBACK = [
-    {"label": "Verzekeren", "url_name": None, "children": [
-        {"label": "Dekkingen", "url_name": "dekkingen"},
-        {"label": "Per merk & model", "url_name": "hub_modellen"},
-        {"label": "Per beroep", "url_name": "hub_beroep"},
-        {"label": "Situaties & beroepen", "url_name": "situaties_beroepen"},
-    ]},
-    {"label": "Vergelijken", "url_name": "vergelijken", "children": []},
-    {"label": "Kennisbank", "url_name": None, "children": [
-        {"label": "Kennisbank", "url_name": "kennisbank"},
-        {"label": "Verzekeraars", "url_name": "verzekeraars"},
-        {"label": "Schade", "url_name": "hub_schade"},
-        {"label": "Per regio", "url_name": "hub_regio"},
-        {"label": "Vergelijkingen", "url_name": "hub_vergelijking"},
-        {"label": "Blog & nieuws", "url_name": "blog"},
-    ]},
-    {"label": "Over ons", "url_name": None, "children": [
-        {"label": "Over ons & vertrouwen", "url_name": "over_ons"},
-        {"label": "Klantenservice", "url_name": "klantenservice"},
-    ]},
+    {"label": "Dekkingen", "url_name": "dekkingen", "children": []},
+    {"label": "Blog", "url_name": "blog", "children": []},
+    {"label": "Kennisbank", "url_name": "kennisbank", "children": []},
+    {"label": "Klantenservice", "url_name": "klantenservice", "children": []},
 ]
 
 _FOOTER_FALLBACK = [
-    {"title": "Verzekeren", "links": [
-        {"label": "WA, WA+ en Allrisk", "url_name": "dekkingen"},
-        {"label": "Gereedschapdekking", "url_name": "situatie_gereedschap"},
-        {"label": "Premie berekenen", "url_name": "premie_tool"},
-        {"label": "Vergelijken", "url_name": "vergelijken"},
+    {"title": "Verzekering", "links": [
+        {"label": "WA", "url_name": "dekkingen"},
+        {"label": "WA + Casco", "url_name": "dekkingen"},
+        {"label": "Allrisk", "url_name": "dekkingen"},
+        {"label": "Voorwaarden", "path": "/algemene-voorwaarden/"},
     ]},
-    {"title": "Ontdekken", "links": [
-        {"label": "Per beroep", "url_name": "hub_beroep"},
-        {"label": "Per merk & model", "url_name": "hub_modellen"},
-        {"label": "Schade", "url_name": "hub_schade"},
-        {"label": "Per regio", "url_name": "hub_regio"},
-    ]},
-    {"title": "Kennisbank", "links": [
+    {"title": "Service", "links": [
+        {"label": "Schade melden", "url_name": "klantenservice"},
         {"label": "Veelgestelde vragen", "url_name": "kennisbank"},
-        {"label": "Verzekeraars", "url_name": "verzekeraars"},
-        {"label": "Blog & nieuws", "url_name": "blog"},
+        {"label": "Blog", "url_name": "blog"},
+        {"label": "Klantenservice", "url_name": "klantenservice"},
+    ]},
+    {"title": "Bedrijf", "links": [
         {"label": "Over ons", "url_name": "over_ons"},
+        {"label": "Reviews", "url_name": "over_ons"},
+        {"label": "Contact", "url_name": "klantenservice"},
     ]},
     {"title": "Juridisch", "links": [
-        {"label": "Disclaimer", "path": "/disclaimer/"},
-        {"label": "Dienstenwijzer", "path": "/dienstenwijzer/"},
-        {"label": "Privacy & cookies", "path": "/privacy-cookies/"},
         {"label": "Algemene voorwaarden", "path": "/algemene-voorwaarden/"},
+        {"label": "Privacy & cookies", "path": "/privacy-cookies/"},
+        {"label": "Dienstenwijzer", "path": "/dienstenwijzer/"},
+        {"label": "Disclaimer", "path": "/disclaimer/"},
+        {"label": "Toegankelijkheidsverklaring",
+         "path": "https://cdn.autoverzekering.nl/doc/Toegankelijkheidsverklaring-Autoverzekering.nl_.pdf"},
     ]},
 ]
 
@@ -141,6 +128,13 @@ def site_context(request):
     except Exception:
         nav_items, footer_columns = _fallback_nav(), _fallback_footer()
 
+    # Copy for the global premie-conversion band (admin-editable, every page).
+    try:
+        from .content import secties
+        premie_band = secties("premie_widget").get("band")
+    except Exception:
+        premie_band = None
+
     # Stable, host-independent origin for structured-data @id's and canonical
     # URLs. In dev this points at the production domain on purpose: a canonical
     # URL should always be the production one, and @id's must be identical on
@@ -156,6 +150,7 @@ def site_context(request):
         "default_seo_description": settings.DEFAULT_SEO_DESCRIPTION,
         "nav_items": nav_items,
         "footer_columns": footer_columns,
+        "premie_band": premie_band,
         "site": site,
         "review_score": site.review_score,
         "review_count": site.review_count,
