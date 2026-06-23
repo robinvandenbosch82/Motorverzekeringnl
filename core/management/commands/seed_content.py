@@ -613,6 +613,54 @@ BLOG_BODIES = {
 <h3>Is een helm- en kledingdekking de moeite waard?</h3>
 <p>Dat hangt af van de waarde van je uitrusting en de extra premie. Een complete set van een goede helm, jas, broek, handschoenen en laarzen vertegenwoordigt al snel een flinke waarde, en juist die spullen raken beschadigd als je met de motor valt. Is je uitrusting nieuw of kostbaar, dan kan de dekking de relatief beperkte meerpremie waard zijn. Rijd je weinig of is je uitrusting al sterk afgeschreven, dan weegt het voordeel minder zwaar. Reken de jaarlijkse meerkosten af tegen wat je in één keer zou moeten vervangen en beslis op basis daarvan.</p>
 """,
+    "Eendagskenteken voor je motor verzekeren": """
+<p>Een <strong>eendagskenteken</strong> laat je een motor zonder geldige Nederlandse registratie één dag legaal over de openbare weg rijden, bijvoorbeeld om een geïmporteerde motor naar de RDW-keuring te brengen. Ook voor die ene dag geldt de verzekeringsplicht: je hebt een geldige WA-dekking nodig zodra je de weg op gaat. In de praktijk regel je dat met een kortlopende dagdekking of een polis die op die dag ingaat.</p>
+<h2>Wat is een eendagskenteken?</h2>
+<p>Een eendagskenteken is een tijdelijke registratie waarmee je een voertuig dat (nog) geen geldig Nederlands kenteken heeft, voor één dag legaal op de openbare weg mag rijden. Je vraagt het aan via de RDW. Het is bedoeld om een voertuig van A naar B te brengen, niet om er rond te toeren. De klassieke situatie is een uit het buitenland geïmporteerde motor die je naar een keuringsstation van de RDW rijdt voor de identificatiekeuring, zodat er daarna een definitief Nederlands kenteken op kan komen.</p>
+<h2>Wanneer gebruik je het?</h2>
+<p>Je komt een eendagskenteken vooral tegen bij import. Heb je een motor in het buitenland gekocht, dan moet die eerst door de RDW worden gekeurd en geregistreerd voordat hij een Nederlands kenteken krijgt. Tot dat moment heeft de motor geen geldige Nederlandse registratie en mag je er normaal gesproken niet mee de weg op. Met een eendagskenteken overbrug je die dag: je rijdt de motor legaal naar de keuringsafspraak. Voor de rit terug of voor ander gebruik heb je het kenteken niet; het is echt bedoeld voor die ene verplaatsing.</p>
+<h2>De kernregel: ook één dag rijden vereist een WA-verzekering</h2>
+<p>De verzekeringsplicht hangt aan het rijden op de openbare weg, niet aan de duur. Rijd je ook maar één dag met een eendagskenteken, dan moet de motor die dag een geldige WA-verzekering hebben. Veroorzaak je onverzekerd schade aan een ander, dan draai je daar zelf voor op en riskeer je bovendien een boete wegens een onverzekerd voertuig. Regel de dekking dus vóórdat je vertrekt, niet achteraf. De WA-dekking is het wettelijke minimum; cascodekking voor schade aan de motor zelf is bij zo'n korte rit meestal niet aan de orde, maar check dat als de motor waardevol is.</p>
+<h2>Hoe verzeker je een motor voor één dag?</h2>
+<p>Voor een eenmalige rit sluit je doorgaans een kortlopende verzekering of dagdekking af bij een verzekeraar die dat aanbiedt, of je laat je gewone motorpolis op die dag ingaan. Omdat er nog geen definitief kenteken is, identificeer je de motor met het <strong>voertuigidentificatienummer</strong> (chassisnummer/VIN) en de gegevens van het eendagskenteken. Niet elke verzekeraar biedt losse dagdekking aan, dus vraag vooraf na wat er mogelijk is en welke gegevens je moet aanleveren. Sluit je sowieso meteen een reguliere verzekering af omdat je de motor gaat houden, dan kun je die vaak op de dag van de keuringsrit laten ingaan.</p>
+<h2>Alternatieven voor zelf rijden</h2>
+<p>Je hoeft de motor niet per se op eigen wielen naar de keuring te brengen. Vervoer je hem op een aanhanger of in een bus, dan rijdt de motor niet zelf op de openbare weg en heb je voor die verplaatsing geen eendagskenteken en geen aparte motorverzekering nodig; het trekkende voertuig en de aanhanger vallen onder hun eigen verzekering. Voor bedrijven die regelmatig ongekentekende voertuigen verplaatsen, bestaat het handelaarskenteken (de groene kentekenplaat) met een eigen verzekering. Voor een particulier die één motor moet keuren, is transport op een aanhanger vaak de simpelste route.</p>
+<table><thead><tr><th>Situatie</th><th>Eendagskenteken nodig?</th><th>Verzekering</th></tr></thead><tbody>
+<tr><td>Geïmporteerde motor zelf naar de RDW-keuring rijden</td><td>Ja</td><td>WA-dekking voor die dag verplicht</td></tr>
+<tr><td>Motor op een aanhanger naar de keuring vervoeren</td><td>Nee</td><td>Valt onder verzekering trekkend voertuig/aanhanger</td></tr>
+<tr><td>Motor met geldig Nederlands kenteken</td><td>Nee</td><td>Reguliere motorverzekering</td></tr>
+<tr><td>Bedrijf dat vaak ongekentekende voertuigen verplaatst</td><td>Handelaarskenteken</td><td>Eigen handelaarsverzekering</td></tr>
+</tbody></table>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Denken dat één dag rijden geen verzekering vereist.</strong> De verzekeringsplicht geldt ook voor die ene rit.</li>
+<li><strong>De dekking pas achteraf regelen.</strong> Zorg dat de WA-dekking actief is vóór je vertrekt.</li>
+<li><strong>Aannemen dat elke verzekeraar dagdekking biedt.</strong> Niet iedereen doet dit; vraag het vooraf na.</li>
+<li><strong>Zonder eendagskenteken een ongekentekende motor de weg op gaan.</strong> Dat is niet toegestaan; vervoer hem dan op een aanhanger.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Vraag het eendagskenteken aan via de RDW voor de keuringsrit.</li>
+<li>Regel een WA-dekking voor die dag, of laat je reguliere polis ingaan.</li>
+<li>Houd het voertuigidentificatienummer (chassisnummer) bij de hand.</li>
+<li>Overweeg transport op een aanhanger als alternatief.</li>
+<li>Controleer dat de dekking actief is vóór je vertrekt.</li>
+</ul>
+<p>Ga je de motor daarna houden? Sluit dan meteen een reguliere verzekering af en bereken wat die kost via het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>. Welke basisdekking je nodig hebt, lees je in <a href="/blog/wa-wa-of-allrisk-welke-motorverzekering-past-bij-jouw-motor/">WA, WA+ of Allrisk</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Heb ik een verzekering nodig bij een eendagskenteken?</h3>
+<p>Ja. De verzekeringsplicht geldt zodra je op de openbare weg rijdt, ongeacht of dat één dag of een heel jaar is. Rijd je met een eendagskenteken naar de RDW-keuring, dan moet de motor die dag een geldige WA-verzekering hebben. Veroorzaak je onverzekerd schade, dan betaal je die zelf en riskeer je een boete wegens een onverzekerd voertuig. Regel de dekking daarom vóór vertrek, bijvoorbeeld met een kortlopende dagdekking of door je reguliere polis op die dag te laten ingaan.</p>
+<h3>Waarvoor gebruik je een eendagskenteken?</h3>
+<p>Meestal om een geïmporteerde motor zonder Nederlands kenteken legaal naar de RDW-keuring te rijden. Pas na die identificatiekeuring en registratie krijgt de motor een definitief Nederlands kenteken. Tot dat moment mag je er normaal niet mee de weg op; het eendagskenteken overbrugt die ene verplaatsing. Het is niet bedoeld voor gewoon rondrijden, maar puur om het voertuig van A naar B te brengen, doorgaans naar de keuringsafspraak.</p>
+<h3>Hoe verzeker ik een motor zonder definitief kenteken?</h3>
+<p>Omdat er nog geen kenteken is, identificeer je de motor met het voertuigidentificatienummer (chassisnummer) en de gegevens van het eendagskenteken. Je sluit een kortlopende verzekering of dagdekking af bij een verzekeraar die dat aanbiedt, of je laat je gewone motorpolis op de dag van de rit ingaan. Niet elke verzekeraar biedt losse dagdekking, dus vraag vooraf na wat mogelijk is en welke gegevens je moet aanleveren. Houd het chassisnummer bij de hand bij het afsluiten.</p>
+<h3>Kan ik de motor ook zonder eendagskenteken naar de keuring brengen?</h3>
+<p>Ja, door hem te vervoeren in plaats van te rijden. Zet je de motor op een aanhanger of in een bus, dan rijdt hij niet zelf op de openbare weg en heb je voor die verplaatsing geen eendagskenteken en geen aparte motorverzekering nodig. Het trekkende voertuig en de aanhanger vallen onder hun eigen verzekering. Voor een particulier die één motor moet laten keuren, is transport op een aanhanger vaak de eenvoudigste en goedkoopste oplossing.</p>
+<h3>Wat is het verschil met een handelaarskenteken?</h3>
+<p>Een eendagskenteken is een eenmalige oplossing voor één verplaatsing van één voertuig. Een handelaarskenteken (de groene kentekenplaat) is bedoeld voor bedrijven die regelmatig voertuigen verplaatsen die niet op hun naam staan, zoals dealers en garages, en heeft een eigen handelaarsverzekering. Voor een particulier die incidenteel een geïmporteerde motor moet keuren, is een handelaarskenteken niet aan de orde; dan kies je het eendagskenteken of vervoer op een aanhanger.</p>
+<h3>Geldt het eendagskenteken ook voor de terugrit?</h3>
+<p>Nee, een eendagskenteken is bedoeld voor één verplaatsing, doorgaans de rit naar de keuring. Voor een terugrit of ander gebruik dekt het je niet. Slaagt je motor voor de identificatiekeuring en wordt hij geregistreerd, dan krijgt hij een definitief Nederlands kenteken en sluit je een reguliere motorverzekering af waarmee je vanaf dat moment gewoon mag rijden. Plan dat zo dat je verzekering aansluit op het moment dat het kenteken rond is, zodat er geen dag tussen valt waarop je onverzekerd of zonder geldige registratie rijdt.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
