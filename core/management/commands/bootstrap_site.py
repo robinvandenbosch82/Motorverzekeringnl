@@ -34,16 +34,17 @@ class Command(BaseCommand):
         base = Path(settings.BASE_DIR)
         media_root = Path(settings.MEDIA_ROOT)
 
-        # 1) DATA — seed the authored motor content (idempotent guard on content).
-        #    seed_content is the single source of truth (alle SectieTekst/Kaart/menu's/
-        #    verzekeraars/legal pages); sync_pages maakt de Page-rijen. Eenmalig op een
-        #    lege DB; daarna bezit de admin de content (de guard slaat latere deploys over).
-        if opts["force"] or not ContentPagina.objects.exists():
-            self.stdout.write("Motor-content seeden (seed_content + sync_pages)…")
-            call_command("seed_content")
-            call_command("sync_pages")
-        else:
-            self.stdout.write("Content bestaat al -> seeden overgeslagen.")
+        # 1) DATA — seed de geauthorde motor-content op ELKE deploy, zodat nieuwe
+        #    pagina's/artikelen/velden direct live komen. seed_content is de bron van
+        #    waarheid: SectieTekst/Kaart/menu's/SiteSettings via get_or_create (admin-
+        #    edits blijven), maar artikelen (blog/kennisbank) en verzekeraars worden
+        #    vervangen door de seed. LET OP: zodra de redactie blog/kennisbank in de
+        #    admin gaat bewerken, moet dit idempotent worden (update_or_create op slug)
+        #    om die edits niet te overschrijven. Zie ContentPagina nog niet bestaat-pad
+        #    voor de allereerste (lege) deploy.
+        self.stdout.write("Motor-content seeden (seed_content + sync_pages)…")
+        call_command("seed_content")
+        call_command("sync_pages")
 
         # 1b) Gedachtestreepjes -> komma's (Robin's voorkeur). Idempotent: elke deploy
         #     zodat ook admin-edits met een streepje genormaliseerd worden.
