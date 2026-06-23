@@ -465,6 +465,59 @@ BLOG_BODIES = {
 <h3>Begin ik op nul als mijn verzekeraar auto-jaren niet overneemt?</h3>
 <p>Als je verzekeraar geen auto-jaren overneemt en je hebt nog niet eerder een motor verzekerd, dan start je voor de motor zonder opgebouwde schadevrije jaren. Je betaalt dan de premie zonder no-claimkorting en bouwt vanaf dat moment per schadevrij jaar zelf korting op. Het loont in dat geval om te vergelijken: een verzekeraar die je auto-jaren wél meetelt, kan je vanaf de start een flink lagere premie geven. Regel een eventuele overname meteen bij het afsluiten, want achteraf jaren laten meetellen is bij veel verzekeraars lastiger.</p>
 """,
+    "Groene kaart en motorverzekering in het buitenland": """
+<p>De <strong>groene kaart</strong> is je internationaal verzekeringsbewijs: het document waarmee je in het buitenland aantoont dat je motor een geldige WA-verzekering heeft. Je verzekeraar geeft de kaart gratis bij je polis en hij vermeldt in welke landen je verzekering geldt. De groene kaart dekt alleen de wettelijk verplichte aansprakelijkheid (WA); of je ook voor diefstal of eigen schade verzekerd bent in het buitenland, hangt af van het dekkingsgebied in je polisvoorwaarden.</p>
+<h2>Wat is de groene kaart precies?</h2>
+<p>De groene kaart heet officieel het internationaal verzekeringsbewijs (International Motor Insurance Card). Het is een uniform Europees document dat bewijst dat je voertuig minstens de wettelijk verplichte WA-dekking heeft. Sinds 2020 hoeft de kaart niet meer op groen papier te staan: je verzekeraar mag hem in zwart-wit op gewoon wit papier aanleveren, vaak als pdf die je zelf print. De naam "groene kaart" is daarbij gewoon blijven bestaan. In veel landen mag je de kaart ook digitaal op je telefoon laten zien, maar omdat dat niet overal is toegestaan, is een geprinte versie in je motortas het veiligst.</p>
+<h2>De kernregel: de groene kaart dekt WA, niet casco</h2>
+<p>De groene kaart zegt alleen iets over je aansprakelijkheidsdekking: schade die je in het buitenland aan anderen toebrengt, is gedekt tot minimaal het wettelijke minimum van het land waar je rijdt. Wat de kaart <em>niet</em> regelt, is schade aan je eigen motor. Of diefstal, brand en eigen schade in het buitenland zijn meeverzekerd, hangt volledig af van je dekking (WA+ of Allrisk) en het dekkingsgebied dat in je polisvoorwaarden staat. Reis je naar het buitenland, controleer dan dus twee dingen apart: of het land op je groene kaart gedekt is voor WA, én of je casco-dekking daar geldt.</p>
+<h2>In welke landen ben je verzekerd?</h2>
+<p>Op de groene kaart staat een rij met internationale landcodes (NL, D, F, B, E, I, en zo verder). Het principe is simpel: een landcode die <strong>niet is doorgestreept</strong>, is gedekt; een doorgestreepte code is uitgesloten. Binnen de Europese Unie en de meeste omringende landen ben je met je Nederlandse kenteken automatisch WA-verzekerd dankzij het kentekenverdrag, ook zonder dat je de kaart toont. Voor een aantal landen buiten de EU die wel zijn aangesloten bij het groenekaartsysteem, kan de kaart wél verplicht zijn om de grens over te mogen.</p>
+<table><thead><tr><th>Bestemming</th><th>WA-dekking via groene kaart</th></tr></thead><tbody>
+<tr><td>EU-landen (Duitsland, Frankrijk, België, Spanje, Italië, enzovoort)</td><td>Automatisch gedekt; kaart aangeraden, niet verplicht</td></tr>
+<tr><td>EER + Zwitserland</td><td>Doorgaans automatisch gedekt; controleer je kaart</td></tr>
+<tr><td>Aangesloten landen buiten de EU (zoals Servië, Bosnië-Herzegovina, Noord-Macedonië, Montenegro, Albanië, Turkije, Oekraïne)</td><td>Vaak alleen gedekt als het land op je kaart staat; kaart meestal verplicht</td></tr>
+<tr><td>Doorgestreepte landcodes op je kaart</td><td>Niet gedekt</td></tr>
+</tbody></table>
+<p>De exacte landenlijst verschilt per verzekeraar en kan veranderen, dus de kaart in jouw motortas is altijd leidend. Twijfel je over een bestemming buiten de EU, vraag dan vooraf bij je verzekeraar na of het land gedekt is en of je een aanvullende dekking nodig hebt.</p>
+<h2>Hoe lees je de groene kaart?</h2>
+<p>Op de kaart staan je kenteken, het merk van je motor, de geldigheidsperiode, de naam van je verzekeraar en het groenekaartnummer. Controleer voor vertrek drie dingen: of je kenteken klopt, of de kaart geldig is voor de hele reisperiode (een kaart die tijdens je reis verloopt, dekt het laatste deel niet) en of alle landen die je aandoet niet zijn doorgestreept. Rijd je door een land heen naar je eindbestemming, dan moet dat doorreisland óók gedekt zijn. Het groenekaartnummer heb je nodig als je in het buitenland schade meldt, dus bewaar de kaart goed bereikbaar.</p>
+<h2>Casco en pechhulp in het buitenland</h2>
+<p>Voor diefstal en eigen schade kijk je naar het dekkingsgebied in je polisvoorwaarden, niet naar de groene kaart. Veel WA+- en Allrisk-polissen dekken heel Europa, maar sommige hanteren een beperkter gebied of een maximale aaneengesloten periode dat de motor in het buitenland mag staan. Ga je langer weg of buiten Europa, controleer dat dan expliciet. Pechhulp en repatriëring (je motor terug naar Nederland laten brengen na pech of een ongeval) zitten meestal niet standaard in een motorverzekering; dat regel je via een aparte pechhulpdekking of een reisbijstandsverzekering. Voor een dure of nieuwe motor is dat onderweg vaak het overwegen waard.</p>
+<h2>Wat te doen bij schade in het buitenland?</h2>
+<p>Heb je een aanrijding in het buitenland, vul dan samen met de tegenpartij een <strong>Europees schadeformulier</strong> in; dat is in heel Europa hetzelfde formulier, alleen in een andere taal, zodat de vakjes overal overeenkomen. Noteer het groenekaartnummer en de gegevens van de tegenpartij, maak foto's van de situatie en de schade, en meld de schade zo snel mogelijk bij je eigen verzekeraar. Bij diefstal van je motor doe je altijd ter plaatse aangifte bij de lokale politie; die aangifte heb je nodig om je cascoclaim te onderbouwen. Bewaar alle documenten tot de schade is afgehandeld.</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Denken dat de groene kaart ook diefstal dekt.</strong> De kaart gaat alleen over WA; casco staat los in je polisvoorwaarden.</li>
+<li><strong>Een doorreisland over het hoofd zien.</strong> Elk land waar je doorheen rijdt, moet gedekt zijn, niet alleen je eindbestemming.</li>
+<li><strong>Een verlopen kaart meenemen.</strong> Controleer of de geldigheidsperiode je hele reis dekt.</li>
+<li><strong>Alleen digitaal vertrouwen.</strong> Niet elk land accepteert een kaart op je telefoon; neem ook een geprinte versie mee.</li>
+<li><strong>Pechhulp vergeten.</strong> Repatriëring van je motor zit meestal niet in de verzekering en regel je apart.</li>
+</ul>
+<h2>Checklist voor vertrek</h2>
+<ul>
+<li>Controleer of je groene kaart geldig is voor je hele reisperiode.</li>
+<li>Check dat alle landen die je aandoet niet zijn doorgestreept.</li>
+<li>Print de kaart en leg hem bereikbaar in je motortas.</li>
+<li>Kijk in je polisvoorwaarden of casco in het buitenland geldt.</li>
+<li>Regel zo nodig pechhulp of repatriëring apart.</li>
+<li>Stop een Europees schadeformulier bij je papieren.</li>
+</ul>
+<p>Wil je weten welke dekking je in het buitenland precies hebt? Bekijk eerst het verschil tussen <a href="/blog/wa-wa-of-allrisk-welke-motorverzekering-past-bij-jouw-motor/">WA, WA+ en Allrisk</a> en vergelijk daarna gericht via het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>, waar je per verzekeraar het dekkingsgebied terugziet.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Heb ik binnen de EU een groene kaart nodig?</h3>
+<p>Wettelijk hoef je de groene kaart binnen de EU niet te tonen: dankzij het kentekenverdrag is je Nederlandse WA-verzekering automatisch geldig in alle EU-landen. Toch is het sterk aan te raden de kaart mee te nemen. Bij een controle of na een ongeval toon je er direct mee aan dat je verzekerd bent, wat de afhandeling versnelt. Het groenekaartnummer heb je bovendien nodig om schade te melden. Een geprinte kaart in je motortas kost niets en voorkomt gedoe onderweg.</p>
+<h3>Moet de groene kaart nog echt groen zijn?</h3>
+<p>Nee. Sinds 2020 mag de kaart in zwart-wit op gewoon wit papier worden geprint; de groene kleur is niet meer verplicht. De naam "groene kaart" is wel gebleven. Je verzekeraar levert hem vaak als pdf die je zelf uitprint of in je verzekerings-app vindt. In veel landen mag je de kaart digitaal op je telefoon laten zien, maar omdat dat niet overal is toegestaan, neem je het zekere voor het onzekere met een geprinte versie.</p>
+<h3>Dekt de groene kaart ook diefstal van mijn motor in het buitenland?</h3>
+<p>Nee. De groene kaart bewijst alleen je WA-dekking, dus schade die je aan anderen toebrengt. Diefstal valt onder casco (WA+ of Allrisk) en of die dekking in het buitenland geldt, staat in je polisvoorwaarden onder het dekkingsgebied. Veel cascopolissen dekken heel Europa, maar sommige hanteren een beperkter gebied of een maximale periode in het buitenland. Controleer dit vóór vertrek apart van je groene kaart en doe bij diefstal altijd aangifte bij de lokale politie.</p>
+<h3>Wat moet ik doen bij een ongeval in het buitenland?</h3>
+<p>Vul samen met de tegenpartij een Europees schadeformulier in; dat formulier is in heel Europa identiek opgebouwd, alleen in een andere taal. Noteer het groenekaartnummer en de gegevens van de tegenpartij, maak foto's van de plek en de schade, en meld alles zo snel mogelijk bij je eigen verzekeraar. Bewaar alle documenten tot de schade is afgehandeld. Is je motor gestolen of zwaar beschadigd, schakel dan ook de lokale politie in en vraag om een proces-verbaal voor je claim.</p>
+<h3>Ben ik verzekerd als ik door een land heen rijd dat niet op mijn kaart staat?</h3>
+<p>Niet vanzelfsprekend. Elk land waar je doorheen rijdt naar je eindbestemming, moet zelf gedekt zijn op je groene kaart. Een land waarvan de code is doorgestreept, is uitgesloten, ook al is het maar een doorreis. Plan daarom je route en controleer dat alle landen onderweg niet zijn doorgestreept. Mist er een land, neem dan vooraf contact op met je verzekeraar; soms kan dat land tegen voorwaarden alsnog op de kaart worden bijgezet.</p>
+<h3>Geldt mijn pechhulp ook in het buitenland?</h3>
+<p>Pechhulp en repatriëring zitten meestal niet standaard in een motorverzekering. Wil je dat je motor na pech of een ongeval in het buitenland gerepareerd of teruggebracht wordt, dan regel je dat via een aparte pechhulpdekking of een reisbijstandsverzekering. Controleer vóór vertrek of je zo'n dekking hebt en tot welk bedrag en gebied die geldt. Voor een dure of nieuwe motor weegt deze extra dekking vaak op tegen de kosten, omdat repatriëring over een grote afstand fors kan oplopen.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
