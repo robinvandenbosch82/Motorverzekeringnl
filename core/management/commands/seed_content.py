@@ -185,6 +185,11 @@ BLOG = [
      "excerpt": "Wat pechhulp dekt, het verschil tussen Nederland en Europa, en wanneer deze aanvullende dekking de moeite waard is.",
      "meta_title": "Pechhulp motorverzekering: dekking in NL en Europa | Motorverzekering.nl",
      "meta_description": "Pechhulp is een aparte dekking voor pech onderweg. Lees wat het dekt, het verschil tussen Nederland en Europa en wanneer het loont."},
+    {"titel": "Opzittendenverzekering voor je motor: wat dekt het?",
+     "categorie": "Dekkingen", "leestijd": "5 min", "image": "img/motor/moto-595807.jpg",
+     "excerpt": "Waarom je WA je passagier wel dekt maar jezelf niet, en hoe een opzittendenverzekering letsel van bestuurder én passagier vergoedt.",
+     "meta_title": "Opzittendenverzekering motor: wat dekt het? | Motorverzekering.nl",
+     "meta_description": "Een opzittendenverzekering dekt letsel van bestuurder en passagier, ook bij een eenzijdig ongeval. Lees wat het dekt en wanneer het loont."},
 ]
 
 # Volledig uitgeschreven artikelen (titel -> body_html). Feitelijk, geen fluff.
@@ -873,6 +878,60 @@ BLOG_BODIES = {
 <p>Dan kan de verzekeraar de hulp weigeren. Veel pechhulpdekkingen gaan ervan uit dat je motor goed is onderhouden; pech die het gevolg is van achterstallig onderhoud of een bekend, niet verholpen gebrek valt vaak buiten de dekking. Houd je onderhoud daarom bij en los storingen op tijd op. Zo voorkom je niet alleen pech onderweg, maar ook discussie of je hulp wel onder de dekking valt op het moment dat je stilstaat.</p>
 <h3>Is pechhulp via mijn verzekering nodig als ik al wegenwacht heb?</h3>
 <p>Niet per se. Heb je al een losse pechhulpdienst die je motor dekt voor het gebied waar je rijdt, dan kan dat de pechhulp bij je verzekering overbodig maken. Controleer wel of je bestaande dienst je motor (en niet alleen je auto) dekt, en of het gebied en de onderdelen aansluiten op je gebruik. Dubbel verzekerd zijn voor hetzelfde heeft geen zin; één goede pechhulp die je motor en je rijgebied dekt, is voldoende.</p>
+""",
+    "Opzittendenverzekering voor je motor: wat dekt het?": """
+<p>Een opzittendenverzekering vergoedt letsel van de mensen op de motor: de bestuurder en een eventuele passagier (opzittende). Dat is belangrijk, want je WA-verzekering dekt wél het letsel van je passagier als jij aansprakelijk bent, maar <strong>niet je eigen letsel</strong> als bestuurder. Een opzittendenverzekering vult dat gat en keert bovendien uit bij een eenzijdig ongeval, waarbij geen ander partij aansprakelijk is.</p>
+<h2>De kernregel: WA dekt de ander, niet jezelf</h2>
+<p>De wettelijk verplichte WA-verzekering dekt schade die je aan anderen toebrengt. Je passagier telt daarbij als een ander: raakt die gewond door jouw toedoen, dan vergoedt je WA dat letsel. Maar als bestuurder ben je geen "ander" tegenover je eigen verzekering, dus je eigen letsel valt niet onder je WA. Heb je een eenzijdig ongeval, bijvoorbeeld een val in een bocht zonder dat iemand anders schuld heeft, dan is er geen aansprakelijke partij en keert ook geen WA uit, voor jou niet en soms ook niet voor je passagier. Daar is een opzittendenverzekering voor bedoeld.</p>
+<h2>Wat is een opzittendenverzekering?</h2>
+<p>Een opzittendenverzekering is een aanvullende dekking voor letsel van iedereen op de motor, ongeacht wie schuld heeft aan het ongeval. Er bestaan twee hoofdvormen, die verzekeraars verschillend kunnen noemen:</p>
+<ul>
+<li><strong>Ongevallenverzekering opzittenden:</strong> keert vaste, vooraf afgesproken bedragen uit bij overlijden of blijvende invaliditeit van bestuurder of passagier. De uitkering staat los van de werkelijke schade.</li>
+<li><strong>Schadeverzekering opzittenden (SVO):</strong> vergoedt de werkelijke letselschade van bestuurder en passagier, zoals inkomensverlies en medische kosten, op basis van no-claim/zonder dat schuld een rol speelt.</li>
+</ul>
+<p>Welke vorm een verzekeraar aanbiedt en tot welke bedragen, verschilt. De kaart "Opzittenden" op deze site verwijst naar dekking voor letselschade; lees in je voorwaarden welke variant en welke maxima gelden.</p>
+<h2>Waarom is dit voor motorrijders relevant?</h2>
+<p>Motorrijders zijn kwetsbaar: bij een ongeval is er geen carrosserie die je beschermt, dus de kans op letsel is groter dan in een auto. Tegelijk dekt je WA je eigen letsel niet. Val je eenzijdig of ben je zelf de veroorzaker, dan sta je zonder opzittendenverzekering met de medische kosten en eventueel inkomensverlies in de kou. Neem je vaak een passagier mee, dan speelt ook diens bescherming mee, zeker bij een ongeval zonder aansprakelijke tegenpartij. Juist door die kwetsbaarheid is deze dekking voor motorrijders vaak waardevoller dan voor automobilisten.</p>
+<table><thead><tr><th>Situatie</th><th>Wie betaalt het letsel?</th></tr></thead><tbody>
+<tr><td>Passagier gewond, jij aansprakelijk</td><td>Je WA (passagier = derde)</td></tr>
+<tr><td>Jouw eigen letsel, tegenpartij aansprakelijk</td><td>De WA van de tegenpartij</td></tr>
+<tr><td>Jouw eigen letsel bij een eenzijdig ongeval</td><td>Opzittendenverzekering</td></tr>
+<tr><td>Passagier gewond bij een eenzijdig ongeval</td><td>Opzittendenverzekering</td></tr>
+<tr><td>Schade aan je motor</td><td>Casco (WA+ of Allrisk)</td></tr>
+</tbody></table>
+<h2>Twee varianten naast elkaar</h2>
+<p>Het verschil tussen de twee vormen zit in hoe wordt uitgekeerd. Een ongevallenverzekering keert een <strong>vast bedrag</strong> uit bij overlijden of blijvende invaliditeit, ongeacht de werkelijke schade; dat is eenvoudig maar dekt niet per se al je kosten. Een schadeverzekering opzittenden vergoedt de <strong>werkelijke letselschade</strong> (binnen het verzekerd bedrag), wat dichter bij de echte gevolgen ligt, zoals gemiste inkomsten. Wil je vooral een vangnet bij ernstige gevolgen, dan kan een ongevallenvariant volstaan; wil je je werkelijke schade afdekken, dan past een schadeverzekering opzittenden beter. Vergelijk de dekking en de bedragen voordat je kiest.</p>
+<h2>Wanneer is het de moeite waard?</h2>
+<p>Een opzittendenverzekering loont vooral als je geen andere voorziening hebt die je inkomen of medische kosten bij blijvend letsel opvangt, als je regelmatig een passagier meeneemt, of als je veel rijdt en het risico op een eenzijdig ongeval reëel is. Heb je al een ruime ongevallen- of arbeidsongeschiktheidsdekking, dan overlapt dat deels en weegt het voordeel minder zwaar. Omdat de premie bescheiden is tegenover de mogelijke gevolgen van ernstig letsel, is het voor veel motorrijders een overweging waard. Reken je situatie door: wat vangt je op als je na een val langdurig niet kunt werken?</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Denken dat je WA ook jezelf dekt.</strong> Je WA dekt anderen, niet je eigen letsel als bestuurder.</li>
+<li><strong>Aannemen dat een eenzijdig ongeval altijd wordt vergoed.</strong> Zonder aansprakelijke tegenpartij is er geen WA die uitkeert.</li>
+<li><strong>De twee varianten verwarren.</strong> Een vast bedrag (ongevallen) is iets anders dan je werkelijke schade (schadeverzekering opzittenden).</li>
+<li><strong>De passagier vergeten.</strong> Neem je vaak iemand mee, kijk dan of die bij een eenzijdig ongeval gedekt is.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Bepaal of je je eigen letsel als bestuurder wilt afdekken.</li>
+<li>Kies tussen een vast bedrag (ongevallen) of werkelijke schade (schadeverzekering opzittenden).</li>
+<li>Controleer de verzekerde bedragen en uitsluitingen.</li>
+<li>Check of een passagier standaard is meeverzekerd.</li>
+<li>Vergelijk met dekkingen die je misschien al hebt (ongevallen/arbeidsongeschiktheid).</li>
+</ul>
+<p>Wil je eerst de basis op een rij? Lees het verschil tussen <a href="/blog/wa-wa-of-allrisk-welke-motorverzekering-past-bij-jouw-motor/">WA, WA+ en Allrisk</a>. Benieuwd wat een opzittendenverzekering bij jouw motor kost? Bekijk het bij het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Is mijn passagier al verzekerd via mijn WA?</h3>
+<p>Ja, voor letsel dat jij als bestuurder veroorzaakt. Je passagier geldt onder je WA als een derde, dus als jij aansprakelijk bent voor een ongeval, vergoedt je WA diens letselschade. Wat je WA niet dekt, is je eigen letsel als bestuurder, en in sommige gevallen letsel bij een eenzijdig ongeval waarbij geen partij aansprakelijk is. Een opzittendenverzekering vult die situaties aan en dekt zowel bestuurder als passagier, ongeacht de schuldvraag.</p>
+<h3>Dekt een opzittendenverzekering ook mijn eigen letsel?</h3>
+<p>Ja, dat is juist het belangrijkste verschil met je WA. Je WA dekt anderen, niet jezelf. Een opzittendenverzekering keert uit bij letsel van de bestuurder én de passagier, ook als jij het ongeval zelf veroorzaakt of bij een eenzijdige val zonder tegenpartij. Afhankelijk van de variant krijg je een vast bedrag bij overlijden of blijvende invaliditeit, of een vergoeding van je werkelijke letselschade. Controleer in de voorwaarden welke vorm je hebt en tot welk bedrag.</p>
+<h3>Wat is het verschil met een ongevallenverzekering?</h3>
+<p>Een ongevallenverzekering opzittenden keert vaste, vooraf afgesproken bedragen uit bij overlijden of blijvende invaliditeit, ongeacht je werkelijke schade. Een schadeverzekering opzittenden vergoedt juist je werkelijke letselschade, zoals medische kosten en inkomensverlies, binnen het verzekerd bedrag. De eerste is eenvoudig en biedt een vangnet bij ernstige gevolgen; de tweede sluit dichter aan op de echte financiële gevolgen. Welke beter past, hangt af van wat je wilt afdekken.</p>
+<h3>Krijg ik ook uitkering bij een eenzijdig ongeval?</h3>
+<p>Ja, dat is een belangrijk pluspunt van deze dekking. Bij een eenzijdig ongeval, bijvoorbeeld een val zonder dat een ander schuld heeft, is er geen aansprakelijke tegenpartij en keert geen WA uit. Een opzittendenverzekering vergoedt dan toch het letsel van bestuurder en passagier, binnen de voorwaarden en bedragen van je polis. Juist omdat eenzijdige ongevallen op de motor voorkomen, is dit voor veel rijders de kern van de meerwaarde.</p>
+<h3>Heb ik dit nog nodig als ik al een arbeidsongeschiktheidsverzekering heb?</h3>
+<p>Dat hangt af van je situatie. Heb je al een ruime ongevallen- of arbeidsongeschiktheidsdekking die je inkomen bij blijvend letsel opvangt, dan overlapt dat deels met een opzittendenverzekering en weegt het voordeel minder zwaar. Maar zulke dekkingen sluiten soms risico's op de motor uit of dekken niet alle kosten. Controleer wat je bestaande verzekeringen precies dekken voordat je beslist. Zo voorkom je zowel dubbele dekking als een onverwacht gat.</p>
+<h3>Is een opzittendenverzekering ook nuttig als ik altijd alleen rijd?</h3>
+<p>Ja, ook dan kan het zinvol zijn. De dekking gaat niet alleen over je passagier, maar juist ook over je eigen letsel als bestuurder. Rijd je altijd solo, dan vervalt het passagiersdeel, maar blijft de belangrijkste meerwaarde overeind: bij een eenzijdig ongeval of een ongeval dat je zelf veroorzaakt, vergoedt je WA je eigen letsel niet. Een opzittendenverzekering doet dat wel. Of het de moeite waard is, hangt af van welke andere dekkingen je al hebt voor inkomensverlies en medische kosten bij blijvend letsel.</p>
 """,
 }
 
