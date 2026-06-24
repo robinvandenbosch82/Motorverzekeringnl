@@ -95,7 +95,8 @@
       {% endwith %}
       <div class="mv-autofill">
         {% for x in extras %}
-        <div class="mv-extra"><div class="plus">+</div><h3>{{ x.titel }}</h3><p>{{ x.tekst }}</p></div>
+        {% if x.url %}<a href="{{ x.url }}" class="mv-extra" style="display:block;color:inherit"><div class="plus">+</div><h3>{{ x.titel }}</h3><p>{{ x.tekst }}</p><span class="mv-link" style="font-size:13px;margin-top:12px">Lees meer <span class="mv-arrow">→</span></span></a>
+        {% else %}<div class="mv-extra"><div class="plus">+</div><h3>{{ x.titel }}</h3><p>{{ x.tekst }}</p></div>{% endif %}
         {% endfor %}
       </div>
     </div>

@@ -180,6 +180,11 @@ BLOG = [
      "excerpt": "Het verschil tussen een winterstopregeling en je kenteken schorsen bij de RDW, met de voor- en nadelen op een rij.",
      "meta_title": "Winterstop of motor schorsen: wat is slimmer? | Motorverzekering.nl",
      "meta_description": "Rij je 's winters niet? Vergelijk de winterstopregeling met het schorsen van je kenteken bij de RDW: dekking, kosten en wat mag."},
+    {"titel": "Pechhulp voor je motor: in Nederland en heel Europa",
+     "categorie": "Dekkingen", "leestijd": "5 min", "image": "img/motor/moto-2519374.jpg",
+     "excerpt": "Wat pechhulp dekt, het verschil tussen Nederland en Europa, en wanneer deze aanvullende dekking de moeite waard is.",
+     "meta_title": "Pechhulp motorverzekering: dekking in NL en Europa | Motorverzekering.nl",
+     "meta_description": "Pechhulp is een aparte dekking voor pech onderweg. Lees wat het dekt, het verschil tussen Nederland en Europa en wanneer het loont."},
 ]
 
 # Volledig uitgeschreven artikelen (titel -> body_html). Feitelijk, geen fluff.
@@ -811,6 +816,64 @@ BLOG_BODIES = {
 <h3>Hoe lang kan ik mijn motor schorsen?</h3>
 <p>Een schorsing geldt voor een bepaalde periode en kan worden verlengd zolang je de motor niet gebruikt. Tijdens die periode betaal je geen motorrijtuigenbelasting en hoef je de motor niet te verzekeren, maar moet hij wel op eigen terrein staan. Houd er rekening mee dat eventuele keuringsverplichtingen blijven gelden voor het moment dat je weer gaat rijden. Wil je de motor na de winter weer gebruiken, hef dan de schorsing tijdig op en regel de verzekering opnieuw, zodat je legaal en gedekt de weg op kunt.</p>
 """,
+    "Pechhulp voor je motor: in Nederland en heel Europa": """
+<p>Pechhulp is een <strong>aanvullende dekking</strong> die je helpt als je motor onderweg uitvalt door pech: een lege accu, een lekke band, een motor die niet meer start of een mechanisch defect. Het zit niet standaard in je WA- of cascoverzekering; je kiest het er los bij. Je bepaalt zelf of je dekking voor alleen Nederland of voor heel Europa wilt, en of pech bij of vlak bij huis ook meetelt.</p>
+<h2>De kernregel: pechhulp is een aparte, optionele dekking</h2>
+<p>Een motorverzekering dekt in de basis aansprakelijkheid (WA) en, met casco, schade aan je eigen motor. Pech onderweg is iets anders: er is geen schade en geen tegenpartij, je motor doet het gewoon niet meer. Daarvoor is pechhulp bedoeld. Omdat het een eigen dekking is, kies je hem bewust bij het afsluiten en betaal je er een aparte premie voor. Zonder pechhulp moet je bij pech zelf een berger of transport regelen en die kosten zelf dragen.</p>
+<h2>Wat dekt pechhulp precies?</h2>
+<p>Pechhulp draait om hulp en vervoer bij stilstand door een defect. De meeste pakketten omvatten een combinatie van de volgende onderdelen, binnen de grenzen van je polisvoorwaarden:</p>
+<ul>
+<li><strong>Hulp ter plaatse:</strong> een monteur probeert je motor langs de weg weer rijklaar te maken (bijvoorbeeld starthulp of een tijdelijke reparatie).</li>
+<li><strong>Berging en sleephulp:</strong> lukt reparatie ter plaatse niet, dan wordt je motor naar een garage in de buurt gebracht.</li>
+<li><strong>Vervangend vervoer of vervoer van inzittenden:</strong> je komt verder of terug, terwijl je motor wordt gerepareerd.</li>
+<li><strong>Repatriëring vanuit het buitenland:</strong> je motor (en jij) worden naar Nederland teruggebracht als reparatie ter plaatse te lang duurt.</li>
+</ul>
+<p>Welke onderdelen je precies hebt en tot welke bedragen, verschilt per verzekeraar en per gekozen pakket. Lees daarom de voorwaarden zodat je weet waar je bij pech op kunt rekenen.</p>
+<h2>Nederland of heel Europa?</h2>
+<p>Bij pechhulp kies je een dekkingsgebied. Een basisvariant dekt pech in <strong>Nederland</strong>; een uitgebreidere variant dekt pech in heel <strong>Europa</strong>. Maak je toerritten of vakanties met de motor over de grens, dan is Europa-dekking belangrijk: juist daar zijn berging en zeker repatriëring duur en lastig zelf te regelen. Let ook op de <strong>thuispech</strong>: bij sommige regelingen geldt pech binnen een bepaalde afstand van je huis niet onder de standaarddekking, terwijl andere juist hulp aan huis bieden. Controleer dit punt expliciet, want het bepaalt of je bij een lege accu op de oprit ook geholpen wordt.</p>
+<h2>Pech versus schade: een belangrijk verschil</h2>
+<p>Pechhulp is er voor mechanische pech, niet voor schade door een ongeval. Val je of bots je, dan loopt dat via je WA (schade aan de ander) of casco (schade aan je eigen motor), niet via pechhulp. Andersom: een motor die niet wil starten of een lekke band is pech, geen casco-schade. Dit onderscheid bepaalt welke dekking je nodig hebt en waar je een melding doet.</p>
+<table><thead><tr><th>Situatie</th><th>Welke dekking?</th></tr></thead><tbody>
+<tr><td>Lege accu, lekke band, start niet</td><td>Pechhulp</td></tr>
+<tr><td>Mechanisch defect onderweg</td><td>Pechhulp</td></tr>
+<tr><td>Schade door een val of aanrijding</td><td>Casco (WA+ of Allrisk)</td></tr>
+<tr><td>Schade aan een ander</td><td>WA (verplicht)</td></tr>
+<tr><td>Pech in het buitenland (berging/repatriëring)</td><td>Pechhulp met Europa-dekking</td></tr>
+</tbody></table>
+<h2>Voorwaarden en uitsluitingen</h2>
+<p>Verzekeraars stellen voorwaarden aan pechhulp. Veel polissen verwachten dat je motor goed is <strong>onderhouden</strong>; pech door achterstallig onderhoud kan worden uitgesloten. Ook kan een <strong>maximumleeftijd</strong> van de motor gelden, en is er soms een grens aan het aantal hulpverleningen per jaar of aan de vergoede bedragen voor transport en overnachting. Brandstof op laten raken telt meestal niet als gedekte pech. Lees daarom welke situaties wel en niet onder jouw pechhulp vallen, zodat je niet voor verrassingen staat.</p>
+<h2>Wanneer is pechhulp de moeite waard?</h2>
+<p>Pechhulp loont vooral als je veel kilometers maakt, lange toerritten of buitenlandse reizen met de motor doet, of een motor hebt waarbij je zelf niet snel een storing verhelpt. De meerpremie is doorgaans bescheiden tegenover de kosten van berging of repatriëring, die in het buitenland flink kunnen oplopen. Rijd je vooral korte ritten dicht bij huis en kun je makkelijk vervangend vervoer regelen, dan weegt het voordeel minder zwaar. Reken de jaarpremie af tegen wat één keer zelf bergen en terugbrengen zou kosten.</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Denken dat pechhulp standaard meeverzekerd is.</strong> Het is een aparte, optionele dekking die je zelf kiest.</li>
+<li><strong>Alleen Nederland kiezen terwijl je de grens over gaat.</strong> Zonder Europa-dekking betaal je berging en repatriëring in het buitenland zelf.</li>
+<li><strong>Thuispech over het hoofd zien.</strong> Controleer of pech bij of vlak bij huis is meeverzekerd.</li>
+<li><strong>Onderhoud verwaarlozen.</strong> Pech door achterstallig onderhoud kan worden uitgesloten.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Kies een dekkingsgebied: Nederland of heel Europa.</li>
+<li>Check of thuispech en hulp aan huis zijn meeverzekerd.</li>
+<li>Lees welke onderdelen erin zitten: hulp ter plaatse, berging, vervangend vervoer, repatriëring.</li>
+<li>Controleer voorwaarden rond onderhoud en de leeftijd van je motor.</li>
+<li>Houd het alarmnummer van je pechhulp bij je tijdens ritten.</li>
+</ul>
+<p>Ga je met de motor naar het buitenland? Lees dan ook hoe je verzekering daar werkt in <a href="/blog/groene-kaart-en-motorverzekering-in-het-buitenland/">groene kaart en motorverzekering in het buitenland</a>. Wil je weten wat pechhulp bij jouw motor kost? Bekijk het bij het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Zit pechhulp standaard in mijn motorverzekering?</h3>
+<p>Nee. Pechhulp is een aanvullende dekking die je los bij je motorverzekering kiest. WA dekt schade aan anderen en casco dekt schade aan je eigen motor, maar pech onderweg (lege accu, lekke band, een defect) valt daar niet onder. Wil je hulp en vervoer bij pech, dan sluit je pechhulp apart af tegen een eigen premie. Zonder pechhulp regel en betaal je berging of transport bij een defect zelf.</p>
+<h3>Wat is het verschil tussen pechhulp en cascoschade?</h3>
+<p>Pechhulp is voor mechanische pech zonder schade: je motor start niet, heeft een lekke band of een technisch defect. Cascoschade gaat over schade aan je motor door bijvoorbeeld een val, aanrijding, diefstal of brand. Bij pech bel je je pechhulp; bij schade meld je een claim onder je casco-dekking. Het is dus belangrijk te weten wat er aan de hand is, omdat het bepaalt welke dekking je gebruikt en waar je je melding doet.</p>
+<h3>Geldt mijn pechhulp ook in het buitenland?</h3>
+<p>Alleen als je een dekkingsgebied met Europa hebt gekozen. Een basisvariant dekt vaak alleen pech in Nederland. Maak je ritten of reizen over de grens, kies dan pechhulp die heel Europa dekt, inclusief berging en repatriëring. Juist in het buitenland zijn die kosten hoog en lastig zelf te regelen. Controleer vóór een buitenlandse rit of je dekkingsgebied klopt en welke onderdelen (zoals vervoer en overnachting) zijn meeverzekerd.</p>
+<h3>Wordt pech bij mij thuis ook gedekt?</h3>
+<p>Dat hangt af van je voorwaarden. Sommige regelingen sluiten pech binnen een bepaalde afstand van je huis uit, terwijl andere juist hulp aan huis bieden, bijvoorbeeld bij een lege accu op de oprit. Omdat dit per verzekeraar verschilt, is het een punt om expliciet na te vragen of na te lezen. Wil je ook bij een startprobleem voor de deur geholpen worden, kies dan een pechhulp waarin thuispech of hulp aan huis is meeverzekerd.</p>
+<h3>Wat als mijn pech door achterstallig onderhoud komt?</h3>
+<p>Dan kan de verzekeraar de hulp weigeren. Veel pechhulpdekkingen gaan ervan uit dat je motor goed is onderhouden; pech die het gevolg is van achterstallig onderhoud of een bekend, niet verholpen gebrek valt vaak buiten de dekking. Houd je onderhoud daarom bij en los storingen op tijd op. Zo voorkom je niet alleen pech onderweg, maar ook discussie of je hulp wel onder de dekking valt op het moment dat je stilstaat.</p>
+<h3>Is pechhulp via mijn verzekering nodig als ik al wegenwacht heb?</h3>
+<p>Niet per se. Heb je al een losse pechhulpdienst die je motor dekt voor het gebied waar je rijdt, dan kan dat de pechhulp bij je verzekering overbodig maken. Controleer wel of je bestaande dienst je motor (en niet alleen je auto) dekt, en of het gebied en de onderdelen aansluiten op je gebruik. Dubbel verzekerd zijn voor hetzelfde heeft geen zin; één goede pechhulp die je motor en je rijgebied dekt, is voldoende.</p>
+""",
 }
 
 # (titel, categorie, featured, leestijd, gelezen, excerpt, image_url). Motor
@@ -1406,7 +1469,13 @@ class Command(BaseCommand):
         if not Kaart.objects.filter(blok="dekkingen_extra").exists():
             for i, it in enumerate(content.DEKKINGEN_EXTRAS):
                 Kaart.objects.create(blok="dekkingen_extra", volgorde=i, tag=it.get("tag", "+"),
-                                     titel=it["titel"], tekst=it.get("tekst", ""))
+                                     titel=it["titel"], tekst=it.get("tekst", ""), url=it.get("url", ""))
+        # Artikellinks op de aanvullende-dekkingkaarten zetten (alleen als de
+        # url nog leeg is, zodat admin-edits behouden blijven). Zo krijgen
+        # bestaande rijen, die eerder zonder url werden geseed, alsnog hun link.
+        for it in content.DEKKINGEN_EXTRAS:
+            if it.get("url"):
+                Kaart.objects.filter(blok="dekkingen_extra", titel=it["titel"], url="").update(url=it["url"])
         if not Kaart.objects.filter(blok="dekkingen_matrix").exists():
             for i, it in enumerate(content.DEKKINGEN_MATRIX):
                 Kaart.objects.create(blok="dekkingen_matrix", volgorde=i, titel=it["titel"],

@@ -596,10 +596,13 @@ TIER_BEST_FOR = {
 
 # Unified-shape fallbacks for the Kaart blocks on the Dekkingen page.
 DEKKINGEN_EXTRAS = [
-    {"tag": "+", "titel": "Pechhulp Europa", "tekst": "24/7 hulp bij pech, thuis en in heel Europa."},
-    {"tag": "+", "titel": "Accessoiredekking", "tekst": "Koffers, navigatie en accessoires meeverzekerd."},
+    {"tag": "+", "titel": "Pechhulp Europa", "tekst": "24/7 hulp bij pech, thuis en in heel Europa.",
+     "url": "/blog/pechhulp-voor-je-motor-in-nederland-en-heel-europa/"},
+    {"tag": "+", "titel": "Accessoiredekking", "tekst": "Koffers, navigatie en accessoires meeverzekerd.",
+     "url": "/blog/zijn-helm-motorkleding-en-accessoires-meeverzekerd/"},
     {"tag": "+", "titel": "Opzittenden", "tekst": "Dekking voor letselschade van je passagier."},
-    {"tag": "+", "titel": "Motorkleding & helm", "tekst": "Vergoeding voor je gear na een ongeval."},
+    {"tag": "+", "titel": "Motorkleding & helm", "tekst": "Vergoeding voor je gear na een ongeval.",
+     "url": "/blog/zijn-helm-motorkleding-en-accessoires-meeverzekerd/"},
     {"tag": "+", "titel": "Rechtsbijstand", "tekst": "Juridische hulp bij een verkeersconflict."},
     {"tag": "+", "titel": "Vervangend vervoer", "tekst": "Mobiel blijven terwijl je motor wordt hersteld."},
 ]
