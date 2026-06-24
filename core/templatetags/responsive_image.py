@@ -78,8 +78,13 @@ def picture(source, **kwargs):
     # ── Lokaal bestand via pipeline ───────────────────────────────────────────
     info = get_variant_urls(src, widths=widths)
     if not info:
-        # Bestand niet gevonden — plain img, werkt zodra bestand aanwezig is
-        url = src if src.startswith('/') else f'/media/{src}'
+        # Geen media-variant. Probeer het pad eerst als bundled static asset
+        # (bv. de design-beelden in static/img/…); val anders terug op het
+        # media-pad (werkt zodra het bestand in media staat).
+        url = (
+            src if src.startswith('/')
+            else _static_url(src) or f'/media/{src}'
+        )
         return mark_safe(
             f'<img {_attrs(url, alt, css_class, loading, decoding, fetchpriority, style=style)}>'
         )
@@ -133,6 +138,25 @@ def preload_hint(source, sizes='100vw', widths=None):
 # ─────────────────────────────────────────────────────────────────────────────
 # Helpers
 # ─────────────────────────────────────────────────────────────────────────────
+
+def _static_url(rel):
+    """Resolve een relatief pad als bundled static asset naar zijn STATIC_URL.
+
+    Geeft de juiste (in productie gehashte) static-URL terug als het bestand in
+    een static-map staat, anders None. Zo tonen design-beelden die als static
+    asset zijn meegeleverd (en niet in media staan) correct, net als op de
+    overzichtspagina's die {% static %} gebruiken.
+    """
+    from django.contrib.staticfiles import finders
+    from django.templatetags.static import static
+
+    try:
+        if finders.find(rel):
+            return static(rel)
+    except Exception:
+        pass
+    return None
+
 
 def _normalize(source):
     """Zet ImageFieldFile, str of None om naar een string."""
