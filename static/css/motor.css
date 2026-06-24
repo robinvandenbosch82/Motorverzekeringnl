@@ -8,6 +8,15 @@
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2')}
 
+/* ── Base reset ──────────────────────────────────────────────────────────────
+   motor.css is zelfvoorzienend: deze resets werden voorheen geërfd van de
+   (legacy) styles.css, die niet langer op MV-pagina's wordt geladen. */
+html{scroll-behavior:smooth}
+body{margin:0}
+.mv img{max-width:100%}
+.mv input,.mv select,.mv button,.mv textarea{font-family:inherit}
+.mv ::selection{background:#CBF24A;color:#15150F}
+
 /* ──────────────────────────────────────────────────────────────────────────
    Motorverzekering.nl — design system (Claude Design "MV").
    All rules are scoped under .mv so they never touch the (legacy) bestelauto

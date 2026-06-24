@@ -20,7 +20,7 @@
 
 {% block og_image %}{% if pagina.image_url %}<meta property="og:image" content="{{ pagina.image_url }}">{% elif site.default_og_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ site.default_og_image.url }}">{% endif %}{% endblock %}
 
-{% block head_extra %}<style>
+{% block head_extra %}<link rel="stylesheet" href="{% static 'css/styles.css' %}"><style>
   .cp-intro p{font-size:18.5px;line-height:1.65;color:var(--slate-600);}
   .cp-intro p:first-child{font-size:20px;color:var(--ink);font-weight:500;}
   .cp-body h2{scroll-margin-top:88px;font-size:27px;}
