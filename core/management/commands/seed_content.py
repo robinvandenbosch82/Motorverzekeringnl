@@ -190,6 +190,11 @@ BLOG = [
      "excerpt": "Waarom je WA je passagier wel dekt maar jezelf niet, en hoe een opzittendenverzekering letsel van bestuurder én passagier vergoedt.",
      "meta_title": "Opzittendenverzekering motor: wat dekt het? | Motorverzekering.nl",
      "meta_description": "Een opzittendenverzekering dekt letsel van bestuurder en passagier, ook bij een eenzijdig ongeval. Lees wat het dekt en wanneer het loont."},
+    {"titel": "Rechtsbijstand bij je motorverzekering: wanneer nodig?",
+     "categorie": "Dekkingen", "leestijd": "5 min", "image": "img/motor/moto-2611686.jpg",
+     "excerpt": "Hoe verkeersrechtsbijstand je helpt je schade te verhalen en je te verweren, plus je recht op vrije advocaatkeuze.",
+     "meta_title": "Rechtsbijstand motorverzekering: wanneer heb je het nodig? | Motorverzekering.nl",
+     "meta_description": "Verkeersrechtsbijstand helpt je schade verhalen en je verweren bij een conflict. Lees wat het dekt, vrije advocaatkeuze en wanneer het loont."},
 ]
 
 # Volledig uitgeschreven artikelen (titel -> body_html). Feitelijk, geen fluff.
@@ -932,6 +937,65 @@ BLOG_BODIES = {
 <p>Dat hangt af van je situatie. Heb je al een ruime ongevallen- of arbeidsongeschiktheidsdekking die je inkomen bij blijvend letsel opvangt, dan overlapt dat deels met een opzittendenverzekering en weegt het voordeel minder zwaar. Maar zulke dekkingen sluiten soms risico's op de motor uit of dekken niet alle kosten. Controleer wat je bestaande verzekeringen precies dekken voordat je beslist. Zo voorkom je zowel dubbele dekking als een onverwacht gat.</p>
 <h3>Is een opzittendenverzekering ook nuttig als ik altijd alleen rijd?</h3>
 <p>Ja, ook dan kan het zinvol zijn. De dekking gaat niet alleen over je passagier, maar juist ook over je eigen letsel als bestuurder. Rijd je altijd solo, dan vervalt het passagiersdeel, maar blijft de belangrijkste meerwaarde overeind: bij een eenzijdig ongeval of een ongeval dat je zelf veroorzaakt, vergoedt je WA je eigen letsel niet. Een opzittendenverzekering doet dat wel. Of het de moeite waard is, hangt af van welke andere dekkingen je al hebt voor inkomensverlies en medische kosten bij blijvend letsel.</p>
+""",
+    "Rechtsbijstand bij je motorverzekering: wanneer nodig?": """
+<p>Rechtsbijstand is een aanvullende dekking die je juridische hulp geeft bij conflicten rond je motor en het verkeer. Het belangrijkste verschil met je WA: die betaalt de tegenpartij als jij aansprakelijk bent, terwijl rechtsbijstand juist <strong>jou</strong> helpt om je eigen schade te verhalen of je te verweren. Denk aan een tegenpartij die niet wil betalen, een garage waarmee je ruzie hebt over een reparatie, of een geschil met de verkoper van je motor.</p>
+<h2>De kernregel: rechtsbijstand helpt jou verhalen en verweren</h2>
+<p>Bij een verkeersongeval regelt je WA de schade die jij aan anderen toebrengt. Maar wat als een ander jouw motor beschadigt en zijn verzekeraar moeilijk doet, of als je zonder casco je schade op de aansprakelijke partij moet verhalen? Dan heb je iemand nodig die jouw belang behartigt. Dat is rechtsbijstand: juristen die namens jou de schade verhalen, je verdedigen bij een claim of een geschil voor je voeren. Het gaat dus niet om het betalen van schade, maar om het halen van je recht.</p>
+<h2>Wat dekt verkeersrechtsbijstand bij je motor?</h2>
+<p>De rechtsbijstand die je bij een motorverzekering kiest, is doorgaans <strong>verkeersrechtsbijstand</strong>: hulp bij juridische conflicten die met je motor en deelname aan het verkeer te maken hebben. Veelvoorkomende situaties zijn:</p>
+<ul>
+<li><strong>Verhaal van schade</strong> op een aansprakelijke tegenpartij die niet of niet volledig wil betalen.</li>
+<li><strong>Letselschade</strong> verhalen na een ongeval waarbij een ander schuld heeft.</li>
+<li><strong>Verweer</strong> als je ten onrechte aansprakelijk wordt gesteld.</li>
+<li><strong>Geschillen met een garage</strong> over een reparatie of onderhoud.</li>
+<li><strong>Koopgeschillen</strong> met de verkoper van een (tweedehands) motor.</li>
+</ul>
+<p>Let op: verkeersrechtsbijstand dekt verkeers- en voertuiggerelateerde zaken. Wil je ook juridische hulp bij bijvoorbeeld werk, wonen of consumentenzaken buiten het verkeer, dan heb je een bredere, losse rechtsbijstandverzekering nodig.</p>
+<h2>Verhaal: je schade terughalen bij de tegenpartij</h2>
+<p>Het verhalen van schade is de kern. Word je aangereden en is de ander aansprakelijk, dan moet je je schade (aan je motor, je uitrusting en eventueel je letsel) zien terug te krijgen van diens verzekeraar. In de praktijk gaat dat niet altijd vanzelf: aansprakelijkheid wordt betwist, de hoogte van de schade staat ter discussie, of de afhandeling sleept. Rechtsbijstand neemt dat van je over en voert zo nodig een procedure. Heb je geen casco, dan is dit vaak de enige manier om je motorschade vergoed te krijgen na een ongeval dat een ander veroorzaakte.</p>
+<table><thead><tr><th>Conflict</th><th>Helpt rechtsbijstand?</th></tr></thead><tbody>
+<tr><td>Schade verhalen op een aansprakelijke tegenpartij</td><td>Ja</td></tr>
+<tr><td>Letselschade verhalen na een ongeval</td><td>Ja</td></tr>
+<tr><td>Geschil met een garage over reparatie</td><td>Ja (verkeers-/voertuiggerelateerd)</td></tr>
+<tr><td>Koopgeschil over je motor</td><td>Vaak ja; check de voorwaarden</td></tr>
+<tr><td>Juridisch conflict buiten het verkeer (werk, wonen)</td><td>Nee, daarvoor een bredere rechtsbijstandverzekering</td></tr>
+</tbody></table>
+<h2>Vrije advocaatkeuze</h2>
+<p>Komt het tot een gerechtelijke of administratieve procedure, dan heb je het recht om zelf een advocaat te kiezen, ook als je rechtsbijstandverzekeraar normaal met eigen juristen werkt. Dit recht op <strong>vrije advocaatkeuze</strong> is in Europese en Nederlandse rechtspraak bevestigd. Je verzekeraar vergoedt dan de kosten van die externe advocaat, meestal tot een in de voorwaarden vastgelegd maximum. Voor de buitengerechtelijke fase (overleg, schikken) zet de verzekeraar doorgaans eerst de eigen juristen in. Vraag bij een procedure dus expliciet naar je recht op een eigen advocaat en het vergoede maximum.</p>
+<h2>Let op: wachttijd, gebied en maximum</h2>
+<p>Een paar aandachtspunten bepalen of je in een concreet geval geholpen wordt. Veel polissen kennen een <strong>wachttijd</strong>: een conflict dat al bestond of vlak na het afsluiten ontstaat, is vaak niet gedekt (bij een plotseling verkeersongeval speelt dit meestal niet). Daarnaast geldt een <strong>dekkingsgebied</strong>: rijd je in het buitenland, controleer dan of juridische conflicten daar zijn meeverzekerd. Ten slotte zijn er <strong>maximale kostenvergoedingen</strong>, vooral voor externe advocaten, en soms een minimum belang waaronder een zaak niet in behandeling wordt genomen. Lees deze punten na zodat je weet waar je aan toe bent.</p>
+<h2>Wanneer is het de moeite waard?</h2>
+<p>Rechtsbijstand loont vooral als je zonder casco rijdt, want dan is verhalen op de tegenpartij je belangrijkste route om schade vergoed te krijgen. Ook als je het vervelend vindt om zelf met verzekeraars of een garage in discussie te gaan, of als je veel kilometers maakt en het risico op een conflict daarmee groter is, is de dekking aantrekkelijk. Heb je al een brede rechtsbijstandverzekering die verkeer omvat, dan overlapt dat en is een aparte verkeersrechtsbijstand bij je motor overbodig. Reken de bescheiden meerpremie af tegen de kosten en moeite van zelf een jurist inschakelen.</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Denken dat je WA je eigen schade verhaalt.</strong> WA betaalt de ander; verhalen van jouw schade doet rechtsbijstand.</li>
+<li><strong>Verwachten dat alle conflicten gedekt zijn.</strong> Verkeersrechtsbijstand dekt verkeers- en voertuigzaken, niet alles.</li>
+<li><strong>Een al lopend conflict willen indienen.</strong> Door de wachttijd zijn bestaande geschillen vaak uitgesloten.</li>
+<li><strong>Je recht op vrije advocaatkeuze niet benutten.</strong> Bij een procedure mag je zelf een advocaat kiezen.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Bepaal of je zonder casco rijdt; dan is verhaal extra belangrijk.</li>
+<li>Check of de dekking verkeers- en voertuiggeschillen omvat die voor jou spelen.</li>
+<li>Let op de wachttijd en het dekkingsgebied (ook buitenland).</li>
+<li>Vraag naar het maximum voor externe advocaatkosten.</li>
+<li>Voorkom overlap met een bestaande brede rechtsbijstandverzekering.</li>
+</ul>
+<p>Twijfel je of casco voor jou volstaat in plaats van verhaal? Lees het verschil tussen <a href="/blog/wa-wa-of-allrisk-welke-motorverzekering-past-bij-jouw-motor/">WA, WA+ en Allrisk</a>. Benieuwd wat rechtsbijstand bij jouw motor kost? Bekijk het bij het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Wat is het verschil tussen WA en rechtsbijstand?</h3>
+<p>Je WA-verzekering betaalt de schade die jij aan anderen toebrengt; die is wettelijk verplicht. Rechtsbijstand doet het omgekeerde: die helpt jou om je eigen schade te verhalen op een aansprakelijke tegenpartij of om je te verweren in een conflict. WA gaat dus over betalen aan de ander, rechtsbijstand over het halen van je recht. Ze vullen elkaar aan: na een ongeval waarbij een ander schuld heeft, gebruik je rechtsbijstand om jouw schade vergoed te krijgen.</p>
+<h3>Heb ik rechtsbijstand nodig als ik allrisk ben verzekerd?</h3>
+<p>Met allrisk wordt schade aan je eigen motor vergoed, ook als je zelf schuld hebt, dus voor je motorschade heb je verhaal minder snel nodig. Toch kan rechtsbijstand nog waarde hebben: voor het verhalen van letselschade, voor geschillen met een garage of verkoper, en voor verweer als je ten onrechte aansprakelijk wordt gesteld. Rijd je zonder casco, dan is rechtsbijstand juist belangrijker, omdat verhaal op de tegenpartij dan je belangrijkste route is om schade vergoed te krijgen.</p>
+<h3>Mag ik mijn eigen advocaat kiezen?</h3>
+<p>Ja, bij een gerechtelijke of administratieve procedure heb je recht op vrije advocaatkeuze, ook als je verzekeraar normaal met eigen juristen werkt. Dat recht is in de rechtspraak bevestigd. De verzekeraar vergoedt de kosten van je gekozen advocaat tot een in de voorwaarden vastgelegd maximum. In de fase daarvoor, zoals overleg en schikken, zetten verzekeraars meestal eerst hun eigen juristen in. Komt het tot een procedure, vraag dan expliciet naar je recht op een eigen advocaat en het vergoede bedrag.</p>
+<h3>Geldt er een wachttijd?</h3>
+<p>Vaak wel. Veel rechtsbijstandpolissen kennen een wachttijd, zodat je geen al bestaand of vlak na het afsluiten ontstaan conflict kunt indienen. Voor een plotseling verkeersongeval speelt dit meestal niet, omdat de gebeurtenis zich pas na het afsluiten voordoet. Maar voor sluimerende geschillen, bijvoorbeeld met een garage of verkoper, kan de wachttijd wel gelden. Lees in je voorwaarden welke wachttijd van toepassing is, zodat je weet vanaf wanneer je een beroep op de dekking kunt doen.</p>
+<h3>Dekt verkeersrechtsbijstand ook conflicten buiten het verkeer?</h3>
+<p>Nee. De rechtsbijstand die je bij een motorverzekering kiest, is doorgaans beperkt tot verkeers- en voertuiggerelateerde zaken: verhaal na een ongeval, geschillen met een garage of de verkoper van je motor. Conflicten over werk, wonen of andere consumentenzaken vallen daarbuiten. Wil je ook daarvoor juridische hulp, dan sluit je een bredere, losse rechtsbijstandverzekering af. Controleer dus of de dekking aansluit op de conflicten die jij wilt afdekken voordat je kiest.</p>
+<h3>Wat als ik het oneens ben met het oordeel van de verzekeraar?</h3>
+<p>Vindt je rechtsbijstandverzekeraar je zaak kansloos terwijl jij dat anders ziet, dan kun je meestal een beroep doen op de geschillenregeling in je voorwaarden. Daarbij geeft een onafhankelijke deskundige, vaak een advocaat, een tweede oordeel over de haalbaarheid. Valt dat in je voordeel uit, dan wordt de zaak alsnog opgepakt of mag je hem op kosten van de verzekeraar voortzetten. Lees na hoe de geschillenregeling bij jouw polis precies werkt, zodat je weet wat je kunt doen bij onenigheid.</p>
 """,
 }
 

@@ -604,7 +604,8 @@ DEKKINGEN_EXTRAS = [
      "url": "/blog/opzittendenverzekering-voor-je-motor-wat-dekt-het/"},
     {"tag": "+", "titel": "Motorkleding & helm", "tekst": "Vergoeding voor je gear na een ongeval.",
      "url": "/blog/zijn-helm-motorkleding-en-accessoires-meeverzekerd/"},
-    {"tag": "+", "titel": "Rechtsbijstand", "tekst": "Juridische hulp bij een verkeersconflict."},
+    {"tag": "+", "titel": "Rechtsbijstand", "tekst": "Juridische hulp bij een verkeersconflict.",
+     "url": "/blog/rechtsbijstand-bij-je-motorverzekering-wanneer-nodig/"},
     {"tag": "+", "titel": "Vervangend vervoer", "tekst": "Mobiel blijven terwijl je motor wordt hersteld."},
 ]
 
