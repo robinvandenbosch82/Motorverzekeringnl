@@ -34,7 +34,6 @@
 .mv-lead{font-size:15px;line-height:1.55;color:#5C5E54;margin:10px 0 0;max-width:560px}
 .mv-arrow{font-size:16px}
 .mv-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.mv-grid2{display:grid;grid-template-columns:1fr 1fr;gap:30px}
 .mv-autofit{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .mv-autofill{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
 .mv-checkpill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#5C5E54;background:#fff;border:1.5px solid #ECECE3;padding:9px 14px;border-radius:999px}
@@ -67,7 +66,6 @@
 .mv-cta:hover{background:#3A3CE6}
 .mv-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;align-items:center;border-radius:11px;background:#15150F;flex-shrink:0;cursor:pointer}
 .mv-burger span{width:19px;height:2px;background:#fff;border-radius:2px}
-.mv-menutoggle{position:absolute;opacity:0;pointer-events:none}
 .mv-mobilemenu{display:none;position:absolute;top:100%;left:12px;right:12px;z-index:60;background:#fff;border:1.5px solid #E6E6DD;border-radius:18px;box-shadow:0 24px 50px rgba(21,21,15,.18);padding:10px;margin-top:4px}
 .mv-mobilelink{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-radius:12px;font-weight:700;font-size:16px;color:#15150F}
 .mv-mobilelink:hover{background:#F6F6F0}
@@ -87,7 +85,7 @@
 
 /* ── Premie-kaart (home hero form) ── */
 .mv-card{background:#fff;border:1.5px solid #E6E6DD;border-radius:24px;padding:clamp(20px,2vw,26px);box-shadow:0 30px 70px rgba(21,21,15,.10)}
-.mv-card h3{font-weight:800;font-size:19px;margin:0 0 4px}
+.mv-card h2{font-weight:800;font-size:19px;margin:0 0 4px}
 .mv-card .sub{font-size:14px;color:#5C5E54;margin-bottom:18px}
 .mv-lbl{font-size:13px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .mv-req{color:#E0584F}
@@ -266,7 +264,6 @@ select.mv-field{font-size:15px;padding-right:34px;background-image:url("data:ima
 .wz-summary__total{border-bottom:0;font-size:16px;margin-top:2px;padding-top:10px!important}
 .wz-summary__total strong{color:#CBF24A}
 .wz-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.wz-help-link{display:inline-block;font-size:12px;color:#4B4DFF;font-weight:600;margin-top:6px}
 .wz-hint{font-size:13px;margin-top:9px;display:flex;align-items:center;gap:7px;color:#15150F;font-weight:600}
 .wz-hint::before{content:"";width:7px;height:7px;border-radius:50%;background:#3FBF6A;flex-shrink:0}
 .wz-error{font-size:13px;color:#E0584F;font-weight:600;margin:8px 0 0}
@@ -351,12 +348,11 @@ select.mv-field{font-size:15px;padding-right:34px;background-image:url("data:ima
 @media(max-width:880px){
   .mv-navlinks{display:none}
   .mv-burger{display:flex}
-  .mv-menutoggle:checked ~ .mv-mobilemenu,
   .mv-mobilemenu.is-open{display:block}
   .mv-herogrid,.mv-grid3,.mv-reviews{grid-template-columns:1fr}
 }
 @media(max-width:760px){
-  .mv-grid2,.mv-infocard{grid-template-columns:1fr}
+  .mv-infocard{grid-template-columns:1fr}
   .mv-foot{grid-template-columns:1fr 1fr}
   .mv-cov-row{grid-template-columns:1.4fr .9fr .9fr .9fr}
   .mv-cov-body .rl,.mv-cov-head .lbl{padding-left:14px;padding-right:6px;font-size:13px}

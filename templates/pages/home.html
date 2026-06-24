@@ -51,7 +51,7 @@
 
       {# Premie-kaart, GET-formulier naar de premie-tool #}
       <form class="mv-card" method="get" action="{% url 'premie_tool' %}">
-        <h3>{{ secties.premiekaart.kop|default:"Bereken je premie" }}</h3>
+        <h2>{{ secties.premiekaart.kop|default:"Bereken je premie" }}</h2>
         <div class="sub">{{ secties.premiekaart.tekst|default:"Start met je kenteken, wij vullen je motorgegevens vast in." }}</div>
 
         <div class="mv-lbl">Kenteken <span class="mv-i">i</span></div>
