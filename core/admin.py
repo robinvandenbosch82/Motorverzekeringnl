@@ -65,13 +65,15 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         ("Vertrouwen & cijfers", {"fields": ("review_score", "review_count",
                                              "ondernemers_verzekerd", "verzekeraars_label")}),
         ("Contact", {"fields": ("phone", "whatsapp", "email")}),
-        ("Bedrijfsgegevens", {"fields": ("afm_nummer", "kvk_nummer")}),
+        ("Bedrijfsgegevens",
+         {"fields": ("legal_naam", "afm_nummer", "kvk_nummer", "btw_nummer", "kifid_nummer")}),
         ("Vestigingsadres (optioneel, voor LocalBusiness-schema)",
          {"fields": ("adres_straat", "adres_postcode", "adres_plaats"),
           "classes": ("collapse",)}),
         ("Footer", {"fields": ("footer_blurb",)}),
         ("Merk & structured data (logo + social)",
          {"fields": ("logo", "sameas", "default_og_image")}),
+        ("Zoekmachines", {"fields": ("google_site_verification",)}),
         ("Integraties", {"fields": ("pexels_api_key",)}),
     )
 
