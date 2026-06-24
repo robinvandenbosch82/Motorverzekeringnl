@@ -63,6 +63,20 @@ if _railway_domain and _railway_domain not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append(_railway_domain)
     CSRF_TRUSTED_ORIGINS.append(f"https://{_railway_domain}")
 
+# Custom domein: sta zowel de apex (motorverzekering.nl) als de www-variant toe op
+# basis van SITE_DOMAIN, zodat beide werken zonder ALLOWED_HOSTS handmatig bij te
+# houden. Voeg ook de bijbehorende CSRF-origins toe (nodig voor admin-login en
+# formulieren over het custom domein).
+_site_domain = os.getenv("SITE_DOMAIN", "motorverzekering.nl").strip().lower()
+if _site_domain:
+    _apex = _site_domain[4:] if _site_domain.startswith("www.") else _site_domain
+    for _host in (_apex, f"www.{_apex}"):
+        if _host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(_host)
+        _origin = f"https://{_host}"
+        if _origin not in CSRF_TRUSTED_ORIGINS:
+            CSRF_TRUSTED_ORIGINS.append(_origin)
+
 # ──────────────────────────────────────────────────────────────────────────
 # Applications
 # ──────────────────────────────────────────────────────────────────────────
