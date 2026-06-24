@@ -3,8 +3,19 @@
 <nav class="mv-nav" aria-label="Hoofdmenu" data-site-nav>
   <div class="mv-navbar">
     <a href="/" class="mv-logo" aria-label="Motorverzekering.nl home">
-      <span class="mv-logotile"><span class="mv-logodot"></span></span>
-      <span class="mv-logotxt">Motorverzekering<span style="color:#4B4DFF">.nl</span></span>
+      <svg class="mv-logomark" width="34" height="34" viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
+        <rect width="40" height="40" rx="10.5" fill="#15150F"/>
+        <rect x="18.4" y="8.5" width="3.2" height="8.5" rx="1.6" fill="#CBF24A"/>
+        <circle cx="9.7" cy="24.5" r="2.3" fill="#CBF24A"/>
+        <circle cx="30.3" cy="24.5" r="2.3" fill="#CBF24A"/>
+        <circle cx="20" cy="24.5" r="7.3" fill="#CBF24A"/>
+        <circle cx="20" cy="24.5" r="4.1" fill="#15150F"/>
+        <circle cx="20" cy="24.5" r="1.6" fill="#CBF24A"/>
+        <path d="M 3 19.5 C 5 15.2 9 14.4 13 13.9 L 17 13.5 Q 20 13.1 23 13.5 L 27 13.9 C 31 14.4 35 15.2 37 19.5" stroke="#CBF24A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 9.5 14.6 L 5 11.4" stroke="#CBF24A" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M 30.5 14.6 L 35 11.4" stroke="#CBF24A" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span class="mv-logotxt"><strong>Motor</strong>verzekering<span class="tld">.nl</span></span>
     </a>
     <div class="mv-navlinks">
       {% for item in nav_items %}

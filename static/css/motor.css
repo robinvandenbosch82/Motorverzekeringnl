@@ -51,10 +51,11 @@
 /* ── Nav ── */
 .mv-nav{position:relative;z-index:100;max-width:1180px;margin:0 auto;width:100%}
 .mv-navbar{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,40px)}
-.mv-logo{display:flex;align-items:center;gap:10px}
-.mv-logotile{width:27px;height:27px;border-radius:7px;background:#15150F;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.mv-logodot{width:11px;height:11px;border-radius:3px;background:#CBF24A}
-.mv-logotxt{font-weight:800;font-size:17px;letter-spacing:-.02em;white-space:nowrap}
+.mv-logo{display:flex;align-items:center;gap:11px}
+.mv-logomark{width:34px;height:34px;flex-shrink:0;display:block}
+.mv-logotxt{font-weight:500;font-size:18px;letter-spacing:-.02em;white-space:nowrap;color:#15150F}
+.mv-logotxt strong{font-weight:800}
+.mv-logotxt .tld{color:#4B4DFF;font-weight:500}
 .mv-navlinks{display:flex;align-items:center;gap:8px}
 .mv-navlink{font-size:14px;font-weight:600;color:#5C5E54;padding:8px 12px;border-radius:9px}
 .mv-navlink:hover{background:#EDEDE5;color:#15150F}

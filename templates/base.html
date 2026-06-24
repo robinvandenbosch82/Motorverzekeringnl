@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>document.documentElement.classList.add('js');</script>
 
+  {# ── Favicon / app-icoon (het lime motor-blokje) ────────────────────── #}
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/icon.svg' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" sizes="any">
+  <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+  <meta name="theme-color" content="#15150F">
+
   {# ── SEO: title, description, canonical ─────────────────────────────── #}
   <title>{% block title %}{{ seo_title|default:default_seo_title }}{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}{{ seo_description|default:default_seo_description }}{% endblock %}">
@@ -81,8 +87,8 @@
         "logo": {
           "@type": "ImageObject",
           "@id": "{{ site_origin }}/#logo",
-          "url": "{% if site.logo %}{{ site_origin }}{{ site.logo.url }}{% else %}{{ site_origin }}{% static 'img/logo.svg' %}{% endif %}",
-          "contentUrl": "{% if site.logo %}{{ site_origin }}{{ site.logo.url }}{% else %}{{ site_origin }}{% static 'img/logo.svg' %}{% endif %}",
+          "url": "{% if site.logo %}{{ site_origin }}{{ site.logo.url }}{% else %}{{ site_origin }}{% static 'img/icon.svg' %}{% endif %}",
+          "contentUrl": "{% if site.logo %}{{ site_origin }}{{ site.logo.url }}{% else %}{{ site_origin }}{% static 'img/icon.svg' %}{% endif %}",
           "caption": "{{ site_name }}"
         },
         "image": {"@id": "{{ site_origin }}/#logo"}{% if site.show_phone and site.phone %},
