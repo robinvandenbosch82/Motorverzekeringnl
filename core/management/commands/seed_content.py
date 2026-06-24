@@ -1585,6 +1585,9 @@ class Command(BaseCommand):
             "adres_straat": ("Papendorpseweg 99", ("", "Overtoom 62")),
             "adres_postcode": ("3528 BJ", ("", "1054 HL")),
             "adres_plaats": ("Utrecht", ("", "Amsterdam")),
+            # Google Search Console verificatie (admin-bewerkbaar; alleen zetten
+            # zolang het veld nog leeg is, zodat een admin-wijziging blijft staan).
+            "google_site_verification": ("u2Ot9pbCcQYjwQEg117qLPQn46806oksb1AD0pU-TVQ", ("",)),
         }
         changed = []
         for field, (value, defaults) in motor.items():

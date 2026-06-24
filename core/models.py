@@ -99,6 +99,11 @@ class SiteSettings(models.Model):
         "Standaard deelafbeelding (OG)", upload_to="og/", blank=True, null=True,
         help_text="Gebruikt als een pagina zelf geen OG-afbeelding heeft.")
 
+    google_site_verification = models.CharField(
+        "Google Search Console verificatie", max_length=100, blank=True, default="",
+        help_text="De content-waarde van de <meta name=\"google-site-verification\">-tag "
+                  "(zonder de tag zelf). Leeg = geen tag.")
+
     # ── Structured-data / Knowledge Graph ──
     logo = models.ImageField(
         "Logo (vierkant, ≥112px)", upload_to="brand/", blank=True, null=True,
