@@ -606,7 +606,8 @@ DEKKINGEN_EXTRAS = [
      "url": "/blog/zijn-helm-motorkleding-en-accessoires-meeverzekerd/"},
     {"tag": "+", "titel": "Rechtsbijstand", "tekst": "Juridische hulp bij een verkeersconflict.",
      "url": "/blog/rechtsbijstand-bij-je-motorverzekering-wanneer-nodig/"},
-    {"tag": "+", "titel": "Vervangend vervoer", "tekst": "Mobiel blijven terwijl je motor wordt hersteld."},
+    {"tag": "+", "titel": "Vervangend vervoer", "tekst": "Mobiel blijven terwijl je motor wordt hersteld.",
+     "url": "/blog/vervangend-vervoer-bij-motorschade-hoe-zit-het/"},
 ]
 
 # Coverage matrix rows (titel + per-tier inclusion), from the motor feature set.

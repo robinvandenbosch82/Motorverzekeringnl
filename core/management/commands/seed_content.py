@@ -195,6 +195,11 @@ BLOG = [
      "excerpt": "Hoe verkeersrechtsbijstand je helpt je schade te verhalen en je te verweren, plus je recht op vrije advocaatkeuze.",
      "meta_title": "Rechtsbijstand motorverzekering: wanneer heb je het nodig? | Motorverzekering.nl",
      "meta_description": "Verkeersrechtsbijstand helpt je schade verhalen en je verweren bij een conflict. Lees wat het dekt, vrije advocaatkeuze en wanneer het loont."},
+    {"titel": "Vervangend vervoer bij motorschade: hoe zit het?",
+     "categorie": "Dekkingen", "leestijd": "4 min", "image": "img/motor/moto-12741638.jpg",
+     "excerpt": "Hoe je mobiel blijft terwijl je motor wordt gerepareerd: de vormen, de voorwaarden en wanneer deze dekking loont.",
+     "meta_title": "Vervangend vervoer motorverzekering: hoe werkt het? | Motorverzekering.nl",
+     "meta_description": "Vervangend vervoer houdt je mobiel terwijl je motor wordt hersteld. Lees welke vormen er zijn, de voorwaarden en wanneer het loont."},
 ]
 
 # Volledig uitgeschreven artikelen (titel -> body_html). Feitelijk, geen fluff.
@@ -996,6 +1001,63 @@ BLOG_BODIES = {
 <p>Nee. De rechtsbijstand die je bij een motorverzekering kiest, is doorgaans beperkt tot verkeers- en voertuiggerelateerde zaken: verhaal na een ongeval, geschillen met een garage of de verkoper van je motor. Conflicten over werk, wonen of andere consumentenzaken vallen daarbuiten. Wil je ook daarvoor juridische hulp, dan sluit je een bredere, losse rechtsbijstandverzekering af. Controleer dus of de dekking aansluit op de conflicten die jij wilt afdekken voordat je kiest.</p>
 <h3>Wat als ik het oneens ben met het oordeel van de verzekeraar?</h3>
 <p>Vindt je rechtsbijstandverzekeraar je zaak kansloos terwijl jij dat anders ziet, dan kun je meestal een beroep doen op de geschillenregeling in je voorwaarden. Daarbij geeft een onafhankelijke deskundige, vaak een advocaat, een tweede oordeel over de haalbaarheid. Valt dat in je voordeel uit, dan wordt de zaak alsnog opgepakt of mag je hem op kosten van de verzekeraar voortzetten. Lees na hoe de geschillenregeling bij jouw polis precies werkt, zodat je weet wat je kunt doen bij onenigheid.</p>
+""",
+    "Vervangend vervoer bij motorschade: hoe zit het?": """
+<p>Vervangend vervoer is een aanvullende dekking die je mobiel houdt terwijl je motor na schade wordt gerepareerd. Staat je motor in de werkplaats, dan overbrugt deze dekking die periode, bijvoorbeeld met een vervangende motor of een vergoeding voor ander vervoer. Het is een optie die je los bij je motorverzekering kiest en die in de regel gekoppeld is aan een gedekte cascoschade.</p>
+<h2>De kernregel: vervangend vervoer overbrugt de reparatieperiode</h2>
+<p>Na een gedekte schade gaat je motor naar een herstelbedrijf, en in die tijd kun je er niet mee rijden. Vervangend vervoer vangt precies dat gat op: het zorgt dat je tijdens de reparatie mobiel blijft. Het is dus geen vergoeding voor de schade zelf, want dat regelt je casco-dekking, maar voor je vervoer zolang je motor onbruikbaar is. Zonder deze dekking moet je die periode zelf overbruggen en de kosten van alternatief vervoer zelf dragen.</p>
+<h2>Welke vormen zijn er?</h2>
+<p>Vervangend vervoer voor een motor kan op verschillende manieren worden ingevuld; welke vorm je krijgt, hangt af van je verzekeraar en pakket:</p>
+<ul>
+<li><strong>Een vervangende motor:</strong> je rijdt tijdelijk op een leenmotor. Dit kan alleen als je een geldig rijbewijs hebt en er een geschikte motor beschikbaar is.</li>
+<li><strong>Een vergoeding voor alternatief vervoer:</strong> bijvoorbeeld de kosten van openbaar vervoer of een huurauto, tot een afgesproken bedrag.</li>
+<li><strong>Een vaste dagvergoeding:</strong> een bedrag per dag dat je motor in reparatie is, dat je vrij kunt besteden aan vervoer.</li>
+</ul>
+<p>Lees in je voorwaarden welke vorm je hebt en tot welk bedrag of welke periode, zodat je weet waar je op kunt rekenen als je motor in de werkplaats staat.</p>
+<h2>Wanneer keert het uit?</h2>
+<p>Vervangend vervoer is in de regel gekoppeld aan een <strong>gedekte cascoschade</strong>: je motor wordt gerepareerd na schade die onder je WA+ of Allrisk valt, en de dekking loopt zolang die reparatie duurt. Vaak geldt de voorwaarde dat je laat repareren bij een <strong>erkend of door de verzekeraar aangewezen herstelbedrijf</strong>. Bij total loss, waarbij niet wordt gerepareerd maar uitgekeerd, geldt vervangend vervoer meestal niet of anders. Ook pech kan een rol spelen: sommige pakketten bieden vervoer terwijl je motor na pech wordt gemaakt. Controleer of jouw dekking aan reparatie na schade is gekoppeld en welke situaties meetellen.</p>
+<table><thead><tr><th>Situatie</th><th>Vervangend vervoer?</th></tr></thead><tbody>
+<tr><td>Motor in reparatie na gedekte cascoschade</td><td>Ja, tijdens de reparatie</td></tr>
+<tr><td>Reparatie bij een erkend herstelbedrijf</td><td>Vaak voorwaarde voor uitkering</td></tr>
+<tr><td>Total loss (uitkering i.p.v. reparatie)</td><td>Meestal niet of anders geregeld</td></tr>
+<tr><td>Schade zelf (aan je motor)</td><td>Casco (WA+ of Allrisk)</td></tr>
+<tr><td>Hulp op het moment van pech onderweg</td><td>Pechhulp</td></tr>
+</tbody></table>
+<h2>Voorwaarden: duur, maximum en herstelbedrijf</h2>
+<p>Drie punten bepalen wat je krijgt. Ten eerste de <strong>maximale periode</strong>: vervangend vervoer geldt voor de reparatieduur, vaak tot een maximum aantal dagen. Ten tweede een <strong>maximumbedrag</strong>, zeker bij een vergoeding voor alternatief vervoer of een dagvergoeding. Ten derde de eis om te laten repareren bij een <strong>erkend of aangewezen herstelbedrijf</strong>; kies je zelf een andere garage, dan kan de dekking vervallen. Lees deze voorwaarden na voordat je een schade laat herstellen, zodat je de juiste stappen zet en recht houdt op vervangend vervoer.</p>
+<h2>Verschil met pechhulp</h2>
+<p>Vervangend vervoer en pechhulp worden vaak verward, maar dekken een ander moment. Pechhulp helpt je op het moment dat je motor onderweg uitvalt: hulp ter plaatse, berging en zo nodig vervoer naar een garage. Vervangend vervoer komt daarna: het houdt je mobiel gedurende de periode dat je motor in reparatie staat. Pechhulp lost het acute probleem op, vervangend vervoer overbrugt de hersteltijd. Voor wie zijn motor dagelijks gebruikt, vullen ze elkaar aan.</p>
+<h2>Wanneer is het de moeite waard?</h2>
+<p>Vervangend vervoer loont vooral als je je motor dagelijks of voor woon-werkverkeer gebruikt en niet makkelijk op een alternatief kunt terugvallen. Sta je dan na schade weken zonder vervoer, dan is een leenmotor of vergoeding veel waard. Gebruik je je motor vooral als hobby of in het mooie seizoen, dan is een reparatieperiode minder belastend en weegt het voordeel minder zwaar, zeker als je daarnaast een auto hebt. Reken de bescheiden meerpremie af tegen wat alternatief vervoer je zou kosten als je motor een paar weken in de werkplaats staat.</p>
+<h2>Veelgemaakte fouten</h2>
+<ul>
+<li><strong>Denken dat het ook bij total loss geldt.</strong> Vervangend vervoer is meestal aan reparatie gekoppeld, niet aan een uitkering.</li>
+<li><strong>Zelf een niet-erkende garage kiezen.</strong> Dat kan de dekking voor vervangend vervoer laten vervallen.</li>
+<li><strong>Pechhulp en vervangend vervoer verwarren.</strong> Het ene is voor onderweg, het andere voor de reparatieperiode.</li>
+<li><strong>De maximale duur over het hoofd zien.</strong> Een lange reparatie kan langer duren dan de vergoede periode.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>Bepaal hoe afhankelijk je dagelijks van je motor bent.</li>
+<li>Check welke vorm je krijgt: leenmotor, vergoeding of dagbedrag.</li>
+<li>Let op de maximale periode en het maximumbedrag.</li>
+<li>Laat repareren bij een erkend of aangewezen herstelbedrijf.</li>
+<li>Controleer of de dekking ook bij pechreparatie geldt.</li>
+</ul>
+<p>Wil je ook hulp op het moment dat je onderweg strandt? Lees dan over <a href="/blog/pechhulp-voor-je-motor-in-nederland-en-heel-europa/">pechhulp voor je motor</a>. Benieuwd wat vervangend vervoer bij jouw motor kost? Bekijk het bij het <a href="/motorverzekering-berekenen/">berekenen van je premie</a>.</p>
+<h2>Veelgestelde vragen</h2>
+<h3>Krijg ik een vervangende motor of een vergoeding?</h3>
+<p>Dat hangt af van je verzekeraar en pakket. Sommige bieden een vervangende motor (een leenmotor), andere een vergoeding voor alternatief vervoer zoals openbaar vervoer of een huurauto, of een vaste dagvergoeding voor de periode dat je motor in reparatie staat. Een leenmotor kan alleen als je een geldig rijbewijs hebt en er een geschikte motor beschikbaar is. Lees in je voorwaarden welke vorm je hebt en tot welk bedrag of welke periode, zodat je weet wat je krijgt.</p>
+<h3>Geldt vervangend vervoer ook bij total loss?</h3>
+<p>Meestal niet, of anders geregeld. Vervangend vervoer is in de regel gekoppeld aan de reparatie van je motor: het loopt zolang die reparatie duurt. Bij total loss wordt je motor niet gerepareerd maar krijg je een uitkering, dus is er geen reparatieperiode om te overbruggen. Sommige verzekeraars bieden in dat geval een korte overbruggingsperiode, andere niets. Controleer in je voorwaarden wat er bij total loss gebeurt, zodat je weet waar je aan toe bent als je motor niet meer te herstellen is.</p>
+<h3>Wat is het verschil met pechhulp?</h3>
+<p>Pechhulp helpt je op het moment dat je motor onderweg uitvalt: hulp langs de weg, berging en vervoer naar een garage. Vervangend vervoer komt daarna en houdt je mobiel terwijl je motor in reparatie staat. Het ene lost het acute probleem op het moment van stilstand op, het andere overbrugt de periode dat je motor wordt hersteld. Ze dekken dus verschillende momenten en vullen elkaar aan, zeker als je je motor dagelijks gebruikt en niet zonder vervoer kunt.</p>
+<h3>Moet ik bij een vaste garage laten repareren?</h3>
+<p>Vaak wel. Veel polissen stellen als voorwaarde dat je een gedekte schade laat herstellen bij een erkend of door de verzekeraar aangewezen herstelbedrijf. Kies je zelf een andere garage, dan kan de dekking voor vervangend vervoer vervallen. Het loont daarom om bij schade eerst je verzekeraar te bellen en te vragen waar je moet laten repareren. Zo zet je de juiste stappen en houd je recht op de vervangend-vervoerdekking gedurende de reparatie.</p>
+<h3>Hoe lang heb ik recht op vervangend vervoer?</h3>
+<p>Voor de duur van de reparatie, vaak tot een maximum aantal dagen dat in je voorwaarden staat. Duurt het herstel langer dan die periode, bijvoorbeeld door het wachten op onderdelen, dan kan het deel daarboven voor eigen rekening komen. Bij een vergoeding voor alternatief vervoer of een dagvergoeding geldt daarnaast meestal een maximumbedrag. Bekijk dus zowel de maximale periode als het maximumbedrag, zodat je weet tot waar je gedekt bent als de reparatie uitloopt.</p>
+<h3>Is vervangend vervoer zinvol als ik mijn motor alleen in de zomer rijd?</h3>
+<p>Dan weegt het voordeel minder zwaar. Gebruik je je motor vooral als hobby of in het mooie seizoen en heb je daarnaast ander vervoer, dan is een reparatieperiode minder belastend en mis je je motor minder hard. Vervangend vervoer is juist waardevol voor wie dagelijks of voor woon-werkverkeer op de motor rijdt en na schade niet weken zonder kan. Weeg de meerpremie af tegen hoe afhankelijk je werkelijk van je motor bent; voor een puur recreatieve rijder is de dekking vaak minder nodig.</p>
 """,
 }
 
