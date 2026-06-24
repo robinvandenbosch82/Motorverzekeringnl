@@ -79,10 +79,12 @@ class SiteSettings(models.Model):
     whatsapp = models.CharField("WhatsApp-nummer", max_length=40, default="+3197010252701")
     email = models.EmailField("E-mail", default="hallo@bestelautoverzekering.nl")
 
-    afm_nummer = models.CharField("AFM-vergunning", max_length=40, default="12012535")
-    kvk_nummer = models.CharField("KvK-nummer", max_length=40, default="34331885")
-    btw_nummer = models.CharField("BTW-nummer", max_length=40, default="NL820572937B01")
-    kifid_nummer = models.CharField("Kifid-aansluitnummer", max_length=40, default="300.008506")
+    legal_naam = models.CharField("Statutaire naam", max_length=160, default="Finckers B.V.",
+                                  help_text="Rechtspersoon achter de site (voor JSON-LD legalName en juridische pagina's).")
+    afm_nummer = models.CharField("AFM-vergunning", max_length=40, default="12047091")
+    kvk_nummer = models.CharField("KvK-nummer", max_length=40, default="76100200")
+    btw_nummer = models.CharField("BTW-nummer", max_length=40, default="", blank=True)
+    kifid_nummer = models.CharField("Kifid-aansluitnummer", max_length=40, default="", blank=True)
 
     footer_blurb = models.TextField(
         "Footer-tekst",
@@ -107,9 +109,9 @@ class SiteSettings(models.Model):
         help_text="Eén volledige URL per regel: LinkedIn, Facebook, X, Trustpilot… "
                   "Verschijnen als sameAs in de Organization-graaf.")
     # Optioneel vestigingsadres — alleen ingevuld weergeven (geen lege PostalAddress).
-    adres_straat = models.CharField("Vestiging · straat + nr.", max_length=160, blank=True)
-    adres_postcode = models.CharField("Vestiging · postcode", max_length=16, blank=True)
-    adres_plaats = models.CharField("Vestiging · plaats", max_length=120, blank=True)
+    adres_straat = models.CharField("Vestiging · straat + nr.", max_length=160, blank=True, default="Papendorpseweg 99")
+    adres_postcode = models.CharField("Vestiging · postcode", max_length=16, blank=True, default="3528 BJ")
+    adres_plaats = models.CharField("Vestiging · plaats", max_length=120, blank=True, default="Utrecht")
 
     class Meta:
         verbose_name = "Site-instellingen"

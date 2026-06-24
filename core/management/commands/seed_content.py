@@ -913,14 +913,14 @@ KB_CONTENT = {
     },
 }
 
-# Legal pages (slug, titel, meta_description, body_html). Adapted from the
-# Autoverzekering.nl family, Motorverzekering.nl is een handelsnaam van
-# Overstappen.nl B.V. (zelfde AFM/KvK/Kifid-registratie). Bewerkbaar in de admin.
+# Legal pages (slug, titel, meta_description, body_html). Motorverzekering.nl is
+# een handelsnaam van Finckers B.V. (AFM 12047091 / KvK 76100200, Papendorpseweg
+# 99, 3528 BJ Utrecht). Bewerkbaar in de admin.
 _MAIL = "hallo@motorverzekering.nl"
 LEGAL_PAGES = [
     ("disclaimer", "Disclaimer",
      "De disclaimer van Motorverzekering.nl: gebruik van de website, aansprakelijkheid en auteursrechten.",
-     f"""<p>Motorverzekering.nl is onderdeel van Autoverzekering.nl (Overstappen.nl B.V.) en verantwoordelijk voor de totstandkoming van deze website. Op de inhoud en het gebruik van deze website is onderstaande disclaimer van toepassing. Door onze site te gebruiken, accepteer je deze disclaimer.</p>
+     f"""<p>Motorverzekering.nl is een handelsnaam van Finckers B.V. en verantwoordelijk voor de totstandkoming van deze website. Op de inhoud en het gebruik van deze website is onderstaande disclaimer van toepassing. Door onze site te gebruiken, accepteer je deze disclaimer.</p>
 <h2>Fouten</h2>
 <p>Wij helpen motorrijders om motorverzekeringen te vergelijken en online af te sluiten. We doen ons uiterste best om de informatie op deze site juist en actueel te houden, inclusief informatie van derden, premies, beoordelingen en de uitkomsten van vergelijkingen. Wij en onze leveranciers kunnen dit echter niet garanderen. Beslissingen die je neemt zijn voor eigen rekening en risico. Kom je een fout of verouderde informatie tegen? Laat het ons weten via {_MAIL}.</p>
 <h2>Aansprakelijkheid</h2>
@@ -934,7 +934,7 @@ LEGAL_PAGES = [
 
     ("dienstenwijzer", "Dienstenwijzer",
      "Wie we zijn, wat we voor je doen, onze beloning, AFM- en KvK-registratie en de klachtenprocedure.",
-     f"""<p>In deze dienstenwijzer leggen we uit wie we zijn, wat we voor je doen en hoe we werken. Motorverzekering.nl is onderdeel van Autoverzekering.nl (Overstappen.nl B.V.).</p>
+     f"""<p>In deze dienstenwijzer leggen we uit wie we zijn, wat we voor je doen en hoe we werken. Motorverzekering.nl is een handelsnaam van Finckers B.V.</p>
 <h2>Wat doen wij voor je?</h2>
 <p>Via onze website vergelijk je motorverzekeringen van meerdere verzekeraars. Je ziet de beschikbare opties en kunt direct online afsluiten op basis van <strong>execution only</strong>: wij geven geen persoonlijk advies, je bepaalt zelf welke verzekering het beste bij je past.</p>
 <h2>Hoe werkt het vergelijken?</h2>
@@ -944,15 +944,15 @@ LEGAL_PAGES = [
 <h2>Onze beloning</h2>
 <p>Wij ontvangen een vergoeding van verzekeraars, doorlopend als tussenpersoon of eenmalig voor het doorsturen van een aanvraag. Je betaalt hiervoor geen extra kosten.</p>
 <h2>Vergunning en registratie</h2>
-<p>Motorverzekering.nl (Overstappen.nl B.V.) is gevestigd aan de Overtoom 62, 1054 HL Amsterdam. We zijn geregistreerd bij de Autoriteit Financiële Markten (AFM) onder vergunningnummer <strong>12012535</strong> en ingeschreven bij de Kamer van Koophandel onder nummer <strong>34331885</strong>.</p>
+<p>Motorverzekering.nl (Finckers B.V.) is gevestigd aan de Papendorpseweg 99, 3528 BJ Utrecht. We zijn geregistreerd bij de Autoriteit Financiële Markten (AFM) onder vergunningnummer <strong>12047091</strong> en ingeschreven bij de Kamer van Koophandel onder nummer <strong>76100200</strong>.</p>
 <h2>Klachten</h2>
-<p>Heb je een klacht over onze dienstverlening? Stuur een e-mail naar {_MAIL}. Je ontvangt binnen 2 werkdagen een ontvangstbevestiging. Komen we er samen niet uit, dan kun je je klacht voorleggen aan het Klachteninstituut Financiële Dienstverlening (Kifid), waar we zijn aangesloten onder nummer <strong>300.008506</strong>.</p>
+<p>Heb je een klacht over onze dienstverlening? Stuur een e-mail naar {_MAIL}. Je ontvangt binnen 2 werkdagen een ontvangstbevestiging. Komen we er samen niet uit, dan kun je je klacht voorleggen aan het Klachteninstituut Financiële Dienstverlening (Kifid), waar wij bij zijn aangesloten.</p>
 <h2>Kifid</h2>
 <p>Kifid, Postbus 93257, 2509 AG Den Haag. Website: <a href="https://www.kifid.nl" target="_blank" rel="noopener">kifid.nl</a> · e-mail: consumenten@kifid.nl · telefoon: 070 333 8 999.</p>"""),
 
     ("privacy-cookies", "Privacy & cookies",
      "Welke persoonsgegevens Motorverzekering.nl verwerkt, waarvoor, hoe lang we ze bewaren en welke rechten je hebt.",
-     f"""<p>Motorverzekering.nl (onderdeel van Overstappen.nl B.V.) hecht veel waarde aan je privacy. In deze verklaring lees je welke persoonsgegevens we verwerken, waarom, hoe lang we ze bewaren en welke rechten je hebt.</p>
+     f"""<p>Motorverzekering.nl (handelsnaam van Finckers B.V.) hecht veel waarde aan je privacy. In deze verklaring lees je welke persoonsgegevens we verwerken, waarom, hoe lang we ze bewaren en welke rechten je hebt.</p>
 <h2>Welke gegevens verwerken we?</h2>
 <p>Als je een premie berekent of afsluit, verwerken we de gegevens die je invult, zoals: kenteken en voertuiggegevens, postcode, huisnummer en geboortedatum van de hoofdbestuurder, schadevrije jaren, en bij een aanvraag je contactgegevens (naam, e-mailadres, telefoonnummer en IBAN).</p>
 <h2>Waarvoor gebruiken we ze?</h2>
@@ -968,7 +968,7 @@ LEGAL_PAGES = [
 
     ("algemene-voorwaarden", "Algemene voorwaarden",
      "De algemene voorwaarden van Motorverzekering.nl: onze rol als tussenpersoon, execution only en aansprakelijkheid.",
-     f"""<p>Deze algemene voorwaarden zijn van toepassing op het gebruik van Motorverzekering.nl en op onze bemiddeling. Motorverzekering.nl is een handelsnaam van Overstappen.nl B.V., gevestigd aan de Overtoom 62, 1054 HL Amsterdam (KvK 34331885).</p>
+     f"""<p>Deze algemene voorwaarden zijn van toepassing op het gebruik van Motorverzekering.nl en op onze bemiddeling. Motorverzekering.nl is een handelsnaam van Finckers B.V., gevestigd aan de Papendorpseweg 99, 3528 BJ Utrecht (KvK 76100200).</p>
 <h2>1. Onze rol</h2>
 <p>Wij bieden een platform waarmee je motorverzekeringen kunt vergelijken en online kunt afsluiten. Wij treden uitsluitend op als tussenpersoon (bemiddelaar) en zijn niet de verzekeraar. De verzekeringsovereenkomst komt tot stand tussen jou en de gekozen verzekeraar.</p>
 <h2>2. Execution only</h2>
@@ -1164,9 +1164,12 @@ class Command(BaseCommand):
                 slug=slug,
                 defaults={"titel": titel, "meta_description": meta, "body_html": body,
                           "contenttype": "juridisch", "published": True})
-            # One-off: replace leftover bestelauto legal text with the motor
-            # version (admin edits after that are preserved).
-            if not created and "Bestelauto" in (obj.body_html or ""):
+            # One-off: vervang achtergebleven bestelauto- óf oude Overstappen.nl-
+            # entiteittekst door de actuele Finckers-versie (admin-edits die deze
+            # markers verwijderd hebben, blijven daarna behouden).
+            _stale = obj.body_html or ""
+            if not created and ("Bestelauto" in _stale or "Overstappen.nl" in _stale
+                                or "Overtoom 62" in _stale):
                 obj.titel = titel
                 obj.meta_description = meta
                 obj.body_html = body
@@ -1569,6 +1572,19 @@ class Command(BaseCommand):
             "footer_blurb": (
                 "Direct online je motor verzekeren. Rider-first, zonder gedoe.",
                 (SiteSettings._meta.get_field("footer_blurb").default,)),
+            # Juridische entiteit: Finckers B.V. (AFM 12047091 / KvK 76100200,
+            # Papendorpseweg 99, 3528 BJ Utrecht). Overschrijft de overgeërfde
+            # Overstappen.nl-waarden eenmalig; admin-edits blijven behouden. Kifid/
+            # BTW van Finckers zijn (nog) niet bekend -> leeggemaakt i.p.v. de
+            # onjuiste Overstappen-nummers te tonen.
+            "legal_naam": ("Finckers B.V.", ("Overstappen.nl B.V.", "")),
+            "afm_nummer": ("12047091", ("12012535",)),
+            "kvk_nummer": ("76100200", ("34331885",)),
+            "kifid_nummer": ("", ("300.008506",)),
+            "btw_nummer": ("", ("NL820572937B01",)),
+            "adres_straat": ("Papendorpseweg 99", ("", "Overtoom 62")),
+            "adres_postcode": ("3528 BJ", ("", "1054 HL")),
+            "adres_plaats": ("Utrecht", ("", "Amsterdam")),
         }
         changed = []
         for field, (value, defaults) in motor.items():

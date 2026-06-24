@@ -53,19 +53,20 @@
         "@type": ["Organization", "InsuranceAgency"],
         "@id": "{{ site_origin }}/#organization",
         "name": "{{ site_name }}",
+        {% if site.legal_naam %}"legalName": "{{ site.legal_naam|escapejs }}",{% endif %}
         "url": "{{ site_origin }}/",
         "description": "{{ default_seo_description|escapejs }}",
         "areaServed": {"@type": "Country", "name": "Nederland"},
-        "email": "{{ site.email }}",
-        "vatID": "{{ site.btw_nummer }}",
+        "email": "{{ site.email }}",{% if site.btw_nummer %}
+        "vatID": "{{ site.btw_nummer }}",{% endif %}
         "memberOf": [
           {"@type": "Organization", "name": "Kifid"},
           {"@type": "Organization", "name": "Autoriteit Financiële Markten (AFM)"}
         ],
         "identifier": [
           {"@type": "PropertyValue", "propertyID": "KvK", "value": "{{ site.kvk_nummer }}"},
-          {"@type": "PropertyValue", "propertyID": "AFM", "value": "{{ site.afm_nummer }}"},
-          {"@type": "PropertyValue", "propertyID": "Kifid", "value": "{{ site.kifid_nummer }}"}
+          {"@type": "PropertyValue", "propertyID": "AFM", "value": "{{ site.afm_nummer }}"}{% if site.kifid_nummer %},
+          {"@type": "PropertyValue", "propertyID": "Kifid", "value": "{{ site.kifid_nummer }}"}{% endif %}
         ],
         "contactPoint": [{
           "@type": "ContactPoint",
