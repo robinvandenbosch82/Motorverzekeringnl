@@ -218,7 +218,14 @@ SITE_DOMAIN = os.getenv("SITE_DOMAIN", "motorverzekering.nl")
 # Canonical origin for structured-data @id's and canonical/OG URLs. NEVER use
 # request.get_host() for @id — it is host-dependent (www vs non-www, dev port)
 # and would make the entity graph's identifiers unstable across pages.
-SITE_ORIGIN = os.getenv("SITE_ORIGIN", f"https://{SITE_DOMAIN}").rstrip("/")
+# De canonieke host is altijd de WWW-variant: sitemap, canonical, robots en de
+# entity-graph @id's staan zo consistent op https://www.<domein>, ongeacht of
+# de env de apex of de www aanlevert.
+_origin = os.getenv("SITE_ORIGIN", f"https://{SITE_DOMAIN}").rstrip("/")
+_scheme, _sep, _host = _origin.rpartition("://")
+if _host and not _host.startswith("www."):
+    _host = "www." + _host
+SITE_ORIGIN = f"{_scheme}{_sep}{_host}" if _sep else _origin
 DEFAULT_SEO_TITLE = "Motorverzekering vergelijken | Motorverzekering.nl"
 DEFAULT_SEO_DESCRIPTION = (
     "Dé specialist in motorverzekeringen. Vergelijk verzekeraars en bereken je "
