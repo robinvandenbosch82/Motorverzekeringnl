@@ -23,19 +23,69 @@ def media_serve(request, path, document_root=None):
     return response
 
 
+# AI-crawlers die we expliciet welkom heten: de kennisbank, blog en FAQ zijn
+# bedoeld om geciteerd te worden in AI Overviews, ChatGPT, Claude en Perplexity.
+# NB: een eventuele blokkade kan ook op CDN-niveau staan (Cloudflare AI-bot-
+# blocking / Content-Signal: ai-train=no) — die moet je daar uitzetten.
+_AI_CRAWLERS = [
+    "GPTBot", "OAI-SearchBot", "ChatGPT-User",          # OpenAI
+    "ClaudeBot", "anthropic-ai", "Claude-Web",          # Anthropic
+    "Google-Extended",                                  # Google (AI Overviews-grounding)
+    "PerplexityBot", "Perplexity-User",                 # Perplexity
+    "CCBot",                                            # Common Crawl (voedt veel LLM's)
+    "Applebot-Extended", "meta-externalagent",          # Apple, Meta
+    "Bytespider", "Amazonbot",                          # ByteDance, Amazon
+]
+
+
 def robots_txt(request):
-    # Advertise the sitemap on the canonical origin (host-independent), and keep
-    # crawlers out of the admin + the JSON proxy endpoints.
+    # Advertise the sitemap on the canonical origin (host-independent), keep
+    # crawlers out of the admin + JSON proxy, and expliciet AI-crawlers toestaan.
     origin = settings.SITE_ORIGIN
-    lines = [
-        "User-agent: *",
-        "Allow: /",
-        "Disallow: /admin/",
-        "Disallow: /premie/api/",
-        "",
+    disallow = ["Disallow: /admin/", "Disallow: /premie/api/"]
+    lines = ["User-agent: *", "Allow: /", *disallow, ""]
+    for bot in _AI_CRAWLERS:
+        lines += [f"User-agent: {bot}", "Allow: /", *disallow, ""]
+    lines += [
         f"Sitemap: {origin}/sitemap.xml",
+        f"# LLM-gids: {origin}/llms.txt",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+def llms_txt(request):
+    """`/llms.txt` — een beknopte, gestructureerde gids voor LLM's (GEO).
+    Geeft AI-assistenten een schone routekaart naar onze kerncontent, los van
+    HTML/CDN. Opgebouwd uit de live modellen zodat hij altijd actueel is."""
+    from django.urls import reverse
+    from core.models import BlogArtikel, KennisbankArtikel
+
+    o = settings.SITE_ORIGIN
+    out = [
+        f"# {settings.SITE_NAME}",
+        "",
+        "> Onafhankelijk motorverzekeringen vergelijken en direct online afsluiten "
+        "(WA, WA+ en Allrisk), zonder tussenpersoon. Nederlandstalig, server-side "
+        "gerenderd. Feitelijke, gecontroleerde content over dekkingen, premie, "
+        "schade en regelgeving rond de motorverzekering.",
+        "",
+        "## Belangrijkste pagina's",
+        f"- [Motorverzekering vergelijken]({o}/): home en premievergelijking",
+        f"- [Premie berekenen]({o}{reverse('premie_tool')}): bereken en sluit direct af",
+        f"- [Dekkingen]({o}{reverse('dekkingen')}): WA, WA+ en Allrisk + aanvullende dekkingen",
+        f"- [Kennisbank]({o}{reverse('kennisbank')}): veelgestelde vragen, feitelijk beantwoord",
+        f"- [Blog]({o}{reverse('blog')}): uitleg en achtergrond voor motorrijders",
+        f"- [Klantenservice]({o}{reverse('klantenservice')}): contact en hulp",
+        "",
+        "## Kennisbank",
+    ]
+    for a in KennisbankArtikel.objects.filter(active=True).order_by("order"):
+        out.append(f"- [{a.titel}]({o}{a.get_absolute_url()})")
+    out += ["", "## Blog"]
+    for b in BlogArtikel.objects.filter(active=True).order_by("order"):
+        out.append(f"- [{b.titel}]({o}{b.get_absolute_url()})")
+    out.append("")
+    return HttpResponse("\n".join(out), content_type="text/plain; charset=utf-8")
 
 
 urlpatterns = [
@@ -43,6 +93,7 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": SITEMAPS},
          name="django.contrib.sitemaps.views.sitemap"),
     path("robots.txt", robots_txt, name="robots_txt"),
+    path("llms.txt", llms_txt, name="llms_txt"),
 ]
 
 # Serve uploaded/generated media directly from Django, in dev AND production —

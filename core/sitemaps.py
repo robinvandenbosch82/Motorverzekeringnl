@@ -76,6 +76,13 @@ class ExtraSitemap(_CanonicalSitemap):
     def location(self, name):
         return reverse(name)
 
+    def lastmod(self, name):
+        # Geen eigen timestamp; gebruik de jongste landingspagina-wijziging als
+        # redelijke verse-signaalproxy voor deze conversiepagina.
+        from django.db.models import Max
+        from .models import Page as PageModel
+        return PageModel.objects.aggregate(m=Max("updated_at"))["m"]
+
 
 class ContentPaginaSitemap(_CanonicalSitemap):
     changefreq = "monthly"
@@ -104,6 +111,9 @@ class KennisbankSitemap(_CanonicalSitemap):
     def location(self, obj):
         return obj.get_absolute_url()
 
+    def lastmod(self, obj):
+        return obj.updated_at
+
 
 class BlogSitemap(_CanonicalSitemap):
     changefreq = "monthly"
@@ -115,6 +125,9 @@ class BlogSitemap(_CanonicalSitemap):
 
     def location(self, obj):
         return obj.get_absolute_url()
+
+    def lastmod(self, obj):
+        return obj.updated_at
 
 
 SITEMAPS = {

@@ -467,6 +467,8 @@ class BlogArtikel(PhotoMixin):
     featured = models.BooleanField("Uitgelicht", default=False)
     order = models.PositiveIntegerField("Volgorde", default=0)
     active = models.BooleanField("Actief", default=True)
+    updated_at = models.DateTimeField("Laatst bijgewerkt", auto_now=True,
+                                      help_text="Gebruikt als <lastmod> in de sitemap (verse-signaal).")
 
     class Meta:
         verbose_name = "Blogartikel"
@@ -531,6 +533,8 @@ class KennisbankArtikel(PhotoMixin):
     featured = models.BooleanField("Uitgelicht", default=False)
     order = models.PositiveIntegerField("Volgorde", default=0)
     active = models.BooleanField("Actief", default=True)
+    updated_at = models.DateTimeField("Laatst bijgewerkt", auto_now=True,
+                                      help_text="Gebruikt als <lastmod> in de sitemap (verse-signaal).")
 
     class Meta:
         verbose_name = "Kennisbank-artikel"
