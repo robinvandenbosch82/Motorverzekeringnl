@@ -43,7 +43,7 @@ def home_context():
         "faqs": _db_faqs() or FAQS,
         "experts": [{**e, "initials": _initials(e["name"])}
                     for e in (_db_experts() or EXPERTS)],
-        "blog_items": BLOG_ITEMS,
+        "blog_items": _home_blog_items(),
         # ── Card lists (admin = source: Kaart; static fallback below) ──
         "why_items": _cards("home_waarom", WHY_ITEMS),
         "doc_items": _cards("home_documenten", DOC_ITEMS),
@@ -97,9 +97,12 @@ WHY_ITEMS = [
 ]
 
 DOC_ITEMS = [
-    {"tag": "PDF", "titel": "Polisvoorwaarden", "meta": "Per dekking · download"},
-    {"tag": "KAART", "titel": "Verzekeringskaart", "meta": "WA · WA+ · Allrisk"},
-    {"tag": "MIJN", "titel": "Groene kaart & polisblad", "meta": "Direct na afsluiten"},
+    {"tag": "PDF", "titel": "Polisvoorwaarden", "meta": "Per dekking · download",
+     "url": "/motorverzekering-berekenen/"},
+    {"tag": "KAART", "titel": "Verzekeringskaart", "meta": "WA · WA+ · Allrisk",
+     "url": "/dekkingen/"},
+    {"tag": "MIJN", "titel": "Groene kaart & polisblad", "meta": "Direct na afsluiten",
+     "url": "/blog/groene-kaart-en-motorverzekering-in-het-buitenland/"},
 ]
 
 TRUST_ITEMS = [
@@ -138,6 +141,21 @@ CONTACT_CHANNELS = [
 
 # Homepage blog teasers (bundled motor images, served from static). Used as the
 # fallback when no imported blog ContentPagina's exist yet.
+def _home_blog_items():
+    """De 'UITGELICHT'-blogkaarten op de homepage: de echte top-3 actieve
+    blogartikelen uit de DB, met een DIRECTE link naar het artikel (niet naar
+    het overzicht). Featured eerst, daarna op volgorde. Valt terug op de
+    statische placeholders (zonder url -> overzicht) als er nog geen artikelen
+    zijn."""
+    from .models import BlogArtikel
+    qs = BlogArtikel.objects.filter(active=True).order_by("-featured", "order")[:3]
+    items = [{"title": b.titel, "desc": b.excerpt, "image": b.get_photo_source(),
+              "url": b.get_absolute_url()} for b in qs]
+    return items or BLOG_ITEMS
+
+
+# Statische fallback voor de homepage-blogkaarten (alleen gebruikt vóór seeding;
+# zonder url linken ze naar het blogoverzicht).
 BLOG_ITEMS = [
     {"title": "Maak je motor rijklaar", "image": "img/motor/moto-11890953.jpg",
      "desc": "Na de winterstop weer veilig de weg op? Met deze checklist voorkom je schade en verrassingen."},

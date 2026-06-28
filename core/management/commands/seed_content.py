@@ -1614,6 +1614,12 @@ class Command(BaseCommand):
                 Kaart.objects.create(
                     blok=blok, volgorde=i, tag=it.get("tag", ""), titel=it.get("titel", ""),
                     tekst=it.get("tekst", ""), meta=it.get("meta", ""), url=it.get("url", ""))
+        # Urls zetten op bestaande kaarten die eerder zonder url werden geseed
+        # (bijv. de documenten-kaarten); alleen indien nog leeg -> admin-edits blijven.
+        for blok, items in blocks.items():
+            for it in items:
+                if it.get("url") and it.get("titel"):
+                    Kaart.objects.filter(blok=blok, titel=it["titel"], url="").update(url=it["url"])
 
         pg = Page.objects.filter(key="home").first()
         if pg:

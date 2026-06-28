@@ -146,7 +146,8 @@
       </div>
       <div class="mv-grid3">
         {% for d in doc_items %}
-        <div class="mv-doc"><div class="mv-doctag">{{ d.tag }}</div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15px">{{ d.titel }}</div><div style="font-size:13px;color:#5C5E54">{{ d.meta }}</div></div><span style="color:#4B4DFF;font-size:18px;flex-shrink:0">→</span></div>
+        {% if d.url %}<a href="{{ d.url }}" class="mv-doc" style="color:inherit"><div class="mv-doctag">{{ d.tag }}</div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15px">{{ d.titel }}</div><div style="font-size:13px;color:#5C5E54">{{ d.meta }}</div></div><span style="color:#4B4DFF;font-size:18px;flex-shrink:0">→</span></a>
+        {% else %}<div class="mv-doc"><div class="mv-doctag">{{ d.tag }}</div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15px">{{ d.titel }}</div><div style="font-size:13px;color:#5C5E54">{{ d.meta }}</div></div><span style="color:#4B4DFF;font-size:18px;flex-shrink:0">→</span></div>{% endif %}
         {% endfor %}
       </div>
     </div>
@@ -221,7 +222,7 @@
       </div>
       <div class="mv-grid3">
         {% for b in blog_items %}
-        <a href="{% url 'blog' %}" style="background:#fff;border:1.5px solid #ECECE3;border-radius:20px;overflow:hidden;display:block">
+        <a href="{{ b.url|default:'/blog/' }}" style="background:#fff;border:1.5px solid #ECECE3;border-radius:20px;overflow:hidden;display:block">
           <div style="height:180px;overflow:hidden"><img src="{% static b.image %}" alt="{{ b.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
           <div style="padding:22px">
             <div style="font-weight:800;font-size:18px;color:#4B4DFF;display:flex;align-items:center;gap:8px">{{ b.title }} <span class="mv-arrow">→</span></div>
