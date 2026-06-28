@@ -108,6 +108,16 @@
     </div>
   </div>
 
+  {# ── Bedrijfsgegevens (handelsnaam · KvK · AFM · adres, uit SiteSettings) ── #}
+  <div class="mv-wrap" style="padding:0 clamp(18px,4vw,40px) clamp(24px,4vw,40px)">
+    <div style="border:1.5px solid #ECECE3;background:#FBFBF7;border-radius:16px;padding:22px 24px;font-size:14px;line-height:1.65;color:#5C5E54;max-width:680px">
+      <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.1em;color:#9A9C92;margin-bottom:8px">BEDRIJFSGEGEVENS</div>
+      <strong style="color:#15150F">{{ site_name }}</strong>{% if site.legal_naam %} is een handelsnaam van {{ site.legal_naam }}{% endif %}.{% if site.adres_straat %}<br>{{ site.adres_straat }}, {{ site.adres_postcode }} {{ site.adres_plaats }}.{% endif %}<br>
+      {% if site.kvk_nummer %}KvK {{ site.kvk_nummer }}{% endif %}{% if site.afm_nummer %} · AFM {{ site.afm_nummer }}{% endif %}{% if site.kifid_nummer %} · Kifid {{ site.kifid_nummer }}{% endif %}.
+      Zie ook de <a href="/dienstenwijzer/" class="mv-link" style="font-size:14px">dienstenwijzer</a> en <a href="/algemene-voorwaarden/" class="mv-link" style="font-size:14px">algemene voorwaarden</a>.
+    </div>
+  </div>
+
   {# ── CTA ── #}
   <section class="mv-band--ink" style="padding:clamp(36px,5vw,56px) clamp(18px,4vw,40px)">
     <div class="mv-wrap" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">

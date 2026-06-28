@@ -1216,7 +1216,7 @@ LEGAL_PAGES = [
 
     ("algemene-voorwaarden", "Algemene voorwaarden",
      "De algemene voorwaarden van Motorverzekering.nl: onze rol als tussenpersoon, execution only en aansprakelijkheid.",
-     f"""<p>Deze algemene voorwaarden zijn van toepassing op het gebruik van Motorverzekering.nl en op onze bemiddeling. Motorverzekering.nl is een handelsnaam van Finckers B.V., gevestigd aan de Papendorpseweg 99, 3528 BJ Utrecht (KvK 76100200).</p>
+     f"""<p>Deze algemene voorwaarden zijn van toepassing op het gebruik van Motorverzekering.nl en op onze bemiddeling. Motorverzekering.nl is een handelsnaam van Finckers B.V., gevestigd aan de Papendorpseweg 99, 3528 BJ Utrecht (KvK 76100200, AFM 12047091).</p>
 <h2>1. Onze rol</h2>
 <p>Wij bieden een platform waarmee je motorverzekeringen kunt vergelijken en online kunt afsluiten. Wij treden uitsluitend op als tussenpersoon (bemiddelaar) en zijn niet de verzekeraar. De verzekeringsovereenkomst komt tot stand tussen jou en de gekozen verzekeraar.</p>
 <h2>2. Execution only</h2>
@@ -1417,7 +1417,10 @@ class Command(BaseCommand):
             # markers verwijderd hebben, blijven daarna behouden).
             _stale = obj.body_html or ""
             if not created and ("Bestelauto" in _stale or "Overstappen.nl" in _stale
-                                or "Overtoom 62" in _stale):
+                                or "Overtoom 62" in _stale
+                                # AV-pagina zonder AFM bij de KvK -> eenmalig bijwerken
+                                # (zelf-limiterend: de nieuwe tekst bevat deze marker niet meer).
+                                or "(KvK 76100200)." in _stale):
                 obj.titel = titel
                 obj.meta_description = meta
                 obj.body_html = body
