@@ -54,37 +54,57 @@ def robots_txt(request):
 
 
 def llms_txt(request):
-    """`/llms.txt` — een beknopte, gestructureerde gids voor LLM's (GEO).
-    Geeft AI-assistenten een schone routekaart naar onze kerncontent, los van
-    HTML/CDN. Opgebouwd uit de live modellen zodat hij altijd actueel is."""
+    """`/llms.txt` — een gestructureerde gids voor LLM's (GEO). Geeft AI-
+    assistenten een schone routekaart naar onze kerncontent mét per-pagina
+    context, los van HTML/CDN. Volledig live uit de modellen, dus altijd
+    actueel: elk nieuw/actief artikel verschijnt automatisch."""
+    import re
     from django.urls import reverse
-    from core.models import BlogArtikel, KennisbankArtikel
+    from core.models import BlogArtikel, KennisbankArtikel, SiteSettings
 
+    s = SiteSettings.load()
     o = settings.SITE_ORIGIN
+
+    def desc(text, limit=180):
+        t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text or "")).strip()
+        if len(t) > limit:
+            t = t[:limit].rsplit(" ", 1)[0].rstrip(".,;:") + "…"
+        return t
+
     out = [
         f"# {settings.SITE_NAME}",
         "",
         "> Onafhankelijk motorverzekeringen vergelijken en direct online afsluiten "
-        "(WA, WA+ en Allrisk), zonder tussenpersoon. Nederlandstalig, server-side "
-        "gerenderd. Feitelijke, gecontroleerde content over dekkingen, premie, "
-        "schade en regelgeving rond de motorverzekering.",
+        "(WA, WA+ en Allrisk), zonder tussenpersoon. Nederlandstalig, volledig "
+        "server-side gerenderd. Feitelijke, door WFT-experts gecontroleerde content "
+        "over dekkingen, premie, schade en regelgeving rond de motorverzekering.",
         "",
         "## Belangrijkste pagina's",
-        f"- [Motorverzekering vergelijken]({o}/): home en premievergelijking",
-        f"- [Premie berekenen]({o}{reverse('premie_tool')}): bereken en sluit direct af",
-        f"- [Dekkingen]({o}{reverse('dekkingen')}): WA, WA+ en Allrisk + aanvullende dekkingen",
-        f"- [Kennisbank]({o}{reverse('kennisbank')}): veelgestelde vragen, feitelijk beantwoord",
-        f"- [Blog]({o}{reverse('blog')}): uitleg en achtergrond voor motorrijders",
-        f"- [Klantenservice]({o}{reverse('klantenservice')}): contact en hulp",
+        f"- [Motorverzekering vergelijken]({o}/): home; vergelijk WA, WA+ en Allrisk en bereken je premie met je kenteken.",
+        f"- [Premie berekenen]({o}{reverse('premie_tool')}): premies van meerdere verzekeraars vergelijken en direct online afsluiten.",
+        f"- [Dekkingen]({o}{reverse('dekkingen')}): wat WA, WA+ en Allrisk dekken, plus aanvullende dekkingen (pechhulp, opzittenden, rechtsbijstand, vervangend vervoer).",
+        f"- [Kennisbank]({o}{reverse('kennisbank')}): veelgestelde vragen over de motorverzekering, feitelijk beantwoord.",
+        f"- [Blog]({o}{reverse('blog')}): uitleg en achtergrond over verzekeren, premie, schade en regelgeving voor motorrijders.",
+        f"- [Klantenservice]({o}{reverse('klantenservice')}): contact, openingstijden en hulp.",
         "",
         "## Kennisbank",
     ]
     for a in KennisbankArtikel.objects.filter(active=True).order_by("order"):
-        out.append(f"- [{a.titel}]({o}{a.get_absolute_url()})")
+        d = desc(a.kort_antwoord or a.excerpt)
+        out.append(f"- [{a.titel}]({o}{a.get_absolute_url()})" + (f": {d}" if d else ""))
     out += ["", "## Blog"]
     for b in BlogArtikel.objects.filter(active=True).order_by("order"):
-        out.append(f"- [{b.titel}]({o}{b.get_absolute_url()})")
-    out.append("")
+        d = desc(b.excerpt)
+        out.append(f"- [{b.titel}]({o}{b.get_absolute_url()})" + (f": {d}" if d else ""))
+    out += [
+        "",
+        "## Over Motorverzekering.nl",
+        f"- Handelsnaam van {s.legal_naam}, gevestigd aan {s.adres_straat}, {s.adres_postcode} {s.adres_plaats}.",
+        f"- AFM-vergunning {s.afm_nummer}; ingeschreven bij de KvK onder {s.kvk_nummer}.",
+        "- Execution only: een vergelijkingsplatform en bemiddelaar, geen verzekeraar. Je sluit zelf online af, zonder persoonlijk advies.",
+        "- Onafhankelijk en zonder tussenpersoon. Content is geschreven door verzekeringsexperts en gecontroleerd door WFT-gecertificeerde adviseurs.",
+        "",
+    ]
     return HttpResponse("\n".join(out), content_type="text/plain; charset=utf-8")
 
 
