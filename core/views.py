@@ -123,18 +123,38 @@ _SECTION_LABELS = {
 _RICH_PREFIXES = {"beroep": "beroepen", "merk-model": "modellen"}
 
 
+# Eén-pagina-per-claim: koppel een korte kennisbank-vraag aan het bijbehorende
+# blog-diepteartikel (kennisbank-slug -> blog-slug). Zo versterken de Q&A en de
+# pillar elkaar (hub & spoke) i.p.v. te concurreren om dezelfde claim.
+_KB_VERDIEPING = {
+    "hoe-werken-schadevrije-jaren-en-no-claim": "schadevrije-jaren-bij-een-motorverzekering",
+    "welk-art-slot-heb-ik-nodig-voor-mijn-motor": "welke-beveiligingseisen-stellen-verzekeraars-aan-je-motor",
+    "ben-ik-verzekerd-bij-diefstal-van-mijn-motor": "welke-beveiligingseisen-stellen-verzekeraars-aan-je-motor",
+    "kan-ik-mijn-motorverzekering-in-de-winter-stopzetten": "winterstop-of-motor-schorsen-wat-is-slimmer",
+    "wat-is-het-verschil-tussen-wa-wa-en-allrisk": "wa-wa-of-allrisk-welke-motorverzekering-past-bij-jouw-motor",
+    "wat-dekt-wa-casco-precies": "wa-wa-of-allrisk-welke-motorverzekering-past-bij-jouw-motor",
+    "ben-ik-verzekerd-bij-schade-aan-mijn-opzittende": "opzittendenverzekering-voor-je-motor-wat-dekt-het",
+    "waarom-verschilt-mijn-premie-van-vorig-jaar": "wat-kost-een-motorverzekering-in-nederland",
+}
+
+
 def kennisbank_artikel(request, slug):
     """Detailpagina van één kennisbank-vraag (slug-based, DB = bron)."""
     import re
 
-    from .models import KennisbankArtikel
+    from .models import BlogArtikel, KennisbankArtikel
     artikel = get_object_or_404(KennisbankArtikel, slug=slug, active=True)
     related = list(KennisbankArtikel.objects.filter(categorie=artikel.categorie, active=True)
                    .exclude(pk=artikel.pk)[:3])
+    verdieping = None
+    _bs = _KB_VERDIEPING.get(slug)
+    if _bs:
+        verdieping = BlogArtikel.objects.filter(slug=_bs, active=True).first()
     plain = re.sub(r"<[^>]+>", "", artikel.kort_antwoord or artikel.excerpt or "")
     return render(request, "pages/kennisbank_artikel.html", {
         "artikel": artikel,
         "related": related,
+        "verdieping": verdieping,
         "seo_title": f"{artikel.titel} | Motorverzekering.nl",
         "seo_description": (artikel.excerpt or plain)[:160],
         "active_page": "kennisbank",

@@ -24,9 +24,12 @@
   "@type": "Article",
   "@id": "{{ canonical_url }}#article",
   "headline": "{{ artikel.titel|escapejs }}",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ canonical_url }}"},
   {% if artikel.categorie %}"articleSection": "{{ artikel.categorie|escapejs }}",{% endif %}
   "inLanguage": "nl-NL",
-  {% if artikel.author %}"author": {"@type": "Person", "name": "{{ artikel.author.name|escapejs }}"},{% endif %}
+  "dateModified": "{{ artikel.updated_at|date:'c' }}",
+  {% if artikel.author %}"author": {"@type": "Person", "name": "{{ artikel.author.name|escapejs }}"{% if artikel.author.role %}, "jobTitle": "{{ artikel.author.role|escapejs }}"{% endif %}},{% endif %}
+  {% if artikel.reviewer %}"reviewedBy": {"@type": "Person", "name": "{{ artikel.reviewer.name|escapejs }}"},{% endif %}
   "isPartOf": {"@id": "{{ site_origin }}/#website"},
   "publisher": {"@id": "{{ site_origin }}/#organization"}
 }

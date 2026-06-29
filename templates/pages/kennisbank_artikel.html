@@ -21,8 +21,11 @@
   "@type": "Article",
   "@id": "{{ canonical_url }}#article",
   "headline": "{{ artikel.titel|escapejs }}",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ canonical_url }}"},
   {% if artikel.categorie %}"articleSection": "{{ artikel.categorie|escapejs }}",{% endif %}
   "inLanguage": "nl-NL",
+  "dateModified": "{{ artikel.updated_at|date:'c' }}",
+  "author": {"@id": "{{ site_origin }}/#organization"},
   "isPartOf": {"@id": "{{ site_origin }}/#website"},
   "publisher": {"@id": "{{ site_origin }}/#organization"}
 }
@@ -58,7 +61,17 @@
   <article style="max-width:720px;margin:0 auto;width:100%;padding:clamp(28px,4vw,40px) clamp(18px,4vw,40px) clamp(36px,5vw,56px)">
     {% if artikel.body_html %}<div class="mv-prose">{{ artikel.body_html|safe }}</div>{% else %}<p class="mv-prose">{{ artikel.excerpt }}</p>{% endif %}
 
-    <div style="margin-top:34px;background:#fff;border:1.5px solid #ECECE3;border-radius:16px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    {% if verdieping %}
+    <a href="{{ verdieping.get_absolute_url }}" style="margin-top:34px;display:flex;align-items:center;gap:16px;background:#15150F;color:#fff;border-radius:16px;padding:20px 22px;text-decoration:none">
+      <div style="flex:1;min-width:0">
+        <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.1em;color:#CBF24A;margin-bottom:5px">VERDIEPING</div>
+        <div style="font-weight:800;font-size:16px;color:#fff">{{ verdieping.titel }}</div>
+      </div>
+      <span style="color:#CBF24A;font-size:20px;flex-shrink:0">→</span>
+    </a>
+    {% endif %}
+
+    <div style="margin-top:18px;background:#fff;border:1.5px solid #ECECE3;border-radius:16px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
       <div style="font-weight:700;font-size:15px">Staat je vraag er niet bij?</div>
       <a href="{% url 'klantenservice' %}" class="mv-link" style="font-weight:700">Stel 'm aan onze klantenservice →</a>
     </div>

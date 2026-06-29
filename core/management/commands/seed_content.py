@@ -1346,15 +1346,29 @@ class Command(BaseCommand):
                     setattr(obj, field, value)
                 obj.save()
 
-        BlogArtikel.objects.all().delete()  # ordered list, replace wholesale
+        # Blog: idempotente upsert per titel. Zo verschuift updated_at (auto_now)
+        # alleen bij een ECHTE wijziging -> eerlijke sitemap-<lastmod> en
+        # dateModified (geen freshness-ruis per deploy), en in de admin
+        # toegevoegde artikelen worden niet meer bij elke deploy gewist.
         for i, b in enumerate(BLOG):
             body = BLOG_BODIES.get(b["titel"], "")
-            BlogArtikel.objects.create(
-                titel=b["titel"], categorie=b["categorie"], leestijd=b["leestijd"],
-                photo_url=b["image"], excerpt=b["excerpt"],
-                meta_title=b.get("meta_title", ""), meta_description=b.get("meta_description", ""),
-                body_html=body, order=i, featured=(i == 0),
-                active=bool(body), author=jean, reviewer=jerry)
+            fields = {
+                "categorie": b["categorie"], "leestijd": b["leestijd"],
+                "photo_url": b["image"], "excerpt": b["excerpt"],
+                "meta_title": b.get("meta_title", ""),
+                "meta_description": b.get("meta_description", ""),
+                "body_html": body, "order": i, "featured": (i == 0),
+                "active": bool(body), "author": jean, "reviewer": jerry,
+            }
+            obj = BlogArtikel.objects.filter(titel=b["titel"]).first()
+            if obj is None:
+                BlogArtikel.objects.create(titel=b["titel"], **fields)
+            else:
+                dirty = [k for k, v in fields.items() if getattr(obj, k) != v]
+                if dirty:
+                    for k in dirty:
+                        setattr(obj, k, fields[k])
+                    obj.save()  # auto_now bumpt updated_at, alleen nu
 
         from django.urls import reverse
         kb_icons = {
@@ -1379,13 +1393,24 @@ class Command(BaseCommand):
                 obj.link = kb_links[c["title"]]
                 obj.save(update_fields=["link"])
 
-        KennisbankArtikel.objects.all().delete()  # ordered list, replace wholesale
+        # Kennisbank: idempotente upsert per titel (zelfde reden als blog).
         for i, (titel, cat, feat, leestijd, gelezen, exc, img) in enumerate(KB_ARTIKELEN):
             c = KB_CONTENT.get(titel, {})
-            KennisbankArtikel.objects.create(
-                titel=titel, categorie=cat, featured=feat, leestijd=leestijd,
-                gelezen=gelezen, excerpt=c.get("excerpt", exc), photo_url=img, order=i,
-                kort_antwoord=c.get("kort", ""), body_html=c.get("body", ""))
+            fields = {
+                "categorie": cat, "featured": feat, "leestijd": leestijd,
+                "gelezen": gelezen, "excerpt": c.get("excerpt", exc),
+                "photo_url": img, "order": i,
+                "kort_antwoord": c.get("kort", ""), "body_html": c.get("body", ""),
+            }
+            obj = KennisbankArtikel.objects.filter(titel=titel).first()
+            if obj is None:
+                KennisbankArtikel.objects.create(titel=titel, **fields)
+            else:
+                dirty = [k for k, v in fields.items() if getattr(obj, k) != v]
+                if dirty:
+                    for k in dirty:
+                        setattr(obj, k, fields[k])
+                    obj.save()
 
         # ── Menus (nav + footer): seed once from the fallback, then admin-managed ──
         from core.context_processors import _NAV_FALLBACK, _FOOTER_FALLBACK, _resolve
