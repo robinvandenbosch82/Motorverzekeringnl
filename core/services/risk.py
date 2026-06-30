@@ -40,11 +40,13 @@ class RiskAPIError(Exception):
     """Raised when a RISK call fails. `upstream_down` marks a 5xx/transport
     failure (RISK unreachable) vs. a normal not-found/validation failure."""
 
-    def __init__(self, message: str, *, upstream_down: bool = False, status: int | None = None):
+    def __init__(self, message: str, *, upstream_down: bool = False,
+                 status: int | None = None, reason: str = ""):
         super().__init__(message)
-        self.message = message
+        self.message = message            # technisch (voor logs)
         self.upstream_down = upstream_down
         self.status = status
+        self.reason = reason              # leesbare reden uit RISK (voor de gebruiker)
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -238,6 +240,23 @@ def _headers(api_version: str | None = None) -> dict:
     return h
 
 
+def _risk_reason(res) -> str:
+    """Haal een leesbare reden uit een RISK-foutrespons (MessageDetail of
+    Message, soms Error.Message), opgeschoond van regeleindes. Lege string als
+    er niets bruikbaars is (bv. een transportfout zonder JSON)."""
+    try:
+        d = res.json()
+    except (ValueError, AttributeError):
+        return ""
+    if not isinstance(d, dict):
+        return ""
+    msg = d.get("MessageDetail") or d.get("Message") or ""
+    if not msg and isinstance(d.get("Error"), dict):
+        msg = d["Error"].get("Message") or ""
+    msg = re.sub(r"\s*\r?\n\s*", " ", str(msg)).strip()
+    return msg
+
+
 def _post(url: str, body: dict, *, api_version: str | None = None) -> requests.Response:
     try:
         return requests.post(url, json=body, headers=_headers(api_version),
@@ -405,7 +424,7 @@ def offer_insurance(data: dict) -> dict:
     res = _post(_motor("OfferPrivateInsurance"), build_offer_body(data))
     if not res.ok:
         raise RiskAPIError(f"Offer failed: {res.status_code} - {res.text[:200]}",
-                           status=res.status_code)
+                           status=res.status_code, reason=_risk_reason(res))
     return res.json()
 
 
@@ -416,5 +435,5 @@ def request_insurance(data: dict) -> dict:
     res = _post(_motor("RequestPrivateInsurance"), build_request_body(data))
     if not res.ok:
         raise RiskAPIError(f"Request failed: {res.status_code} - {res.text[:200]}",
-                           status=res.status_code)
+                           status=res.status_code, reason=_risk_reason(res))
     return res.json()

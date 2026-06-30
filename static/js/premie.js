@@ -442,7 +442,11 @@
     var btn = this; btn.disabled = true; btn.textContent = 'Versturen…';
     post(URLS.aanvraag, { data: payload }).then(function (res) {
       btn.disabled = false; btn.textContent = 'Verzekering aanvragen';
-      if (!res.ok) { err.textContent = res.data.error || 'Het afsluiten is niet gelukt.'; show(err, true); return; }
+      if (!res.ok) {
+        var emsg = res.data.error || 'Het afsluiten is niet gelukt.';
+        if (res.data.detail) emsg += ' Reden: ' + res.data.detail;
+        err.textContent = emsg; show(err, true); return;
+      }
       $('[data-policy]').textContent = res.data.PolicyNumber || '—';
       show($('[data-request-form]'), false);
       show($('[data-confirmation]'), true);

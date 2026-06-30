@@ -189,8 +189,10 @@ def aanvraag(request):
         obj.request_data = payload
         obj.save(update_fields=["status", "request_data", "updated_at"])
         status = 503 if exc.upstream_down else 502
-        return _err("Het afsluiten is niet gelukt. Probeer het opnieuw of neem contact op.",
-                    status=status, detail=exc.message)
+        msg = "Het afsluiten is niet gelukt. Probeer het opnieuw of neem contact op."
+        # Toon RISK's leesbare reden mee (bv. "De straat is niet ingevuld."),
+        # zodat de bezoeker weet wat hij moet aanpassen. Geen reden = generiek.
+        return _err(msg, status=status, detail=(exc.reason or ""))
 
     obj = _berekening(request, create=True)
     obj.request_data = payload
