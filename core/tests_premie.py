@@ -55,12 +55,32 @@ class BodyBuilderTests(TestCase):
         self.assertEqual(body["DriverBirthdate"], "1990-02-01")  # DD-MM-YYYY → ISO
 
     def test_request_body_binding_fields(self):
-        body = risk.build_request_body({"LicensePlate": "X", "Coverage": "1"})
+        body = risk.build_request_body({"LicensePlate": "X", "Coverage": "1",
+                                        "CarSignCode": "1234"})
         self.assertEqual(body["Agreement"], "J")           # default
         self.assertEqual(body["LicencePlateHolder"], "A")
         self.assertEqual(body["DriverLicense"], "J")
         self.assertIn("Cancelled", body)                   # acceptance questions present
-        self.assertIn("CarSignCode", body)                 # meldcode field present
+        # RISK verwacht de meldcode in MotorSignCode (niet CarSignCode); de
+        # frontend levert 'm onder CarSignCode en de builder mapt 'm om.
+        self.assertEqual(body["MotorSignCode"], "1234")
+        self.assertNotIn("CarSignCode", body)
+        # Lege telefoonvelden worden weggelaten (RISK weigert een lege string).
+        self.assertNotIn("PhoneNumber", body)
+        # Straat/plaats-velden aanwezig (worden via GetAddressInformation gevuld).
+        self.assertIn("Street", body)
+        self.assertIn("Place", body)
+
+    def test_phone_numbers_cleaned_and_optional(self):
+        # Leeg mobiel/telefoon -> veld weggelaten (RISK weigert een lege string).
+        b1 = risk.build_offer_body({"LicensePlate": "X", "Coverage": "1"})
+        self.assertNotIn("MobileNumber", b1)
+        self.assertNotIn("PhoneNumber", b1)
+        # Gevuld -> opmaak (spaties/streepjes) gestript, leading + behouden.
+        b2 = risk.build_offer_body({"LicensePlate": "X", "Coverage": "1",
+                                    "MobileNumber": "06-19 90 00 01", "PhoneNumber": "+31 20 123 4567"})
+        self.assertEqual(b2["MobileNumber"], "0619900001")
+        self.assertEqual(b2["PhoneNumber"], "+31201234567")
 
 
 class VehicleEndpointTests(TestCase):

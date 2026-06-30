@@ -83,6 +83,18 @@ def _plate(value) -> str:
     return "".join(ch for ch in str(value or "").upper() if ch not in "- ")
 
 
+def _phone(value) -> str:
+    """Normalise a phone number for RISK: keep digits and a leading '+', strip
+    spaces/dashes/parens. RISK weigert een lege string én tussenliggende
+    opmaak (mobiel moet matchen op ^((\\+31|0|0031)6)[1-9]…), dus we leveren
+    een schoon nummer of '' (= weglaten)."""
+    s = str(value or "").strip()
+    if not s:
+        return ""
+    lead = "+" if s[:1] == "+" else ""
+    return lead + "".join(ch for ch in s if ch.isdigit())
+
+
 def _iso_date(value) -> str:
     """Normalise a birthdate/date to ISO (YYYY-MM-DD). Accepts 'DD-MM-YYYY',
     'DD/MM/YYYY' or an already-ISO string; returns '' when unparseable."""
@@ -160,12 +172,24 @@ def build_offer_body(data: dict) -> dict:
         "ZipCode": str(data.get("ZipCode") or data.get("DriverZipCode") or "").upper().replace(" ", ""),
         "HouseNumber": data.get("HouseNumber") or data.get("DriverHouseNumber") or "",
         "HouseNumberAddition": data.get("HouseNumberAddition") or data.get("DriverHouseNumberAddition") or "",
-        "PhoneNumber": data.get("PhoneNumber") or "",
-        "MobileNumber": data.get("MobileNumber") or "",
+        # Straat + plaats zijn verplicht bij offerte/aanvraag; resolven via
+        # GetAddressInformation (zie _ensure_address) als ze ontbreken.
+        "Street": data.get("Street") or "",
+        "Place": data.get("Place") or data.get("City") or "",
+        "Birthdate": _iso_date(data.get("Birthdate") or data.get("DriverBirthdate")),
         "Email": data.get("Email") or "",
         "IncludeDocuments": True,
         "IncludeXml": False,
     })
+    # Telefoonnummers: RISK valideert het formaat én weigert een lege string
+    # ("is not a valid phone number"). Daarom alleen meesturen als ze gevuld zijn,
+    # en eerst opschonen (spaties/streepjes/haakjes eruit).
+    mobile = _phone(data.get("MobileNumber"))
+    if mobile:
+        body["MobileNumber"] = mobile
+    phone = _phone(data.get("PhoneNumber"))
+    if phone:
+        body["PhoneNumber"] = phone
     if cov in ("2", "3"):
         body["OwnerShip"] = data.get("OwnerShip") or "E"
         # Financierings-/leasemaatschappij (alleen bij L/F)
@@ -183,7 +207,10 @@ def build_request_body(data: dict) -> dict:
     Creates a REAL application; only call after explicit user agreement."""
     body = build_offer_body(data)
     body.update({
-        "CarSignCode": data.get("CarSignCode") or data.get("MotorSignCode") or "",
+        # RISK verwacht de meldcode in het veld MotorSignCode (de frontend levert
+        # 'm aan onder CarSignCode); een verkeerde veldnaam gaf eerder
+        # "The MotorSignCode field is required".
+        "MotorSignCode": data.get("MotorSignCode") or data.get("CarSignCode") or "",
         "LicencePlateHolder": data.get("LicencePlateHolder") or "A",
         "DriverLicense": data.get("DriverLicense") or "J",
         "Birthdate": _iso_date(data.get("Birthdate") or data.get("DriverBirthdate")),
@@ -262,6 +289,47 @@ def get_vehicle_info(license_plate: str) -> dict:
     raise RiskAPIError("Kenteken niet gevonden. Controleer het kenteken en probeer opnieuw.", status=404)
 
 
+def get_address_info(zipcode, housenumber, addition="") -> dict:
+    """POST /Data/GetAddressInformation → {'Street', 'Place'} voor een postcode +
+    huisnummer. Geeft {} terug bij een onbekend adres (404) of fout, zodat de
+    aanroeper kan doorgaan zonder te crashen."""
+    zc = str(zipcode or "").upper().replace(" ", "")
+    hn = _num(housenumber, 0)
+    if not zc or not hn:
+        return {}
+    url = f"{_base()}/Data/GetAddressInformation?api-version={settings.RISK_API_VERSION}"
+    body = {"ZipCode": zc, "HouseNumber": hn,
+            "HouseNumberAddition": addition or "", "BrokerID": _broker()}
+    try:
+        res = _post(url, body)
+    except RiskAPIError:
+        return {}
+    if not res.ok:
+        return {}
+    try:
+        d = res.json()
+    except ValueError:
+        return {}
+    return {"Street": d.get("Street") or "", "Place": d.get("Place") or ""}
+
+
+def _ensure_address(data: dict) -> None:
+    """Vul Street/Place van de verzekeringnemer aan via GetAddressInformation als
+    ze ontbreken. Offerte/aanvraag vereisen straat + plaats; de bestuurder leidt
+    RISK zelf af uit DriverZipCode + DriverHouseNumber (zelfde adres in onze flow).
+    Faalt stil: bij een onbekend adres laten we RISK de nette validatiefout geven."""
+    if data.get("Street") and data.get("Place"):
+        return
+    info = get_address_info(
+        data.get("ZipCode") or data.get("DriverZipCode"),
+        data.get("HouseNumber") or data.get("DriverHouseNumber"),
+        data.get("HouseNumberAddition") or data.get("DriverHouseNumberAddition") or "")
+    if info.get("Street"):
+        data["Street"] = info["Street"]
+    if info.get("Place"):
+        data["Place"] = info["Place"]
+
+
 def validate_sign_code(license_plate: str, sign_code: str) -> bool:
     """Validate a license plate + meldcode (MotorSignCode) combination via the
     Data lookup. Returns True/False; raises only on transport failure."""
@@ -333,6 +401,7 @@ def calculate_additional_coverages(details: dict, identifier: str) -> list:
 
 def offer_insurance(data: dict) -> dict:
     """Create an offer (OfferNumber)."""
+    _ensure_address(data)
     res = _post(_motor("OfferPrivateInsurance"), build_offer_body(data))
     if not res.ok:
         raise RiskAPIError(f"Offer failed: {res.status_code} - {res.text[:200]}",
@@ -343,6 +412,7 @@ def offer_insurance(data: dict) -> dict:
 def request_insurance(data: dict) -> dict:
     """Bind the policy — RISK returns a PolicyNumber. REAL application; only call
     after explicit user agreement (Agreement=J)."""
+    _ensure_address(data)
     res = _post(_motor("RequestPrivateInsurance"), build_request_body(data))
     if not res.ok:
         raise RiskAPIError(f"Request failed: {res.status_code} - {res.text[:200]}",
