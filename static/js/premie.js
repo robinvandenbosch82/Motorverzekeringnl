@@ -9,6 +9,7 @@
 
   var URLS = {
     voertuig: app.dataset.urlVoertuig,
+    adres: app.dataset.urlAdres,
     bereken: app.dataset.urlBereken,
     aanvullend: app.dataset.urlAanvullend,
     aanvraag: app.dataset.urlAanvraag,
@@ -48,7 +49,7 @@
   ];
 
   var state = {
-    vehicle: null, segs: {}, coverage: '2', paymentPeriod: '1',
+    vehicle: null, address: null, segs: {}, coverage: '2', paymentPeriod: '1',
     available: {}, results: [], selected: null, addons: [], selectedAddons: {},
   };
 
@@ -95,7 +96,31 @@
     if (d.DriverHouseNumber) d.HouseNumber = d.DriverHouseNumber;
     if (d.DriverHouseNumberAddition) d.HouseNumberAddition = d.DriverHouseNumberAddition;
     if (d.DriverBirthdate) d.Birthdate = d.DriverBirthdate;
+    if (state.address) { d.Street = state.address.Street; d.Place = state.address.Place; }
     return d;
+  }
+
+  /* ── adres-lookup: postcode + huisnummer -> straat + plaats (zichtbaar) ── */
+  function lookupAddress() {
+    var zip = $('#zip'), hn = $('#hn'), hna = $('#hna');
+    var out = $('[data-adres-out]'), errEl = $('[data-adres-err]');
+    var zv = (zip && zip.value || '').trim(), hv = (hn && hn.value || '').trim();
+    show(out, false); show(errEl, false);
+    state.address = null;
+    if (!zv || !hv) return;
+    post(URLS.adres, {
+      DriverZipCode: zv, DriverHouseNumber: hv,
+      DriverHouseNumberAddition: (hna && hna.value || '').trim(),
+    }).then(function (res) {
+      if (res.ok && res.data.Street) {
+        state.address = { Street: res.data.Street, Place: res.data.Place };
+        out.textContent = res.data.Street + ' ' + hv + (hna && hna.value ? ' ' + hna.value : '') + ', ' + res.data.Place;
+        show(out, true);
+      } else {
+        errEl.textContent = (res.data && res.data.error) || 'Adres niet gevonden. Controleer postcode en huisnummer.';
+        show(errEl, true);
+      }
+    });
   }
 
   /* ── navigation ── */
@@ -464,6 +489,10 @@
   }
   ['#zip', '#hn', '#bd', '#cfy'].forEach(function (sel) {
     var el = $(sel); if (el) el.addEventListener('input', function () { el.classList.remove('is-invalid'); });
+  });
+  // Adres live ophalen zodra postcode + huisnummer (+ toevoeging) zijn ingevuld.
+  ['#zip', '#hn', '#hna'].forEach(function (sel) {
+    var el = $(sel); if (el) el.addEventListener('change', lookupAddress);
   });
 
   /* ── step 4 validation (spiegelt de verplichte velden in views_premie.aanvraag) ── */

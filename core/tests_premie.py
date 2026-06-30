@@ -121,6 +121,29 @@ class VehicleEndpointTests(TestCase):
         self.assertEqual(r.status_code, 404)
 
 
+class AddressEndpointTests(TestCase):
+    def setUp(self):
+        self.c = Client()
+        self.url = reverse("premie_adres")
+
+    def _post(self, payload):
+        return self.c.post(self.url, data=json.dumps(payload), content_type="application/json")
+
+    @mock.patch("core.views_premie.risk.get_address_info")
+    def test_resolves_street_and_place(self, m):
+        m.return_value = {"Street": "Papendorpseweg", "Place": "Utrecht"}
+        r = self._post({"DriverZipCode": "3528 BJ", "DriverHouseNumber": "99"})
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.json(), {"Street": "Papendorpseweg", "Place": "Utrecht"})
+
+    @mock.patch("core.views_premie.risk.get_address_info")
+    def test_unknown_address_is_404(self, m):
+        m.return_value = {}
+        r = self._post({"DriverZipCode": "9999ZZ", "DriverHouseNumber": "1"})
+        self.assertEqual(r.status_code, 404)
+        self.assertIn("niet gevonden", r.json()["error"])
+
+
 class CalculateEndpointTests(TestCase):
     def setUp(self):
         self.c = Client()

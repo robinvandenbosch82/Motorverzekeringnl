@@ -14,6 +14,7 @@ urlpatterns = [
 urlpatterns += [
     path("motorverzekering-berekenen/", views_premie.tool_page, name="premie_tool"),
     path("premie/api/voertuig", views_premie.vehicle, name="premie_voertuig"),
+    path("premie/api/adres", views_premie.adres, name="premie_adres"),
     path("premie/api/bereken", views_premie.calculate, name="premie_bereken"),
     path("premie/api/aanvullend", views_premie.additional, name="premie_aanvullend"),
     path("premie/api/aanvraag", views_premie.aanvraag, name="premie_aanvraag"),

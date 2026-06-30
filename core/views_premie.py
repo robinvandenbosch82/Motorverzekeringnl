@@ -107,6 +107,22 @@ def vehicle(request):
     return JsonResponse(info)
 
 
+@require_POST
+def adres(request):
+    """Resolve straat + plaats uit postcode + huisnummer (GetAddressInformation),
+    zodat de wizard het adres live kan tonen en bevestigen."""
+    if not _rate_ok(request, "adres", limit=60):
+        return _err("Te veel verzoeken. Probeer het zo opnieuw.", status=429)
+    payload = _body(request)
+    info = risk.get_address_info(
+        payload.get("DriverZipCode") or payload.get("ZipCode") or "",
+        payload.get("DriverHouseNumber") or payload.get("HouseNumber") or "",
+        payload.get("DriverHouseNumberAddition") or payload.get("HouseNumberAddition") or "")
+    if not info.get("Street"):
+        return _err("Adres niet gevonden. Controleer postcode en huisnummer.", status=404)
+    return JsonResponse(info)
+
+
 # ── calculate premiums ───────────────────────────────────────────────────────
 @require_POST
 def calculate(request):
