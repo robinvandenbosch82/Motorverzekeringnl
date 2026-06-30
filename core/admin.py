@@ -244,15 +244,32 @@ class BerekeningAdmin(admin.ModelAdmin):
     """Read-only log of premie-tool sessions. Insight only — rows are written by
     the tool, not edited by hand. Contains personal data (kenteken, KvK, NAW):
     keep a bewaartermijn and a clear AVG-grondslag; do not export casually."""
-    list_display = ("license_plate", "status", "coverage", "is_van",
-                    "policy_number", "created_at", "updated_at")
+    list_display = ("created_at", "status", "klant", "klant_email", "klant_telefoon",
+                    "license_plate", "coverage", "policy_number")
     list_filter = ("status", "is_van", "coverage", "created_at")
     search_fields = ("license_plate", "policy_number", "session_id")
     date_hierarchy = "created_at"
-    readonly_fields = ("session_id", "license_plate", "is_van", "coverage",
+    readonly_fields = ("klant", "klant_email", "klant_telefoon", "session_id",
+                       "license_plate", "is_van", "coverage",
                        "vehicle_info", "business_details", "results", "selected_result",
                        "additional_coverages", "request_data", "policy_number",
                        "status", "current_step", "created_at", "updated_at")
+
+    # Klantgegevens uit de aanvraag (request_data) zichtbaar maken, zodat de
+    # redactie de aanvrager kan bereiken zonder de JSON te hoeven uitpluizen.
+    @admin.display(description="Klant")
+    def klant(self, obj):
+        d = obj.request_data or {}
+        naam = " ".join(p for p in (d.get("Initials"), d.get("NameInfix"), d.get("Name")) if p)
+        return naam or "—"
+
+    @admin.display(description="E-mail")
+    def klant_email(self, obj):
+        return (obj.request_data or {}).get("Email") or "—"
+
+    @admin.display(description="Telefoon")
+    def klant_telefoon(self, obj):
+        return (obj.request_data or {}).get("MobileNumber") or "—"
 
     def has_add_permission(self, request):
         return False
