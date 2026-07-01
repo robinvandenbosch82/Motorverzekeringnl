@@ -314,3 +314,25 @@ class HouseNumberTests(TestCase):
         body = risk.build_calculate_body({"LicensePlate": "MG001M", "DriverHouseNumber": "152c"})
         self.assertEqual(body["DriverHouseNumber"], 152)
         self.assertEqual(body["DriverHouseNumberAddition"], "c")
+
+
+class RiskV10CalculateFieldsTests(TestCase):
+    """v10 Calculate must carry the regular-driver identity + meldcode (prod
+    enforces these; v9's slim body caused a 502 on prod)."""
+
+    def test_v10_calculate_includes_driver_and_meldcode(self):
+        with self.settings(RISK_API_VERSION="10"):
+            body = risk._calc_body({"LicensePlate": "MG001M", "Coverage": "1",
+                                    "CarSignCode": "ABCD", "DriverGender": "M",
+                                    "DriverName": "Jansen"})
+        for key in ("CarSignCode", "DriverName", "DriverInitials", "DriverNameInfix",
+                    "DriverGender", "DriverRelation", "IncludeDocuments"):
+            self.assertIn(key, body)
+        self.assertEqual(body["CarSignCode"], "ABCD")
+        self.assertEqual(body["DriverRelation"], "A")
+
+    def test_v9_calculate_stays_slim(self):
+        with self.settings(RISK_API_VERSION="9.0"):
+            body = risk._calc_body({"LicensePlate": "MG001M", "Coverage": "1"})
+        self.assertNotIn("DriverName", body)
+        self.assertNotIn("CarSignCode", body)

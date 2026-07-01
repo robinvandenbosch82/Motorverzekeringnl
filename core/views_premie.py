@@ -182,6 +182,7 @@ def calculate(request):
         results = risk.calculate_premiums(details)
     except RiskAPIError as exc:
         status = 503 if exc.upstream_down else 502
+        logger.warning("calculate RISK-fout: %s", exc.message)
         return _err(exc.message, status=status, upstreamDown=exc.upstream_down)
 
     obj = _berekening(request, create=True)

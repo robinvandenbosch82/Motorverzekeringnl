@@ -48,8 +48,22 @@ def _jn(data, attr):
 
 
 def build_calculate_body(details: dict) -> dict:
-    # Pricing is unchanged in v10.
-    return _v9.build_calculate_body(details)
+    """v10 Calculate needs more than the slim v9 pricing body: the doc marks the
+    regular-driver identity + meldcode as mandatory for Calculate too (prod
+    enforces it, acc is lenient). Mirror the fields bestelauto sends on its
+    working v10 calculate; the policyholder contact/IBAN fields are NOT required
+    here (bestelauto omits them and still prices)."""
+    body = _v9.build_calculate_body(details)
+    body["IncludeDocuments"] = False
+    body["CarSignCode"] = str(details.get("CarSignCode") or details.get("MotorSignCode") or "")
+    body["DriverRelation"] = details.get("DriverRelation") or "A"
+    body["DriverName"] = details.get("DriverName") or ""
+    body["DriverInitials"] = details.get("DriverInitials") or ""
+    body["DriverNameInfix"] = details.get("DriverNameInfix") or ""
+    body["DriverGender"] = details.get("DriverGender") or ""
+    if str(body.get("Coverage") or "1") in ("2", "3"):
+        body["OwnerShip"] = details.get("OwnerShip") or "E"
+    return body
 
 
 def build_offer_body(data: dict) -> dict:
