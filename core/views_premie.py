@@ -45,6 +45,47 @@ def _err(message: str, status: int = 400, **extra) -> JsonResponse:
     return JsonResponse({"error": message, **extra}, status=status)
 
 
+def _notify_aanvraag(obj) -> None:
+    """Mail een samenvatting van een nieuwe polisaanvraag naar het in de admin
+    ingestelde adres (SiteSettings.aanvraag_notify_email). Faalt stil: een
+    mailprobleem mag de (al gebonden) aanvraag nooit blokkeren."""
+    from django.conf import settings
+    from django.core.mail import send_mail
+    from .models import SiteSettings
+
+    to = (SiteSettings.load().aanvraag_notify_email or "").strip()
+    if not to:
+        return
+    d = obj.request_data or {}
+    sel = obj.selected_result or {}
+    naam = " ".join(p for p in (d.get("Initials"), d.get("NameInfix"), d.get("Name")) if p) or "—"
+    cov = {"1": "WA", "2": "WA + Casco", "3": "Allrisk"}.get(str(obj.coverage), obj.coverage or "—")
+    verzekeraar = sel.get("CompanyName") or sel.get("InsurerName") or sel.get("Name") or "—"
+    lines = [
+        "Er is een nieuwe motorverzekering-aanvraag binnengekomen.",
+        "",
+        f"Polisnummer:  {obj.policy_number or '—'}",
+        f"Naam:         {naam}",
+        f"E-mail:       {d.get('Email') or '—'}",
+        f"Telefoon:     {d.get('MobileNumber') or '—'}",
+        f"Kenteken:     {obj.license_plate or '—'}",
+        f"Dekking:      {cov}",
+        f"Verzekeraar:  {verzekeraar}",
+        "",
+        "Bekijk de volledige aanvraag in de admin onder Berekeningen.",
+    ]
+    try:
+        send_mail(
+            subject=f"Nieuwe aanvraag — {obj.license_plate or ''} — polis {obj.policy_number or ''}".strip(" —"),
+            message="\n".join(lines),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[to],
+            fail_silently=False,
+        )
+    except Exception:
+        logger.exception("Aanvraag-notificatie mailen mislukt (to=%s)", to)
+
+
 def _client_ip(request) -> str:
     fwd = request.META.get("HTTP_X_FORWARDED_FOR", "")
     return (fwd.split(",")[0].strip() if fwd else request.META.get("REMOTE_ADDR", "")) or "?"
@@ -217,6 +258,7 @@ def aanvraag(request):
     obj.current_step = "done"
     obj.save(update_fields=["request_data", "policy_number",
                             "status", "current_step", "updated_at"])
+    _notify_aanvraag(obj)
     return JsonResponse(result)
 
 

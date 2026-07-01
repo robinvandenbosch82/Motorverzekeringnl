@@ -78,6 +78,9 @@ class SiteSettings(models.Model):
                                      help_text="Uit = nergens een telefoonnummer tonen.")
     whatsapp = models.CharField("WhatsApp-nummer", max_length=40, default="+3197010252701")
     email = models.EmailField("E-mail", default="hallo@bestelautoverzekering.nl")
+    aanvraag_notify_email = models.EmailField(
+        "Aanvraag-notificatie e-mail", blank=True, default="robin@rovabo.nl",
+        help_text="Elke nieuwe polisaanvraag wordt naar dit adres gemaild. Leeg = geen notificatie.")
 
     legal_naam = models.CharField("Statutaire naam", max_length=160, default="Finckers B.V.",
                                   help_text="Rechtspersoon achter de site (voor JSON-LD legalName en juridische pagina's).")

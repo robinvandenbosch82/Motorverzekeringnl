@@ -144,6 +144,35 @@ class AddressEndpointTests(TestCase):
         self.assertIn("niet gevonden", r.json()["error"])
 
 
+@override_settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend")
+class AanvraagNotificationTests(TestCase):
+    def _obj(self):
+        return Berekening.objects.create(
+            session_id="t", license_plate="36MLBH", coverage="3", policy_number="9999APP-1",
+            selected_result={"CompanyName": "Nationale-Nederlanden"},
+            request_data={"Name": "Bosch", "NameInfix": "van den", "Initials": "RG",
+                          "Email": "klant@voorbeeld.nl", "MobileNumber": "0611"})
+
+    def test_notifies_configured_address(self):
+        from django.core import mail
+        from core.models import SiteSettings
+        from core.views_premie import _notify_aanvraag
+        s = SiteSettings.load(); s.aanvraag_notify_email = "team@voorbeeld.nl"; s.save()
+        _notify_aanvraag(self._obj())
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ["team@voorbeeld.nl"])
+        self.assertIn("klant@voorbeeld.nl", mail.outbox[0].body)     # klant-e-mail in de body
+        self.assertIn("9999APP-1", mail.outbox[0].body)              # polisnummer
+
+    def test_no_notification_when_empty(self):
+        from django.core import mail
+        from core.models import SiteSettings
+        from core.views_premie import _notify_aanvraag
+        s = SiteSettings.load(); s.aanvraag_notify_email = ""; s.save()
+        _notify_aanvraag(self._obj())
+        self.assertEqual(len(mail.outbox), 0)
+
+
 class CalculateEndpointTests(TestCase):
     def setUp(self):
         self.c = Client()

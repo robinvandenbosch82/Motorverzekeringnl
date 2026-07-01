@@ -232,6 +232,23 @@ DEFAULT_SEO_DESCRIPTION = (
     "premie in 2 minuten."
 )
 
+# ── E-mail (SMTP via env) ────────────────────────────────────────────────────
+# Zet EMAIL_HOST + credentials in de env (Railway) om echt te versturen; zonder
+# host valt het terug op de console-backend (logt de mail, verstuurt niet) zodat
+# er nooit een crash is. Aanvraag-notificaties gaan naar het adres dat in de
+# admin staat (SiteSettings.aanvraag_notify_email), niet naar een hardcoded adres.
+EMAIL_HOST = os.getenv("EMAIL_HOST", "")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "1") not in ("0", "false", "False", "")
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "0") in ("1", "true", "True")
+EMAIL_TIMEOUT = 10
+DEFAULT_FROM_EMAIL = os.getenv(
+    "DEFAULT_FROM_EMAIL", "Motorverzekering.nl <noreply@motorverzekering.nl>")
+EMAIL_BACKEND = ("django.core.mail.backends.smtp.EmailBackend" if EMAIL_HOST
+                 else "django.core.mail.backends.console.EmailBackend")
+
 # Third-party API keys (used by image/content tooling, never hardcoded)
 PEXELS_API_KEY = os.getenv("PEXELS_API_KEY", "")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")

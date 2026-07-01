@@ -65,6 +65,8 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         ("Vertrouwen & cijfers", {"fields": ("review_score", "review_count",
                                              "ondernemers_verzekerd", "verzekeraars_label")}),
         ("Contact", {"fields": ("phone", "whatsapp", "email")}),
+        ("Meldingen", {"fields": ("aanvraag_notify_email",),
+                       "description": "E-mailadres waar elke nieuwe polisaanvraag naartoe gaat."}),
         ("Bedrijfsgegevens",
          {"fields": ("legal_naam", "afm_nummer", "kvk_nummer", "btw_nummer", "kifid_nummer")}),
         ("Vestigingsadres (optioneel, voor LocalBusiness-schema)",
