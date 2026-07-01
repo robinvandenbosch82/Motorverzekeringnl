@@ -276,9 +276,17 @@ def build_request_body(data: dict) -> dict:
 
 
 # ── HTTP plumbing ────────────────────────────────────────────────────────────
+def _api_version() -> str:
+    """RISK's Motor endpoints accept the MAJOR api-version ('10'); '10.0' returns
+    "does not support the api-version". Normalise any configured '10.x' to '10'
+    so a Railway value of '10.0' still talks to v10 correctly."""
+    v = str(settings.RISK_API_VERSION)
+    return "10" if v.startswith("10") else v
+
+
 def _headers(api_version: str | None = None) -> dict:
     h = _auth_headers()
-    h["api-version"] = api_version or settings.RISK_API_VERSION
+    h["api-version"] = api_version or _api_version()
     return h
 
 
@@ -315,7 +323,7 @@ def _get(url: str, *, api_version: str | None = None) -> requests.Response:
 
 
 def _motor(endpoint: str) -> str:
-    return f"{_base()}/Motor/{endpoint}?api-version={settings.RISK_API_VERSION}"
+    return f"{_base()}/Motor/{endpoint}?api-version={_api_version()}"
 
 
 # ── vehicle lookup ───────────────────────────────────────────────────────────
@@ -329,7 +337,7 @@ def get_vehicle_info(license_plate: str) -> dict:
     base = f"{_base()}/Data/GetPrivateMotorInfo?LicensePlate={plate}"
     errors: list[str] = []
     all_upstream_down = True
-    for ver in (settings.RISK_API_VERSION, "10.0", "9.0", "9"):
+    for ver in (_api_version(), "10", "9.0", "9"):
         url = f"{base}&BrokerID={_broker()}&api-version={ver}"
         try:
             res = _get(url, api_version=ver)
@@ -359,7 +367,7 @@ def get_address_info(zipcode, housenumber, addition="") -> dict:
     hn = _num(num, 0)
     if not zc or not hn:
         return {}
-    url = f"{_base()}/Data/GetAddressInformation?api-version={settings.RISK_API_VERSION}"
+    url = f"{_base()}/Data/GetAddressInformation?api-version={_api_version()}"
     body = {"ZipCode": zc, "HouseNumber": hn,
             "HouseNumberAddition": addition or extra or "", "BrokerID": _broker()}
     try:

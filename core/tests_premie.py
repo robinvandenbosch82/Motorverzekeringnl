@@ -336,3 +336,19 @@ class RiskV10CalculateFieldsTests(TestCase):
             body = risk._calc_body({"LicensePlate": "MG001M", "Coverage": "1"})
         self.assertNotIn("DriverName", body)
         self.assertNotIn("CarSignCode", body)
+
+
+class ApiVersionNormaliseTests(TestCase):
+    """RISK's Motor endpoints want the major api-version ('10'); '10.0' is
+    rejected. A Railway value of '10.x' must still talk to v10."""
+
+    def test_normalises_10x_to_10(self):
+        for v in ("10", "10.0", "10.1", "10.2"):
+            with self.settings(RISK_API_VERSION=v):
+                self.assertEqual(risk._api_version(), "10")
+                self.assertTrue(risk._use_v10())
+
+    def test_v9_passthrough(self):
+        with self.settings(RISK_API_VERSION="9.0"):
+            self.assertEqual(risk._api_version(), "9.0")
+            self.assertFalse(risk._use_v10())
