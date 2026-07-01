@@ -112,6 +112,34 @@ def _iso_date(value) -> str:
     return s
 
 
+# ── API version switch (v9 ⇄ v10) ────────────────────────────────────────────
+def _use_v10() -> bool:
+    """v10 is active when RISK_API_VERSION starts with "10". Setting the env var
+    back to "9.0" restores the v9 flow end-to-end (bodies + header + frontend)."""
+    return str(settings.RISK_API_VERSION).startswith("10")
+
+
+def _calc_body(details: dict) -> dict:
+    if _use_v10():
+        from . import risk_v10
+        return risk_v10.build_calculate_body(details)
+    return build_calculate_body(details)
+
+
+def _offer_body(data: dict) -> dict:
+    if _use_v10():
+        from . import risk_v10
+        return risk_v10.build_offer_body(data)
+    return build_offer_body(data)
+
+
+def _request_body(data: dict) -> dict:
+    if _use_v10():
+        from . import risk_v10
+        return risk_v10.build_request_body(data)
+    return build_request_body(data)
+
+
 # ── request-body builders (per Motor Insurance V9 — "Input" sheet) ───────────
 def build_calculate_body(details: dict) -> dict:
     """Body for CalculatePrivatePremiums + CalculatePrivateAdditionalCoverages.
@@ -395,7 +423,7 @@ def _no_coverage(res, context: str) -> bool:
 def calculate_premiums(details: dict) -> list:
     """Return the list of insurer premiums. Empty list when RISK signals
     'no coverage available' (HTTP 204) or rejects the input (406, logged)."""
-    res = _post(_motor("CalculatePrivatePremiums"), build_calculate_body(details))
+    res = _post(_motor("CalculatePrivatePremiums"), _calc_body(details))
     if _no_coverage(res, "CalculatePrivatePremiums"):
         return []
     if not res.ok:
@@ -406,7 +434,7 @@ def calculate_premiums(details: dict) -> list:
 
 def calculate_additional_coverages(details: dict, identifier: str) -> list:
     """Additional coverages for the chosen insurer (Identifier/PP_ENTREF)."""
-    body = {**build_calculate_body(details), "Identifier": identifier}
+    body = {**_calc_body(details), "Identifier": identifier}
     res = _post(_motor("CalculatePrivateAdditionalCoverages"), body)
     if _no_coverage(res, "CalculatePrivateAdditionalCoverages"):
         return []
@@ -421,7 +449,7 @@ def calculate_additional_coverages(details: dict, identifier: str) -> list:
 def offer_insurance(data: dict) -> dict:
     """Create an offer (OfferNumber)."""
     _ensure_address(data)
-    res = _post(_motor("OfferPrivateInsurance"), build_offer_body(data))
+    res = _post(_motor("OfferPrivateInsurance"), _offer_body(data))
     if not res.ok:
         raise RiskAPIError(f"Offer failed: {res.status_code} - {res.text[:200]}",
                            status=res.status_code, reason=_risk_reason(res))
@@ -432,7 +460,7 @@ def request_insurance(data: dict) -> dict:
     """Bind the policy — RISK returns a PolicyNumber. REAL application; only call
     after explicit user agreement (Agreement=J)."""
     _ensure_address(data)
-    res = _post(_motor("RequestPrivateInsurance"), build_request_body(data))
+    res = _post(_motor("RequestPrivateInsurance"), _request_body(data))
     if not res.ok:
         raise RiskAPIError(f"Request failed: {res.status_code} - {res.text[:200]}",
                            status=res.status_code, reason=_risk_reason(res))

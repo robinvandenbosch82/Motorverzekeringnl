@@ -260,7 +260,9 @@ RISK_API_BASE = os.getenv("RISK_API_BASE", "https://api.acc.risk.nl/InsuranceAPI
 RISK_API_USERNAME = os.getenv("RISK_API_USERNAME", "")
 RISK_API_PASSWORD = os.getenv("RISK_API_PASSWORD", "")
 RISK_BROKER_ID = os.getenv("RISK_BROKER_ID", "")
-RISK_API_VERSION = os.getenv("RISK_API_VERSION", "9.0")
+# v10 is the active default. Rollback is instant and code-free: set the env var
+# RISK_API_VERSION=9.0 in the environment (Railway) to fall back to the v9 flow.
+RISK_API_VERSION = os.getenv("RISK_API_VERSION", "10")
 # Product version (PP_PRDVERS) that RISK requires in the calculate body. RISK
 # provides the exact value with the motor account; set it in .env.
 RISK_MOTOR_PRODUCT_VERSION = os.getenv("RISK_MOTOR_PRODUCT_VERSION", "")

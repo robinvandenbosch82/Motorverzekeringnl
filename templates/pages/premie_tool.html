@@ -34,7 +34,8 @@
        data-url-adres="{% url 'premie_adres' %}"
        data-url-bereken="{% url 'premie_bereken' %}"
        data-url-aanvullend="{% url 'premie_aanvullend' %}"
-       data-url-aanvraag="{% url 'premie_aanvraag' %}">
+       data-url-aanvraag="{% url 'premie_aanvraag' %}"
+       data-risk-v10="{% if risk_v10 %}1{% else %}0{% endif %}">
     {% csrf_token %}
 
     <ol class="wz-steps" aria-label="Voortgang">
@@ -191,9 +192,16 @@
           </div>
           <div class="wz-field"><label for="msc">Meldcode (staat op je kentekenbewijs)</label><input id="msc" name="CarSignCode" maxlength="4" placeholder="4 tekens"></div>
 
+          {% if risk_v10 %}
+          <div class="wz-ins__dh">Slotvragen</div>
+          <p class="wz-sub">Beantwoord de vragen voor uzelf én voor iedereen die met deze verzekering te
+            maken heeft (de <a href="https://www.risk.nl/slotverklaring" target="_blank" rel="noopener">belanghebbenden</a>).</p>
+          <div data-acceptance-v10></div>
+          {% else %}
           <div class="wz-ins__dh">Acceptatievragen</div>
           <p class="wz-sub">Beantwoord alleen wat van toepassing is, laat leeg bij ‘nee’.</p>
           <div data-acceptance></div>
+          {% endif %}
 
           <label class="wz-agree">
             <input type="checkbox" name="Agreement" data-agreement>

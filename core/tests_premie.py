@@ -256,3 +256,45 @@ class ToolPageTests(TestCase):
         r = Client().get(reverse("premie_tool"))
         self.assertEqual(r.status_code, 200)
         self.assertIn("csrftoken", r.cookies)
+
+
+class RiskV10Tests(TestCase):
+    """API v10 builders (separate module, switched by RISK_API_VERSION). v10 is
+    the active default; pinning 9.0 restores the flat v9 body."""
+
+    FULL = {
+        "LicensePlate": "MG001M", "Coverage": "3", "CarSignCode": "1234",
+        "DriverName": "Jansen", "DriverInitials": "J", "DriverGender": "M",
+        "Name": "Jansen", "Initials": "J", "Gender": "M", "ZipCode": "3528BJ",
+        "HouseNumber": "99", "Street": "Papendorpseweg", "Place": "Utrecht",
+        "Birthdate": "1985-05-05", "Email": "a@b.nl", "MobileNumber": "0687334512",
+        "IBAN": "NL91ABNA0417164300", "selectedIdentifier": "11111A001B001",
+        "driverLicensedToDrive": "J", "motorVehicleOwnerRegisteredOwner": "J",
+        "finalStatementReadAndAgreed": "J",
+    }
+
+    def test_v10_is_the_active_default(self):
+        body = risk._request_body(dict(self.FULL))
+        self.assertIn("underwritingQuestions", body)
+        self.assertIn("uniformAcceptanceQuestions", body)
+        for gone in ("Cancelled", "Fraud", "MotorSignCode", "DriverLicense",
+                     "LicencePlateHolder", "Agreement"):
+            self.assertNotIn(gone, body)
+        uq = body["uniformAcceptanceQuestions"]
+        self.assertEqual(uq["finalStatementReadAndAgreed"], "J")
+        self.assertEqual(body["underwritingQuestions"]["driverLicensedToDrive"], "J")
+        self.assertTrue(body.get("CarSignCode") and body.get("IBAN"))
+
+    @override_settings(RISK_API_VERSION="9.0")
+    def test_v9_still_available_when_pinned(self):
+        body = risk._request_body(dict(self.FULL))
+        self.assertIn("Cancelled", body)
+        self.assertNotIn("underwritingQuestions", body)
+
+    def test_v10_explanation_only_when_risk_answer_given(self):
+        no = risk._request_body(dict(self.FULL, fraudDeceptionDetrimentPastEightYears="N"))
+        yes = risk._request_body(dict(self.FULL, fraudDeceptionDetrimentPastEightYears="J",
+                                      fraudDeceptionDetrimentExplanation="toelichting"))
+        self.assertNotIn("fraudDeceptionDetrimentExplanation", no["uniformAcceptanceQuestions"])
+        self.assertEqual(yes["uniformAcceptanceQuestions"]["fraudDeceptionDetrimentExplanation"],
+                         "toelichting")

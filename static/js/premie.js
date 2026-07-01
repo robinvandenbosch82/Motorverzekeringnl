@@ -47,6 +47,34 @@
     ['Seizure', 'Heeft de deurwaarder op dit moment beslag gelegd op inkomsten of bezittingen?'],
     ['DisqualificationFromDriving', 'Werd u in de afgelopen acht jaar de rijbevoegdheid ontzegd?'],
   ];
+  // v10 uniforme slotvragen (particulier). risk = the answer needing a toelichting;
+  // expl = explanation attribute; casco = only when Coverage != WA.
+  var V10 = app.dataset.riskV10 === '1';
+  var ACCEPTANCE_V10 = [
+    { group: 'Bestuurder' },
+    { attr: 'driverLicensedToDrive', def: 'J', risk: 'N', expl: 'driverLicensedToExplanation',
+      q: 'Is de regelmatige bestuurder volledig rijbevoegd voor dit motorrijtuig (geldig rijbewijs, certificaat of diploma)?' },
+    { group: 'Over het voertuig' },
+    { attr: 'motorVehicleOwnerRegisteredOwner', def: 'J', risk: 'N', expl: 'ownerRegisteredOwnerExplanation',
+      q: 'Bent u zelf de eigenaar én de kentekenhouder van het motorrijtuig dat u wilt verzekeren?' },
+    { attr: 'drivingBanPastFiveYears', def: 'N', risk: 'J', expl: 'drivingBanPastFiveYearsExplanation',
+      q: 'Is uw rijbewijs in de afgelopen 5 jaar ingevorderd, ongeldig verklaard of is u de rijbevoegdheid ontzegd (ook voorwaardelijk)?' },
+    { attr: 'motorVehicleCurrentlyDamaged', def: 'N', risk: 'J', expl: 'motorVehicleDamageExplanation', casco: true,
+      q: 'Is het motorrijtuig op dit moment beschadigd?' },
+    { group: 'Algemeen' },
+    { attr: 'criminalOffenceSuspectedPastEightYears', def: 'N', risk: 'J', expl: 'criminalOffenceSuspectedExplanation',
+      q: 'Bent u in de afgelopen 8 jaar verdacht geweest van een strafbaar feit, of is er een straf of maatregel tegen u uitgevoerd?' },
+    { attr: 'fraudDeceptionDetrimentPastEightYears', def: 'N', risk: 'J', expl: 'fraudDeceptionDetrimentExplanation',
+      q: 'Bent u in de afgelopen 8 jaar verdacht van of betrokken geweest bij fraude, oplichting, misleiding of benadeling van een financiële instelling (zoals een bank of verzekeraar)?' },
+    { attr: 'statutoryDebtRestructuring', def: 'N', risk: 'J', expl: 'debtRestructuringExplanation',
+      q: 'Zit u op dit moment in de wettelijke schuldsanering, of is er beslag gelegd op bezittingen die u met deze verzekering wilt verzekeren?' },
+    { attr: 'insuranceCancelledOrRefusedPastFiveYears', def: 'N', risk: 'J', expl: 'insuranceCancelledOrRefusedExplanation',
+      q: 'Is in de afgelopen 5 jaar een verzekering van u opgezegd, of geweigerd omdat u vragen onjuist had ingevuld?' },
+    { attr: 'bankruptcyGuardianshipAdministrationMoratoriumPastFiveYears', def: 'N', risk: 'J', expl: 'bankruptcyGuardianshipAdministrationMoratoriumExplanation',
+      q: 'Heeft u in de afgelopen 5 jaar te maken gehad met een persoonlijk faillissement, onder curatele- of bewindstelling, of uitstel van betaling (surseance)?' },
+    { attr: 'damageSufferedOrCausedPastFiveYears', def: 'N', risk: 'J', expl: 'damageSufferedOrCausedExplanation', claims: true,
+      q: 'Heeft u in de afgelopen 5 jaar meer dan één schade gehad of veroorzaakt die onder deze verzekering zou vallen?' },
+  ];
 
   var state = {
     vehicle: null, address: null, segs: {}, coverage: '2', paymentPeriod: '1',
@@ -412,6 +440,69 @@
   $('[data-sort]').addEventListener('change', renderResults);
 
   /* ── STEP 4 — request ── */
+  function buildOwnerHolderBlock() {
+    var wrap = document.createElement('div');
+    wrap.setAttribute('data-owner-holder', '');
+    show(wrap, false);
+    [['objectOwner', 'Eigenaar van het motorrijtuig'],
+     ['registrationCertificateHolder', 'Kentekenhouder']].forEach(function (pair) {
+      var p = pair[0];
+      var b = document.createElement('div');
+      b.innerHTML =
+        '<div class="wz-sub" style="font-weight:700;margin:14px 0 4px;">' + pair[1] + '</div>' +
+        '<div class="wz-grid2">' +
+          '<div class="wz-field"><label>Naam</label><input name="' + p + '.surname"></div>' +
+          '<div class="wz-field"><label>Voorletters</label><input name="' + p + '.initials" maxlength="12"></div>' +
+        '</div>' +
+        '<div class="wz-grid2">' +
+          '<div class="wz-field"><label>Postcode</label><input name="' + p + '.postalCode" maxlength="7"></div>' +
+          '<div class="wz-field"><label>Huisnummer</label><input name="' + p + '.houseNumber" inputmode="numeric"></div>' +
+        '</div>';
+      wrap.appendChild(b);
+    });
+    return wrap;
+  }
+
+  function renderAcceptanceV10() {
+    var box = $('[data-acceptance-v10]');
+    if (box.dataset.built) return;
+    var ownerHolder = buildOwnerHolderBlock();
+    ACCEPTANCE_V10.forEach(function (q) {
+      if (q.group) {
+        var h = document.createElement('div');
+        h.className = 'wz-sub';
+        h.style.cssText = 'font-weight:700;margin:18px 0 4px;';
+        h.textContent = q.group;
+        box.appendChild(h);
+        return;
+      }
+      if (q.casco && state.coverage === '1') return;   // damage-question only for casco
+      var f = document.createElement('div');
+      f.className = 'wz-field';
+      f.innerHTML =
+        '<label>' + esc(q.q) + '</label>' +
+        '<div class="wz-seg">' +
+          '<button type="button" data-val="J"' + (q.def === 'J' ? ' class="is-on"' : '') + '>Ja</button>' +
+          '<button type="button" data-val="N"' + (q.def === 'N' ? ' class="is-on"' : '') + '>Nee</button>' +
+        '</div>' +
+        '<input type="hidden" name="' + q.attr + '" value="' + q.def + '">' +
+        '<textarea class="wz-expl" name="' + q.expl + '" rows="2" hidden placeholder="Licht toe"></textarea>' +
+        (q.claims ? '<input class="wz-expl" name="numberOfClaims" type="number" min="0" placeholder="Aantal schades" hidden>' : '');
+      var seg = f.querySelector('.wz-seg'), hidden = f.querySelector('input[type=hidden]');
+      var extras = $all('.wz-expl', f);
+      seg.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-val]'); if (!btn) return;
+        hidden.value = btn.dataset.val;
+        $all('[data-val]', seg).forEach(function (b) { b.classList.toggle('is-on', b === btn); });
+        extras.forEach(function (el) { show(el, btn.dataset.val === q.risk); });
+        if (q.attr === 'motorVehicleOwnerRegisteredOwner') show(ownerHolder, btn.dataset.val === 'N');
+      });
+      box.appendChild(f);
+    });
+    box.appendChild(ownerHolder);
+    box.dataset.built = '1';
+  }
+
   function prepRequest() {
     // Overzicht van de keuze bovenaan, zodat de klant ziet dat het goed gaat.
     var sum = $('[data-summary]');
@@ -433,6 +524,7 @@
         rows.map(function (x) { return '<div class="wz-dl"><span>' + x[0] + '</span><strong>' + x[1] + '</strong></div>'; }).join('') +
         '<div class="wz-dl wz-summary__total"><span>Totaal ' + per + '</span><strong>' + money(base + add) + '</strong></div>';
     }
+    if (V10) { renderAcceptanceV10(); return; }
     var box = $('[data-acceptance]');
     if (!box.dataset.built) {
       ACCEPTANCE.forEach(function (q) {
@@ -461,6 +553,7 @@
     payload.selectedIdentifier = state.selected.Identifier;
     payload.Identifier = state.selected.Identifier;
     payload.Agreement = 'J';
+    if (V10) payload.finalStatementReadAndAgreed = 'J';   // slotverklaring (v10)
     payload.additionalCoverages = Object.keys(state.selectedAddons).map(function (k) {
       return { Type: state.selectedAddons[k].Type, Identifier: state.selectedAddons[k].Identifier };
     });

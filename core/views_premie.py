@@ -295,4 +295,5 @@ def tool_page(request):
         "active_page": "premie_tool",
         "verzekeraar_data": _verzekeraar_enrichment(),
         "secties": content.secties("premie_tool"),
+        "risk_v10": risk._use_v10(),
     })
