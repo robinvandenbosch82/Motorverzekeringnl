@@ -298,3 +298,19 @@ class RiskV10Tests(TestCase):
         self.assertNotIn("fraudDeceptionDetrimentExplanation", no["uniformAcceptanceQuestions"])
         self.assertEqual(yes["uniformAcceptanceQuestions"]["fraudDeceptionDetrimentExplanation"],
                          "toelichting")
+
+
+class HouseNumberTests(TestCase):
+    """A house number typed with its addition in one field ('152c') must not
+    collapse to 0 — RISK rejects DriverHouseNumber < 1, which blocked calculate."""
+
+    def test_split_helper(self):
+        self.assertEqual(risk._house_split("152c"), ("152", "c"))
+        self.assertEqual(risk._house_split("152 c"), ("152", "c"))
+        self.assertEqual(risk._house_split("152"), ("152", ""))
+        self.assertEqual(risk._house_split(""), ("", ""))
+
+    def test_calculate_body_extracts_number_and_addition(self):
+        body = risk.build_calculate_body({"LicensePlate": "MG001M", "DriverHouseNumber": "152c"})
+        self.assertEqual(body["DriverHouseNumber"], 152)
+        self.assertEqual(body["DriverHouseNumberAddition"], "c")

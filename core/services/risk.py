@@ -80,6 +80,18 @@ def _num(value, default=0):
         return default
 
 
+def _house_split(value):
+    """Split a house number the user may have typed with its addition in one
+    field, e.g. '152c' → ('152', 'c'), '152 c' → ('152', 'c'), '152' → ('152', '').
+    RISK needs a numeric HouseNumber >= 1, so the letter must move to the
+    addition instead of collapsing the whole thing to 0."""
+    s = str(value or "").strip()
+    m = re.match(r"(\d+)\s*(.*)$", s)
+    if not m:
+        return "", s
+    return m.group(1), m.group(2).strip()
+
+
 def _plate(value) -> str:
     """Normalise a license plate: uppercase, strip dashes/spaces."""
     return "".join(ch for ch in str(value or "").upper() if ch not in "- ")
@@ -150,8 +162,9 @@ def build_calculate_body(details: dict) -> dict:
         "CommencingDate": _iso_date(details.get("CommencingDate")) or _today_iso(),
         "LicensePlate": _plate(details.get("LicensePlate")),
         "DriverZipCode": str(details.get("DriverZipCode") or "").upper().replace(" ", ""),
-        "DriverHouseNumber": _num(details.get("DriverHouseNumber"), 0),
-        "DriverHouseNumberAddition": details.get("DriverHouseNumberAddition") or "",
+        "DriverHouseNumber": _num(_house_split(details.get("DriverHouseNumber"))[0], 0),
+        "DriverHouseNumberAddition": (details.get("DriverHouseNumberAddition")
+                                      or _house_split(details.get("DriverHouseNumber"))[1]),
         "DriverBirthdate": _iso_date(details.get("DriverBirthdate") or details.get("DriverBirthDate")),
         "ClaimFreeYears": _num(details.get("ClaimFreeYears"), 0),
         "AdditionalDrivingAbility": details.get("AdditionalDrivingAbility") or "N",
@@ -200,8 +213,9 @@ def build_offer_body(data: dict) -> dict:
         "NameInfix": data.get("NameInfix") or "",
         "Gender": data.get("Gender") or data.get("DriverGender") or "",
         "ZipCode": str(data.get("ZipCode") or data.get("DriverZipCode") or "").upper().replace(" ", ""),
-        "HouseNumber": data.get("HouseNumber") or data.get("DriverHouseNumber") or "",
-        "HouseNumberAddition": data.get("HouseNumberAddition") or data.get("DriverHouseNumberAddition") or "",
+        "HouseNumber": _house_split(data.get("HouseNumber") or data.get("DriverHouseNumber"))[0],
+        "HouseNumberAddition": (data.get("HouseNumberAddition") or data.get("DriverHouseNumberAddition")
+                                or _house_split(data.get("HouseNumber") or data.get("DriverHouseNumber"))[1]),
         # Straat + plaats zijn verplicht bij offerte/aanvraag; resolven via
         # GetAddressInformation (zie _ensure_address) als ze ontbreken.
         "Street": data.get("Street") or "",
@@ -341,12 +355,13 @@ def get_address_info(zipcode, housenumber, addition="") -> dict:
     huisnummer. Geeft {} terug bij een onbekend adres (404) of fout, zodat de
     aanroeper kan doorgaan zonder te crashen."""
     zc = str(zipcode or "").upper().replace(" ", "")
-    hn = _num(housenumber, 0)
+    num, extra = _house_split(housenumber)
+    hn = _num(num, 0)
     if not zc or not hn:
         return {}
     url = f"{_base()}/Data/GetAddressInformation?api-version={settings.RISK_API_VERSION}"
     body = {"ZipCode": zc, "HouseNumber": hn,
-            "HouseNumberAddition": addition or "", "BrokerID": _broker()}
+            "HouseNumberAddition": addition or extra or "", "BrokerID": _broker()}
     try:
         res = _post(url, body)
     except RiskAPIError:
